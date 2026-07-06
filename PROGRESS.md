@@ -30,5 +30,5 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 - **SLURM Integration**: Submitted a trivial smoke job (JobID `19160128`) on `ihc` partition and verified successful execution log.
 - **Whitespace / Quality Check**: Cleaned all trailing whitespaces. Verified that `git diff --cached --check` passes.
 - **Git Commits**:
-  - Initial M0 Implementation Commit: `[PENDING_COMMIT_HASH]`
-  - Documentation Commit: `[PENDING_COMMIT_HASH]`
+  - Initial M0 Implementation Commit: f6da0c537dc618925b6fed673a249e2601599d89
+  - Documentation Commit: [PENDING_DOCS_HASH]
