@@ -1,0 +1,19 @@
+# Snakemake SLURM Profile Configuration
+# Adapts workflow execution to the configured SLURM environment (ihc partition)
+
+# Resource limits and scheduling defaults
+jobs: 32
+latency-wait: 120
+keep-going: true
+printshellcmds: true
+rerun-incomplete: true
+
+# SLURM integration defaults
+# (Note: actual submission arguments are set via sbatch wrapper or default-resources)
+default-resources:
+  - cpus: 1
+  - mem_mb: 4000
+  - runtime: 30 # minutes
+  - slurm_partition: "ihc"
+  - slurm_account: "ihc"
+  - slurm_extra: "--nodelist=ihc-grid-1-1-1"

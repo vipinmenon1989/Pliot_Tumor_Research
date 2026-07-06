@@ -1,0 +1,19 @@
+# Ignore real and intermediate RDS data files
+processed_mpnst.rds
+results/
+data/
+data/synthetic/
+
+# Ignore logs, benchmarks, and temp files
+logs/
+benchmarks/
+.snakemake/
+.Rhistory
+.RData
+*.log
+*.pdf
+*.png
+*.tsv
+*.csv
+*.json
+!reports/**/*.json

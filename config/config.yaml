@@ -1,0 +1,71 @@
+# Production Configuration for Phase 1 MPNST Analysis
+
+# Input Files
+input_rds: "/local/projects-t3/lilab/vmenon/Pilot_tumor/processed_mpnst.rds"
+random_seed: 42
+
+# Metadata Columns and Splitting
+dataset_id_column: "sample_id" # To be validated in M1 audit
+candidate_columns:
+  - "sample_id"
+  - "orig.ident"
+
+# Quality Control Default Thresholds (To be customized per dataset after M2/M3)
+qc:
+  min_features: 200
+  max_features: 6000
+  min_counts: 500
+  max_counts: 50000
+  max_percent_mt: 15.0
+  max_percent_ribo: 20.0
+
+# Doublet Assessment
+doublet_detection:
+  method: "scDblFinder" # Options: scDblFinder, DoubletFinder, None
+  expected_doublet_rate: 0.075
+
+# Normalization and Features
+normalization:
+  method: "SCTransform" # Options: SCTransform, LogNormalize
+  n_features: 3000
+
+# Dimensional Reduction (PCA)
+pca:
+  npcs: 50
+  pc_ranges_to_evaluate:
+    - [1, 10]
+    - [1, 15]
+    - [1, 20]
+    - [1, 25]
+    - [1, 30]
+    - [1, 40]
+    - [1, 50]
+
+# Clustering Resolution Sweep
+clustering:
+  resolutions:
+    - 0.1
+    - 0.2
+    - 0.3
+    - 0.4
+    - 0.5
+    - 0.6
+    - 0.7
+    - 0.8
+    - 0.9
+    - 1.0
+
+# Marker Discovery
+markers:
+  test_use: "wilcox"
+  min_pct: 0.25
+  logfc_threshold: 0.25
+  only_pos: true
+
+# Output Directories
+output_dirs:
+  datasets: "results/datasets"
+  combined: "results/combined"
+  reports: "reports"
+  logs: "logs"
+  benchmarks: "benchmarks"

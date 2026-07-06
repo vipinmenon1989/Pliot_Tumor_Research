@@ -1,0 +1,63 @@
+# Test Configuration for Phase 1 MPNST Analysis using Synthetic Data
+
+# Input Files
+input_rds: "data/synthetic/synthetic_mpnst.rds"
+random_seed: 42
+
+# Metadata Columns and Splitting
+dataset_id_column: "sample_id"
+candidate_columns:
+  - "sample_id"
+  - "orig.ident"
+
+# Quality Control Default Thresholds (Synthetic data specific)
+qc:
+  min_features: 100
+  max_features: 4000
+  min_counts: 300
+  max_counts: 30000
+  max_percent_mt: 10.0
+  max_percent_ribo: 15.0
+
+# Doublet Assessment
+doublet_detection:
+  method: "scDblFinder"
+  expected_doublet_rate: 0.05
+
+# Normalization and Features
+normalization:
+  method: "LogNormalize" # LogNormalize is faster for test/CI
+  n_features: 1000
+
+# Dimensional Reduction (PCA)
+pca:
+  npcs: 30
+  pc_ranges_to_evaluate:
+    - [1, 10]
+    - [1, 15]
+    - [1, 20]
+    - [1, 30]
+
+# Clustering Resolution Sweep
+clustering:
+  resolutions:
+    - 0.1
+    - 0.3
+    - 0.5
+    - 0.8
+    - 1.0
+
+# Marker Discovery
+markers:
+  test_use: "wilcox"
+  min_pct: 0.25
+  logfc_threshold: 0.25
+  only_pos: true
+
+# Output Directories
+output_dirs:
+  datasets: "results/datasets"
+  combined: "results/combined"
+  reports: "reports"
+  logs: "logs"
+  benchmarks: "benchmarks"

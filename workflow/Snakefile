@@ -1,0 +1,82 @@
+# Snakemake workflow for MPNST Phase 1 Analysis
+# Developed incrementally, starting with synthetic validation rules.
+
+import os
+import yaml
+import jsonschema
+
+# Load Configuration
+configfile: "config/config.yaml"
+
+# Default rule target
+rule all:
+    input:
+        "logs/workflow/validate_config.done",
+        "logs/workflow/smoke_test.done"
+
+# Rule to validate configuration format and parameters against schema
+rule validate_config:
+    input:
+        config = workflow.overwrite_configfiles[0] if workflow.overwrite_configfiles else "config/config.yaml",
+        schema = "config/schemas/config.schema.yaml"
+    output:
+        done = "logs/workflow/validate_config.done"
+    log:
+        log = "logs/workflow/validate_config.log"
+    run:
+        with open(input.config, 'r') as f:
+            cfg = yaml.safe_load(f)
+        with open(input.schema, 'r') as f:
+            sch = yaml.safe_load(f)
+
+        with open(str(log.log), 'w') as log_f:
+            try:
+                jsonschema.validate(instance=cfg, schema=sch)
+                log_f.write("Configuration is valid according to schema.\n")
+                print("Configuration is valid.")
+            except jsonschema.exceptions.ValidationError as err:
+                log_f.write(f"Validation Error: {err.message}\n")
+                raise err
+
+        # Create output marker file
+        with open(str(output.done), 'w') as out_f:
+            out_f.write("VALIDATED")
+
+# Rule to generate synthetic data (M0 Smoke Fixture)
+rule generate_synthetic:
+    input:
+        script = "scripts/R/generate_synthetic_data.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        rds = "data/synthetic/synthetic_mpnst.rds"
+    log:
+        log = "logs/workflow/generate_synthetic.log"
+    benchmark:
+        "benchmarks/generate_synthetic.tsv"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10 # minutes
+    shell:
+        """
+        Rscript {input.script} > {log.log} 2>&1
+        """
+
+# Rule to run project smoke tests
+rule smoke_test:
+    input:
+        script = "tests/unit/test_smoke.R",
+        rds = "data/synthetic/synthetic_mpnst.rds"
+    output:
+        done = "logs/workflow/smoke_test.done"
+    log:
+        log = "logs/workflow/smoke_test.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
+        """
