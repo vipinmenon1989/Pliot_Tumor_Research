@@ -5,7 +5,8 @@
 - **Status**: Completed
 - **Implementation Agent**: Antigravity
 - **Initial Commit Hash**: f6da0c537dc618925b6fed673a249e2601599d89
-- **Documentation Commit Hash**: [PENDING_DOCS_HASH]
+- **Documentation Commit Hash**: e1ab6d11c4234c498728db47c5b0e7962c6d5a94
+- **M0 Cleanup/README Commit Hash**: [PENDING_README_HASH]
 
 ---
 
