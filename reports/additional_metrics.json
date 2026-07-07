@@ -1,0 +1,46 @@
+{
+  "estimated_memory_bytes": 10827181496,
+  "estimated_memory_usage": "10.08 GB",
+  "load_time_sec": 45.277,
+  "duplicated_genes_rna": 0,
+  "duplicated_cells": 0,
+  "mitochondrial_genes_count": 13,
+  "mitochondrial_genes_sample": ["MT-ND1", "MT-ND2", "MT-CO1", "MT-CO2", "MT-ATP8", "MT-ATP6", "MT-CO3", "MT-ND3", "MT-ND4L", "MT-ND4"],
+  "ribosomal_genes_count": 433,
+  "ribosomal_genes_sample": ["RPL22", "RPL11", "RPS6KA1", "RPS8", "RPS15AP11", "RPL21P23", "RPS7P4", "RPL5P6", "RPL5", "RPL7P9"],
+  "assays": {
+    "RNA": {
+      "name": "RNA",
+      "class": "Assay5",
+      "features": 31764,
+      "cells": 22661,
+      "layers": ["counts.MPNST_1", "counts.MPNST_2", "counts.MPNST_3", "counts.MPNST_4", "data.MPNST_1", "data.MPNST_2", "data.MPNST_3", "data.MPNST_4", "scale.data"],
+      "counts_present": true,
+      "data_present": true,
+      "scale_present": true,
+      "variable_features_count": 2309
+    },
+    "mnn.reconstructed": {
+      "name": "mnn.reconstructed",
+      "class": "Assay",
+      "features": 2000,
+      "cells": 22661,
+      "layers": "data",
+      "counts_present": false,
+      "data_present": true,
+      "scale_present": false,
+      "variable_features_count": 2000
+    },
+    "SCT": {
+      "name": "SCT",
+      "class": "SCTAssay",
+      "features": 29708,
+      "cells": 22661,
+      "layers": ["counts", "data", "scale.data"],
+      "counts_present": true,
+      "data_present": true,
+      "scale_present": true,
+      "variable_features_count": 3000
+    }
+  }
+}

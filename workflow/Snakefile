@@ -9,10 +9,18 @@ import jsonschema
 configfile: "config/config.yaml"
 
 # Default rule target
+# Default rule target
 rule all:
     input:
         "logs/workflow/validate_config.done",
-        "logs/workflow/smoke_test.done"
+        "logs/workflow/smoke_test.done",
+        "reports/DATA_AUDIT.md",
+        "reports/DATASET_STRUCTURE.tsv",
+        "reports/object_inventory.json",
+        "reports/object_inventory.tsv",
+        "reports/milestones/M1_REPORT.md",
+        "reports/audits/m1_audit_provenance.json",
+        "logs/workflow/test_audit.done"
 
 # Rule to validate configuration format and parameters against schema
 rule validate_config:
@@ -80,3 +88,61 @@ rule smoke_test:
         """
         Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
         """
+
+# Rule to perform Seurat object audit
+rule audit:
+    input:
+        rds = config["input_rds"],
+        script = "scripts/R/audit_object.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        audit_md = "reports/DATA_AUDIT.md",
+        structure_tsv = "reports/DATASET_STRUCTURE.tsv",
+        inventory_json = "reports/object_inventory.json",
+        inventory_tsv = "reports/object_inventory.tsv",
+        m1_report = "reports/milestones/M1_REPORT.md",
+        provenance = "reports/audits/m1_audit_provenance.json"
+    log:
+        log = "logs/workflow/audit.log"
+    benchmark:
+        "benchmarks/audit.tsv"
+    resources:
+        cpus = 8,
+        mem_mb = 128000,
+        runtime = 720
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --out-md {output.audit_md} \
+          --out-struct {output.structure_tsv} \
+          --out-json {output.inventory_json} \
+          --out-tsv {output.inventory_tsv} \
+          --out-report {output.m1_report} \
+          --out-prov {output.provenance} > {log.log} 2>&1
+        """
+
+# Rule to validate audit output structure
+rule test_audit:
+    input:
+        script = "tests/unit/test_audit.R",
+        audit_md = "reports/DATA_AUDIT.md",
+        structure_tsv = "reports/DATASET_STRUCTURE.tsv",
+        inventory_json = "reports/object_inventory.json",
+        inventory_tsv = "reports/object_inventory.tsv",
+        m1_report = "reports/milestones/M1_REPORT.md",
+        provenance = "reports/audits/m1_audit_provenance.json"
+    output:
+        done = "logs/workflow/test_audit.done"
+    log:
+        log = "logs/workflow/test_audit.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
+        """
+
