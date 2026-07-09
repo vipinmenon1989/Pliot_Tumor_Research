@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-07-08T19:30:06-0400",
+  "step": "QCRecommendationGeneration",
+  "dataset": "MPNST_3",
+  "git_commit": "472429e70d564c230ce08a2fb9d36e52ccadf0f0",
+  "git_status": " M config/config.test.yaml\n M config/config.yaml\n M config/schemas/config.schema.yaml\n M reports/DATA_AUDIT.md\n M reports/audits/m1_audit_provenance.json\n M reports/milestones/M1_REPORT.md\n M reports/object_inventory.json\n M workflow/Snakefile\n?? CHANGELOG.md\n?? reports/datasets/\n?? scripts/R/extract_dataset.R\n?? scripts/R/generate_qc_plots.R\n?? scripts/R/generate_qc_recommendation.R\n?? scripts/shell/run_m2_workflow.sh\n?? tests/unit/test_extraction.R",
+  "inputs": {
+    "dataset_rds": {
+      "path": "results/datasets/MPNST_3/MPNST_3_raw.rds",
+      "checksum": "ecaca4b46e0a23f7bb8798cdb6adf280"
+    },
+    "script": {
+      "path": "scripts/R/generate_qc_recommendation.R",
+      "checksum": "2000cc418da14ec2b09834992699b55b"
+    }
+  },
+  "outputs": {
+    "recommendation_md": {
+      "path": "reports/datasets/MPNST_3/QC_RECOMMENDATION.md",
+      "checksum": "06fe4c663d71ded4e3f91b2d5e3fc1e2"
+    }
+  },
+  "parameters": {
+    "dataset_id": "MPNST_3",
+    "min_features": 200,
+    "max_features": 6000,
+    "min_counts": 500,
+    "max_counts": 50000,
+    "max_percent_mt": 15,
+    "max_percent_ribo": 20
+  },
+  "session_info": ["R version 4.4.3 (2025-02-28)", "Platform: x86_64-conda-linux-gnu", "Running under: Red Hat Enterprise Linux 8.10 (Ootpa)", "", "Matrix products: default", "BLAS/LAPACK: /autofs/projects-t3/lilab/vmenon/anaconda3/envs/R_env/lib/libopenblasp-r0.3.30.so;  LAPACK version 3.12.0", "", "locale:", " [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              ", " [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    ", " [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   ", " [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 ", " [9] LC_ADDRESS=C               LC_TELEPHONE=C            ", "[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       ", "", "time zone: America/New_York", "tzcode source: system (glibc)", "", "attached base packages:", "[1] stats     graphics  grDevices utils     datasets  methods   base     ", "", "other attached packages:", "[1] digest_0.6.39      jsonlite_2.0.0     yaml_2.3.12        Seurat_5.4.0      ", "[5] SeuratObject_5.3.0 sp_2.2-0          ", "", "loaded via a namespace (and not attached):", "  [1] deldir_2.0-4           pbapply_1.7-4          gridExtra_2.3         ", "  [4] rlang_1.1.7            magrittr_2.0.4         RcppAnnoy_0.0.23      ", "  [7] otel_0.2.0             matrixStats_1.5.0      ggridges_0.5.7        ", " [10] compiler_4.4.3         spatstat.geom_3.6-1    png_0.1-8             ", " [13] vctrs_0.7.0            reshape2_1.4.5         stringr_1.6.0         ", " [16] pkgconfig_2.0.3        fastmap_1.2.0          promises_1.5.0        ", " [19] purrr_1.2.1            goftest_1.2-3          later_1.4.5           ", " [22] spatstat.utils_3.2-1   irlba_2.3.5.1          parallel_4.4.3        ", " [25] cluster_2.1.8.1        R6_2.6.1               ica_1.0-3             ", " [28] stringi_1.8.7          RColorBrewer_1.1-3     spatstat.data_3.1-9   ", " [31] reticulate_1.44.1      parallelly_1.46.1      spatstat.univar_3.1-5 ", " [34] lmtest_0.9-40          scattermore_1.2        Rcpp_1.1.1            ", " [37] tensor_1.5.1           future.apply_1.20.1    zoo_1.8-15            ", " [40] sctransform_0.4.3      httpuv_1.6.16          Matrix_1.7-4          ", " [43] splines_4.4.3          igraph_2.2.1           tidyselect_1.2.1      ", " [46] abind_1.4-8            codetools_0.2-20       spatstat.random_3.4-3 ", " [49] miniUI_0.1.2           spatstat.explore_3.6-0 listenv_0.10.0        ", " [52] lattice_0.22-7         tibble_3.3.1           plyr_1.8.9            ", " [55] shiny_1.12.1           S7_0.2.1               ROCR_1.0-12           ", " [58] Rtsne_0.17             future_1.69.0          fastDummies_1.7.5     ", " [61] survival_3.8-6         polyclip_1.10-7        fitdistrplus_1.2-4    ", " [64] pillar_1.11.1          KernSmooth_2.23-26     plotly_4.11.0         ", " [67] generics_0.1.4         RcppHNSW_0.6.0         ggplot2_4.0.1         ", " [70] scales_1.4.0           globals_0.18.0         xtable_1.8-4          ", " [73] glue_1.8.0             lazyeval_0.2.2         tools_4.4.3           ", " [76] data.table_1.18.0      RSpectra_0.16-2        RANN_2.6.2            ", " [79] dotCall64_1.2          cowplot_1.2.0          grid_4.4.3            ", " [82] tidyr_1.3.2            nlme_3.1-168           patchwork_1.3.2       ", " [85] cli_3.6.5              spatstat.sparse_3.1-0  spam_2.11-3           ", " [88] viridisLite_0.4.2      dplyr_1.1.4            uwot_0.2.4            ", " [91] gtable_0.3.6           progressr_0.18.0       ggrepel_0.9.6         ", " [94] htmlwidgets_1.6.4      farver_2.1.2           htmltools_0.5.9       ", " [97] lifecycle_1.0.5        httr_1.4.7             mime_0.13             ", "[100] MASS_7.3-65           "]
+}

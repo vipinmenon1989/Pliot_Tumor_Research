@@ -9,6 +9,11 @@ dataset_id_column: "sample_id"
 candidate_columns:
   - "sample_id"
   - "orig.ident"
+datasets:
+  - "sample_1"
+  - "sample_2"
+  - "sample_3"
+  - "sample_4"
 
 # Quality Control Default Thresholds (Synthetic data specific)
 qc:

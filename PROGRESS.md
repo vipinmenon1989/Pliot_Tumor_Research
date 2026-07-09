@@ -8,7 +8,7 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 | --- | --- | --- | --- | --- |
 | **M0** | Infrastructure, Environment, and SLURM Safety | **Completed** | 2026-07-06 | 2026-07-06 |
 | **M1** | Real-Data Audit | **Completed** | 2026-07-07 | 2026-07-07 |
-| **M2** | Dataset Extraction and Pre-Filter QC | Not Started | - | - |
+| **M2** | Dataset Extraction and Pre-Filter QC | **Completed** | 2026-07-08 | 2026-07-08 |
 | **M3** | QC Filtering and Doublet Assessment | Not Started | - | - |
 | **M4** | Normalization and Variable Features | Not Started | - | - |
 | **M5** | PCA and PC Evaluation | Not Started | - | - |
@@ -58,4 +58,29 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
   - [object_inventory.tsv](file://reports/object_inventory.tsv) (Expanded with recommended usages)
   - [M1_REPORT.md](file://reports/milestones/M1_REPORT.md) (Revised milestone report)
   - [m1_audit_provenance.json](file://reports/audits/m1_audit_provenance.json)
+
+### M2 — Dataset Extraction and Pre-Filter QC
+- **Status**: Completed (2026-07-08)
+- **Codebase Update**: Developed `scripts/R/extract_dataset.R` to split the Seurat object by `sample_id` and generate validation reports/manifests, and updated it with a robust counts checker. Developed `scripts/R/generate_qc_plots.R` to produce 4 types of publication-quality diagnostic plots (PDF and PNG) per sample and compile local figure indices. Developed `scripts/R/generate_qc_recommendation.R` to assess QC metrics against thresholds and write markdown reports. Added unit test `tests/unit/test_extraction.R` to validate extracted object integrity.
+- **Workflow Integration**: Updated `workflow/Snakefile` with rules for dataset extraction, plotting, recommendations, figure index merging, and extraction validation tests. Enabled sample list configuration in `config.yaml` and `config.test.yaml`.
+- **Synthetic Validation**: Successfully executed synthetic tests locally, verifying that all rules and tests run to completion and pass.
+- **SLURM Production Run**: Submitted the production run to SLURM (JobID `19161116`) on partition `ihc` node `ihc-grid-1-1-1`.
+- **HPC Execution Metrics**:
+  - State: COMPLETED (ExitCode 0:0)
+  - Elapsed: 00:06:35
+  - MaxRSS: 66935856K (~63.83 GB) — Efficiency of 99.7% of the 64 GB limit.
+- **Key Scientific Findings**:
+  - Successfully extracted four datasets (`MPNST_1` to `MPNST_4`).
+  - Discovered that `MPNST_1` has 0.00% mitochondrial transcripts across all 8,338 cells.
+  - Calculated percent.ribo across all cells using `^RP[SL]`.
+  - Assessed expected filtering impact of default thresholds (combined filter excludes 16.21% for MPNST_1, 8.02% for MPNST_2, 5.43% for MPNST_3, and 4.07% for MPNST_4).
+- **Artifacts Generated**:
+  - `results/datasets/MPNST_*/` (Split Seurat objects and extraction provenance logs)
+  - `reports/datasets/MPNST_*/DATASET_VALIDATION.md`
+  - `reports/datasets/MPNST_*/QC_RECOMMENDATION.md`
+  - `reports/datasets/MPNST_*/manifest.json`
+  - `reports/datasets/MPNST_*/` QC plots (violins, scatter, histograms, metrics in PDF and PNG) and metrics summary TSVs
+  - `reports/FIGURE_INDEX.tsv`
+  - `reports/milestones/M2_REPORT.md`
+
 

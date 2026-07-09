@@ -116,11 +116,16 @@ properties:
       - "reports"
       - "logs"
       - "benchmarks"
+  datasets:
+    type: "array"
+    items:
+      type: "string"
 required:
   - "input_rds"
   - "random_seed"
   - "dataset_id_column"
   - "candidate_columns"
+  - "datasets"
   - "qc"
   - "doublet_detection"
   - "normalization"

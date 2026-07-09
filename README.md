@@ -75,7 +75,8 @@ snakemake -n --configfile config/config.test.yaml
 
 ### Current Project Status
 - **Milestone 0**: Completed / Frozen.
-- **Milestone 1**: Not Started (Awaiting researcher approval).
+- **Milestone 1**: Completed / Frozen.
+- **Milestone 2**: Completed (Awaiting researcher approval).
 
 ---
 
@@ -83,6 +84,8 @@ snakemake -n --configfile config/config.test.yaml
 - [PROJECT.md](PROJECT.md) - Authoritative project specification.
 - [PROGRESS.md](PROGRESS.md) - Project milestone history and log.
 - [M0_REPORT.md](reports/milestones/M0_REPORT.md) - Detailed Milestone 0 report.
+- [M1_REPORT.md](reports/milestones/M1_REPORT.md) - Detailed Milestone 1 report.
+- [M2_REPORT.md](reports/milestones/M2_REPORT.md) - Detailed Milestone 2 report.
 
 ---
 

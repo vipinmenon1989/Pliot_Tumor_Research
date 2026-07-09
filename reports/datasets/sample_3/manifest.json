@@ -1,0 +1,19 @@
+{
+  "dataset_id": "sample_3",
+  "cells": 150,
+  "genes": 120,
+  "assays": "RNA",
+  "default_assay": "RNA",
+  "metadata_columns": ["orig.ident", "nCount_RNA", "nFeature_RNA", "sample_id", "patient_id", "condition", "cell_type_annotation", "percent.mt", "percent.ribo", "unintegrated_clusters", "seurat_clusters"],
+  "object_size_bytes": 284192,
+  "checksum": "92260c22b30e170a03a3b9885d11c140",
+  "file_path": "results/datasets/sample_3/sample_3_raw.rds",
+  "assay_details": {
+    "RNA": {
+      "class": "Assay5",
+      "features": 120,
+      "layers": "counts",
+      "counts_present": true
+    }
+  }
+}

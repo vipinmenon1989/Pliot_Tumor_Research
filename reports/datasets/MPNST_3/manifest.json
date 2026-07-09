@@ -1,0 +1,31 @@
+{
+  "dataset_id": "MPNST_3",
+  "cells": 3682,
+  "genes": 29708,
+  "assays": ["RNA", "mnn.reconstructed", "SCT"],
+  "default_assay": "SCT",
+  "metadata_columns": ["orig.ident", "nCount_RNA", "nFeature_RNA", "sample_id", "percent.mt", "orig.anno", "unintegrated_clusters", "seurat_clusters", "pca100_harmony_clusters", "pca100_cca_clusters", "pca100_mnn_clusters", "pca100_rpca_clusters", "nCount_SCT", "nFeature_SCT", "pca100.sct_harmony_clusters", "pca100.sct_cca_clusters", "percent.ribo"],
+  "object_size_bytes": 1526715264,
+  "checksum": "ecaca4b46e0a23f7bb8798cdb6adf280",
+  "file_path": "results/datasets/MPNST_3/MPNST_3_raw.rds",
+  "assay_details": {
+    "RNA": {
+      "class": "Assay5",
+      "features": 31764,
+      "layers": ["counts.MPNST_3", "data.MPNST_3", "scale.data"],
+      "counts_present": true
+    },
+    "mnn.reconstructed": {
+      "class": "Assay",
+      "features": 2000,
+      "layers": "data",
+      "counts_present": false
+    },
+    "SCT": {
+      "class": "SCTAssay",
+      "features": 29708,
+      "layers": ["counts", "data", "scale.data"],
+      "counts_present": true
+    }
+  }
+}

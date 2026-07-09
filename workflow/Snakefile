@@ -9,7 +9,6 @@ import jsonschema
 configfile: "config/config.yaml"
 
 # Default rule target
-# Default rule target
 rule all:
     input:
         "logs/workflow/validate_config.done",
@@ -20,7 +19,13 @@ rule all:
         "reports/object_inventory.tsv",
         "reports/milestones/M1_REPORT.md",
         "reports/audits/m1_audit_provenance.json",
-        "logs/workflow/test_audit.done"
+        "logs/workflow/test_audit.done",
+        # Milestone 2 Outputs:
+        expand("results/datasets/{dataset_id}/{dataset_id}_raw.rds", dataset_id=config["datasets"]),
+        expand("reports/datasets/{dataset_id}/DATASET_VALIDATION.md", dataset_id=config["datasets"]),
+        expand("reports/datasets/{dataset_id}/QC_RECOMMENDATION.md", dataset_id=config["datasets"]),
+        "reports/FIGURE_INDEX.tsv",
+        "logs/workflow/test_extraction.done"
 
 # Rule to validate configuration format and parameters against schema
 rule validate_config:
@@ -146,3 +151,143 @@ rule test_audit:
         Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
         """
 
+# Rule to extract dataset-specific objects
+rule extract_dataset:
+    input:
+        rds = config["input_rds"],
+        script = "scripts/R/extract_dataset.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_raw.rds",
+        val_md = "reports/datasets/{dataset_id}/DATASET_VALIDATION.md",
+        manifest = "reports/datasets/{dataset_id}/manifest.json",
+        prov = "results/datasets/{dataset_id}/extraction_provenance.json"
+    log:
+        log = "logs/workflow/extract_{dataset_id}.log"
+    benchmark:
+        "benchmarks/extract_{dataset_id}.tsv"
+    resources:
+        cpus = 1,
+        mem_mb = 24000,
+        runtime = 30
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --id-column {config[dataset_id_column]} \
+          --out-rds {output.rds} \
+          --out-val-md {output.val_md} \
+          --out-manifest {output.manifest} \
+          --out-prov {output.prov} > {log.log} 2>&1
+        """
+
+# Rule to generate pre-filter QC plots and stats tables
+rule generate_qc_plots:
+    input:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_raw.rds",
+        script = "scripts/R/generate_qc_plots.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        violins_pdf = "reports/datasets/{dataset_id}/qc_violins.pdf",
+        violins_png = "reports/datasets/{dataset_id}/qc_violins.png",
+        scatter_pdf = "reports/datasets/{dataset_id}/qc_scatter.pdf",
+        scatter_png = "reports/datasets/{dataset_id}/qc_scatter.png",
+        histograms_pdf = "reports/datasets/{dataset_id}/qc_histograms.pdf",
+        histograms_png = "reports/datasets/{dataset_id}/qc_histograms.png",
+        metrics_pdf = "reports/datasets/{dataset_id}/qc_metrics.pdf",
+        metrics_png = "reports/datasets/{dataset_id}/qc_metrics.png",
+        qc_table = "reports/datasets/{dataset_id}/qc_metrics_summary.tsv",
+        fig_index = "reports/datasets/{dataset_id}/figure_index.tsv",
+        prov = "reports/datasets/{dataset_id}/qc_plots_provenance.json"
+    log:
+        log = "logs/workflow/qc_plots_{dataset_id}.log"
+    benchmark:
+        "benchmarks/qc_plots_{dataset_id}.tsv"
+    resources:
+        cpus = 1,
+        mem_mb = 8000,
+        runtime = 15
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --out-dir reports/datasets/{wildcards.dataset_id} \
+          --out-prov {output.prov} \
+          --rule generate_qc_plots > {log.log} 2>&1
+        """
+
+# Rule to generate QC Recommendations
+rule generate_qc_recommendation:
+    input:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_raw.rds",
+        script = "scripts/R/generate_qc_recommendation.R",
+        config = "config/config.yaml",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        md = "reports/datasets/{dataset_id}/QC_RECOMMENDATION.md",
+        prov = "reports/datasets/{dataset_id}/qc_rec_provenance.json"
+    log:
+        log = "logs/workflow/qc_rec_{dataset_id}.log"
+    benchmark:
+        "benchmarks/qc_rec_{dataset_id}.tsv"
+    resources:
+        cpus = 1,
+        mem_mb = 8000,
+        runtime = 15
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --config {input.config} \
+          --out-md {output.md} \
+          --out-prov {output.prov} > {log.log} 2>&1
+        """
+
+# Rule to merge local figure indices into a single reports/FIGURE_INDEX.tsv
+rule merge_figure_index:
+    input:
+        indices = expand("reports/datasets/{dataset_id}/figure_index.tsv", dataset_id=config["datasets"])
+    output:
+        merged = "reports/FIGURE_INDEX.tsv"
+    log:
+        log = "logs/workflow/merge_figure_index.log"
+    run:
+        with open(output.merged, 'w') as out_f:
+            header_written = False
+            for path in input.indices:
+                with open(path, 'r') as in_f:
+                    lines = in_f.readlines()
+                    if not lines:
+                        continue
+                    if not header_written:
+                        out_f.write(lines[0])
+                        header_written = True
+                    for line in lines[1:]:
+                        out_f.write(line)
+
+# Rule to run dataset extraction unit tests
+rule test_extraction:
+    input:
+        script = "tests/unit/test_extraction.R",
+        rds = expand("results/datasets/{dataset_id}/{dataset_id}_raw.rds", dataset_id=config["datasets"]),
+        val_md = expand("reports/datasets/{dataset_id}/DATASET_VALIDATION.md", dataset_id=config["datasets"]),
+        manifest = expand("reports/datasets/{dataset_id}/manifest.json", dataset_id=config["datasets"]),
+        qc_table = expand("reports/datasets/{dataset_id}/qc_metrics_summary.tsv", dataset_id=config["datasets"])
+    output:
+        done = "logs/workflow/test_extraction.done"
+    log:
+        log = "logs/workflow/test_extraction.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
+        """

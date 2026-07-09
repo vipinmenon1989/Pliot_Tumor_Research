@@ -6,91 +6,25 @@
     "features": 29708,
     "cells": 22661
   },
-  "assays": [
-    "RNA",
-    "mnn.reconstructed",
-    "SCT"
-  ],
+  "assays": ["RNA", "mnn.reconstructed", "SCT"],
   "assay_classes": {
     "RNA": "Assay5",
     "mnn.reconstructed": "Assay",
     "SCT": "SCTAssay"
   },
   "assay_contents": {
-    "RNA": [
-      "counts.MPNST_1",
-      "counts.MPNST_2",
-      "counts.MPNST_3",
-      "counts.MPNST_4",
-      "data.MPNST_1",
-      "data.MPNST_2",
-      "data.MPNST_3",
-      "data.MPNST_4",
-      "scale.data"
-    ],
+    "RNA": ["counts.MPNST_1", "counts.MPNST_2", "counts.MPNST_3", "counts.MPNST_4", "data.MPNST_1", "data.MPNST_2", "data.MPNST_3", "data.MPNST_4", "scale.data"],
     "mnn.reconstructed": "data",
-    "SCT": [
-      "counts",
-      "data",
-      "scale.data"
-    ]
+    "SCT": ["counts", "data", "scale.data"]
   },
   "default_assay": "SCT",
   "raw_rna_counts_exist": true,
   "normalized_data_exist": true,
   "scaled_data_exist": true,
   "sct_data_exist": true,
-  "reductions": [
-    "pca",
-    "pca200",
-    "pca100",
-    "pca50",
-    "umap.unintegrated",
-    "pca100_cca",
-    "umap.pca100_cca",
-    "pca100_harmony",
-    "umap.pca100_harmony",
-    "pca100_mnn",
-    "umap.pca100_mnn",
-    "pca100_rpca",
-    "umap.pca100_rpca",
-    "pca100.sct",
-    "pca100.sct_harmony",
-    "umap.pca100.sct_harmony",
-    "pca100.sct_cca",
-    "umap.pca100.sct_cca"
-  ],
-  "graphs": [
-    "RNA_nn",
-    "RNA_snn",
-    "SCT_nn",
-    "SCT_snn"
-  ],
-  "commands": [
-    "NormalizeData.RNA",
-    "JackStraw.RNA.pca",
-    "ScoreJackStraw",
-    "FindNeighbors.RNA.pca100",
-    "RunUMAP.RNA.pca100",
-    "FindVariableFeatures.RNA",
-    "ScaleData.RNA",
-    "RunPCA.RNA",
-    "RunUMAP.RNA.pca100_harmony",
-    "FindNeighbors.RNA.pca100_harmony",
-    "FindNeighbors.RNA.pca100_cca",
-    "RunUMAP.RNA.pca100_cca",
-    "RunUMAP.RNA.pca100_mnn",
-    "FindNeighbors.RNA.pca100_mnn",
-    "FindNeighbors.RNA.pca100_rpca",
-    "RunUMAP.RNA.pca100_rpca",
-    "SCTransform.RNA",
-    "RunPCA.SCT",
-    "RunUMAP.SCT.pca100.sct_harmony",
-    "FindNeighbors.SCT.pca100.sct_harmony",
-    "FindNeighbors.SCT.pca100.sct_cca",
-    "FindClusters",
-    "RunUMAP.SCT.pca100.sct_cca"
-  ],
+  "reductions": ["pca", "pca200", "pca100", "pca50", "umap.unintegrated", "pca100_cca", "umap.pca100_cca", "pca100_harmony", "umap.pca100_harmony", "pca100_mnn", "umap.pca100_mnn", "pca100_rpca", "umap.pca100_rpca", "pca100.sct", "pca100.sct_harmony", "umap.pca100.sct_harmony", "pca100.sct_cca", "umap.pca100.sct_cca"],
+  "graphs": ["RNA_nn", "RNA_snn", "SCT_nn", "SCT_snn"],
+  "commands": ["NormalizeData.RNA", "JackStraw.RNA.pca", "ScoreJackStraw", "FindNeighbors.RNA.pca100", "RunUMAP.RNA.pca100", "FindVariableFeatures.RNA", "ScaleData.RNA", "RunPCA.RNA", "RunUMAP.RNA.pca100_harmony", "FindNeighbors.RNA.pca100_harmony", "FindNeighbors.RNA.pca100_cca", "RunUMAP.RNA.pca100_cca", "RunUMAP.RNA.pca100_mnn", "FindNeighbors.RNA.pca100_mnn", "FindNeighbors.RNA.pca100_rpca", "RunUMAP.RNA.pca100_rpca", "SCTransform.RNA", "RunPCA.SCT", "RunUMAP.SCT.pca100.sct_harmony", "FindNeighbors.SCT.pca100.sct_harmony", "FindNeighbors.SCT.pca100.sct_cca", "FindClusters", "RunUMAP.SCT.pca100.sct_cca"],
   "metadata_schema": {
     "orig.ident": {
       "column": "orig.ident",
@@ -98,8 +32,7 @@
       "missing": 0,
       "cardinality": 4,
       "summary": "MPNST_1, MPNST_2, MPNST_3, MPNST_4",
-      "meaning": "Initial sample identifier from library setup",
-      "recommended_usage": "Auxiliary ID. Do not use for splitting; use sample_id instead for consistency."
+      "meaning": "Initial sample identifier from library setup"
     },
     "nCount_RNA": {
       "column": "nCount_RNA",
@@ -107,8 +40,7 @@
       "missing": 0,
       "cardinality": 12933,
       "summary": "1000, 10000, 10001, 10005, 10006, ... [Total: 12933]",
-      "meaning": "Total raw RNA UMI count per cell (library depth)",
-      "recommended_usage": "Primary QC filtering metric. Filter cells with abnormally low or high counts."
+      "meaning": "Total RNA UMI count per cell (library depth)"
     },
     "nFeature_RNA": {
       "column": "nFeature_RNA",
@@ -116,8 +48,7 @@
       "missing": 0,
       "cardinality": 6289,
       "summary": "1000, 1001, 1002, 1003, 1004, ... [Total: 6289]",
-      "meaning": "Number of unique genes detected in RNA assay per cell",
-      "recommended_usage": "Primary QC filtering metric. Filter cells with low gene diversity or doublets."
+      "meaning": "Number of unique genes detected in RNA assay per cell"
     },
     "sample_id": {
       "column": "sample_id",
@@ -125,8 +56,7 @@
       "missing": 0,
       "cardinality": 4,
       "summary": "MPNST_1, MPNST_2, MPNST_3, MPNST_4",
-      "meaning": "Consistent sample metadata identifier",
-      "recommended_usage": "Primary dataset splitter. Use this column to split the object into individual datasets."
+      "meaning": "Consistent sample metadata identifier"
     },
     "percent.mt": {
       "column": "percent.mt",
@@ -134,8 +64,7 @@
       "missing": 0,
       "cardinality": 14130,
       "summary": "0, 0.020967877212111, 0.0414276209247147, 0.0502260170768458, 0.0687156421789105, ... [Total: 14130]",
-      "meaning": "Mitochondrial transcript percentage (quality control metric)",
-      "recommended_usage": "Primary QC filtering metric. Filter cells with high mitochondrial expression."
+      "meaning": "Mitochondrial transcript percentage (quality control metric)"
     },
     "orig.anno": {
       "column": "orig.anno",
@@ -143,8 +72,7 @@
       "missing": 0,
       "cardinality": 16,
       "summary": "B cells, CD4 T cells, CD56 NK cells, CD8 T cells, Cycling tumor cells, ... [Total: 16]",
-      "meaning": "Legacy cell-type annotations from original analysis",
-      "recommended_usage": "Reference only. Exclude from Phase 1 processing to prevent bias, keep for validation."
+      "meaning": "Legacy cell-type annotations from original analysis"
     },
     "unintegrated_clusters": {
       "column": "unintegrated_clusters",
@@ -152,8 +80,7 @@
       "missing": 0,
       "cardinality": 16,
       "summary": "0, 1, 10, 11, 12, ... [Total: 16]",
-      "meaning": "Legacy cluster assignments",
-      "recommended_usage": "Legacy artifact. Exclude from all Phase 1 processing."
+      "meaning": "Legacy cluster assignments"
     },
     "seurat_clusters": {
       "column": "seurat_clusters",
@@ -161,8 +88,7 @@
       "missing": 0,
       "cardinality": 12,
       "summary": "0, 1, 10, 11, 2, ... [Total: 12]",
-      "meaning": "Legacy cluster assignments",
-      "recommended_usage": "Legacy artifact. Exclude from all Phase 1 processing."
+      "meaning": "Legacy cluster assignments"
     },
     "pca100_harmony_clusters": {
       "column": "pca100_harmony_clusters",
@@ -170,8 +96,7 @@
       "missing": 0,
       "cardinality": 16,
       "summary": "0, 1, 10, 11, 12, ... [Total: 16]",
-      "meaning": "Legacy cluster assignments",
-      "recommended_usage": "Legacy artifact. Exclude from all Phase 1 processing."
+      "meaning": "Legacy cluster assignments"
     },
     "pca100_cca_clusters": {
       "column": "pca100_cca_clusters",
@@ -179,8 +104,7 @@
       "missing": 0,
       "cardinality": 10,
       "summary": "1, 10, 2, 3, 4, 5, 6, 7, 8, 9",
-      "meaning": "Legacy cluster assignments",
-      "recommended_usage": "Legacy artifact. Exclude from all Phase 1 processing."
+      "meaning": "Legacy cluster assignments"
     },
     "pca100_mnn_clusters": {
       "column": "pca100_mnn_clusters",
@@ -188,8 +112,7 @@
       "missing": 0,
       "cardinality": 13,
       "summary": "0, 1, 10, 11, 12, ... [Total: 13]",
-      "meaning": "Legacy cluster assignments",
-      "recommended_usage": "Legacy artifact. Exclude from all Phase 1 processing."
+      "meaning": "Legacy cluster assignments"
     },
     "pca100_rpca_clusters": {
       "column": "pca100_rpca_clusters",
@@ -197,8 +120,7 @@
       "missing": 0,
       "cardinality": 17,
       "summary": "0, 1, 10, 11, 12, ... [Total: 17]",
-      "meaning": "Legacy cluster assignments",
-      "recommended_usage": "Legacy artifact. Exclude from all Phase 1 processing."
+      "meaning": "Legacy cluster assignments"
     },
     "nCount_SCT": {
       "column": "nCount_SCT",
@@ -206,8 +128,7 @@
       "missing": 0,
       "cardinality": 5887,
       "summary": "2066, 2439, 2636, 2655, 2663, ... [Total: 5887]",
-      "meaning": "Total SCTransformed UMI count per cell",
-      "recommended_usage": "Exclude. Will be re-computed during the new normalization stage."
+      "meaning": "Total SCTransformed UMI count per cell"
     },
     "nFeature_SCT": {
       "column": "nFeature_SCT",
@@ -215,8 +136,7 @@
       "missing": 0,
       "cardinality": 4173,
       "summary": "1000, 1001, 1002, 1003, 1004, ... [Total: 4173]",
-      "meaning": "Number of unique genes detected in SCT assay per cell",
-      "recommended_usage": "Exclude. Will be re-computed during the new normalization stage."
+      "meaning": "Number of unique genes detected in SCT assay per cell"
     },
     "pca100.sct_harmony_clusters": {
       "column": "pca100.sct_harmony_clusters",
@@ -224,8 +144,7 @@
       "missing": 0,
       "cardinality": 13,
       "summary": "0, 1, 10, 11, 12, ... [Total: 13]",
-      "meaning": "Legacy cluster assignments",
-      "recommended_usage": "Legacy artifact. Exclude from all Phase 1 processing."
+      "meaning": "Legacy cluster assignments"
     },
     "pca100.sct_cca_clusters": {
       "column": "pca100.sct_cca_clusters",
@@ -233,133 +152,14 @@
       "missing": 0,
       "cardinality": 12,
       "summary": "0, 1, 10, 11, 2, ... [Total: 12]",
-      "meaning": "Legacy cluster assignments",
-      "recommended_usage": "Legacy artifact. Exclude from all Phase 1 processing."
+      "meaning": "Legacy cluster assignments"
     }
   },
-  "candidate_dataset_variables": [
-    "orig.ident",
-    "sample_id"
-  ],
+  "candidate_dataset_variables": ["orig.ident", "sample_id"],
   "candidate_patient_variables": {},
-  "candidate_batch_variables": [
-    "orig.ident",
-    "sample_id"
-  ],
+  "candidate_batch_variables": ["orig.ident", "sample_id"],
   "reprocessing_possible": true,
   "reprocessing_reason": "Raw RNA UMI counts exist in the RNA assay counts slot/layer, and cell/feature dimensions are intact. Therefore, complete independent reprocessing is scientifically and computationally possible.",
   "dataset_recommendation": "sample_id",
-  "dataset_recommendation_reason": "sample_id and orig.ident have identical cardinality. sample_id is recommended as the primary identifier for constituent datasets/samples to ensure consistency with standard metadata schemas.",
-  "estimated_memory_bytes": 10827181496,
-  "estimated_memory_usage": "10.08 GB",
-  "load_time_sec": 45.277,
-  "duplicated_genes_rna": 0,
-  "duplicated_cells": 0,
-  "mitochondrial_genes_count": 13,
-  "mitochondrial_genes_sample": [
-    "MT-ND1",
-    "MT-ND2",
-    "MT-CO1",
-    "MT-CO2",
-    "MT-ATP8",
-    "MT-ATP6",
-    "MT-CO3",
-    "MT-ND3",
-    "MT-ND4L",
-    "MT-ND4"
-  ],
-  "ribosomal_genes_count": 433,
-  "ribosomal_genes_sample": [
-    "RPL22",
-    "RPL11",
-    "RPS6KA1",
-    "RPS8",
-    "RPS15AP11",
-    "RPL21P23",
-    "RPS7P4",
-    "RPL5P6",
-    "RPL5",
-    "RPL7P9"
-  ],
-  "assays_detailed": {
-    "RNA": {
-      "name": "RNA",
-      "class": "Assay5",
-      "features": 31764,
-      "cells": 22661,
-      "layers": [
-        "counts.MPNST_1",
-        "counts.MPNST_2",
-        "counts.MPNST_3",
-        "counts.MPNST_4",
-        "data.MPNST_1",
-        "data.MPNST_2",
-        "data.MPNST_3",
-        "data.MPNST_4",
-        "scale.data"
-      ],
-      "counts_present": true,
-      "data_present": true,
-      "scale_present": true,
-      "variable_features_count": 2309
-    },
-    "mnn.reconstructed": {
-      "name": "mnn.reconstructed",
-      "class": "Assay",
-      "features": 2000,
-      "cells": 22661,
-      "layers": "data",
-      "counts_present": false,
-      "data_present": true,
-      "scale_present": false,
-      "variable_features_count": 2000
-    },
-    "SCT": {
-      "name": "SCT",
-      "class": "SCTAssay",
-      "features": 29708,
-      "cells": 22661,
-      "layers": [
-        "counts",
-        "data",
-        "scale.data"
-      ],
-      "counts_present": true,
-      "data_present": true,
-      "scale_present": true,
-      "variable_features_count": 3000
-    }
-  },
-  "cells_per_sample": {
-    "MPNST_1": 8338,
-    "MPNST_2": 2830,
-    "MPNST_3": 3682,
-    "MPNST_4": 7811
-  },
-  "cells_per_orig_ident": {
-    "MPNST_1": 8338,
-    "MPNST_2": 2830,
-    "MPNST_3": 3682,
-    "MPNST_4": 7811
-  },
-  "cells_per_patient": {
-    "Unknown": 22661
-  },
-  "cells_per_dataset": {
-    "MPNST_1": 8338,
-    "MPNST_2": 2830,
-    "MPNST_3": 3682,
-    "MPNST_4": 7811
-  },
-  "computational_performance": {
-    "load_time_sec": 45.35,
-    "cpus_requested": 8,
-    "mem_requested": "128 GB",
-    "partition": "ihc",
-    "elapsed_runtime": "1 minute 32 seconds",
-    "exit_code": "0:0",
-    "state": "COMPLETED",
-    "max_rss": "9627268K (~9.18 GB)",
-    "cpu_usage": "mean_load 54.72%, cpu_time 42.23s"
-  }
+  "dataset_recommendation_reason": "sample_id and orig.ident have identical cardinality. sample_id is recommended as the primary identifier for constituent datasets/samples to ensure consistency with standard metadata schemas."
 }

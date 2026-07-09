@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-07-08T19:31:57-0400",
+  "step": "QCPlotGeneration",
+  "dataset": "MPNST_4",
+  "git_commit": "472429e70d564c230ce08a2fb9d36e52ccadf0f0",
+  "git_status": " M config/config.test.yaml\n M config/config.yaml\n M config/schemas/config.schema.yaml\n M reports/DATA_AUDIT.md\n M reports/audits/m1_audit_provenance.json\n M reports/milestones/M1_REPORT.md\n M reports/object_inventory.json\n M workflow/Snakefile\n?? CHANGELOG.md\n?? reports/datasets/\n?? scripts/R/extract_dataset.R\n?? scripts/R/generate_qc_plots.R\n?? scripts/R/generate_qc_recommendation.R\n?? scripts/shell/run_m2_workflow.sh\n?? tests/unit/test_extraction.R",
+  "inputs": {
+    "dataset_rds": {
+      "path": "results/datasets/MPNST_4/MPNST_4_raw.rds",
+      "checksum": "f32811cf69595dcab9c5f5067efccbaa"
+    },
+    "script": {
+      "path": "scripts/R/generate_qc_plots.R",
+      "checksum": "745b1f8ca257e31edbe194db800c492f"
+    }
+  },
+  "outputs": {
+    "violins_pdf": {
+      "path": "reports/datasets/MPNST_4/qc_violins.pdf",
+      "checksum": "c4490809f0e8dbdda2b440264deefa5b"
+    },
+    "violins_png": {
+      "path": "reports/datasets/MPNST_4/qc_violins.png",
+      "checksum": "1d9356830cdea663d40063c9bee6dddd"
+    },
+    "scatter_pdf": {
+      "path": "reports/datasets/MPNST_4/qc_scatter.pdf",
+      "checksum": "912dbc2aed9bed3fdddeba72fab3c7f9"
+    },
+    "scatter_png": {
+      "path": "reports/datasets/MPNST_4/qc_scatter.png",
+      "checksum": "d53d1d1f63ca30c9f9063c914e212838"
+    },
+    "histograms_pdf": {
+      "path": "reports/datasets/MPNST_4/qc_histograms.pdf",
+      "checksum": "46a06183f1cbdebcade864c5e70a24f4"
+    },
+    "histograms_png": {
+      "path": "reports/datasets/MPNST_4/qc_histograms.png",
+      "checksum": "57f9230f84abd948a33b146e0884e03d"
+    },
+    "metrics_pdf": {
+      "path": "reports/datasets/MPNST_4/qc_metrics.pdf",
+      "checksum": "9c34fd9c89b9fc12f79e36259c909e74"
+    },
+    "metrics_png": {
+      "path": "reports/datasets/MPNST_4/qc_metrics.png",
+      "checksum": "56e0545996e33068f8283ac23aba6be7"
+    },
+    "fig_index": {
+      "path": "reports/datasets/MPNST_4/figure_index.tsv",
+      "checksum": "58d473021b4a4b7aae53d72913fd5d3d"
+    },
+    "qc_table": {
+      "path": "reports/datasets/MPNST_4/qc_metrics_summary.tsv",
+      "checksum": "474f535c0621ec0e2feb0e68022dbead"
+    }
+  },
+  "parameters": {
+    "dataset_id": "MPNST_4"
+  },
+  "session_info": ["R version 4.4.3 (2025-02-28)", "Platform: x86_64-conda-linux-gnu", "Running under: Red Hat Enterprise Linux 8.10 (Ootpa)", "", "Matrix products: default", "BLAS/LAPACK: /autofs/projects-t3/lilab/vmenon/anaconda3/envs/R_env/lib/libopenblasp-r0.3.30.so;  LAPACK version 3.12.0", "", "locale:", " [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              ", " [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    ", " [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   ", " [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 ", " [9] LC_ADDRESS=C               LC_TELEPHONE=C            ", "[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       ", "", "time zone: America/New_York", "tzcode source: system (glibc)", "", "attached base packages:", "[1] stats     graphics  grDevices utils     datasets  methods   base     ", "", "other attached packages:", "[1] digest_0.6.39      yaml_2.3.12        jsonlite_2.0.0     patchwork_1.3.2   ", "[5] ggplot2_4.0.1      Seurat_5.4.0       SeuratObject_5.3.0 sp_2.2-0          ", "", "loaded via a namespace (and not attached):", "  [1] deldir_2.0-4           pbapply_1.7-4          gridExtra_2.3         ", "  [4] rlang_1.1.7            magrittr_2.0.4         RcppAnnoy_0.0.23      ", "  [7] otel_0.2.0             matrixStats_1.5.0      ggridges_0.5.7        ", " [10] compiler_4.4.3         spatstat.geom_3.6-1    systemfonts_1.2.3     ", " [13] png_0.1-8              vctrs_0.7.0            reshape2_1.4.5        ", " [16] stringr_1.6.0          pkgconfig_2.0.3        fastmap_1.2.0         ", " [19] labeling_0.4.3         promises_1.5.0         ragg_1.5.0            ", " [22] purrr_1.2.1            goftest_1.2-3          later_1.4.5           ", " [25] spatstat.utils_3.2-1   irlba_2.3.5.1          parallel_4.4.3        ", " [28] cluster_2.1.8.1        R6_2.6.1               ica_1.0-3             ", " [31] stringi_1.8.7          RColorBrewer_1.1-3     spatstat.data_3.1-9   ", " [34] reticulate_1.44.1      parallelly_1.46.1      spatstat.univar_3.1-5 ", " [37] lmtest_0.9-40          scattermore_1.2        Rcpp_1.1.1            ", " [40] tensor_1.5.1           future.apply_1.20.1    zoo_1.8-15            ", " [43] sctransform_0.4.3      httpuv_1.6.16          Matrix_1.7-4          ", " [46] splines_4.4.3          igraph_2.2.1           tidyselect_1.2.1      ", " [49] abind_1.4-8            codetools_0.2-20       spatstat.random_3.4-3 ", " [52] miniUI_0.1.2           spatstat.explore_3.6-0 listenv_0.10.0        ", " [55] lattice_0.22-7         tibble_3.3.1           plyr_1.8.9            ", " [58] withr_3.0.2            shiny_1.12.1           S7_0.2.1              ", " [61] ROCR_1.0-12            Rtsne_0.17             future_1.69.0         ", " [64] fastDummies_1.7.5      survival_3.8-6         polyclip_1.10-7       ", " [67] fitdistrplus_1.2-4     pillar_1.11.1          KernSmooth_2.23-26    ", " [70] plotly_4.11.0          generics_0.1.4         RcppHNSW_0.6.0        ", " [73] scales_1.4.0           globals_0.18.0         xtable_1.8-4          ", " [76] glue_1.8.0             lazyeval_0.2.2         tools_4.4.3           ", " [79] data.table_1.18.0      RSpectra_0.16-2        RANN_2.6.2            ", " [82] dotCall64_1.2          cowplot_1.2.0          grid_4.4.3            ", " [85] tidyr_1.3.2            nlme_3.1-168           cli_3.6.5             ", " [88] spatstat.sparse_3.1-0  textshaping_1.0.3      spam_2.11-3           ", " [91] viridisLite_0.4.2      dplyr_1.1.4            uwot_0.2.4            ", " [94] gtable_0.3.6           progressr_0.18.0       ggrepel_0.9.6         ", " [97] htmlwidgets_1.6.4      farver_2.1.2           htmltools_0.5.9       ", "[100] lifecycle_1.0.5        httr_1.4.7             mime_0.13             ", "[103] MASS_7.3-65           "]
+}

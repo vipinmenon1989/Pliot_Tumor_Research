@@ -9,6 +9,11 @@ dataset_id_column: "sample_id" # To be validated in M1 audit
 candidate_columns:
   - "sample_id"
   - "orig.ident"
+datasets:
+  - "MPNST_1"
+  - "MPNST_2"
+  - "MPNST_3"
+  - "MPNST_4"
 
 # Quality Control Default Thresholds (To be customized per dataset after M2/M3)
 qc:
