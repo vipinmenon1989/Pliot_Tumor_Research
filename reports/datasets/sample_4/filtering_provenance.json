@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-07-09T08:04:42-0400",
+  "step": "QCFilteringDoubletDetection",
+  "dataset": "sample_4",
+  "git_commit": "7bf25a45b4bf55a889e78a400aed7490183c3edf",
+  "git_status": " M config/config.test.yaml\n M config/config.yaml\n D reports/DATA_AUDIT.md\n D reports/audits/m1_audit_provenance.json\n M reports/datasets/MPNST_1/QC_RECOMMENDATION.md\n M reports/datasets/MPNST_1/qc_rec_provenance.json\n M reports/datasets/MPNST_2/QC_RECOMMENDATION.md\n M reports/datasets/MPNST_2/qc_rec_provenance.json\n M reports/datasets/MPNST_3/QC_RECOMMENDATION.md\n M reports/datasets/MPNST_3/qc_rec_provenance.json\n M reports/datasets/MPNST_4/QC_RECOMMENDATION.md\n M reports/datasets/MPNST_4/qc_rec_provenance.json\n M reports/datasets/sample_1/QC_RECOMMENDATION.md\n M reports/datasets/sample_1/qc_rec_provenance.json\n M reports/datasets/sample_2/QC_RECOMMENDATION.md\n M reports/datasets/sample_2/qc_rec_provenance.json\n M reports/datasets/sample_3/QC_RECOMMENDATION.md\n M reports/datasets/sample_3/qc_rec_provenance.json\n M reports/datasets/sample_4/QC_RECOMMENDATION.md\n M reports/datasets/sample_4/qc_rec_provenance.json\n D reports/milestones/M1_REPORT.md\n D reports/object_inventory.json\n M workflow/Snakefile\n?? \"et extraction and pre-filter QC\\\"\"\n?? reports/datasets/MPNST_1/FILTER_REPORT.md\n?? reports/datasets/MPNST_1/doublet_report.json\n?? reports/datasets/MPNST_1/filtering_provenance.json\n?? reports/datasets/MPNST_1/manifest_filtered.json\n?? reports/datasets/MPNST_3/FILTER_REPORT.md\n?? reports/datasets/MPNST_3/doublet_report.json\n?? reports/datasets/MPNST_3/filtering_provenance.json\n?? reports/datasets/MPNST_3/manifest_filtered.json\n?? reports/datasets/sample_1/FILTER_REPORT.md\n?? reports/datasets/sample_1/doublet_report.json\n?? reports/datasets/sample_1/filtering_provenance.json\n?? reports/datasets/sample_1/manifest_filtered.json\n?? reports/datasets/sample_2/FILTER_REPORT.md\n?? reports/datasets/sample_2/doublet_report.json\n?? reports/datasets/sample_2/filtering_provenance.json\n?? reports/datasets/sample_2/manifest_filtered.json\n?? reports/datasets/sample_4/FILTER_REPORT.md\n?? reports/datasets/sample_4/doublet_report.json\n?? reports/datasets/sample_4/manifest_filtered.json\n?? scripts/R/filter_and_detect_doublets.R\n?? scripts/shell/run_m3_workflow.sh\n?? tests/unit/test_filtering.R",
+  "inputs": {
+    "dataset_rds": {
+      "path": "results/datasets/sample_4/sample_4_raw.rds",
+      "checksum": "c92de629cfea9439dd303cdfa2cc9a21"
+    },
+    "script": {
+      "path": "scripts/R/filter_and_detect_doublets.R",
+      "checksum": "ce34427a362b7c20dc1404404be2ad2f"
+    }
+  },
+  "outputs": {
+    "filtered_rds": {
+      "path": "results/datasets/sample_4/sample_4_filtered.rds",
+      "checksum": "aa3e7b5fe9feef5fe844da7607a37f5d"
+    },
+    "report": {
+      "path": "reports/datasets/sample_4/FILTER_REPORT.md",
+      "checksum": "0a7714ed4afb74fc8ba18eefd63f4c17"
+    },
+    "doublet_json": {
+      "path": "reports/datasets/sample_4/doublet_report.json",
+      "checksum": "2278383b1c1731d25767a48a8d1158d5"
+    },
+    "manifest": {
+      "path": "reports/datasets/sample_4/manifest_filtered.json",
+      "checksum": "316abc5dd8ed3288bdf0a36fc13e8d08"
+    }
+  },
+  "parameters": {
+    "dataset_id": "sample_4",
+    "min_features": 100,
+    "max_features": 999999999,
+    "min_counts": 300,
+    "max_counts": 999999999,
+    "max_percent_mt": 50,
+    "max_percent_ribo": 40,
+    "expected_doublet_rate": 0.05,
+    "doublet_method": "scDblFinder"
+  },
+  "session_info": ["R version 4.4.3 (2025-02-28)", "Platform: x86_64-conda-linux-gnu", "Running under: Red Hat Enterprise Linux 8.3 (Ootpa)", "", "Matrix products: default", "BLAS/LAPACK: /autofs/projects-t3/lilab/vmenon/anaconda3/envs/R_env/lib/libopenblasp-r0.3.30.so;  LAPACK version 3.12.0", "", "locale:", " [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              ", " [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    ", " [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   ", " [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 ", " [9] LC_ADDRESS=C               LC_TELEPHONE=C            ", "[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       ", "", "time zone: America/New_York", "tzcode source: system (glibc)", "", "attached base packages:", "[1] stats4    stats     graphics  grDevices utils     datasets  methods  ", "[8] base     ", "", "other attached packages:", " [1] scDblFinder_1.20.2          SingleCellExperiment_1.28.1", " [3] SummarizedExperiment_1.36.0 Biobase_2.66.0             ", " [5] GenomicRanges_1.58.0        GenomeInfoDb_1.42.3        ", " [7] IRanges_2.40.1              S4Vectors_0.44.0           ", " [9] BiocGenerics_0.52.0         MatrixGenerics_1.18.1      ", "[11] matrixStats_1.5.0           digest_0.6.39              ", "[13] yaml_2.3.12                 jsonlite_2.0.0             ", "[15] patchwork_1.3.2             ggplot2_4.0.1              ", "[17] Seurat_5.4.0                SeuratObject_5.3.0         ", "[19] sp_2.2-0                   ", "", "loaded via a namespace (and not attached):", "  [1] RcppAnnoy_0.0.23         splines_4.4.3            later_1.4.5             ", "  [4] BiocIO_1.16.0            bitops_1.0-9             tibble_3.3.1            ", "  [7] polyclip_1.10-7          XML_3.99-0.20            fastDummies_1.7.5       ", " [10] lifecycle_1.0.5          edgeR_4.4.2              globals_0.18.0          ", " [13] lattice_0.22-7           MASS_7.3-65              magrittr_2.0.4          ", " [16] limma_3.62.2             plotly_4.11.0            metapod_1.14.0          ", " [19] httpuv_1.6.16            otel_0.2.0               sctransform_0.4.3       ", " [22] spam_2.11-3              spatstat.sparse_3.1-0    reticulate_1.44.1       ", " [25] cowplot_1.2.0            pbapply_1.7-4            RColorBrewer_1.1-3      ", " [28] abind_1.4-8              zlibbioc_1.52.0          Rtsne_0.17              ", " [31] purrr_1.2.1              RCurl_1.98-1.17          GenomeInfoDbData_1.2.13 ", " [34] ggrepel_0.9.6            irlba_2.3.5.1            listenv_0.10.0          ", " [37] spatstat.utils_3.2-1     goftest_1.2-3            RSpectra_0.16-2         ", " [40] spatstat.random_3.4-3    dqrng_0.4.1              fitdistrplus_1.2-4      ", " [43] parallelly_1.46.1        codetools_0.2-20         DelayedArray_0.32.0     ", " [46] scuttle_1.16.0           tidyselect_1.2.1         UCSC.utils_1.2.0        ", " [49] farver_2.1.2             ScaledMatrix_1.14.0      viridis_0.6.5           ", " [52] spatstat.explore_3.6-0   GenomicAlignments_1.42.0 BiocNeighbors_2.0.1     ", " [55] progressr_0.18.0         ggridges_0.5.7           survival_3.8-6          ", " [58] scater_1.34.1            systemfonts_1.2.3        tools_4.4.3             ", " [61] ragg_1.5.0               ica_1.0-3                Rcpp_1.1.1              ", " [64] glue_1.8.0               gridExtra_2.3            SparseArray_1.6.2       ", " [67] dplyr_1.1.4              withr_3.0.2              fastmap_1.2.0           ", " [70] bluster_1.16.0           rsvd_1.0.5               R6_2.6.1                ", " [73] mime_0.13                textshaping_1.0.3        scattermore_1.2         ", " [76] tensor_1.5.1             spatstat.data_3.1-9      tidyr_1.3.2             ", " [79] generics_0.1.4           data.table_1.18.0        rtracklayer_1.66.0      ", " [82] httr_1.4.7               htmlwidgets_1.6.4        S4Arrays_1.6.0          ", " [85] uwot_0.2.4               pkgconfig_2.0.3          gtable_0.3.6            ", " [88] lmtest_0.9-40            S7_0.2.1                 XVector_0.46.0          ", " [91] htmltools_0.5.9          dotCall64_1.2            scales_1.4.0            ", " [94] png_0.1-8                spatstat.univar_3.1-5    scran_1.34.0            ", " [97] reshape2_1.4.5           rjson_0.2.23             nlme_3.1-168            ", "[100] curl_7.0.0               zoo_1.8-15               stringr_1.6.0           ", "[103] KernSmooth_2.23-26       parallel_4.4.3           miniUI_0.1.2            ", "[106] vipor_0.4.7              restfulr_0.0.16          pillar_1.11.1           ", "[109] grid_4.4.3               vctrs_0.7.0              RANN_2.6.2              ", "[112] promises_1.5.0           BiocSingular_1.22.0      beachmat_2.22.0         ", "[115] xtable_1.8-4             cluster_2.1.8.1          beeswarm_0.4.0          ", "[118] locfit_1.5-9.12          cli_3.6.5                compiler_4.4.3          ", "[121] Rsamtools_2.22.0         rlang_1.1.7              crayon_1.5.3            ", "[124] future.apply_1.20.1      labeling_0.4.3           plyr_1.8.9              ", "[127] ggbeeswarm_0.7.3         stringi_1.8.7            viridisLite_0.4.2       ", "[130] deldir_2.0-4             BiocParallel_1.40.2      Biostrings_2.74.1       ", "[133] lazyeval_0.2.2           spatstat.geom_3.6-1      Matrix_1.7-4            ", "[136] RcppHNSW_0.6.0           future_1.69.0            statmod_1.5.1           ", "[139] shiny_1.12.1             ROCR_1.0-12              igraph_2.2.1            ", "[142] xgboost_3.1.3.1         "]
+}

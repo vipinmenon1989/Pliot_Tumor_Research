@@ -1,5 +1,5 @@
 # QC Recommendation Report - MPNST_4
-*Generated on: 2026-07-08 19:31:27*
+*Generated on: 2026-07-09 07:22:52*
 
 ## 1. Observed Distributions Summary
 
@@ -27,10 +27,10 @@ Below are the recommended thresholds driven by the project configuration:
 | QC Metric | Recommended Threshold | Rationale |
 | --- | --- | --- |
 | **Min Features (nFeature_RNA)** | `> 200` | Exclude low-complexity droplets/dead cells that do not contain sufficient biological signal. |
-| **Max Features (nFeature_RNA)** | `< 6000` | Exclude potential doublets or multi-cell aggregates. |
+| **Max Features (nFeature_RNA)** | `< 999999999` | Exclude potential doublets or multi-cell aggregates. |
 | **Min Counts (nCount_RNA)** | `> 500` | Ensure sufficient library depth for robust gene expression estimation. |
-| **Max Counts (nCount_RNA)** | `< 50000` | Exclude cells with abnormally high UMI counts, indicating technical artifacts or doublets. |
-| **Max percent.mt** | `< 15.0%` | Standard filter to remove dying or damaged cells which release cytoplasmic RNA and retain mitochondrial transcripts. |
+| **Max Counts (nCount_RNA)** | `< 999999999` | Exclude cells with abnormally high UMI counts, indicating technical artifacts or doublets. |
+| **Max percent.mt** | `< 10.0%` | Standard filter to remove dying or damaged cells which release cytoplasmic RNA and retain mitochondrial transcripts. |
 | **Max percent.ribo** | `< 20.0%` | Eliminate cells with extremely high ribosomal expression, which may represent technical bias or specific translation stress. |
 
 ## 4. Expected Filtering Impact
@@ -40,17 +40,17 @@ Here is the estimated impact of applying each of the recommended thresholds inde
 | Filter Metric | Threshold | Cells Excluded | % Excluded |
 | --- | --- | --- | --- |
 | **Min Features** | `< 200` | 0 | 0.00% |
-| **Max Features** | `> 6000` | 49 | 0.63% |
+| **Max Features** | `> 999999999` | 0 | 0.00% |
 | **Min Counts** | `< 500` | 0 | 0.00% |
-| **Max Counts** | `> 50000` | 11 | 0.14% |
-| **Max percent.mt** | `> 15.0%` | 621 | 7.95% |
+| **Max Counts** | `> 999999999` | 0 | 0.00% |
+| **Max percent.mt** | `> 10.0%` | 2343 | 30.00% |
 | **Max percent.ribo** | `> 20.0%` | 1793 | 22.95% |
-| **Combined Filters** | **All Above** | **2403** | **30.76%** |
+| **Combined Filters** | **All Above** | **3895** | **49.87%** |
 
 ### Summary of Expected Kept Cells:
 - **Total cells before filtering**: 7811
-- **Expected cells removed**: 2403 (30.76%)
-- **Expected cells retained**: 5408 (69.24%)
+- **Expected cells removed**: 3895 (49.87%)
+- **Expected cells retained**: 3916 (50.13%)
 
 ## 5. Potential Biological & Technical Risks
 
@@ -63,8 +63,8 @@ Here is the estimated impact of applying each of the recommended thresholds inde
 Please review and approve the following settings prior to Milestone 3 (M3) filtering:
 
 1. **Do you approve the uniform minimum gene limit of 200 features across this dataset?**
-2. **Do you approve the mitochondrial limit of 15.0% for MPNST_4?** (Excludes 621 cells)
+2. **Do you approve the mitochondrial limit of 10.0% for MPNST_4?** (Excludes 2343 cells)
 3. **Do you approve the ribosomal limit of 20.0% for MPNST_4?** (Excludes 1793 cells)
-4. **Do you approve the overall threshold combination which will exclude 30.76% of cells?**
+4. **Do you approve the overall threshold combination which will exclude 49.87% of cells?**
 
 **NOTE: NO FILTERS HAVE BEEN APPLIED AT THIS STAGE. The dataset remains completely intact.**

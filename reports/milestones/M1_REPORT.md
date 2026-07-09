@@ -1,12 +1,12 @@
 # Milestone 1 (M1) Execution Report — Real-Data Audit
-*Generated on: 2026-07-08 19:27:53 EDT*
+*Generated on: 2026-07-09 08:42:35 EDT*
 
 ## 1. Execution Summary
 - **Authorized Milestone**: Milestone 1 (M1) - Real-Data Audit
 - **Input File audited**: `/local/projects-t3/lilab/vmenon/Pilot_tumor/processed_mpnst.rds`
 - **Object Class**: Seurat
 - **Dimensions**: 29708 features x 22661 cells
-- **Memory Loading Time**: 47.96 seconds
+- **Memory Loading Time**: 45.66 seconds
 - **File size**: 7.23 GB
 
 ## 2. Environment Details
@@ -26,9 +26,9 @@
 3. **Prior Analysis Inventory**: Legacy columns were successfully identified and logged. They will be ignored in all subsequent processing.
 
 ## 5. Execution Metrics
-- **Start Time**: 2026-07-08 19:27:00
-- **End Time**: 2026-07-08 19:27:48
-- **Elapsed audit time**: 47.96 seconds
+- **Start Time**: 2026-07-09 08:41:45
+- **End Time**: 2026-07-09 08:42:30
+- **Elapsed audit time**: 45.66 seconds
 Peak memory details can be found in the SLURM accounting logs.
 
 ## 6. Verification Status

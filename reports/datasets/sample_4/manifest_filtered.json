@@ -1,0 +1,12 @@
+{
+  "dataset_id": "sample_4",
+  "cells_before": 150,
+  "cells_after": 150,
+  "cells_removed": 0,
+  "percent_removed": 0,
+  "genes": 120,
+  "assays": "RNA",
+  "default_assay": "RNA",
+  "checksum": "aa3e7b5fe9feef5fe844da7607a37f5d",
+  "file_path": "results/datasets/sample_4/sample_4_filtered.rds"
+}

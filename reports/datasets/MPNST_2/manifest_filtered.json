@@ -1,0 +1,12 @@
+{
+  "dataset_id": "MPNST_2",
+  "cells_before": 2830,
+  "cells_after": 1502,
+  "cells_removed": 1328,
+  "percent_removed": 46.9258,
+  "genes": 29708,
+  "assays": ["RNA", "mnn.reconstructed", "SCT"],
+  "default_assay": "SCT",
+  "checksum": "23fbba71da436673dabbdf285f6aaac6",
+  "file_path": "results/datasets/MPNST_2/MPNST_2_filtered.rds"
+}

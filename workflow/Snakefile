@@ -24,8 +24,18 @@ rule all:
         expand("results/datasets/{dataset_id}/{dataset_id}_raw.rds", dataset_id=config["datasets"]),
         expand("reports/datasets/{dataset_id}/DATASET_VALIDATION.md", dataset_id=config["datasets"]),
         expand("reports/datasets/{dataset_id}/QC_RECOMMENDATION.md", dataset_id=config["datasets"]),
-        "reports/FIGURE_INDEX.tsv",
-        "logs/workflow/test_extraction.done"
+        "logs/workflow/test_extraction.done",
+        # Milestone 3 Outputs:
+        expand("results/datasets/{dataset_id}/{dataset_id}_filtered.rds", dataset_id=config["datasets"]),
+        expand("reports/datasets/{dataset_id}/FILTER_REPORT.md", dataset_id=config["datasets"]),
+        expand("reports/datasets/{dataset_id}/doublet_report.json", dataset_id=config["datasets"]),
+        "logs/workflow/test_filtering.done",
+        # QC Threshold Optimization Review:
+        "reports/QC_OPTIMIZATION_REPORT.md",
+        expand("reports/qc_optimization/overlap_{dataset_id}.png", dataset_id=config["datasets"]),
+        "logs/workflow/test_optimization.done",
+        # Final Figure Index:
+        "reports/FIGURE_INDEX.tsv"
 
 # Rule to validate configuration format and parameters against schema
 rule validate_config:
@@ -249,28 +259,6 @@ rule generate_qc_recommendation:
           --out-prov {output.prov} > {log.log} 2>&1
         """
 
-# Rule to merge local figure indices into a single reports/FIGURE_INDEX.tsv
-rule merge_figure_index:
-    input:
-        indices = expand("reports/datasets/{dataset_id}/figure_index.tsv", dataset_id=config["datasets"])
-    output:
-        merged = "reports/FIGURE_INDEX.tsv"
-    log:
-        log = "logs/workflow/merge_figure_index.log"
-    run:
-        with open(output.merged, 'w') as out_f:
-            header_written = False
-            for path in input.indices:
-                with open(path, 'r') as in_f:
-                    lines = in_f.readlines()
-                    if not lines:
-                        continue
-                    if not header_written:
-                        out_f.write(lines[0])
-                        header_written = True
-                    for line in lines[1:]:
-                        out_f.write(line)
-
 # Rule to run dataset extraction unit tests
 rule test_extraction:
     input:
@@ -291,3 +279,176 @@ rule test_extraction:
         """
         Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
         """
+
+# Rule to perform QC filtering and doublet detection
+rule filter_and_detect_doublets:
+    input:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_raw.rds",
+        script = "scripts/R/filter_and_detect_doublets.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_filtered.rds",
+        report = "reports/datasets/{dataset_id}/FILTER_REPORT.md",
+        doublet_json = "reports/datasets/{dataset_id}/doublet_report.json",
+        manifest = "reports/datasets/{dataset_id}/manifest_filtered.json",
+        prov = "reports/datasets/{dataset_id}/filtering_provenance.json",
+        violins_pdf = "reports/datasets/{dataset_id}/filtered_qc_violins.pdf",
+        violins_png = "reports/datasets/{dataset_id}/filtered_qc_violins.png",
+        density_pdf = "reports/datasets/{dataset_id}/filtered_qc_density.pdf",
+        density_png = "reports/datasets/{dataset_id}/filtered_qc_density.png",
+        histograms_pdf = "reports/datasets/{dataset_id}/filtered_qc_histograms.pdf",
+        histograms_png = "reports/datasets/{dataset_id}/filtered_qc_histograms.png",
+        scatter_pdf = "reports/datasets/{dataset_id}/filtered_qc_scatter.pdf",
+        scatter_png = "reports/datasets/{dataset_id}/filtered_qc_scatter.png",
+        summary_pdf = "reports/datasets/{dataset_id}/filtering_summary.pdf",
+        summary_png = "reports/datasets/{dataset_id}/filtering_summary.png",
+        doublet_pdf = "reports/datasets/{dataset_id}/doublet_summary.pdf",
+        doublet_png = "reports/datasets/{dataset_id}/doublet_summary.png",
+        fig_index_m3 = "reports/datasets/{dataset_id}/figure_index_m3.tsv",
+        stats_tsv = "reports/datasets/{dataset_id}/filtering_statistics.tsv",
+        summary_tsv = "reports/datasets/{dataset_id}/filtered_qc_metrics_summary.tsv"
+    log:
+        log = "logs/workflow/filter_doublets_{dataset_id}.log"
+    benchmark:
+        "benchmarks/filter_doublets_{dataset_id}.tsv"
+    resources:
+        cpus = 1,
+        mem_mb = 24000,
+        runtime = 45
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --out-rds {output.rds} \
+          --out-report {output.report} \
+          --out-doublet-json {output.doublet_json} \
+          --out-prov {output.prov} \
+          --out-manifest {output.manifest} \
+          --out-plot-dir reports/datasets/{wildcards.dataset_id} \
+          --rule filter_and_detect_doublets \
+          --min-features {config[qc][min_features]} \
+          --max-features {config[qc][max_features]} \
+          --min-counts {config[qc][min_counts]} \
+          --max-counts {config[qc][max_counts]} \
+          --max-percent-mt {config[qc][max_percent_mt]} \
+          --max-percent-ribo {config[qc][max_percent_ribo]} \
+          --expected-doublet-rate {config[doublet_detection][expected_doublet_rate]} \
+          --doublet-method {config[doublet_detection][method]} > {log.log} 2>&1
+        """
+
+# Rule to run dataset filtering unit tests
+rule test_filtering:
+    input:
+        script = "tests/unit/test_filtering.R",
+        rds = expand("results/datasets/{dataset_id}/{dataset_id}_filtered.rds", dataset_id=config["datasets"]),
+        report = expand("reports/datasets/{dataset_id}/FILTER_REPORT.md", dataset_id=config["datasets"]),
+        manifest = expand("reports/datasets/{dataset_id}/manifest_filtered.json", dataset_id=config["datasets"]),
+        stats_tsv = expand("reports/datasets/{dataset_id}/filtering_statistics.tsv", dataset_id=config["datasets"]),
+        summary_tsv = expand("reports/datasets/{dataset_id}/filtered_qc_metrics_summary.tsv", dataset_id=config["datasets"])
+    output:
+        done = "logs/workflow/test_filtering.done"
+    log:
+        log = "logs/workflow/test_filtering.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
+        """
+
+# Rule to perform QC threshold optimization review simulations
+rule qc_optimization_review:
+    input:
+        rds_files = expand("results/datasets/{dataset_id}/{dataset_id}_raw.rds", dataset_id=config["datasets"]),
+        script = "scripts/R/qc_optimization_review.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    params:
+        datasets = " ".join(config["datasets"])
+    output:
+        report = "reports/QC_OPTIMIZATION_REPORT.md",
+        mt_curve_png = "reports/qc_optimization/sensitivity_mt.png",
+        ribo_curve_png = "reports/qc_optimization/sensitivity_ribo.png",
+        feat_curve_png = "reports/qc_optimization/sensitivity_features.png",
+        counts_curve_png = "reports/qc_optimization/sensitivity_counts.png",
+        overlaps = expand("reports/qc_optimization/overlap_{dataset_id}.png", dataset_id=config["datasets"]),
+        comp_png = "reports/qc_optimization/distribution_comparison.png",
+        fig_index = "reports/qc_optimization/figure_index_optimization.tsv",
+        stats_tsv = "reports/qc_optimization/sensitivity_summary_stats.tsv",
+        overlap_tsv = "reports/qc_optimization/overlap_summary.tsv"
+    log:
+        log = "logs/workflow/qc_optimization_review.log"
+    benchmark:
+        "benchmarks/qc_optimization_review.tsv"
+    resources:
+        cpus = 4,
+        mem_mb = 32000,
+        runtime = 60
+    shell:
+        """
+        Rscript {input.script} \
+          --datasets {params.datasets} \
+          --out-report {output.report} \
+          --out-dir reports/qc_optimization \
+          --expected-doublet-rate {config[doublet_detection][expected_doublet_rate]} \
+          --doublet-method {config[doublet_detection][method]} \
+          --min-features {config[qc][min_features]} \
+          --max-features {config[qc][max_features]} \
+          --min-counts {config[qc][min_counts]} \
+          --max-counts {config[qc][max_counts]} \
+          --max-percent-mt {config[qc][max_percent_mt]} \
+          --max-percent-ribo {config[qc][max_percent_ribo]} > {log.log} 2>&1
+        """
+
+# Rule to run QC optimization review validation tests
+rule test_optimization:
+    input:
+        script = "tests/unit/test_optimization.R",
+        report = "reports/QC_OPTIMIZATION_REPORT.md",
+        stats_tsv = "reports/qc_optimization/sensitivity_summary_stats.tsv",
+        overlap_tsv = "reports/qc_optimization/overlap_summary.tsv",
+        mt_curve = "reports/qc_optimization/sensitivity_mt.png",
+        ribo_curve = "reports/qc_optimization/sensitivity_ribo.png"
+    output:
+        done = "logs/workflow/test_optimization.done"
+    log:
+        log = "logs/workflow/test_optimization.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
+        """
+
+# Rule to merge local figure indices into a single reports/FIGURE_INDEX.tsv
+rule merge_figure_index:
+    input:
+        indices_m2 = expand("reports/datasets/{dataset_id}/figure_index.tsv", dataset_id=config["datasets"]),
+        indices_m3 = expand("reports/datasets/{dataset_id}/figure_index_m3.tsv", dataset_id=config["datasets"]),
+        indices_opt = "reports/qc_optimization/figure_index_optimization.tsv"
+    output:
+        merged = "reports/FIGURE_INDEX.tsv"
+    log:
+        log = "logs/workflow/merge_figure_index.log"
+    run:
+        all_paths = list(input.indices_m2) + list(input.indices_m3) + [input.indices_opt]
+        with open(output.merged, 'w') as out_f:
+            header_written = False
+            for path in all_paths:
+                if not os.path.exists(path):
+                    continue
+                with open(path, 'r') as in_f:
+                    lines = in_f.readlines()
+                    if not lines:
+                        continue
+                    if not header_written:
+                        out_f.write(lines[0])
+                        header_written = True
+                    for line in lines[1:]:
+                        out_f.write(line)

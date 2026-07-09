@@ -15,14 +15,14 @@ datasets:
   - "sample_3"
   - "sample_4"
 
-# Quality Control Default Thresholds (Synthetic data specific)
+# Quality Control Approved Thresholds for Milestone 3 (Test Config)
 qc:
   min_features: 100
-  max_features: 4000
+  max_features: 999999999
   min_counts: 300
-  max_counts: 30000
-  max_percent_mt: 10.0
-  max_percent_ribo: 15.0
+  max_counts: 999999999
+  max_percent_mt: 50.0
+  max_percent_ribo: 40.0
 
 # Doublet Assessment
 doublet_detection:

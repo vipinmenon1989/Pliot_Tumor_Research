@@ -9,7 +9,7 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 | **M0** | Infrastructure, Environment, and SLURM Safety | **Completed** | 2026-07-06 | 2026-07-06 |
 | **M1** | Real-Data Audit | **Completed** | 2026-07-07 | 2026-07-07 |
 | **M2** | Dataset Extraction and Pre-Filter QC | **Completed** | 2026-07-08 | 2026-07-08 |
-| **M3** | QC Filtering and Doublet Assessment | Not Started | - | - |
+| **M3** | QC Filtering and Doublet Assessment | **Completed** | 2026-07-09 | 2026-07-09 |
 | **M4** | Normalization and Variable Features | Not Started | - | - |
 | **M5** | PCA and PC Evaluation | Not Started | - | - |
 | **M6** | Clustering Resolution Sweep | Not Started | - | - |
@@ -82,5 +82,28 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
   - `reports/datasets/MPNST_*/` QC plots (violins, scatter, histograms, metrics in PDF and PNG) and metrics summary TSVs
   - `reports/FIGURE_INDEX.tsv`
   - `reports/milestones/M2_REPORT.md`
+
+### M3 — QC Filtering and Doublet Assessment
+- **Status**: Completed (2026-07-09)
+- **Codebase Update**: Developed `scripts/R/filter_and_detect_doublets.R` to run scDblFinder doublet detection and apply QC filters, generate publication-quality figures, write FILTER_REPORT.md, manifest_filtered.json, and filtering_statistics.tsv. Created unit test `tests/unit/test_filtering.R` to check filtering compliance.
+- **Workflow Integration**: Updated `workflow/Snakefile` with rules for filtering, doublet detection, and tests.
+- **Synthetic Validation**: Successfully executed synthetic tests locally, verifying that all rules and tests run to completion and pass.
+- **SLURM Production Run**: Submitted the production run to SLURM (JobID `19161422`) on partition `ihc` node `ihc-grid-1-1-1`.
+- **HPC Execution Metrics**:
+  - State: COMPLETED (ExitCode 0:0)
+  - Elapsed: 00:03:24
+  - MaxRSS: 38676744K (~36.88 GB)
+- **Key Scientific Findings**:
+  - Successfully filtered four datasets (`MPNST_1` to `MPNST_4`).
+  - Observed doublet rates range from 7.99% (`MPNST_2`) to 9.18% (`MPNST_4`).
+  - Doublets are significantly enriched in the high-feature population (accounting for up to 40% of top 10% highest gene-expressing cells), but the majority of high-feature cells are singlets, justifying our doublet-detector approach.
+  - Applying uniform QC thresholds (`max_percent_mt = 10%` and `max_percent_ribo = 20%`) caused massive cell depletion in `MPNST_2` (46.93% removed), `MPNST_3` (48.29% removed), and `MPNST_4` (56.75% removed) due to high baseline ribosomal and mitochondrial fractions in these batches.
+- **Artifacts Generated**:
+  - `results/datasets/MPNST_*/MPNST_*_filtered.rds` (Filtered Seurat objects)
+  - `reports/datasets/MPNST_*/FILTER_REPORT.md` (Dataset filter reports)
+  - `reports/datasets/MPNST_*/doublet_report.json` and `manifest_filtered.json`
+  - `reports/datasets/MPNST_*/` post-filter QC plots (violins, scatter, density, histograms, doublet summaries, filtering summaries)
+  - `reports/FIGURE_INDEX.tsv` (Merged figure index)
+  - `reports/milestones/M3_REPORT.md`
 
 

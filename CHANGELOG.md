@@ -31,3 +31,17 @@ Dataset Extraction and Pre-Filter QC
 * QC recommendation reports (QC_RECOMMENDATION.md)
 * Updated FIGURE_INDEX.tsv
 * Updated Snakemake workflow and unit/integration tests
+
+[M3]
+
+QC Filtering and Doublet Assessment
+
+* Dynamic command-line configuration for QC filters
+* Reproducible doublet detection with scDblFinder and full fallbacks
+* QC filtering applying researcher-approved thresholds (200 features, 500 counts, 10% MT, 20% ribosomal)
+* Retention of high-feature singlets to preserve transcriptional complexity
+* Post-filter QC figures (violins, scatter, density, histograms, doublet summaries, filtering summaries)
+* Dataset-specific filter reports (FILTER_REPORT.md)
+* Cross-dataset comparison analysis and M3 milestone report
+* Updated FIGURE_INDEX.tsv
+* Updated Snakemake workflow and validation unit tests

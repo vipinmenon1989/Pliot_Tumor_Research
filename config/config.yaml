@@ -15,13 +15,13 @@ datasets:
   - "MPNST_3"
   - "MPNST_4"
 
-# Quality Control Default Thresholds (To be customized per dataset after M2/M3)
+# Quality Control Approved Thresholds for Milestone 3
 qc:
   min_features: 200
-  max_features: 6000
+  max_features: 999999999
   min_counts: 500
-  max_counts: 50000
-  max_percent_mt: 15.0
+  max_counts: 999999999
+  max_percent_mt: 10.0
   max_percent_ribo: 20.0
 
 # Doublet Assessment

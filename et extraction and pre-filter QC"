@@ -1,0 +1,83 @@
+PROGRESS.md:85: new blank line at EOF.
+scripts/R/extract_dataset.R:118: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/extract_dataset.R:135: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/extract_dataset.R:138: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/extract_dataset.R:187: trailing whitespace.
+[32m+[m[32m    sprintf("| %s | %s | %s | %s | %s |",[m[41m [m
+scripts/R/extract_dataset.R:188: trailing whitespace.
+[32m+[m[32m            a, ad$class, format(ad$features, big.mark = ","),[m[41m [m
+scripts/R/extract_dataset.R:189: trailing whitespace.
+[32m+[m[32m            paste(ad$layers, collapse = ", "),[m[41m [m
+scripts/R/generate_qc_plots.R:114: trailing whitespace.
+[32m+[m[32mviolins_plot <- (v1 | v2) / (v3 | v4) +[m[41m [m
+scripts/R/generate_qc_plots.R:179: trailing whitespace.
+[32m+[m[32m  geom_text(aes(label = ifelse(Metric == "Total Cells" | Metric == "Median UMI" | Metric == "Median Genes",[m[41m [m
+scripts/R/generate_qc_plots.R:180: trailing whitespace.
+[32m+[m[32m                               format(Value, big.mark = ","),[m[41m [m
+scripts/R/generate_qc_plots.R:181: trailing whitespace.
+[32m+[m[32m                               sprintf("%.2f%%", Value))),[m[41m [m
+scripts/R/generate_qc_plots.R:203: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/generate_qc_plots.R:206: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/generate_qc_plots.R:208: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/generate_qc_plots.R:211: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/generate_qc_plots.R:217: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/generate_qc_plots.R:255: trailing whitespace.
+[32m+[m[41m  [m
+scripts/R/generate_qc_recommendation.R:86: trailing whitespace.
+[32m+[m[32mfiltered_out <- (meta$nFeature_RNA < min_features) |[m[41m [m
+scripts/R/generate_qc_recommendation.R:87: trailing whitespace.
+[32m+[m[32m                 (meta$nFeature_RNA > max_features) |[m[41m [m
+scripts/R/generate_qc_recommendation.R:88: trailing whitespace.
+[32m+[m[32m                 (meta$nCount_RNA < min_counts) |[m[41m [m
+scripts/R/generate_qc_recommendation.R:89: trailing whitespace.
+[32m+[m[32m                 (meta$nCount_RNA > max_counts) |[m[41m [m
+scripts/R/generate_qc_recommendation.R:90: trailing whitespace.
+[32m+[m[32m                 (meta$percent.mt > max_percent_mt) |[m[41m [m
+scripts/R/generate_qc_recommendation.R:109: trailing whitespace.
+[32m+[m[32m  sprintf("| **nCount_RNA** | %d | %.1f | %d | %d | %d | %d | %d | %d | %d | %d |",[m[41m [m
+scripts/R/generate_qc_recommendation.R:112: trailing whitespace.
+[32m+[m[32m  sprintf("| **nFeature_RNA** | %d | %.1f | %d | %d | %d | %d | %d | %d | %d | %d |",[m[41m [m
+scripts/R/generate_qc_recommendation.R:115: trailing whitespace.
+[32m+[m[32m  sprintf("| **percent.mt** | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% |",[m[41m [m
+scripts/R/generate_qc_recommendation.R:118: trailing whitespace.
+[32m+[m[32m  sprintf("| **percent.ribo** | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% | %.2f%% |",[m[41m [m
+scripts/R/generate_qc_recommendation.R:126: trailing whitespace.
+[32m+[m[32m  sprintf("- **Library Depth (nCount_RNA)**: The median value is %d. Outliers are typically defined as cells with counts below %d or above %d.",[m[41m [m
+scripts/R/generate_qc_recommendation.R:127: trailing whitespace.
+[32m+[m[32m          as.integer(median(meta$nCount_RNA)),[m[41m [m
+scripts/R/generate_qc_recommendation.R:128: trailing whitespace.
+[32m+[m[32m          as.integer(median(meta$nCount_RNA) - 3 * mad(meta$nCount_RNA)),[m[41m [m
+scripts/R/generate_qc_recommendation.R:130: trailing whitespace.
+[32m+[m[32m  sprintf("- **Genes Detected (nFeature_RNA)**: The median value is %d. Outliers are typically cells with fewer than %d genes (likely empty droplets or low-quality cells) or more than %d genes (potential doublets).",[m[41m [m
+scripts/R/generate_qc_recommendation.R:131: trailing whitespace.
+[32m+[m[32m          as.integer(median(meta$nFeature_RNA)),[m[41m [m
+scripts/R/generate_qc_recommendation.R:132: trailing whitespace.
+[32m+[m[32m          as.integer(median(meta$nFeature_RNA) - 3 * mad(meta$nFeature_RNA)),[m[41m [m
+scripts/R/generate_qc_recommendation.R:134: trailing whitespace.
+[32m+[m[32m  sprintf("- **Mitochondrial Fraction (percent.mt)**: The median is %.2f%%, and the 95th percentile is %.2f%%. Cells exceeding %.2f%% show elevated mitochondrial expression indicating cellular stress or lysis.",[m[41m [m
+tests/unit/test_extraction.R:22: trailing whitespace.
+[32m+[m[41m  [m
+tests/unit/test_extraction.R:24: trailing whitespace.
+[32m+[m[41m  [m
+tests/unit/test_extraction.R:38: trailing whitespace.
+[32m+[m[41m  [m
+tests/unit/test_extraction.R:41: trailing whitespace.
+[32m+[m[41m  [m
+tests/unit/test_extraction.R:47: trailing whitespace.
+[32m+[m[41m  [m
+tests/unit/test_extraction.R:53: trailing whitespace.
+[32m+[m[41m  [m
+tests/unit/test_extraction.R:59: trailing whitespace.
+[32m+[m[41m  [m
+tests/unit/test_extraction.R:67: trailing whitespace.
+[32m+[m[41m  [m
+tests/unit/test_extraction.R:78: trailing whitespace.
+[32m+[m[41m  [m
