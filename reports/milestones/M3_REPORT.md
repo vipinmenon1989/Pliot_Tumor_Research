@@ -103,3 +103,24 @@ Predicted doublets are significantly enriched in the high-feature population (me
 - **Global Figure Index**: [reports/FIGURE_INDEX.tsv](file://reports/FIGURE_INDEX.tsv) (fully updated with M3 figures).
 - **Milestone Progress Log**: [PROGRESS.md](file://PROGRESS.md) (M3 marked complete).
 - **Changelog**: [CHANGELOG.md](file://CHANGELOG.md) (M2 frozen, M3 recorded).
+
+---
+
+## 7. Dual QC Strategy Framework: Global vs Dataset-Specific
+
+To address the severe cell loss caused by the global QC strategy (Strategy A), we implemented a dataset-specific QC framework (Strategy B) in the workflow. Both strategies run side-by-side and can be evaluated downstream:
+
+* **Strategy A (Global QC)**: Enforces uniform thresholds (`min_features = 200`, `min_counts = 500`, `max_mt = 10%`, `max_ribo = 20%`). Saved on disk as `*_filtered.rds`.
+* **Strategy B (Dataset-Specific QC)**: Enforces tailored thresholds based on baseline technical distribution characteristics:
+  - `MPNST_1`: `min_features = 200`, `min_counts = 500`, `max_mt = 10%`, `max_ribo = 20%` (retains **91.3%** cells).
+  - `MPNST_2`: `min_features = 200`, `min_counts = 500`, `max_mt = 15%`, `max_ribo = 30%` (retains **80.7%** cells).
+  - `MPNST_3`: `min_features = 200`, `min_counts = 500`, `max_mt = 10%`, `max_ribo = 35%` (retains **79.8%** cells).
+  - `MPNST_4`: `min_features = 200`, `min_counts = 500`, `max_mt = 20%`, `max_ribo = 30%` (retains **88.0%** cells).
+  Saved on disk as `*_filtered_specific.rds`.
+
+> [!IMPORTANT]
+> The dataset-specific thresholds in Strategy B are implemented as an alternative workflow for evaluation and comparison. They should not automatically replace the global strategy without downstream validation during normalization, integration, clustering, and biological interpretation to ensure that no technical artifacts (e.g. dying cell clusters) are introduced.
+
+### Strategy Comparison Summary:
+A comprehensive comparative report has been generated at [QC_COMPARISON_REPORT.md](file://reports/QC_COMPARISON_REPORT.md). Comparison plots showing cell retention and distribution profiles can be browsed in [reports/qc_comparison/](file://reports/qc_comparison/).
+

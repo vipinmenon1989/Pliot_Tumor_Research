@@ -45,3 +45,10 @@ QC Filtering and Doublet Assessment
 * Cross-dataset comparison analysis and M3 milestone report
 * Updated FIGURE_INDEX.tsv
 * Updated Snakemake workflow and validation unit tests
+* Dataset-specific QC threshold framework (Strategy B) in addition to global Strategy A
+* Dynamic R script support for custom file suffixes to allow parallel runs
+* Threshold sensitivity simulations and grid intersection overlap plots (qc_optimization_review)
+* Quantitative comparative analysis of strategies (compare_qc_strategies)
+* Strategy comparison report (reports/QC_COMPARISON_REPORT.md)
+* Comprehensive validation tests for dataset-specific filtering (test_filtering_specific)
+* Fully consolidated global figure index (FIGURE_INDEX.tsv) indexing all 32 diagnostic plots

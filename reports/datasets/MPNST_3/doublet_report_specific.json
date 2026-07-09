@@ -1,0 +1,12 @@
+{
+  "dataset_id": "MPNST_3",
+  "method": "scDblFinder",
+  "version": "1.20.2",
+  "expected_doublet_rate": 0.075,
+  "runtime_seconds": 54.4362,
+  "total_cells": 3682,
+  "predicted_doublets": 327,
+  "retained_singlets": 3355,
+  "doublet_fraction": 0.0888,
+  "error": {}
+}

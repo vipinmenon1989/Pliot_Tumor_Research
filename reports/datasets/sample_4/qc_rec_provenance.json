@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-07-09T07:16:05-0400",
+  "timestamp": "2026-07-09T09:21:13-0400",
   "step": "QCRecommendationGeneration",
   "dataset": "sample_4",
-  "git_commit": "7bf25a45b4bf55a889e78a400aed7490183c3edf",
-  "git_status": " M config/config.test.yaml\n M config/config.yaml\n M reports/datasets/sample_4/QC_RECOMMENDATION.md\n D reports/datasets/sample_4/qc_rec_provenance.json\n M workflow/Snakefile\n?? \"et extraction and pre-filter QC\\\"\"\n?? scripts/R/filter_and_detect_doublets.R\n?? tests/unit/test_filtering.R",
+  "git_commit": "4e4c2aef7c9faf4a5adbcd0d0090f39d99737ac2",
+  "git_status": " M config/config.test.yaml\n M config/config.yaml\n D reports/datasets/sample_1/FILTER_REPORT.md\n D reports/datasets/sample_1/doublet_report.json\n D reports/datasets/sample_1/filtering_provenance.json\n D reports/datasets/sample_1/manifest_filtered.json\n D reports/datasets/sample_3/FILTER_REPORT.md\n D reports/datasets/sample_3/doublet_report.json\n D reports/datasets/sample_3/filtering_provenance.json\n D reports/datasets/sample_3/manifest_filtered.json\n M reports/datasets/sample_4/QC_RECOMMENDATION.md\n D reports/datasets/sample_4/qc_rec_provenance.json\n M scripts/R/filter_and_detect_doublets.R\n M workflow/Snakefile\n?? scripts/R/compare_qc_strategies.R\n?? tests/unit/test_filtering_specific.R",
   "inputs": {
     "dataset_rds": {
       "path": "results/datasets/sample_4/sample_4_raw.rds",
@@ -17,7 +17,7 @@
   "outputs": {
     "recommendation_md": {
       "path": "reports/datasets/sample_4/QC_RECOMMENDATION.md",
-      "checksum": "4f13893a70f029cf374cebe85d5d9fd3"
+      "checksum": "872636cba1df1cccdcea2f91b1d4de16"
     }
   },
   "parameters": {

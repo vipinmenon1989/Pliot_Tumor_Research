@@ -3,7 +3,7 @@
   "method": "scDblFinder",
   "version": "1.20.2",
   "expected_doublet_rate": 0.075,
-  "runtime_seconds": 39.083,
+  "runtime_seconds": 48.1672,
   "total_cells": 2830,
   "predicted_doublets": 226,
   "retained_singlets": 2604,

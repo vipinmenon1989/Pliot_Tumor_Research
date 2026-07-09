@@ -1,5 +1,5 @@
 # Milestone 3 QC and Doublet Filtering Report - MPNST_1
-*Generated on: 2026-07-09 07:32:26*
+*Generated on: 2026-07-09 09:31:00*
 
 ## 1. Observed Results
 
@@ -26,7 +26,7 @@
 - **Doublet Detection Method**: `scDblFinder` (Version: `1.20.2`)
 - **Configured Expected Doublet Rate**: `7.50%`
 - **Observed Predicted Doublet Rate**: `8.36%` (697 doublets / 8338 cells)
-- **Doublet Detection Runtime**: `57.05 seconds`
+- **Doublet Detection Runtime**: `71.06 seconds`
 
 ### High-Feature Doublet Enrichment Check
 
@@ -58,5 +58,5 @@ Since MPNST_1 lacks mitochondrial transcripts, downstream normalization (SCTrans
 
 - **Input Raw File**: `results/datasets/MPNST_1/MPNST_1_raw.rds`
 - **Input Checksum**: `f523e61322c585b16e632e800dc12bde`
-- **Git Commit Hash**: `7bf25a45b4bf55a889e78a400aed7490183c3edf`
+- **Git Commit Hash**: `4e4c2aef7c9faf4a5adbcd0d0090f39d99737ac2`
 - **Software versions**: R version 4.4.3 (2025-02-28), Seurat 5.1.0

@@ -24,6 +24,7 @@ out_doublet_json <- ""
 out_prov <- ""
 out_manifest <- ""
 out_plot_dir <- ""
+out_suffix <- ""
 snakemake_rule <- "filter_and_detect_doublets"
 
 min_features <- 200
@@ -87,6 +88,9 @@ while (i <= length(args)) {
     i <- i + 2
   } else if (args[i] == "--doublet-method") {
     doublet_method_pref <- args[i+1]
+    i <- i + 2
+  } else if (args[i] == "--out-suffix") {
+    out_suffix <- args[i+1]
     i <- i + 2
   } else {
     stop(sprintf("Unknown argument: %s", args[i]))
@@ -460,8 +464,8 @@ plot_saves <- list(
 fig_index_rows <- list()
 for (name in names(plot_saves)) {
   info <- plot_saves[[name]]
-  pdf_path <- file.path(out_plot_dir, sprintf("%s.pdf", name))
-  png_path <- file.path(out_plot_dir, sprintf("%s.png", name))
+  pdf_path <- file.path(out_plot_dir, sprintf("%s%s.pdf", name, out_suffix))
+  png_path <- file.path(out_plot_dir, sprintf("%s%s.png", name, out_suffix))
   
   log_info(sprintf("Saving plot to %s and %s...", pdf_path, png_path), dataset = dataset_id, stage = "qc_plots")
   ggsave(pdf_path, plot = info$plot, width = info$w, height = info$h, device = "pdf")
@@ -498,7 +502,7 @@ for (name in names(plot_saves)) {
 
 # Generate local figure index TSV
 fig_index_df <- do.call(rbind, lapply(fig_index_rows, as.data.frame))
-fig_index_tsv_path <- file.path(out_plot_dir, "figure_index_m3.tsv")
+fig_index_tsv_path <- file.path(out_plot_dir, sprintf("figure_index_m3%s.tsv", out_suffix))
 write.table(fig_index_df, fig_index_tsv_path, sep = "\t", row.names = FALSE, quote = FALSE)
 log_info(sprintf("Local figure index TSV saved to %s", fig_index_tsv_path), dataset = dataset_id, stage = "qc_plots")
 
@@ -513,7 +517,7 @@ stats_rows <- list(
   list(filter = "Combined Excluded", threshold = "All Filters", cells_removed = n_removed, percent_removed = (n_removed / total_cells) * 100)
 )
 stats_df <- do.call(rbind, lapply(stats_rows, as.data.frame))
-stats_tsv_path <- file.path(out_plot_dir, "filtering_statistics.tsv")
+stats_tsv_path <- file.path(out_plot_dir, sprintf("filtering_statistics%s.tsv", out_suffix))
 write.table(stats_df, stats_tsv_path, sep = "\t", row.names = FALSE, quote = FALSE)
 
 # Generate detailed post-filter QC metrics TSV
@@ -530,7 +534,7 @@ for (col in required_cols) {
   )
 }
 qc_stats_df <- do.call(rbind, qc_stats)
-qc_table_path <- file.path(out_plot_dir, "filtered_qc_metrics_summary.tsv")
+qc_table_path <- file.path(out_plot_dir, sprintf("filtered_qc_metrics_summary%s.tsv", out_suffix))
 write.table(qc_stats_df, qc_table_path, sep = "\t", row.names = FALSE, quote = FALSE)
 
 # Doublet enrichment analysis (Doublets vs Singlets feature check)

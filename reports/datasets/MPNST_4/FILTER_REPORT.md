@@ -1,5 +1,5 @@
 # Milestone 3 QC and Doublet Filtering Report - MPNST_4
-*Generated on: 2026-07-09 08:08:48*
+*Generated on: 2026-07-09 09:30:06*
 
 ## 1. Observed Results
 
@@ -26,7 +26,7 @@
 - **Doublet Detection Method**: `scDblFinder` (Version: `1.20.2`)
 - **Configured Expected Doublet Rate**: `7.50%`
 - **Observed Predicted Doublet Rate**: `9.18%` (717 doublets / 7811 cells)
-- **Doublet Detection Runtime**: `47.55 seconds`
+- **Doublet Detection Runtime**: `72.85 seconds`
 
 ### High-Feature Doublet Enrichment Check
 
@@ -58,5 +58,5 @@ The dataset behaves normally and standard SCTransform regression (e.g. regressin
 
 - **Input Raw File**: `results/datasets/MPNST_4/MPNST_4_raw.rds`
 - **Input Checksum**: `f32811cf69595dcab9c5f5067efccbaa`
-- **Git Commit Hash**: `7bf25a45b4bf55a889e78a400aed7490183c3edf`
+- **Git Commit Hash**: `4e4c2aef7c9faf4a5adbcd0d0090f39d99737ac2`
 - **Software versions**: R version 4.4.3 (2025-02-28), Seurat 5.1.0

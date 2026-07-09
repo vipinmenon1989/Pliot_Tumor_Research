@@ -85,25 +85,28 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 
 ### M3 — QC Filtering and Doublet Assessment
 - **Status**: Completed (2026-07-09)
-- **Codebase Update**: Developed `scripts/R/filter_and_detect_doublets.R` to run scDblFinder doublet detection and apply QC filters, generate publication-quality figures, write FILTER_REPORT.md, manifest_filtered.json, and filtering_statistics.tsv. Created unit test `tests/unit/test_filtering.R` to check filtering compliance.
-- **Workflow Integration**: Updated `workflow/Snakefile` with rules for filtering, doublet detection, and tests.
+- **Codebase Update**:
+  - Developed `scripts/R/filter_and_detect_doublets.R` to run scDblFinder doublet detection and apply QC filters, supporting a custom output suffix to enable dual-strategy evaluation.
+  - Developed `scripts/R/qc_optimization_review.R` to run threshold sensitivity simulations and grid intersection overlap plots.
+  - Developed `scripts/R/compare_qc_strategies.R` to quantitatively and visually compare global vs dataset-specific strategies.
+  - Created unit tests `tests/unit/test_filtering.R` and `tests/unit/test_filtering_specific.R` to check compliance for both strategies.
+- **Workflow Integration**: Updated `workflow/Snakefile` with rules for both Global (Strategy A) and Dataset-Specific (Strategy B) filtering, optimization review, comparison analysis, unit tests, and global figure index merging. Added wildcard constraints to prevent filename ambiguities.
 - **Synthetic Validation**: Successfully executed synthetic tests locally, verifying that all rules and tests run to completion and pass.
-- **SLURM Production Run**: Submitted the production run to SLURM (JobID `19161422`) on partition `ihc` node `ihc-grid-1-1-1`.
-- **HPC Execution Metrics**:
-  - State: COMPLETED (ExitCode 0:0)
-  - Elapsed: 00:03:24
-  - MaxRSS: 38676744K (~36.88 GB)
+- **SLURM Production Runs**:
+  - Global Run: Submitted to SLURM (JobID `19161422` on partition `ihc` node `ihc-grid-1-1-1`, COMPLETED, 3m 24s, MaxRSS 36.88 GB).
+  - Specific & Comparison Run: Submitted to SLURM (JobID `19161426` on partition `ihc` node `ihc-grid-1-1-1`, COMPLETED, 9m 40s, MaxRSS 63.67 GB).
 - **Key Scientific Findings**:
-  - Successfully filtered four datasets (`MPNST_1` to `MPNST_4`).
-  - Observed doublet rates range from 7.99% (`MPNST_2`) to 9.18% (`MPNST_4`).
-  - Doublets are significantly enriched in the high-feature population (accounting for up to 40% of top 10% highest gene-expressing cells), but the majority of high-feature cells are singlets, justifying our doublet-detector approach.
-  - Applying uniform QC thresholds (`max_percent_mt = 10%` and `max_percent_ribo = 20%`) caused massive cell depletion in `MPNST_2` (46.93% removed), `MPNST_3` (48.29% removed), and `MPNST_4` (56.75% removed) due to high baseline ribosomal and mitochondrial fractions in these batches.
+  - Flat global thresholds lead to a catastrophic cell loss of **46.9%** in `MPNST_2`, **48.3%** in `MPNST_3`, and **56.8%** in `MPNST_4`.
+  - Under proposed dataset-specific thresholds, cell retention increases to **80.7%** (`MPNST_2`), **79.8%** (`MPNST_3`), and **88.0%** (`MPNST_4`), avoiding artificial truncation of biological expression profiles (such as ribosomal and mitochondrial fractions naturally elevated in sarcomas) while successfully removing doublets (~8.0-9.2% of cells) and low-complexity cells.
 - **Artifacts Generated**:
-  - `results/datasets/MPNST_*/MPNST_*_filtered.rds` (Filtered Seurat objects)
-  - `reports/datasets/MPNST_*/FILTER_REPORT.md` (Dataset filter reports)
-  - `reports/datasets/MPNST_*/doublet_report.json` and `manifest_filtered.json`
-  - `reports/datasets/MPNST_*/` post-filter QC plots (violins, scatter, density, histograms, doublet summaries, filtering summaries)
-  - `reports/FIGURE_INDEX.tsv` (Merged figure index)
+  - `results/datasets/MPNST_*/MPNST_*_filtered.rds` & `MPNST_*_filtered_specific.rds` (Filtered Seurat objects for both strategies)
+  - `reports/datasets/MPNST_*/FILTER_REPORT.md` & `FILTER_REPORT_SPECIFIC.md` (Dataset filter reports)
+  - `reports/datasets/MPNST_*/manifest_filtered.json` & `manifest_filtered_specific.json`
+  - `reports/datasets/MPNST_*/` post-filter QC plots (violins, scatter, density, histograms, doublet summaries, filtering summaries for both strategies)
+  - `reports/qc_optimization/` plots and statistics (distribution comparisons, sensitivity curves, and grid intersection overlaps)
+  - `reports/qc_comparison/` plots and tables (retention barplot, mt/ribo violin comparison, composite distributions, and strategy comparison summaries)
+  - `reports/QC_OPTIMIZATION_REPORT.md` and `reports/QC_COMPARISON_REPORT.md`
+  - `reports/FIGURE_INDEX.tsv` (Authoritative merged index of all 32 generated figure paths)
   - `reports/milestones/M3_REPORT.md`
 
 
