@@ -12,7 +12,7 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 | **M3** | QC Filtering and Doublet Assessment | **Completed** | 2026-07-09 | 2026-07-09 |
 | **M4** | Normalization and Variable Features | **Completed** | 2026-07-09 | 2026-07-09 |
 | **M5** | PCA and PC Evaluation | **Completed** | 2026-07-10 | 2026-07-10 |
-| **M6** | Clustering Resolution Sweep | Not Started | - | - |
+| **M6** | Clustering Resolution Sweep | **Completed** | 2026-07-18 | 2026-07-18 |
 | **M7** | Marker Discovery and Dataset Recommendations | Not Started | - | - |
 | **M8** | Combined Pre-Integration Baseline | Not Started | - | - |
 | **M9** | Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze | Not Started | - | - |
@@ -163,5 +163,29 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
   - `reports/milestones/M5_REPORT.md` (Consolidated Milestone 5 report)
   - `reports/FIGURE_INDEX.tsv` (Updated global figure index with all 40 PCA plots)
 
-
-
+### M6 — Clustering Resolution Sweep
+- **Status**: Completed (2026-07-18)
+- **Codebase Update**:
+  - Developed `scripts/R/run_clustering_sweep.R` to run SNN graph construction using dataset-specific PCA recommendations, execute a Louvain clustering resolution sweep from 0.1 to 1.0, run subsampling stability bootstrapping (5 rounds of 80% cells) with cell-order-aligned ARI calculations, calculate linear regression $R^2$ of technical covariates (nCount_RNA, nFeature_RNA, percent.mt, percent.ribo) with handling for zero-variance covariates (like `percent.mt` in `MPNST_1`), select recommended resolutions using a biologically-relevant trade-off heuristic, and generate diagnostic plots (umap grid, recommended umap, metrics vs resolution, stability/R2 vs resolution, and clustering transition tree).
+  - Developed `scripts/python/generate_m6_report.py` to compile dataset sweep metrics into a consolidated cross-dataset recommendations summary.
+  - Created validation unit tests in `tests/unit/test_clustering.R` to verify clustered objects, coordinate embeddings, and stats.
+  - Created SLURM script `scripts/shell/run_m6_workflow.sh` to encapsulate HPC execution configurations.
+- **Workflow Integration**: Extended `workflow/Snakefile` with rules `run_clustering_sweep`, `test_clustering`, and `generate_m6_report`. Integrated into the figure index merging rule.
+- **SLURM Production Run**: Submitted workflow execution to SLURM (JobID `19399140`) on partition `ihc` node `ihc-grid-1-1-1`.
+- **HPC Execution Metrics**:
+  - State: COMPLETED (ExitCode 0:0)
+  - Elapsed: 00:07:58
+  - MaxRSS: 29593148K (~28.22 GB)
+- **Key Scientific Findings**:
+  - Graph construction and clustering sweep successfully executed using dataset-specific PCs.
+  - Subsampling stability checks identified optimal biologically-relevant recommended resolutions: `0.6` (MPNST_1, 18 clusters, stability ARI = 0.919), `0.3` (MPNST_2, 9 clusters, stability ARI = 0.933), `0.6` (MPNST_3, 13 clusters, stability ARI = 0.910), and `0.7` (MPNST_4, 14 clusters, stability ARI = 0.740).
+  - `MPNST_4` flagged key technical covariate correlation with mitochondrial percentage (`R2_percent_mt = 0.47` at recommended resolution 0.7), signifying potential MT bias that needs to be monitored in downstream analysis.
+- **Artifacts Generated**:
+  - `results/datasets/MPNST_*/MPNST_*_clustered.rds` (Clustered Seurat objects)
+  - `reports/datasets/MPNST_*/CLUSTERING_REPORT.md` (Dataset-specific clustering reports)
+  - `reports/datasets/MPNST_*/*.tsv` (Sweep stats, recommendation summaries, and stability metrics)
+  - `reports/datasets/MPNST_*/` diagnostic plots (umap grid, recommended umap, metrics vs resolution, stability/R2 vs resolution, and clustering transition tree in PDF and PNG)
+  - `reports/CLUSTERING_RECOMMENDATIONS.tsv` (Consolidated recommendations)
+  - `reports/CLUSTERING_SWEEP_SUMMARY.tsv` (Consolidated sweep summary)
+  - `reports/milestones/M6_REPORT.md` (Consolidated Milestone 6 report)
+  - `reports/FIGURE_INDEX.tsv` (Updated global figure index with all 20 clustering sweep plots)
