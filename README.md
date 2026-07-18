@@ -11,8 +11,8 @@ The primary objective of this project is to construct a modular, reproducible, c
 
 ## 2. Current Project Status
 - **Current Phase**: Phase 1 (Independent Dataset Processing)
-- **Status**: **Completed: Milestones M0–M5**
-- **Next Step**: **Milestone M6 — Clustering Resolution Sweep**
+- **Status**: **Completed: Milestones M0–M6**
+- **Next Step**: **Milestone M7 — Marker Discovery and Dataset Recommendations**
 
 > [!IMPORTANT]
 > **Strict Phase 1 Scope Constraint**:
@@ -35,9 +35,9 @@ M4 Normalization + variable features (SCTransform v2 variance stabilization & HV
     ↓
 M5 PCA + PC evaluation (Independent PCA & geometric elbow selection)
     ↓
-M6 Clustering resolution sweep (SNN graph construction & sweeps 0.1–1.0)  <-- [NEXT STEP]
+M6 Clustering resolution sweep (SNN graph construction & sweeps 0.1–1.0)
     ↓
-M7 Marker discovery + recommendations (Resolution-specific markers & selection)
+M7 Marker discovery + recommendations (Resolution-specific markers & selection)  <-- [NEXT STEP]
     ↓
 M8 Combined pre-integration baseline (Consolidated baseline & integration prep)
     ↓
@@ -71,7 +71,7 @@ Pilot_tumor/
 ├── tests/              # Verification unit tests
 │   └── unit/           # Script-specific unit tests run on synthetic data
 ├── reports/            # Markdown reports, TSV recommendations, & diagnostic figures
-│   ├── milestones/     # Consolidated reports for M0-M5
+│   ├── milestones/     # Consolidated reports for M0-M6
 │   ├── datasets/       # Dataset-specific QC and PCA reports/figures
 │   ├── qc_optimization/# QC threshold optimization sensitivity plots
 │   └── qc_comparison/  # Comparative analysis of QC strategies
@@ -149,23 +149,26 @@ To run the production workflow on real datasets:
 snakemake -n --configfile config/config.yaml
 
 # 2. Submit the workflow job to the SLURM partition 'ihc'
-sbatch scripts/shell/run_m5_workflow.sh
+sbatch scripts/shell/run_m6_workflow.sh
 ```
 
 ---
 
-## 8. Current Outputs (Through Milestone 5)
+## 8. Current Outputs (Through Milestone 6)
 
-Successful execution of Milestones M0–M5 yields the following major artifacts:
+Successful execution of Milestones M0–M6 yields the following major artifacts:
 
 - **Seurat RDS Objects** (stored in `results/datasets/{ds}/`):
   - `{ds}_raw.rds`: Raw extracted datasets split by `sample_id`.
   - `{ds}_filtered_specific.rds`: Filtered single-cell objects after scDblFinder doublet removal and dataset-specific QC thresholds.
   - `{ds}_normalized.rds`: SCTransform-normalized and variance-stabilized Seurat objects with 3,000 highly variable features.
   - `{ds}_pca.rds`: PCA-embedded Seurat objects computed on variable features.
+  - `{ds}_clustered.rds`: Clustered Seurat objects containing sweep resolution metadata and active identity set to the recommended resolution.
 - **Recommendations & Indexes** (stored in `reports/`):
   - [reports/PCA_RECOMMENDATIONS.tsv](file://reports/PCA_RECOMMENDATIONS.tsv): Machine-readable Recommended, Conservative, and Maximum PC counts for downstream clustering.
-  - [reports/FIGURE_INDEX.tsv](file://reports/FIGURE_INDEX.tsv): Consolidated index of all 40 diagnostic plots generated during QC, normalization, and PCA.
+  - [reports/CLUSTERING_RECOMMENDATIONS.tsv](file://reports/CLUSTERING_RECOMMENDATIONS.tsv): Machine-readable selected resolutions and alternative recommendations for each dataset.
+  - [reports/CLUSTERING_SWEEP_SUMMARY.tsv](file://reports/CLUSTERING_SWEEP_SUMMARY.tsv): Comprehensive metrics summary (cluster sizes, stability ARI, technical covariate correlation) across all resolution sweep values.
+  - [reports/FIGURE_INDEX.tsv](file://reports/FIGURE_INDEX.tsv): Consolidated index of all 60 diagnostic plots generated during QC, normalization, PCA, and clustering.
 - **Consolidated Milestone Reports** (stored in `reports/milestones/`):
   - [M0_REPORT.md](reports/milestones/M0_REPORT.md): Infrastructure, Environment, & SLURM Safety.
   - [M1_REPORT.md](reports/milestones/M1_REPORT.md): Real-Data Object & Layers Inventory.
@@ -173,6 +176,13 @@ Successful execution of Milestones M0–M5 yields the following major artifacts:
   - [M3_REPORT.md](reports/milestones/M3_REPORT.md): QC Filtering & doublet validation.
   - [M4_REPORT.md](reports/milestones/M4_REPORT.md): Normalization & HVF selection.
   - [M5_REPORT.md](reports/milestones/M5_REPORT.md): Principal Component Analysis & evaluation.
+  - [M6_REPORT.md](reports/milestones/M6_REPORT.md): Clustering Resolution Sweep & Selection.
+
+### Summary of Milestone 6 Recommendations
+- **MPNST_1**: Recommended resolution **0.6** resolving **18** clusters (Bootstrap Stability ARI: `0.919`, no technical concern).
+- **MPNST_2**: Recommended resolution **0.3** resolving **9** clusters (Bootstrap Stability ARI: `0.933`, no technical concern).
+- **MPNST_3**: Recommended resolution **0.6** resolving **13** clusters (Bootstrap Stability ARI: `0.910`, no technical concern).
+- **MPNST_4**: Recommended resolution **0.7** resolving **14** clusters (Bootstrap Stability ARI: `0.740`, technical concern: `MT_Bias` with percent.mt $R^2 = 0.47$).
 
 ---
 

@@ -105,3 +105,34 @@ Principal Component Analysis and Evaluation
   * Diagnostic figures: `pca_elbow.png`, `pca_cumulative_variance.png`, `pca_loadings.png`, `pca_heatmaps.png`, and `pca_correlations.png`.
 * **HPC execution**:
   * SLURM production job ID `19176730` completed with ExitCode 0:0, elapsed time 00:03:51, and MaxRSS ~10.88 GB.
+
+[M6]
+
+Clustering Resolution Sweep and Dataset-Specific Cluster Selection
+
+* **Added**:
+  * Configurable clustering resolution sweep rule running Louvain clustering (Algorithm 1) from resolution 0.1 to 1.0 in steps of 0.1 on independent SNN graphs.
+  * Graph construction using recommended PC dimensions inherited from Milestone 5: `PC1:8` (MPNST_1), `PC1:6` (MPNST_2), `PC1:9` (MPNST_3), and `PC1:5` (MPNST_4).
+  * Subsampling bootstrap stability analysis (5 rounds of 80% cells) using corrected cell-order alignment to calculate true Adjusted Rand Index (ARI) metrics.
+  * Robust technical covariate correlation check via linear model $R^2$, including safety checks to prevent `NaN` crashes on constant (zero-variance) covariates (e.g. `percent.mt` in `MPNST_1`).
+  * Trade-off recommendation heuristic targeting standard single-cell resolutions (0.3 to 0.8), filtering for min cluster size $\ge 5$ and stability ARI $\ge 0.60$, and optimizing for high stability and low technical covariate correlation.
+  * Multi-resolution UMAP grids, recommended resolution UMAP projection, sweep metric plots, stability/covariate correlation plots, and ggplot2 transition trees (dendrogram-like cluster splits) in PDF and PNG.
+  * Machine-readable recommendation files (`reports/CLUSTERING_RECOMMENDATIONS.tsv` and `reports/CLUSTERING_SWEEP_SUMMARY.tsv`).
+* **Changed**:
+  * Integrated Snakemake rules: `run_clustering_sweep`, `test_clustering`, and `generate_m6_report`.
+  * Updated global figure index (`reports/FIGURE_INDEX.tsv`) capturing all 20 newly generated clustering sweep figures.
+* **Scientific decisions**:
+  * Performed graph construction and clustering independently on each dataset to prevent technical integration artifacts.
+  * Adopted the Louvain algorithm as a robust modularity-maximization method due to the lack of Python's `leidenalg` in the R HPC environment.
+  * Recommended biologically-defensible, high-stability resolutions for downstream marker discovery: `0.6` (MPNST_1, 18 clusters, stability ARI = 0.919), `0.3` (MPNST_2, 9 clusters, stability ARI = 0.933), `0.6` (MPNST_3, 13 clusters, stability ARI = 0.910), and `0.7` (MPNST_4, 14 clusters, stability ARI = 0.740).
+  * Flagged a technical MT percentage covariate correlation bias ($R^2 = 0.47$) in `MPNST_4` at the recommended resolution of 0.7 for monitoring in downstream analyses.
+* **Validation**:
+  * Automated unit test suite `tests/unit/test_clustering.R` validating metadata columns, cell counts, coordinates, graphs, and reports.
+  * Added Snakemake verification rule `test_clustering` running on synthetic data.
+* **Outputs**:
+  * Seurat objects: `results/datasets/MPNST_*/MPNST_*_clustered.rds`.
+  * Reports: `reports/datasets/MPNST_*/CLUSTERING_REPORT.md` and consolidated `reports/milestones/M6_REPORT.md`.
+  * Tables: `reports/datasets/MPNST_*/clustering_sweep_stats.tsv`, `reports/datasets/MPNST_*/clustering_stability_metrics.tsv`, and `reports/datasets/MPNST_*/clustering_recommendation_summary.tsv`.
+  * Diagnostic figures: `pca_umap_grid.png`, `umap_recommended.png`, `clustering_metrics.png`, `clustering_stability.png`, and `clustering_tree.png`.
+* **HPC execution**:
+  * SLURM production job ID `19399140` completed with ExitCode 0:0, elapsed time 00:07:58, and MaxRSS ~28.22 GB.
