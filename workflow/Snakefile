@@ -56,6 +56,13 @@ rule all:
         "logs/workflow/test_pca.done",
         "reports/milestones/M5_REPORT.md",
         "reports/PCA_RECOMMENDATIONS.tsv",
+        # Milestone 6 Outputs (Clustering Resolution Sweep):
+        expand("results/datasets/{dataset_id}/{dataset_id}_clustered.rds", dataset_id=config["datasets"]),
+        expand("reports/datasets/{dataset_id}/CLUSTERING_REPORT.md", dataset_id=config["datasets"]),
+        "logs/workflow/test_clustering.done",
+        "reports/milestones/M6_REPORT.md",
+        "reports/CLUSTERING_RECOMMENDATIONS.tsv",
+        "reports/CLUSTERING_SWEEP_SUMMARY.tsv",
         # Final Figure Index:
         "reports/FIGURE_INDEX.tsv"
 
@@ -667,6 +674,7 @@ rule merge_figure_index:
         indices_m3_spec = expand("reports/datasets/{dataset_id}/figure_index_m3_specific.tsv", dataset_id=config["datasets"]),
         indices_m4 = expand("reports/datasets/{dataset_id}/figure_index_m4.tsv", dataset_id=config["datasets"]),
         indices_m5 = expand("reports/datasets/{dataset_id}/figure_index_m5.tsv", dataset_id=config["datasets"]),
+        indices_m6 = expand("reports/datasets/{dataset_id}/figure_index_m6.tsv", dataset_id=config["datasets"]),
         indices_opt = "reports/qc_optimization/figure_index_optimization.tsv",
         indices_comp = "reports/qc_comparison/figure_index_comparison.tsv"
     output:
@@ -674,7 +682,7 @@ rule merge_figure_index:
     log:
         log = "logs/workflow/merge_figure_index.log"
     run:
-        all_paths = list(input.indices_m2) + list(input.indices_m3) + list(input.indices_m3_spec) + list(input.indices_m4) + list(input.indices_m5) + [input.indices_opt, input.indices_comp]
+        all_paths = list(input.indices_m2) + list(input.indices_m3) + list(input.indices_m3_spec) + list(input.indices_m4) + list(input.indices_m5) + list(input.indices_m6) + [input.indices_opt, input.indices_comp]
         with open(output.merged, 'w') as out_f:
             header_written = False
             for path in all_paths:
@@ -785,5 +793,112 @@ rule generate_m5_report:
     shell:
         """
         python {input.script} {input.config} {output.report} {output.rec_tsv} {params.datasets} > {log.log} 2>&1
+        """
+
+# Rule to execute the independent dataset clustering sweeps
+rule run_clustering_sweep:
+    input:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_pca.rds",
+        script = "scripts/R/run_clustering_sweep.R",
+        recs = "reports/PCA_RECOMMENDATIONS.tsv",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    params:
+        resolutions = lambda wildcards: ",".join(map(str, config["clustering"]["resolutions"])),
+        random_seed = config["random_seed"],
+        algorithm = config["clustering"]["algorithm"],
+        k_param = config["clustering"]["k_param"],
+        n_resamples = config["clustering"]["n_resamples"],
+        subsample_prop = config["clustering"]["subsample_prop"]
+    output:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_clustered.rds",
+        prov = "results/datasets/{dataset_id}/clustering_provenance.json",
+        manifest = "reports/datasets/{dataset_id}/manifest_clustered.json",
+        sweep_stats = "reports/datasets/{dataset_id}/clustering_sweep_stats.tsv",
+        stability_metrics = "reports/datasets/{dataset_id}/clustering_stability_metrics.tsv",
+        rec_summary = "reports/datasets/{dataset_id}/clustering_recommendation_summary.tsv",
+        fig_idx_m6 = "reports/datasets/{dataset_id}/figure_index_m6.tsv",
+        umap_grid_pdf = "reports/datasets/{dataset_id}/pca_umap_grid.pdf",
+        umap_grid_png = "reports/datasets/{dataset_id}/pca_umap_grid.png",
+        umap_rec_pdf = "reports/datasets/{dataset_id}/umap_recommended.pdf",
+        umap_rec_png = "reports/datasets/{dataset_id}/umap_recommended.png",
+        metrics_pdf = "reports/datasets/{dataset_id}/clustering_metrics.pdf",
+        metrics_png = "reports/datasets/{dataset_id}/clustering_metrics.png",
+        stability_pdf = "reports/datasets/{dataset_id}/clustering_stability.pdf",
+        stability_png = "reports/datasets/{dataset_id}/clustering_stability.png",
+        tree_pdf = "reports/datasets/{dataset_id}/clustering_tree.pdf",
+        tree_png = "reports/datasets/{dataset_id}/clustering_tree.png"
+    log:
+        log = "logs/workflow/clustering_{dataset_id}.log"
+    benchmark:
+        "benchmarks/clustering_{dataset_id}.tsv"
+    resources:
+        cpus = 8,
+        mem_mb = 64000,
+        runtime = 120
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --out-rds {output.rds} \
+          --out-plot-dir reports/datasets/{wildcards.dataset_id} \
+          --resolutions {params.resolutions} \
+          --random-seed {params.random_seed} \
+          --algorithm {params.algorithm} \
+          --k-param {params.k_param} \
+          --n-resamples {params.n_resamples} \
+          --subsample-prop {params.subsample_prop} \
+          --pcs-recommendations-file {input.recs} > {log.log} 2>&1
+        """
+
+# Rule to run clustering validation unit tests
+rule test_clustering:
+    input:
+        script = "tests/unit/test_clustering.R",
+        rds = expand("results/datasets/{dataset_id}/{dataset_id}_clustered.rds", dataset_id=config["datasets"]),
+        prov = expand("results/datasets/{dataset_id}/clustering_provenance.json", dataset_id=config["datasets"]),
+        manifest = expand("reports/datasets/{dataset_id}/manifest_clustered.json", dataset_id=config["datasets"]),
+        sweep_stats = expand("reports/datasets/{dataset_id}/clustering_sweep_stats.tsv", dataset_id=config["datasets"]),
+        fig_idx_m6 = expand("reports/datasets/{dataset_id}/figure_index_m6.tsv", dataset_id=config["datasets"])
+    params:
+        datasets = " ".join(config["datasets"])
+    output:
+        done = "logs/workflow/test_clustering.done"
+    log:
+        log = "logs/workflow/test_clustering.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} --datasets "{params.datasets}" > {log.log} 2>&1 && touch {output.done}
+        """
+
+# Rule to generate the final Milestone 6 summary report, recommendations TSV, and sweep summary TSV
+rule generate_m6_report:
+    input:
+        script = "scripts/python/generate_m6_report.py",
+        config = "config/config.yaml",
+        test = "logs/workflow/test_clustering.done",
+        recs = expand("reports/datasets/{dataset_id}/clustering_recommendation_summary.tsv", dataset_id=config["datasets"]),
+        sweeps = expand("reports/datasets/{dataset_id}/clustering_sweep_stats.tsv", dataset_id=config["datasets"])
+    params:
+        datasets = config["datasets"]
+    output:
+        report = "reports/milestones/M6_REPORT.md",
+        rec_tsv = "reports/CLUSTERING_RECOMMENDATIONS.tsv",
+        sweep_tsv = "reports/CLUSTERING_SWEEP_SUMMARY.tsv",
+        ds_reports = expand("reports/datasets/{dataset_id}/CLUSTERING_REPORT.md", dataset_id=config["datasets"])
+    log:
+        log = "logs/workflow/generate_m6_report.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        python {input.script} {input.config} {output.report} {output.rec_tsv} {output.sweep_tsv} {params.datasets} > {log.log} 2>&1
         """
 

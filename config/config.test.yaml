@@ -75,6 +75,10 @@ pca:
 
 # Clustering Resolution Sweep
 clustering:
+  algorithm: 1
+  k_param: 15
+  n_resamples: 3
+  subsample_prop: 0.8
   resolutions:
     - 0.1
     - 0.3

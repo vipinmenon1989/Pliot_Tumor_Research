@@ -1,0 +1,23 @@
+{
+  "dataset_id": "MPNST_2",
+  "seurat_object": "results/datasets/MPNST_2/MPNST_2_clustered.rds",
+  "checksum": "c7bc47921ad29937fe9d83a5b8a236ea",
+  "figures": {
+    "umap_grid_png": "reports/datasets/MPNST_2/pca_umap_grid.png",
+    "umap_grid_pdf": "reports/datasets/MPNST_2/pca_umap_grid.pdf",
+    "umap_recommended_png": "reports/datasets/MPNST_2/umap_recommended.png",
+    "umap_recommended_pdf": "reports/datasets/MPNST_2/umap_recommended.pdf",
+    "metrics_png": "reports/datasets/MPNST_2/clustering_metrics.png",
+    "metrics_pdf": "reports/datasets/MPNST_2/clustering_metrics.pdf",
+    "stability_png": "reports/datasets/MPNST_2/clustering_stability.png",
+    "stability_pdf": "reports/datasets/MPNST_2/clustering_stability.pdf",
+    "tree_png": "reports/datasets/MPNST_2/clustering_tree.png",
+    "tree_pdf": "reports/datasets/MPNST_2/clustering_tree.pdf"
+  },
+  "tables": {
+    "sweep_stats": "reports/datasets/MPNST_2/clustering_sweep_stats.tsv",
+    "stability_metrics": "reports/datasets/MPNST_2/clustering_stability_metrics.tsv",
+    "recommendation": "reports/datasets/MPNST_2/clustering_recommendation_summary.tsv",
+    "figure_index": "reports/datasets/MPNST_2/figure_index_m6.tsv"
+  }
+}

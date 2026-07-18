@@ -1,0 +1,7 @@
+filter	threshold	cells_removed	percent_removed
+Min Features	< 200	0	0
+Min Counts	< 500	0	0
+Max MT %	> 10.0%	2343	29.9961592625784
+Max Ribo %	> 20.0%	1793	22.954807323006
+Doublet Detection	scDblFinder (rate=7.5%)	717	9.17936243758802
+Combined Excluded	All Filters	4433	56.7532966329535

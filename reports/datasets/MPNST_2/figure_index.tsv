@@ -1,0 +1,9 @@
+figure_path	dataset	processing_stage	analysis_method	parameters	input_object_checksum	generating_script	snakemake_rule	git_commit
+reports/datasets/MPNST_2/qc_violins.pdf	MPNST_2	pre-filter_QC	violins	w=10;h=8	cd15a88b7f70a6492a1f05c94725cd8c	scripts/R/generate_qc_plots.R	generate_qc_plots	472429e70d564c230ce08a2fb9d36e52ccadf0f0
+reports/datasets/MPNST_2/qc_violins.png	MPNST_2	pre-filter_QC	violins	w=10;h=8	cd15a88b7f70a6492a1f05c94725cd8c	scripts/R/generate_qc_plots.R	generate_qc_plots	472429e70d564c230ce08a2fb9d36e52ccadf0f0
+reports/datasets/MPNST_2/qc_scatter.pdf	MPNST_2	pre-filter_QC	scatter	w=7;h=6	cd15a88b7f70a6492a1f05c94725cd8c	scripts/R/generate_qc_plots.R	generate_qc_plots	472429e70d564c230ce08a2fb9d36e52ccadf0f0
+reports/datasets/MPNST_2/qc_scatter.png	MPNST_2	pre-filter_QC	scatter	w=7;h=6	cd15a88b7f70a6492a1f05c94725cd8c	scripts/R/generate_qc_plots.R	generate_qc_plots	472429e70d564c230ce08a2fb9d36e52ccadf0f0
+reports/datasets/MPNST_2/qc_histograms.pdf	MPNST_2	pre-filter_QC	histograms	w=10;h=8	cd15a88b7f70a6492a1f05c94725cd8c	scripts/R/generate_qc_plots.R	generate_qc_plots	472429e70d564c230ce08a2fb9d36e52ccadf0f0
+reports/datasets/MPNST_2/qc_histograms.png	MPNST_2	pre-filter_QC	histograms	w=10;h=8	cd15a88b7f70a6492a1f05c94725cd8c	scripts/R/generate_qc_plots.R	generate_qc_plots	472429e70d564c230ce08a2fb9d36e52ccadf0f0
+reports/datasets/MPNST_2/qc_metrics.pdf	MPNST_2	pre-filter_QC	metrics	w=7;h=6	cd15a88b7f70a6492a1f05c94725cd8c	scripts/R/generate_qc_plots.R	generate_qc_plots	472429e70d564c230ce08a2fb9d36e52ccadf0f0
+reports/datasets/MPNST_2/qc_metrics.png	MPNST_2	pre-filter_QC	metrics	w=7;h=6	cd15a88b7f70a6492a1f05c94725cd8c	scripts/R/generate_qc_plots.R	generate_qc_plots	472429e70d564c230ce08a2fb9d36e52ccadf0f0

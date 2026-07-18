@@ -78,6 +78,10 @@ pca:
 
 # Clustering Resolution Sweep
 clustering:
+  algorithm: 1 # Louvain (Algorithm 1)
+  k_param: 20
+  n_resamples: 5
+  subsample_prop: 0.8
   resolutions:
     - 0.1
     - 0.2
