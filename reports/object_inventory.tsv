@@ -1,0 +1,17 @@
+column	type	missing	cardinality	summary	meaning
+orig.ident	character	0	4	MPNST_1, MPNST_2, MPNST_3, MPNST_4	Initial sample identifier from library setup
+nCount_RNA	numeric	0	12933	1000, 10000, 10001, 10005, 10006, ... [Total: 12933]	Total RNA UMI count per cell (library depth)
+nFeature_RNA	integer	0	6289	1000, 1001, 1002, 1003, 1004, ... [Total: 6289]	Number of unique genes detected in RNA assay per cell
+sample_id	character	0	4	MPNST_1, MPNST_2, MPNST_3, MPNST_4	Consistent sample metadata identifier
+percent.mt	numeric	0	14130	0, 0.020967877212111, 0.0414276209247147, 0.0502260170768458, 0.0687156421789105, ... [Total: 14130]	Mitochondrial transcript percentage (quality control metric)
+orig.anno	character	0	16	B cells, CD4 T cells, CD56 NK cells, CD8 T cells, Cycling tumor cells, ... [Total: 16]	Legacy cell-type annotations from original analysis
+unintegrated_clusters	factor	0	16	0, 1, 10, 11, 12, ... [Total: 16]	Legacy cluster assignments
+seurat_clusters	factor	0	12	0, 1, 10, 11, 2, ... [Total: 12]	Legacy cluster assignments
+pca100_harmony_clusters	factor	0	16	0, 1, 10, 11, 12, ... [Total: 16]	Legacy cluster assignments
+pca100_cca_clusters	factor	0	10	1, 10, 2, 3, 4, 5, 6, 7, 8, 9	Legacy cluster assignments
+pca100_mnn_clusters	factor	0	13	0, 1, 10, 11, 12, ... [Total: 13]	Legacy cluster assignments
+pca100_rpca_clusters	factor	0	17	0, 1, 10, 11, 12, ... [Total: 17]	Legacy cluster assignments
+nCount_SCT	numeric	0	5887	2066, 2439, 2636, 2655, 2663, ... [Total: 5887]	Total SCTransformed UMI count per cell
+nFeature_SCT	integer	0	4173	1000, 1001, 1002, 1003, 1004, ... [Total: 4173]	Number of unique genes detected in SCT assay per cell
+pca100.sct_harmony_clusters	factor	0	13	0, 1, 10, 11, 12, ... [Total: 13]	Legacy cluster assignments
+pca100.sct_cca_clusters	factor	0	12	0, 1, 10, 11, 2, ... [Total: 12]	Legacy cluster assignments

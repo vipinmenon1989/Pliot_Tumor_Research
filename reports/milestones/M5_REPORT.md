@@ -133,7 +133,7 @@ Detailed visualizations and full loading gene lists are documented in the [datas
 - PC selection via geometric elbow detection provides a mathematically objective criterion that avoids heuristic, investigator-dependent bias. It identifies a clear boundary between coherent cell-type/state co-expression modules and stochastic technical noise.
 
 ### Recommendations for Clustering (Milestone 6)
-1. **Neighbor Graph Dimension**: We recommend running SNN construction (Milestone 6) using the **Recommended PC range** for each dataset (e.g., 1-14 for `MPNST_1`, 1-16 for `MPNST_2`, etc.). This maximizes the preservation of fine-grained biological subclusters while excluding random background noise.
+1. **Neighbor Graph Dimension**: We recommend running SNN construction (Milestone 6) using the **Recommended PC range** for each dataset (e.g., 1-8 for `MPNST_1`, 1-6 for `MPNST_2`, 1-9 for `MPNST_3`, and 1-5 for `MPNST_4`). This maximizes the preservation of fine-grained biological subclusters while excluding random background noise.
 2. **Clustering Sweep**: SNN clustering sweeps should be executed across resolutions 0.1 through 1.0 using these recommended PC limits.
 3. **Downstream Verification**: During Milestone 7, the biological relevance of clusters generated at different resolutions and PC configurations should be cross-validated against the key PC loadings (e.g. marker expression).
 
@@ -152,5 +152,5 @@ All figures generated in Milestone 5 are registered in [reports/FIGURE_INDEX.tsv
 
 ## 6. Verification and Provenance
 - **Verification Status**: All M5 outputs have been validated against structural unit tests.
-- **Git Commit Hash**: `m5_exec_commit_429474` (Temporary; will be updated post-commit)
+- **Git Commit Hash**: `9d29c2fe13b45e2300ad895a220755038563d028` (Milestone 4 & 5 Scientific Execution)
 

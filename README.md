@@ -2,98 +2,183 @@
 
 Reproducible, configuration-driven single-cell RNA-seq preprocessing and dataset auditing workflow for MPNST datasets.
 
+---
+
 ## 1. Project Purpose & Scientific Objective
-The primary objective of this project is to build a modular, reproducible, configuration-driven, and HPC-ready Phase 1 workflow to preprocess and analyze constituent datasets independently before any batch correction or integration is performed.
+The primary objective of this project is to construct a modular, reproducible, configuration-driven, and HPC-ready Phase 1 workflow to preprocess and analyze constituent MPNST (malignant peripheral nerve sheath tumor) datasets independently. Crucially, all datasets are processed and evaluated in isolation before any batch correction or multi-dataset integration is performed. This prevents technical confounders from distorting early-stage QC and dimensionality reduction.
 
-## 2. Phase 1 Scope & Strict Prohibitions
-Phase 1 covers:
-- Dataset auditing, quality control (QC) filtering, doublet assessment, normalization, variable feature selection, PCA, clustering sweeps (0.1–1.0), marker gene discovery, and pre-integration diagnostics.
-- **Strict Prohibitions**: Integration methods (Harmony, Seurat CCA/RPCA, FastMNN, scVI, BBKNN, etc.), automated cell-type annotation, condition-level differential expression, pathway analysis, trajectory analysis, cell-cell communication, and predictive modeling are strictly prohibited in Phase 1.
+---
 
-## 3. Repository Structure
+## 2. Current Project Status
+- **Current Phase**: Phase 1 (Independent Dataset Processing)
+- **Status**: **Completed: Milestones M0–M5**
+- **Next Step**: **Milestone M6 — Clustering Resolution Sweep**
+
+> [!IMPORTANT]
+> **Strict Phase 1 Scope Constraint**:
+> This workflow strictly limits processing to independent dataset analysis. Downstream operations such as integration methods (Harmony, Seurat CCA/RPCA, FastMNN, scVI, BBKNN, etc.), automated cell-type annotation, condition-level differential expression, pathway analysis, trajectory analysis, cell-cell communication, and predictive modeling are strictly prohibited in Phase 1.
+
+---
+
+## 3. Workflow Overview
+
+```text
+M0 Infrastructure (Environment, synthetic data generation, SLURM verification)
+    ↓
+M1 Real-data audit (Authoritative object structure and inventory checks)
+    ↓
+M2 Dataset extraction + pre-filter QC (Deterministic extraction & diagnostic plotting)
+    ↓
+M3 QC filtering + doublet assessment (Doublet detection & dataset-specific thresholds)
+    ↓
+M4 Normalization + variable features (SCTransform v2 variance stabilization & HVF selection)
+    ↓
+M5 PCA + PC evaluation (Independent PCA & geometric elbow selection)
+    ↓
+M6 Clustering resolution sweep (SNN graph construction & sweeps 0.1–1.0)  <-- [NEXT STEP]
+    ↓
+M7 Marker discovery + recommendations (Resolution-specific markers & selection)
+    ↓
+M8 Combined pre-integration baseline (Consolidated baseline & integration prep)
+    ↓
+M9 Workflow hardening + CI/CD + Phase 1 freeze
+```
+
+---
+
+## 4. Repository Structure
+
+The repository is organized into distinct directories to support reproducible execution and auditing:
+
 ```text
 Pilot_tumor/
 ├── PROJECT.md          # Authoritative project specification
 ├── PROGRESS.md         # Milestone execution status tracking
+├── CHANGELOG.md        # Technical changes & scientific decisions log
 ├── README.md           # This project overview and documentation
 ├── .gitignore          # File exclusions for Git tracking
 ├── config/             # YAML configurations and JSON schemas
-├── workflow/           # Snakemake workflows, environments, profiles
+│   ├── config.yaml     # Production real-data configurations
+│   ├── config.test.yaml# Synthetic test configuration
+│   └── schemas/        # Schema files validating config structures
+├── workflow/           # Snakemake orchestrations
+│   ├── Snakefile       # Core Snakemake execution file
+│   └── envs/           # Conda environment specifications
 ├── scripts/            # Modular R, Python, and Shell helper scripts
-├── tests/              # Smoke and unit tests
-├── data/               # Input data (ignored by Git, except synthetic)
-├── results/            # Outputs (ignored by Git)
-├── reports/            # Markdown reports and audits
-└── logs/               # Log output directories
+│   ├── R/              # Core Seurat/R data processing scripts
+│   ├── python/         # Python summary report generation scripts
+│   └── shell/          # HPC execution and milestone verification scripts
+├── tests/              # Verification unit tests
+│   └── unit/           # Script-specific unit tests run on synthetic data
+├── reports/            # Markdown reports, TSV recommendations, & diagnostic figures
+│   ├── milestones/     # Consolidated reports for M0-M5
+│   ├── datasets/       # Dataset-specific QC and PCA reports/figures
+│   ├── qc_optimization/# QC threshold optimization sensitivity plots
+│   └── qc_comparison/  # Comparative analysis of QC strategies
+├── results/            # Computed Seurat RDS objects (Git-ignored)
+└── logs/               # Run logs and SLURM outputs (Git-ignored)
 ```
 
-## 4. Environment & Execution
+---
 
-### Conda Environment
-- Required environment: `R_env`
-- Sourced from: `/local/projects-t3/lilab/vmenon/anaconda3/etc/profile.d/conda.sh`
-- Active env location: `/local/projects-t3/lilab/vmenon/anaconda3/envs/R_env`
-- Snakemake version: `9.23.1` (installed directly into `R_env` without modifying critical packages)
+## 5. Reproducibility Framework
 
-### Activating the Environment
+This repository enforces strict reproducibility across all milestones via:
+1. **Snakemake Orchestration**: The workflow is fully managed by Snakemake, defining clear rule-level dependencies, inputs, outputs, and compute resource limits.
+2. **Conda Environments**: R/Python package dependencies are locked using environment specifications.
+3. **Synthetic Testing**: Synthetic data is used to validate workflow changes without executing expensive real-data jobs.
+4. **SLURM Integration**: Jobs are configured with specific resource envelopes (CPUs, Memory, Runtime) and executed via SLURM on HPC clusters.
+5. **Provenance Tracking**: Execution runs generate JSON provenance logs recording file checksums, R session metadata, and runtime parameters.
+6. **Milestone Tracking**: Comprehensive milestone logs in `PROGRESS.md` and `CHANGELOG.md` track the historical evolution of scientific and technical decisions.
+
+---
+
+## 6. Environment Setup
+
+Depending on the environment, the R and Snakemake runtime can be initialized as follows:
+
+### Developer/HPC Environment (Pre-configured)
+In the primary HPC system, a pre-compiled environment is loaded using the following commands:
 ```bash
+# Source Conda profile
 source /local/projects-t3/lilab/vmenon/anaconda3/etc/profile.d/conda.sh
+
+# Activate the pre-configured environment
 conda activate R_env
 ```
 
-### Running the Synthetic Workflow Locally
+### Portable User Installation (New Environments)
+For users running this workflow on a new system or node, the environment can be constructed using the provided portable YAML configuration:
 ```bash
-snakemake --cores 1 --configfile config/config.test.yaml
+# Create the conda environment from the portable specification
+conda env create -f workflow/envs/R_env_portable.yaml -n R_env
+
+# Activate the new environment
+conda activate R_env
 ```
 
-### Running a Snakemake Dry-Run
+---
+
+## 7. Running the Workflow
+
+> [!CAUTION]
+> **Real-Data Compute Safety Constraint**:
+> Never load, deserialize, inspect, subset, or analyze the real raw/processed data (`processed_mpnst.rds` or objects in `results/`) on a login node.
+> All production calculations must run inside a SLURM job allocation.
+
+### Environment & Safety Verification
+Run the verification script to confirm repository sanity, clean whitespaces, check paths, and ensure no direct login node RDS reads:
 ```bash
+./scripts/shell/verify_milestone.sh
+```
+
+### Synthetic/Test Configuration
+Verify the Snakemake setup and execute a smoke test run using the synthetic dataset:
+```bash
+# 1. Perform a dry-run to verify rule dependencies
 snakemake -n --configfile config/config.test.yaml
+
+# 2. Execute the synthetic workflow locally
+snakemake --cores 4 --configfile config/config.test.yaml
+```
+
+### Real-Data Workflow Execution
+To run the production workflow on real datasets:
+```bash
+# 1. Perform a production dry-run
+snakemake -n --configfile config/config.yaml
+
+# 2. Submit the workflow job to the SLURM partition 'ihc'
+sbatch scripts/shell/run_m5_workflow.sh
 ```
 
 ---
 
-## 5. Real-Data Compute Safety Rules
+## 8. Current Outputs (Through Milestone 5)
 
-> [!IMPORTANT]
-> **Strict Safety Constraint**: Never load, deserialize, inspect, subset, or analyze `processed_mpnst.rds` directly on the login node.
-> Any command loading the real RDS dataset must run inside a SLURM allocation. Real-data computation must be submitted via `sbatch`.
+Successful execution of Milestones M0–M5 yields the following major artifacts:
 
-### SLURM Configuration
-- **Account**: `ihc`
-- **Partition**: `ihc`
-- **Preferred Node**: `ihc-grid-1-1-1`
-- **Maximum Resource Envelope**: 32 CPUs, 450GB RAM, 72 hours walltime
-
----
-
-## 6. Milestone Model & Roles
-- **Execution Model**: Incremental development with mandatory STOP gates at each milestone boundary. Progression requires explicit researcher approval.
-- **Roles**:
-  - **Antigravity**: Primary implementation agent.
-  - **Cursor**: Independent audit agent.
-
-### Current Project Status
-- **Milestone 0**: Completed / Frozen.
-- **Milestone 1**: Completed / Frozen.
-- **Milestone 2**: Completed / Frozen.
-- **Milestone 3**: Completed (Awaiting researcher approval).
+- **Seurat RDS Objects** (stored in `results/datasets/{ds}/`):
+  - `{ds}_raw.rds`: Raw extracted datasets split by `sample_id`.
+  - `{ds}_filtered_specific.rds`: Filtered single-cell objects after scDblFinder doublet removal and dataset-specific QC thresholds.
+  - `{ds}_normalized.rds`: SCTransform-normalized and variance-stabilized Seurat objects with 3,000 highly variable features.
+  - `{ds}_pca.rds`: PCA-embedded Seurat objects computed on variable features.
+- **Recommendations & Indexes** (stored in `reports/`):
+  - [reports/PCA_RECOMMENDATIONS.tsv](file://reports/PCA_RECOMMENDATIONS.tsv): Machine-readable Recommended, Conservative, and Maximum PC counts for downstream clustering.
+  - [reports/FIGURE_INDEX.tsv](file://reports/FIGURE_INDEX.tsv): Consolidated index of all 40 diagnostic plots generated during QC, normalization, and PCA.
+- **Consolidated Milestone Reports** (stored in `reports/milestones/`):
+  - [M0_REPORT.md](reports/milestones/M0_REPORT.md): Infrastructure, Environment, & SLURM Safety.
+  - [M1_REPORT.md](reports/milestones/M1_REPORT.md): Real-Data Object & Layers Inventory.
+  - [M2_REPORT.md](reports/milestones/M2_REPORT.md): Extraction & Pre-Filter metrics.
+  - [M3_REPORT.md](reports/milestones/M3_REPORT.md): QC Filtering & doublet validation.
+  - [M4_REPORT.md](reports/milestones/M4_REPORT.md): Normalization & HVF selection.
+  - [M5_REPORT.md](reports/milestones/M5_REPORT.md): Principal Component Analysis & evaluation.
 
 ---
 
-## 7. Reference Documentation
+## 9. Reference Documentation
+For detailed progress, requirements, and historical records:
 - [PROJECT.md](PROJECT.md) - Authoritative project specification.
 - [PROGRESS.md](PROGRESS.md) - Project milestone history and log.
-- [M0_REPORT.md](reports/milestones/M0_REPORT.md) - Detailed Milestone 0 report.
-- [M1_REPORT.md](reports/milestones/M1_REPORT.md) - Detailed Milestone 1 report.
-- [M2_REPORT.md](reports/milestones/M2_REPORT.md) - Detailed Milestone 2 report.
-- [M3_REPORT.md](reports/milestones/M3_REPORT.md) - Detailed Milestone 3 report.
-
----
-
-## 8. Reproducibility
-- **Environment Snapshots**: Pre- and post-installation environments are stored in `workflow/envs/`.
-- **Portable Specification**: [R_env_portable.yaml](workflow/envs/R_env_portable.yaml) represents the machine-agnostic environment configuration.
-- **Synthetic Tests**: Exercises production workflows using a clean generated Seurat dataset.
-- **Logging & Provenance**: Standardized structured logs and MD5 checksum tracking for data lineage.
-- **Milestone History**: Git commits track clean boundaries for audit validation.
+- [CHANGELOG.md](CHANGELOG.md) - Technical changes & decisions log.
+- [reports/milestones/](reports/milestones/) - Directory containing all milestone reports.

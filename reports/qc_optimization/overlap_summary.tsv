@@ -1,0 +1,5 @@
+dataset	total_raw	retained	total_excluded	only_features	only_counts	only_mt	only_ribo	only_doublet	multiple
+MPNST_1	8338	7615	723	0	0	0	26	697	0
+MPNST_2	2830	1516	1314	0	0	320	626	188	180
+MPNST_3	3682	1918	1764	0	0	162	1250	236	116
+MPNST_4	7811	3390	4421	0	0	1975	1502	526	418

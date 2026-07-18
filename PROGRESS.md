@@ -32,7 +32,7 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 - **Git Commits**:
   - Initial M0 Implementation Commit: f6da0c537dc618925b6fed673a249e2601599d89
   - Documentation Commit: e1ab6d11c4234c498728db47c5b0e7962c6d5a94
-  - M0 Cleanup and README Documentation Commit: [PENDING_README_HASH]
+  - M0 Cleanup and README Documentation Commit: 89ca4ea3aacae9d5a5da60f73c1a8e358fec7ae3
 
 ### M1 — Real-Data Audit
 - **Status**: Completed & Extended to Complete Scientific Inventory (2026-07-07)

@@ -1,0 +1,5 @@
+dataset	total_cells	global_retained	global_percent	global_thresholds	global_runtime_sec	specific_retained	specific_percent	specific_thresholds	specific_runtime_sec
+MPNST_1	8338	7615	91.3288558407292	MT <= 10.0%, Ribo <= 20.0%	332.24	7615	91.3288558407292	MT > 10.0%, Ribo > 20.0%	321.24
+MPNST_2	2830	1502	53.0742049469965	MT <= 10.0%, Ribo <= 20.0%	132.29	2284	80.7067137809187	MT > 15.0%, Ribo > 30.0%	152.88
+MPNST_3	3682	1904	51.7110266159696	MT <= 10.0%, Ribo <= 20.0%	176.26	2940	79.8479087452472	MT > 10.0%, Ribo > 35.0%	165.62
+MPNST_4	7811	3378	43.2467033670465	MT <= 10.0%, Ribo <= 20.0%	230.67	6877	88.0425041607989	MT > 20.0%, Ribo > 30.0%	301.99

@@ -16,4 +16,12 @@ benchmarks/
 *.tsv
 *.csv
 *.json
+
+# Allow reports directory contents to be tracked where appropriate
 !reports/**/*.json
+!reports/**/*.tsv
+!reports/**/*.csv
+
+# Explicitly ignore synthetic sample artifacts
+reports/datasets/sample_*/
+reports/qc_optimization/overlap_sample_*
