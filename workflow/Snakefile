@@ -45,6 +45,17 @@ rule all:
         "logs/workflow/test_optimization.done",
         # Comparative Analysis:
         "reports/QC_COMPARISON_REPORT.md",
+        # Milestone 4 Outputs (Normalization and Variable Features):
+        expand("results/datasets/{dataset_id}/{dataset_id}_normalized.rds", dataset_id=config["datasets"]),
+        expand("reports/datasets/{dataset_id}/NORM_REPORT.md", dataset_id=config["datasets"]),
+        "logs/workflow/test_normalization.done",
+        "reports/milestones/M4_REPORT.md",
+        # Milestone 5 Outputs (PCA and PC Evaluation):
+        expand("results/datasets/{dataset_id}/{dataset_id}_pca.rds", dataset_id=config["datasets"]),
+        expand("reports/datasets/{dataset_id}/PCA_REPORT.md", dataset_id=config["datasets"]),
+        "logs/workflow/test_pca.done",
+        "reports/milestones/M5_REPORT.md",
+        "reports/PCA_RECOMMENDATIONS.tsv",
         # Final Figure Index:
         "reports/FIGURE_INDEX.tsv"
 
@@ -561,12 +572,101 @@ rule compare_qc_strategies:
           --out-dir reports/qc_comparison > {log.log} 2>&1
         """
 
+# Rule to perform normalization and highly variable feature selection
+rule normalize_and_find_features:
+    input:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_filtered_specific.rds",
+        script = "scripts/R/normalize_and_find_features.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_normalized.rds",
+        report = "reports/datasets/{dataset_id}/NORM_REPORT.md",
+        prov = "results/datasets/{dataset_id}/normalization_provenance.json",
+        hvf_table = "reports/datasets/{dataset_id}/variable_features.tsv",
+        scatter_pdf = "reports/datasets/{dataset_id}/var_features_scatter.pdf",
+        scatter_png = "reports/datasets/{dataset_id}/var_features_scatter.png",
+        dist_pdf = "reports/datasets/{dataset_id}/var_features_distribution.pdf",
+        dist_png = "reports/datasets/{dataset_id}/var_features_distribution.png",
+        violins_pdf = "reports/datasets/{dataset_id}/top_features_violins.pdf",
+        violins_png = "reports/datasets/{dataset_id}/top_features_violins.png",
+        fig_index = "reports/datasets/{dataset_id}/figure_index_m4.tsv"
+    log:
+        log = "logs/workflow/normalization_{dataset_id}.log"
+    benchmark:
+        "benchmarks/normalization_{dataset_id}.tsv"
+    resources:
+        cpus = 8,
+        mem_mb = 64000,
+        runtime = 120
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --method {config[normalization][method]} \
+          --n-features {config[normalization][n_features]} \
+          --out-rds {output.rds} \
+          --out-report {output.report} \
+          --out-prov {output.prov} \
+          --out-plot-dir reports/datasets/{wildcards.dataset_id} \
+          --rule normalize_and_find_features \
+          --random-seed {config[random_seed]} > {log.log} 2>&1
+        """
+
+# Rule to validate normalization and variable feature outputs
+rule test_normalization:
+    input:
+        script = "tests/unit/test_normalization.R",
+        rds = expand("results/datasets/{dataset_id}/{dataset_id}_normalized.rds", dataset_id=config["datasets"]),
+        report = expand("reports/datasets/{dataset_id}/NORM_REPORT.md", dataset_id=config["datasets"]),
+        prov = expand("results/datasets/{dataset_id}/normalization_provenance.json", dataset_id=config["datasets"]),
+        hvf_table = expand("reports/datasets/{dataset_id}/variable_features.tsv", dataset_id=config["datasets"]),
+        fig_index = expand("reports/datasets/{dataset_id}/figure_index_m4.tsv", dataset_id=config["datasets"])
+    output:
+        done = "logs/workflow/test_normalization.done"
+    log:
+        log = "logs/workflow/test_normalization.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} > {log.log} 2>&1 && touch {output.done}
+        """
+
+# Rule to generate the final Milestone 4 summary report
+rule generate_m4_report:
+    input:
+        script = "scripts/python/generate_m4_report.py",
+        config = "config/config.yaml",
+        reports = expand("reports/datasets/{dataset_id}/NORM_REPORT.md", dataset_id=config["datasets"]),
+        hvf_tables = expand("reports/datasets/{dataset_id}/variable_features.tsv", dataset_id=config["datasets"]),
+        test = "logs/workflow/test_normalization.done"
+    params:
+        datasets = config["datasets"]
+    output:
+        report = "reports/milestones/M4_REPORT.md"
+    log:
+        log = "logs/workflow/generate_m4_report.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        python {input.script} {input.config} {output.report} {params.datasets} > {log.log} 2>&1
+        """
+
 # Rule to merge local figure indices into a single reports/FIGURE_INDEX.tsv
 rule merge_figure_index:
     input:
         indices_m2 = expand("reports/datasets/{dataset_id}/figure_index.tsv", dataset_id=config["datasets"]),
         indices_m3 = expand("reports/datasets/{dataset_id}/figure_index_m3.tsv", dataset_id=config["datasets"]),
         indices_m3_spec = expand("reports/datasets/{dataset_id}/figure_index_m3_specific.tsv", dataset_id=config["datasets"]),
+        indices_m4 = expand("reports/datasets/{dataset_id}/figure_index_m4.tsv", dataset_id=config["datasets"]),
+        indices_m5 = expand("reports/datasets/{dataset_id}/figure_index_m5.tsv", dataset_id=config["datasets"]),
         indices_opt = "reports/qc_optimization/figure_index_optimization.tsv",
         indices_comp = "reports/qc_comparison/figure_index_comparison.tsv"
     output:
@@ -574,7 +674,7 @@ rule merge_figure_index:
     log:
         log = "logs/workflow/merge_figure_index.log"
     run:
-        all_paths = list(input.indices_m2) + list(input.indices_m3) + list(input.indices_m3_spec) + [input.indices_opt, input.indices_comp]
+        all_paths = list(input.indices_m2) + list(input.indices_m3) + list(input.indices_m3_spec) + list(input.indices_m4) + list(input.indices_m5) + [input.indices_opt, input.indices_comp]
         with open(output.merged, 'w') as out_f:
             header_written = False
             for path in all_paths:
@@ -589,3 +689,101 @@ rule merge_figure_index:
                         header_written = True
                     for line in lines[1:]:
                         out_f.write(line)
+
+# Rule to perform PCA and principal component evaluation per dataset
+rule run_pca_and_evaluation:
+    input:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_normalized.rds",
+        script = "scripts/R/run_pca_and_evaluation.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_pca.rds",
+        report = "reports/datasets/{dataset_id}/PCA_REPORT.md",
+        prov = "results/datasets/{dataset_id}/pca_provenance.json",
+        top_genes = "reports/datasets/{dataset_id}/top_loading_genes.tsv",
+        correlations = "reports/datasets/{dataset_id}/pc_technical_correlations.tsv",
+        var_explained = "reports/datasets/{dataset_id}/pca_variance_explained.tsv",
+        fig_index = "reports/datasets/{dataset_id}/figure_index_m5.tsv",
+        elbow_pdf = "reports/datasets/{dataset_id}/pca_elbow.pdf",
+        elbow_png = "reports/datasets/{dataset_id}/pca_elbow.png",
+        cum_pdf = "reports/datasets/{dataset_id}/pca_cumulative_variance.pdf",
+        cum_png = "reports/datasets/{dataset_id}/pca_cumulative_variance.png",
+        loadings_pdf = "reports/datasets/{dataset_id}/pca_loadings.pdf",
+        loadings_png = "reports/datasets/{dataset_id}/pca_loadings.png",
+        heatmaps_pdf = "reports/datasets/{dataset_id}/pca_heatmaps.pdf",
+        heatmaps_png = "reports/datasets/{dataset_id}/pca_heatmaps.png",
+        correlations_pdf = "reports/datasets/{dataset_id}/pca_correlations.pdf",
+        correlations_png = "reports/datasets/{dataset_id}/pca_correlations.png"
+    log:
+        log = "logs/workflow/pca_{dataset_id}.log"
+    benchmark:
+        "benchmarks/pca_{dataset_id}.tsv"
+    resources:
+        cpus = 8,
+        mem_mb = 64000,
+        runtime = 120
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --npcs {config[pca][npcs]} \
+          --out-rds {output.rds} \
+          --out-report {output.report} \
+          --out-prov {output.prov} \
+          --out-plot-dir reports/datasets/{wildcards.dataset_id} \
+          --rule run_pca_and_evaluation \
+          --random-seed {config[random_seed]} > {log.log} 2>&1
+        """
+
+# Rule to run PCA and evaluation unit tests
+rule test_pca:
+    input:
+        script = "tests/unit/test_pca.R",
+        rds = expand("results/datasets/{dataset_id}/{dataset_id}_pca.rds", dataset_id=config["datasets"]),
+        report = expand("reports/datasets/{dataset_id}/PCA_REPORT.md", dataset_id=config["datasets"]),
+        prov = expand("results/datasets/{dataset_id}/pca_provenance.json", dataset_id=config["datasets"]),
+        top_genes = expand("reports/datasets/{dataset_id}/top_loading_genes.tsv", dataset_id=config["datasets"]),
+        correlations = expand("reports/datasets/{dataset_id}/pc_technical_correlations.tsv", dataset_id=config["datasets"]),
+        var_explained = expand("reports/datasets/{dataset_id}/pca_variance_explained.tsv", dataset_id=config["datasets"]),
+        fig_index = expand("reports/datasets/{dataset_id}/figure_index_m5.tsv", dataset_id=config["datasets"])
+    params:
+        datasets = " ".join(config["datasets"])
+    output:
+        done = "logs/workflow/test_pca.done"
+    log:
+        log = "logs/workflow/test_pca.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} --datasets "{params.datasets}" > {log.log} 2>&1 && touch {output.done}
+        """
+
+# Rule to generate the final Milestone 5 summary report and recommendations TSV
+rule generate_m5_report:
+    input:
+        script = "scripts/python/generate_m5_report.py",
+        config = "config/config.yaml",
+        reports = expand("reports/datasets/{dataset_id}/PCA_REPORT.md", dataset_id=config["datasets"]),
+        tsvs = expand("reports/datasets/{dataset_id}/pca_variance_explained.tsv", dataset_id=config["datasets"]),
+        test = "logs/workflow/test_pca.done"
+    params:
+        datasets = config["datasets"]
+    output:
+        report = "reports/milestones/M5_REPORT.md",
+        rec_tsv = "reports/PCA_RECOMMENDATIONS.tsv"
+    log:
+        log = "logs/workflow/generate_m5_report.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        python {input.script} {input.config} {output.report} {output.rec_tsv} {params.datasets} > {log.log} 2>&1
+        """
+

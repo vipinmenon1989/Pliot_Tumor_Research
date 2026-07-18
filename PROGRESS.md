@@ -10,8 +10,8 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 | **M1** | Real-Data Audit | **Completed** | 2026-07-07 | 2026-07-07 |
 | **M2** | Dataset Extraction and Pre-Filter QC | **Completed** | 2026-07-08 | 2026-07-08 |
 | **M3** | QC Filtering and Doublet Assessment | **Completed** | 2026-07-09 | 2026-07-09 |
-| **M4** | Normalization and Variable Features | Not Started | - | - |
-| **M5** | PCA and PC Evaluation | Not Started | - | - |
+| **M4** | Normalization and Variable Features | **Completed** | 2026-07-09 | 2026-07-09 |
+| **M5** | PCA and PC Evaluation | **Completed** | 2026-07-10 | 2026-07-10 |
 | **M6** | Clustering Resolution Sweep | Not Started | - | - |
 | **M7** | Marker Discovery and Dataset Recommendations | Not Started | - | - |
 | **M8** | Combined Pre-Integration Baseline | Not Started | - | - |
@@ -108,5 +108,60 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
   - `reports/QC_OPTIMIZATION_REPORT.md` and `reports/QC_COMPARISON_REPORT.md`
   - `reports/FIGURE_INDEX.tsv` (Authoritative merged index of all 32 generated figure paths)
   - `reports/milestones/M3_REPORT.md`
+
+### M4 — Normalization and Variable Features
+- **Status**: Completed (2026-07-09)
+- **Codebase Update**:
+  - Developed `scripts/R/normalize_and_find_features.R` to run Seurat v5 SCTransform v2 or LogNormalize dynamically, handling zero-mitochondrial libraries (like `MPNST_1`) and setting parallelization global limits options for the `future` package.
+  - Developed `scripts/python/generate_m4_report.py` to compile normalization runtimes and HVFs into a consolidated summary report.
+  - Created unit test `tests/unit/test_normalization.R` to validate normalized objects and diagnostic outputs.
+- **Workflow Integration**: Extended `workflow/Snakefile` with rules `normalize_and_find_features`, `test_normalization`, and `generate_m4_report` using dataset-specific QC inputs (`*_filtered_specific.rds`). Updated global figure index rules.
+- **Synthetic Validation**: Successfully validated the normalization workflow on synthetic datasets locally.
+- **SLURM Production Run**: Submitted the production run to SLURM (JobID `19174235`) on partition `ihc` node `ihc-grid-1-1-1`.
+- **HPC Execution Metrics**:
+  - State: COMPLETED (ExitCode 0:0)
+  - Elapsed: 00:04:17
+  - MaxRSS: 25287072K (~24.12 GB) — Highly efficient memory utilization under SLURM.
+- **Key Scientific Findings**:
+  - Standardized SCTransform v2 normalization decoupled sequencing depth covariance across MPNST constituent libraries.
+  - `MPNST_1` had no mitochondrial transcripts, and the workflow dynamically bypassed mitochondrial regression, completing successfully.
+  - Highly variable features (HVFs) across libraries successfully captured sarcoma-related biology, including extracellular matrix elements (collagens, APOD), cell-cycle markers, and macrophage-associated chemokine markers (CCL3, CCL4).
+- **Artifacts Generated**:
+  - `results/datasets/MPNST_*/MPNST_*_normalized.rds` (Normalized Seurat objects)
+  - `reports/datasets/MPNST_*/NORM_REPORT.md` (Dataset-specific normalization reports)
+  - `reports/datasets/MPNST_*/variable_features.tsv` (List of 3,000 highly variable features with metrics)
+  - `reports/datasets/MPNST_*/` diagnostic plots (scatter, distribution, and top 6 expression violins in PDF and PNG)
+  - `results/datasets/MPNST_*/normalization_provenance.json` (Digests and session specifications)
+  - `reports/milestones/M4_REPORT.md` (Consolidated Milestone 4 report)
+
+### M5 — PCA and PC Evaluation
+- **Status**: Completed (2026-07-10)
+- **Codebase Update**:
+  - Developed `scripts/R/run_pca_and_evaluation.R` to execute PCA on normalized SCT assays, calculate variance explained relative to z-scored residuals, test cell score correlations with technical covariates, find PC selection ranges (conservative, recommended, maximum) using a geometric elbow knee-point detector, and save detailed results.
+  - Developed `scripts/python/generate_m5_report.py` to aggregate dataset-specific metrics, generate comparison tables, and write `reports/PCA_RECOMMENDATIONS.tsv` and `reports/milestones/M5_REPORT.md`.
+  - Created validation unit tests in `tests/unit/test_pca.R` to verify PCA reductions, coordinate dimensions, loadings, reports, and provenance.
+- **Workflow Integration**: Extended `workflow/Snakefile` with rules `run_pca_and_evaluation`, `test_pca`, and `generate_m5_report`. Updated the figure index merging rule.
+- **Synthetic Validation**: Validated local Snakemake execution on synthetic datasets, checking test parameter parsing.
+- **SLURM Production Run**: Submitted workflow execution to SLURM (JobID `19176730`) on partition `ihc` node `ihc-grid-1-1-1`.
+- **HPC Execution Metrics**:
+  - State: COMPLETED (ExitCode 0:0)
+  - Elapsed: 00:03:51
+  - MaxRSS: 11410872K (~10.88 GB)
+- **Key Scientific Findings**:
+  - PCA geometric elbows identified optimal recommended PC cutoffs: `PC8` (MPNST_1), `PC6` (MPNST_2), `PC9` (MPNST_3), and `PC5` (MPNST_4).
+  - SCTransform normalization decoupled sequencing depth covariance, resulting in low correlations (R < 0.2) in leading PCs.
+  - Leading PCs are heavily dominated by biological programs: antigen presentation/immune response (CD74, HLA-DRA, HLA-DRB1) and extracellular matrix structure/remodeling (COL1A1, COL1A2, COL3A1, DCN, SFRP2), representing core MPNST biology.
+  - JackStraw analysis was omitted due to lack of statistical validity on regularized negative binomial SCT z-scored residuals and high computational footprint.
+- **Artifacts Generated**:
+  - `results/datasets/MPNST_*/MPNST_*_pca.rds` (PCA-embedded Seurat objects)
+  - `reports/datasets/MPNST_*/PCA_REPORT.md` (Dataset-specific PCA reports)
+  - `reports/datasets/MPNST_*/top_loading_genes.tsv` (Top loading gene lists)
+  - `reports/datasets/MPNST_*/pc_technical_correlations.tsv` (Correlation metrics)
+  - `reports/datasets/MPNST_*/pca_variance_explained.tsv` (Raw variance scores)
+  - `reports/datasets/MPNST_*/` diagnostic plots (elbow, cumulative variance, PC loadings, PC heatmaps, and technical correlations in PDF and PNG)
+  - `reports/PCA_RECOMMENDATIONS.tsv` (Machine-readable recommendations)
+  - `reports/milestones/M5_REPORT.md` (Consolidated Milestone 5 report)
+  - `reports/FIGURE_INDEX.tsv` (Updated global figure index with all 40 PCA plots)
+
 
 
