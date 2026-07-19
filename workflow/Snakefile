@@ -8,6 +8,47 @@ import jsonschema
 # Load Configuration
 configfile: "config/config.yaml"
 
+# Helper function to get target files for M6 recommended resolutions
+def get_m6_recommended_vis(wildcards):
+    recs = {
+        "MPNST_1": "0.6",
+        "MPNST_2": "0.3",
+        "MPNST_3": "0.6",
+        "MPNST_4": "0.7",
+        "sample_1": "0.5",
+        "sample_2": "0.5",
+        "sample_3": "0.5",
+        "sample_4": "0.5"
+    }
+    files = []
+    for ds in config["datasets"]:
+        res = recs.get(ds, "0.5")
+        files.extend([
+            f"reports/datasets/{ds}/markers/resolution_{res}/visualized_top5_markers.tsv",
+            f"reports/datasets/{ds}/markers/resolution_{res}/figures/{ds}_res{res}_top5_heatmap.pdf",
+            f"reports/datasets/{ds}/markers/resolution_{res}/figures/{ds}_res{res}_top5_heatmap.png",
+            f"reports/datasets/{ds}/markers/resolution_{res}/figures/{ds}_res{res}_top5_dotplot.pdf",
+            f"reports/datasets/{ds}/markers/resolution_{res}/figures/{ds}_res{res}_top5_dotplot.png",
+            f"reports/datasets/{ds}/markers/resolution_{res}/figures/{ds}_res{res}_representative_featureplots.pdf",
+            f"reports/datasets/{ds}/markers/resolution_{res}/figures/{ds}_res{res}_representative_featureplots.png"
+        ])
+    return files
+
+# Helper function to get target figure index files for M7 recommended resolutions
+def get_m7_figure_indices(wildcards):
+    recs = {
+        "MPNST_1": "0.6",
+        "MPNST_2": "0.3",
+        "MPNST_3": "0.6",
+        "MPNST_4": "0.7",
+        "sample_1": "0.5",
+        "sample_2": "0.5",
+        "sample_3": "0.5",
+        "sample_4": "0.5"
+    }
+    return [f"reports/datasets/{ds}/markers/resolution_{recs.get(ds, '0.5')}/figure_index_m7.tsv" for ds in config["datasets"]]
+
+
 # Global wildcard constraints to prevent ambiguity with _specific suffix files
 wildcard_constraints:
     dataset_id = "MPNST_[0-9]+|sample_[0-9]+",
@@ -680,6 +721,7 @@ rule merge_figure_index:
         indices_m4 = expand("reports/datasets/{dataset_id}/figure_index_m4.tsv", dataset_id=config["datasets"]),
         indices_m5 = expand("reports/datasets/{dataset_id}/figure_index_m5.tsv", dataset_id=config["datasets"]),
         indices_m6 = expand("reports/datasets/{dataset_id}/figure_index_m6.tsv", dataset_id=config["datasets"]),
+        indices_m7 = get_m7_figure_indices,
         indices_opt = "reports/qc_optimization/figure_index_optimization.tsv",
         indices_comp = "reports/qc_comparison/figure_index_comparison.tsv"
     output:
@@ -687,7 +729,7 @@ rule merge_figure_index:
     log:
         log = "logs/workflow/merge_figure_index.log"
     run:
-        all_paths = list(input.indices_m2) + list(input.indices_m3) + list(input.indices_m3_spec) + list(input.indices_m4) + list(input.indices_m5) + list(input.indices_m6) + [input.indices_opt, input.indices_comp]
+        all_paths = list(input.indices_m2) + list(input.indices_m3) + list(input.indices_m3_spec) + list(input.indices_m4) + list(input.indices_m5) + list(input.indices_m6) + list(input.indices_m7) + [input.indices_opt, input.indices_comp]
         with open(output.merged, 'w') as out_f:
             header_written = False
             for path in all_paths:
@@ -907,19 +949,7 @@ rule generate_m6_report:
         python {input.script} {input.config} {output.report} {output.rec_tsv} {output.sweep_tsv} {params.datasets} > {log.log} 2>&1
         """
 
-# Helper function to get target files for M6 recommended resolutions
-def get_m6_recommended_vis(wildcards):
-    recs = {
-        "MPNST_1": "0.6",
-        "MPNST_2": "0.3",
-        "MPNST_3": "0.6",
-        "MPNST_4": "0.7",
-        "sample_1": "0.5",
-        "sample_2": "0.5",
-        "sample_3": "0.5",
-        "sample_4": "0.5"
-    }
-    return [f"reports/datasets/{ds}/markers/resolution_{recs.get(ds, '0.5')}/visualized_top5_markers.tsv" for ds in config["datasets"]]
+
 
 # Rule to discover markers for all dataset-resolution combinations
 rule discover_markers:
@@ -965,7 +995,14 @@ rule visualize_markers:
         logging = "scripts/R/logging_utils.R",
         prov = "scripts/R/provenance_utils.R"
     output:
-        vis_tsv = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/visualized_top5_markers.tsv"
+        vis_tsv = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/visualized_top5_markers.tsv",
+        heatmap_pdf = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/figures/{dataset_id}_res{resolution}_top5_heatmap.pdf",
+        heatmap_png = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/figures/{dataset_id}_res{resolution}_top5_heatmap.png",
+        dotplot_pdf = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/figures/{dataset_id}_res{resolution}_top5_dotplot.pdf",
+        dotplot_png = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/figures/{dataset_id}_res{resolution}_top5_dotplot.png",
+        featureplot_pdf = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/figures/{dataset_id}_res{resolution}_representative_featureplots.pdf",
+        featureplot_png = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/figures/{dataset_id}_res{resolution}_representative_featureplots.png",
+        fig_index = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/figure_index_m7.tsv"
     log:
         log = "logs/workflow/visualize_markers_{dataset_id}_res_{resolution}.log"
     benchmark:
@@ -1014,7 +1051,8 @@ rule test_markers:
     input:
         script = "tests/unit/test_markers.R",
         report = "reports/milestones/M7_REPORT.md",
-        ds_rec_mds = expand("reports/datasets/{dataset_id}/ANALYSIS_RECOMMENDATION.md", dataset_id=config["datasets"])
+        ds_rec_mds = expand("reports/datasets/{dataset_id}/ANALYSIS_RECOMMENDATION.md", dataset_id=config["datasets"]),
+        fig_index = "reports/FIGURE_INDEX.tsv"
     params:
         datasets = " ".join(config["datasets"])
     output:

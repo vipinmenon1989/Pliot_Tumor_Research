@@ -96,43 +96,84 @@ for (ds in datasets) {
     }
   }
   
-  # 3. Check visualizations exist for the resolution that was actually visualized
-  # Find which resolution directory under reports/datasets/ds/markers/ has a "figures" subdirectory
-  markers_dir <- sprintf("reports/datasets/%s/markers", ds)
-  res_dirs <- list.dirs(markers_dir, recursive = FALSE)
-  vis_res_dir <- NULL
-  for (rd in res_dirs) {
-    if (file.exists(file.path(rd, "figures"))) {
-      vis_res_dir <- rd
-      break
+  # 3. Check visualizations exist for the recommended resolution
+  rec_res_map <- list(
+    "MPNST_1" = "0.6",
+    "MPNST_2" = "0.3",
+    "MPNST_3" = "0.6",
+    "MPNST_4" = "0.7",
+    "sample_1" = "0.5",
+    "sample_2" = "0.5",
+    "sample_3" = "0.5",
+    "sample_4" = "0.5"
+  )
+  rec_res <- rec_res_map[[ds]]
+  if (is.null(rec_res)) rec_res <- "0.5"
+  
+  vis_res_dir <- sprintf("reports/datasets/%s/markers/resolution_%s", ds, rec_res)
+  vis_dir <- file.path(vis_res_dir, "figures")
+  
+  heatmap_png <- file.path(vis_dir, sprintf("%s_res%s_top5_heatmap.png", ds, rec_res))
+  heatmap_pdf <- file.path(vis_dir, sprintf("%s_res%s_top5_heatmap.pdf", ds, rec_res))
+  dot_png <- file.path(vis_dir, sprintf("%s_res%s_top5_dotplot.png", ds, rec_res))
+  dot_pdf <- file.path(vis_dir, sprintf("%s_res%s_top5_dotplot.pdf", ds, rec_res))
+  feat_png <- file.path(vis_dir, sprintf("%s_res%s_representative_featureplots.png", ds, rec_res))
+  feat_pdf <- file.path(vis_dir, sprintf("%s_res%s_representative_featureplots.pdf", ds, rec_res))
+  vis_tsv <- file.path(vis_res_dir, "visualized_top5_markers.tsv")
+  
+  expected_plots <- c(heatmap_png, heatmap_pdf, dot_png, dot_pdf, feat_png, feat_pdf, vis_tsv)
+  for (f in expected_plots) {
+    if (!file.exists(f)) {
+      log_error(sprintf("Missing recommended resolution visualization file: %s", f), stage = "test_markers")
+      quit(status = 1)
+    }
+    if (file.info(f)$size == 0) {
+      log_error(sprintf("Recommended resolution visualization file is empty: %s", f), stage = "test_markers")
+      quit(status = 1)
     }
   }
-  
-  if (!is.null(vis_res_dir)) {
-    # Extract resolution string from path
-    res_formatted_name <- basename(vis_res_dir)
-    res_val_str <- sub("resolution_", "", res_formatted_name)
-    
-    vis_dir <- file.path(vis_res_dir, "figures")
-    
-    heatmap_png <- file.path(vis_dir, sprintf("%s_res%s_top5_heatmap.png", ds, res_val_str))
-    heatmap_pdf <- file.path(vis_dir, sprintf("%s_res%s_top5_heatmap.pdf", ds, res_val_str))
-    dot_png <- file.path(vis_dir, sprintf("%s_res%s_top5_dotplot.png", ds, res_val_str))
-    dot_pdf <- file.path(vis_dir, sprintf("%s_res%s_top5_dotplot.pdf", ds, res_val_str))
-    vis_tsv <- file.path(vis_res_dir, "visualized_top5_markers.tsv")
-      
-      expected_plots <- c(heatmap_png, heatmap_pdf, dot_png, dot_pdf, vis_tsv)
-      for (f in expected_plots) {
-        if (!file.exists(f)) {
-          log_error(sprintf("Missing recommended resolution visualization file: %s", f), stage = "test_markers")
-          quit(status = 1)
-        }
-      }
-      log_info(sprintf("Recommended resolution %s visualization files verified.", res_val_str), stage = "test_markers")
-    }
+  log_info(sprintf("Recommended resolution %s visualization files verified (all exist and are non-empty).", rec_res), stage = "test_markers")
   
   log_info(sprintf("Dataset %s Marker Discovery validation PASSED.", ds), stage = "test_markers")
 }
+
+# 4. FIGURE_INDEX.tsv validation
+log_info("Validating FIGURE_INDEX.tsv...", stage = "test_markers")
+fig_index_path <- "reports/FIGURE_INDEX.tsv"
+if (!file.exists(fig_index_path)) {
+  log_error("Missing FIGURE_INDEX.tsv", stage = "test_markers")
+  quit(status = 1)
+}
+fig_index <- read.table(fig_index_path, header = TRUE, sep = "\t", stringsAsFactors = FALSE, quote = "")
+for (ds in datasets) {
+  if (is_test_mode && grepl("MPNST", ds)) next
+  if (!is_test_mode && grepl("sample", ds)) next
+  
+  rec_res <- rec_res_map[[ds]]
+  if (is.null(rec_res)) rec_res <- "0.5"
+  
+  # Heatmap
+  heatmap_name <- sprintf("%s_res%s_top5_heatmap.png", ds, rec_res)
+  if (!any(grepl(heatmap_name, fig_index$figure_path))) {
+    log_error(sprintf("FIGURE_INDEX.tsv missing entry for heatmap: %s", heatmap_name), stage = "test_markers")
+    quit(status = 1)
+  }
+  
+  # DotPlot
+  dot_name <- sprintf("%s_res%s_top5_dotplot.png", ds, rec_res)
+  if (!any(grepl(dot_name, fig_index$figure_path))) {
+    log_error(sprintf("FIGURE_INDEX.tsv missing entry for dotplot: %s", dot_name), stage = "test_markers")
+    quit(status = 1)
+  }
+  
+  # FeaturePlots
+  feat_name <- sprintf("%s_res%s_representative_featureplots.png", ds, rec_res)
+  if (!any(grepl(feat_name, fig_index$figure_path))) {
+    log_error(sprintf("FIGURE_INDEX.tsv missing entry for representative featureplots: %s", feat_name), stage = "test_markers")
+    quit(status = 1)
+  }
+}
+log_info("FIGURE_INDEX.tsv validation PASSED.", stage = "test_markers")
 
 log_info("All Marker Discovery validation tests PASSED.", stage = "test_markers")
 quit(status = 0)

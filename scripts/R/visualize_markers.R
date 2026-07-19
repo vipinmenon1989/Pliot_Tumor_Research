@@ -199,6 +199,88 @@ if (length(unique_genes) > 0) {
     ggsave(paste0(feat_prefix, ".png"), plot = cluster_grid, width = 11, height = 7, dpi = 150)
     ggsave(paste0(feat_prefix, ".pdf"), plot = cluster_grid, width = 11, height = 7)
   }
+  
+  # 4. PRIMARY REPRESENTATIVE FEATUREPLOT PANEL (5-6 markers)
+  log_info("Generating Primary Representative FeaturePlot Panel...", stage = "visualize_markers")
+  
+  # Select top 6 representative markers across distinct clusters
+  rep_markers_df <- top5_markers %>%
+    filter(rank == 1) %>%
+    arrange(desc(avg_log2FC)) %>%
+    slice_head(n = 6)
+  
+  rep_genes <- rep_markers_df$gene
+  
+  # If we have fewer than 6 clusters, fill up with next rank markers from the top clusters
+  if (length(rep_genes) < 6) {
+    extra_genes <- top5_markers %>%
+      filter(rank > 1) %>%
+      arrange(p_val_adj, desc(avg_log2FC)) %>%
+      pull(gene)
+    rep_genes <- unique(c(rep_genes, extra_genes))[1:min(6, length(unique(c(rep_genes, extra_genes))))]
+  }
+  
+  log_info(sprintf("Selected representative genes for UMAP FeaturePlot panel: %s", paste(rep_genes, collapse = ", ")), stage = "visualize_markers")
+  
+  rep_plots <- list()
+  for (gene in rep_genes) {
+    rep_plots[[gene]] <- FeaturePlot(obj, features = gene, reduction = "umap") +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(size = 10, face = "bold"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "right"
+      )
+  }
+  
+  # Fill up grid to 6 plots if needed
+  while (length(rep_plots) < 6) {
+    rep_plots[[paste0("empty_", length(rep_plots))]] <- ggplot() + theme_void()
+  }
+  
+  rep_grid <- wrap_plots(rep_plots, ncol = 3) +
+    plot_annotation(
+      title = sprintf("%s Resolution %s - Representative Marker FeaturePlots", dataset_id, resolution_str),
+      theme = theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5))
+    )
+  
+  rep_prefix <- file.path(fig_dir, sprintf("%s_res%s_representative_featureplots", dataset_id, resolution_str))
+  ggsave(paste0(rep_prefix, ".png"), plot = rep_grid, width = 11, height = 7, dpi = 150)
+  ggsave(paste0(rep_prefix, ".pdf"), plot = rep_grid, width = 11, height = 7)
+  
+  # 5. WRITE LOCAL FIGURE INDEX (figure_index_m7.tsv)
+  log_info("Writing local Milestone 7 figure index...", stage = "visualize_markers")
+  fig_index_m7_path <- file.path(out_dir, "figure_index_m7.tsv")
+  
+  # Retrieve current git commit if possible, else "N/A"
+  git_commit <- tryCatch({
+    res_git <- system("git rev-parse HEAD", intern = TRUE)
+    if (length(res_git) == 0) "N/A" else res_git
+  }, error = function(e) {
+    "N/A"
+  })
+  
+  # Build paths relative to repository root
+  heatmap_rel <- file.path("reports/datasets", dataset_id, "markers", paste0("resolution_", resolution_str), "figures", sprintf("%s_res%s_top5_heatmap.png", dataset_id, resolution_str))
+  dotplot_rel <- file.path("reports/datasets", dataset_id, "markers", paste0("resolution_", resolution_str), "figures", sprintf("%s_res%s_top5_dotplot.png", dataset_id, resolution_str))
+  featplot_rel <- file.path("reports/datasets", dataset_id, "markers", paste0("resolution_", resolution_str), "figures", sprintf("%s_res%s_representative_featureplots.png", dataset_id, resolution_str))
+
+  fig_index_df <- data.frame(
+    figure_path = c(heatmap_rel, dotplot_rel, featplot_rel),
+    dataset = dataset_id,
+    processing_stage = "marker_discovery_visualization",
+    analysis_method = c("top5_heatmap", "top5_dotplot", "representative_featureplots"),
+    parameters = sprintf("resolution=%s;test_use=wilcox;seed=42", resolution_str),
+    input_object_checksum = input_checksum,
+    generating_script = "scripts/R/visualize_markers.R",
+    snakemake_rule = "visualize_markers",
+    git_commit = git_commit,
+    stringsAsFactors = FALSE
+  )
+  write.table(fig_index_df, fig_index_m7_path, sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
+  log_info(sprintf("Saved local M7 figure index to %s", fig_index_m7_path), stage = "visualize_markers")
 }
 
 # Record and save execution provenance
@@ -206,7 +288,9 @@ inputs <- list(clustered_rds = input_file, markers_tsv = markers_file)
 outputs <- list(
   visualized_tsv = visualized_tsv_path,
   heatmap_png = paste0(heatmap_prefix, ".png"),
-  dotplot_png = paste0(dot_prefix, ".png")
+  dotplot_png = paste0(dot_prefix, ".png"),
+  featureplots_png = paste0(rep_prefix, ".png"),
+  fig_index = fig_index_m7_path
 )
 parameters <- list(
   dataset_id = dataset_id,

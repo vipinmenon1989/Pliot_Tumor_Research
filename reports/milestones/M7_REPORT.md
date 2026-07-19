@@ -1,6 +1,6 @@
 # Milestone 7 (M7) Execution Report — Marker Discovery and Dataset Recommendations
 
-*Generated on: 2026-07-19 08:55:00*
+*Generated on: 2026-07-19 11:29:00*
 
 ## 1. Execution Summary
 - **Authorized Milestone**: Milestone 7 (M7) — Marker Discovery and Dataset-Specific Recommendations
@@ -70,9 +70,9 @@ While we present resolution **0.7** as the recommended sweep value based on prog
 ---
 
 ## 5. HPC Execution and SLURM Job Information
-- **SLURM Job ID**: `N/A`
-- **SLURM Job Name**: `N/A`
-- **SLURM Node**: `N/A`
+- **SLURM Job ID**: `19399799`
+- **SLURM Job Name**: `m7_real_workflow`
+- **SLURM Node**: `ihc-grid-1-1-1`
 - **HPC Job Status**: COMPLETED (ExitCode 0:0)
 - **Resource Envelope**: walltime limit 12 hours, memory limit 64GB
 

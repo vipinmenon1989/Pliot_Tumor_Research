@@ -143,15 +143,21 @@ Marker Discovery and Dataset-Specific Recommendations
 
 * **Added**:
   * Wilcoxon rank-sum marker discovery scripts running independently across all 4 datasets and 10 resolutions (40 combinations).
-  * FeaturePlot generators and dot plot generators for recommended resolutions, downsampling cell count to a maximum of 100 cells per cluster to construct clean, publication-ready heatmaps and figures.
+  * FeaturePlot generators and dot plot generators for recommended resolutions, downsampling cell count to a maximum of 100 cells per cluster to construct clean, publication-ready heatmaps.
+  * Publication-quality UMAP FeaturePlot grid panel (2x3 format) for 5-6 top representative markers per dataset at its recommended resolution.
+  * Standardized local figure index files (`figure_index_m7.tsv`) for recommended resolution visualizations.
   * Dynamically queries active assay (`SCT` vs standard `RNA`) and executes `PrepSCTFindMarkers` if SCT is active.
-  * Validation unit tests (`tests/unit/test_markers.R`) verifying marker presence, specificity metrics, column ranges, and visualization checks.
+  * Validation unit tests (`tests/unit/test_markers.R`) verifying marker presence, specificity metrics, column ranges, and checking all 24 required visual files (heatmap PDF/PNG, dotplot PDF/PNG, FeaturePlot PDF/PNG across 4 datasets) and their global figure index registration.
   * Global consolidated report (`reports/milestones/M7_REPORT.md`) and dataset-specific recommendation reports (`reports/datasets/{ds}/ANALYSIS_RECOMMENDATION.md`).
 * **Changed**:
   * Integrated rules `discover_markers`, `visualize_markers`, `generate_m7_report`, and `test_markers` into `workflow/Snakefile`.
+  * Expanded Snakemake `visualize_markers` rule to explicitly list all 6 figure paths (dotplot, heatmap, representative FeaturePlots in PDF/PNG) plus the local index as target outputs to guarantee they are tracked correctly.
+  * Added `reports/FIGURE_INDEX.tsv` as an explicit input to the Snakemake `test_markers` rule to enforce a strict DAG dependency and eliminate parallel race conditions.
+  * Consolidated global `reports/FIGURE_INDEX.tsv` to register all 12 recommended-resolution marker figures with metadata and git commits.
 * **Scientific decisions**:
   * Assessed 40 dataset-resolution combinations to evaluate marker quality (median markers per cluster) and check for weak cluster support (fewer than 5 distinct markers) and small clusters (fewer than 10 cells).
   * Confirmed that recommended resolutions provide robust, biologically-relevant marker support with zero weak or small clusters.
   * Addressed mitochondrial bias in MPNST_4 (correlation with `percent.mt` $R^2 = 0.47$ at recommended resolution 0.7) and proposed resolution 0.5 (reducing correlation to $R^2 = 0.24$) as the primary alternative baseline.
 * **HPC execution**:
   * SLURM production job ID `19399784` completed with Snakemake execution of clustering sweep, marker sweep, visualization, reporting, and validation in 11m 8s, utilizing ~28.43 GB of memory.
+  * SLURM production job ID `19399799` executed the standardized visualization, local index generation, and global index merge in 2m 21s, using MaxRSS 5.22 GB.

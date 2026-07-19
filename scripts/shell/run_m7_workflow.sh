@@ -29,7 +29,7 @@ source /local/projects-t3/lilab/vmenon/anaconda3/etc/profile.d/conda.sh
 conda activate R_env
 
 echo "Executing Snakemake workflow for Milestone 7..."
-snakemake --cores 8 --rerun-incomplete --keep-going --forcerun discover_markers visualize_markers generate_m7_report test_markers
+snakemake --cores 8 --rerun-incomplete --keep-going --rerun-triggers mtime
 
 echo "=== SLURM Job Execution End ==="
 echo "Finished at: $(date)"

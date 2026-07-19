@@ -193,18 +193,19 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 ### M7 — Marker Discovery and Dataset Recommendations
 - **Status**: Completed (2026-07-19)
 - **HPC Execution Metrics**:
-  - SLURM JobID: `19399784`
-  - Partition: `ihc`
-  - Node: `ihc-grid-1-1-1`
-  - State: COMPLETED (ExitCode 0:0)
-  - Elapsed: 00:11:08
-  - MaxRSS: 29815040K (~28.43 GB)
-- **Key Scientific Findings**:
+  - **Marker Discovery Sweep**: SLURM JobID `19399784` (COMPLETED, Elapsed: 11m 8s, MaxRSS: ~28.43 GB)
+  - **Visualization Audit & Index Merge**: SLURM JobID `19399799` (COMPLETED, Elapsed: 2m 21s, MaxRSS: ~5.22 GB)
+- **Key Scientific & Engineering Accomplishments**:
   - Executed Wilcoxon rank-sum marker discovery across 4 datasets × 10 resolutions = 40 combinations using the project-approved `PrepSCTFindMarkers` workflow.
   - Recommended resolutions confirmed to possess robust, high-quality marker support (median 1446 markers for MPNST_1 at 0.6, 816 markers for MPNST_2 at 0.3, 816 markers for MPNST_3 at 0.6, 794 markers for MPNST_4 at 0.7) with zero weak or small clusters.
-  - Validated MPNST_4 mitochondrial bias concern at resolution 0.7 (correlation with `percent.mt` $R^2 = 0.47$) and proposed resolution 0.5 (reducing correlation to $R^2 = 0.24$ and merging stress-response clusters) as the primary alternative baseline for integration in Milestone 8.
+  - Validated MPNST_4 mitochondrial bias concern at resolution 0.7 (correlation with `percent.mt` $R^2 = 0.47$) and proposed resolution 0.5 (reducing correlation to $R^2 = 0.24$ and merging stress-response clusters) as the primary alternative baseline.
+  - Standardized all recommended-resolution figures (top 5 marker heatmap, dot plot, and a 2x3 UMAP FeaturePlot panel showing 5–6 representative marker programs) and generated local figure indices (`figure_index_m7.tsv`).
+  - Hardened the Snakemake workflow by explicitly tracking all 6 visual outputs (PDF/PNG format for heatmap, dot plot, and representative FeaturePlots) in `visualize_markers` and introducing a strict DAG dependency on `reports/FIGURE_INDEX.tsv` in `test_markers` to eliminate parallel race conditions.
+  - Expanded unit tests in `tests/unit/test_markers.R` to programmatically validate all 24 required visual files and their global index registration.
 - **Artifacts Generated**:
   - `reports/datasets/MPNST_*/markers/resolution_*/markers_all.tsv`, `markers_filtered.tsv`, `top_markers.tsv`, and `marker_summary.tsv` for all 40 combinations.
-  - `reports/datasets/MPNST_*/markers/resolution_{rec}/figures/` (Top 5 marker heatmap, dot plot, and FeaturePlots for every cluster in PNG and PDF).
+  - `reports/datasets/MPNST_*/markers/resolution_{rec}/figures/` (Top 5 marker heatmap, dot plot, and 2x3 representative marker UMAP panel in PNG and PDF, total of 24 visual files).
+  - `reports/datasets/MPNST_*/markers/resolution_{rec}/figure_index_m7.tsv` (Local M7 figure index tables).
   - `reports/datasets/MPNST_*/ANALYSIS_RECOMMENDATION.md` (Dataset-specific analysis recommendation reports).
   - `reports/milestones/M7_REPORT.md` (Consolidated Milestone 7 report).
+  - `reports/FIGURE_INDEX.tsv` (Consolidated global figure index with all 12 recommended-resolution marker figures).
