@@ -11,8 +11,10 @@ The primary objective of this project is to construct a modular, reproducible, c
 
 ## 2. Current Project Status
 - **Current Phase**: Phase 1 (Independent Dataset Processing)
-- **Status**: **Completed: Milestones M0–M6**
-- **Next Step**: **Milestone M7 — Marker Discovery and Dataset Recommendations**
+- **Status**: **Completed: Milestones M0–M7**
+- **Latest Completed Milestone**: **M7 — Marker Discovery and Dataset-Specific Recommendations**
+- **Next Required Step**: **Post-M7 Independent Audit Gate**
+- **Next Computational Milestone (After Approval)**: **Milestone M8 — Combined Pre-Integration Baseline**
 
 > [!IMPORTANT]
 > **Strict Phase 1 Scope Constraint**:
@@ -23,25 +25,27 @@ The primary objective of this project is to construct a modular, reproducible, c
 ## 3. Workflow Overview
 
 ```text
-M0 Infrastructure (Environment, synthetic data generation, SLURM verification)
+M0 Infrastructure (Environment, synthetic data generation, SLURM verification) ✓
     ↓
-M1 Real-data audit (Authoritative object structure and inventory checks)
+M1 Real-data audit (Authoritative object structure and inventory checks) ✓
     ↓
-M2 Dataset extraction + pre-filter QC (Deterministic extraction & diagnostic plotting)
+M2 Dataset extraction + pre-filter QC (Deterministic extraction & diagnostic plotting) ✓
     ↓
-M3 QC filtering + doublet assessment (Doublet detection & dataset-specific thresholds)
+M3 QC filtering + doublet assessment (Doublet detection & dataset-specific thresholds) ✓
     ↓
-M4 Normalization + variable features (SCTransform v2 variance stabilization & HVF selection)
+M4 Normalization + variable features (SCTransform v2 variance stabilization & HVF selection) ✓
     ↓
-M5 PCA + PC evaluation (Independent PCA & geometric elbow selection)
+M5 PCA + PC evaluation (Independent PCA & geometric elbow selection) ✓
     ↓
-M6 Clustering resolution sweep (SNN graph construction & sweeps 0.1–1.0)
+M6 Clustering resolution sweep (SNN graph construction & sweeps 0.1–1.0) ✓
     ↓
-M7 Marker discovery + recommendations (Resolution-specific markers & selection)  <-- [NEXT STEP]
+M7 Marker discovery + recommendations (Resolution-specific markers & selection) ✓
     ↓
-M8 Combined pre-integration baseline (Consolidated baseline & integration prep)
+POST-M7 INDEPENDENT AUDIT GATE  <-- CURRENT GATE
     ↓
-M9 Workflow hardening + CI/CD + Phase 1 freeze
+M8 Combined pre-integration baseline (NOT STARTED)
+    ↓
+M9 Workflow hardening + CI/CD + Phase 1 freeze (NOT STARTED)
 ```
 
 ---
@@ -71,7 +75,7 @@ Pilot_tumor/
 ├── tests/              # Verification unit tests
 │   └── unit/           # Script-specific unit tests run on synthetic data
 ├── reports/            # Markdown reports, TSV recommendations, & diagnostic figures
-│   ├── milestones/     # Consolidated reports for M0-M6
+│   ├── milestones/     # Consolidated reports for M0-M7
 │   ├── datasets/       # Dataset-specific QC and PCA reports/figures
 │   ├── qc_optimization/# QC threshold optimization sensitivity plots
 │   └── qc_comparison/  # Comparative analysis of QC strategies
@@ -143,53 +147,76 @@ snakemake --cores 4 --configfile config/config.test.yaml
 ```
 
 ### Real-Data Workflow Execution
-To run the production workflow on real datasets:
+To run the production workflow on the real datasets:
 ```bash
 # 1. Perform a production dry-run
 snakemake -n --configfile config/config.yaml
 
-# 2. Submit the workflow job to the SLURM partition 'ihc'
-sbatch scripts/shell/run_m6_workflow.sh
+# 2. Execute production steps via SLURM
+# Note: A generic end-to-end production entry point is not yet implemented.
+# Production execution currently uses milestone-specific SLURM wrapper scripts
+# to manage computing resources safely. Complete workflow generalization is scheduled for M9.
+sbatch scripts/shell/run_m7_workflow.sh
 ```
 
 ---
 
-## 8. Current Outputs (Through Milestone 6)
+## 8. Current Outputs (Through Milestone 7)
 
-Successful execution of Milestones M0–M6 yields the following major artifacts:
+Successful execution of Milestones M0–M7 yields the following major artifacts:
 
-- **Seurat RDS Objects** (stored in `results/datasets/{ds}/`):
-  - `{ds}_raw.rds`: Raw extracted datasets split by `sample_id`.
-  - `{ds}_filtered_specific.rds`: Filtered single-cell objects after scDblFinder doublet removal and dataset-specific QC thresholds.
-  - `{ds}_normalized.rds`: SCTransform-normalized and variance-stabilized Seurat objects with 3,000 highly variable features.
-  - `{ds}_pca.rds`: PCA-embedded Seurat objects computed on variable features.
-  - `{ds}_clustered.rds`: Clustered Seurat objects containing sweep resolution metadata and active identity set to the recommended resolution.
-- **Recommendations & Indexes** (stored in `reports/`):
-  - [reports/PCA_RECOMMENDATIONS.tsv](file://reports/PCA_RECOMMENDATIONS.tsv): Machine-readable Recommended, Conservative, and Maximum PC counts for downstream clustering.
-  - [reports/CLUSTERING_RECOMMENDATIONS.tsv](file://reports/CLUSTERING_RECOMMENDATIONS.tsv): Machine-readable selected resolutions and alternative recommendations for each dataset.
-  - [reports/CLUSTERING_SWEEP_SUMMARY.tsv](file://reports/CLUSTERING_SWEEP_SUMMARY.tsv): Comprehensive metrics summary (cluster sizes, stability ARI, technical covariate correlation) across all resolution sweep values.
-  - [reports/FIGURE_INDEX.tsv](file://reports/FIGURE_INDEX.tsv): Consolidated index of all 60 diagnostic plots generated during QC, normalization, PCA, and clustering.
-- **Consolidated Milestone Reports** (stored in `reports/milestones/`):
-  - [M0_REPORT.md](reports/milestones/M0_REPORT.md): Infrastructure, Environment, & SLURM Safety.
-  - [M1_REPORT.md](reports/milestones/M1_REPORT.md): Real-Data Object & Layers Inventory.
-  - [M2_REPORT.md](reports/milestones/M2_REPORT.md): Extraction & Pre-Filter metrics.
-  - [M3_REPORT.md](reports/milestones/M3_REPORT.md): QC Filtering & doublet validation.
-  - [M4_REPORT.md](reports/milestones/M4_REPORT.md): Normalization & HVF selection.
-  - [M5_REPORT.md](reports/milestones/M5_REPORT.md): Principal Component Analysis & evaluation.
-  - [M6_REPORT.md](reports/milestones/M6_REPORT.md): Clustering Resolution Sweep & Selection.
+### Seurat RDS Objects (stored in `results/datasets/{ds}/`)
+- `{ds}_raw.rds` (M2): Raw extracted datasets split by `sample_id`.
+- `{ds}_filtered_specific.rds` (M3): Filtered single-cell objects after scDblFinder doublet removal and dataset-specific QC thresholds.
+- `{ds}_normalized.rds` (M4): SCTransform-normalized and variance-stabilized Seurat objects with 3,000 highly variable features.
+- `{ds}_pca.rds` (M5): PCA-embedded Seurat objects computed on variable features.
+- `{ds}_clustered.rds` (M6): Clustered Seurat objects containing sweep resolution metadata (0.1 to 1.0) and active identity set to the recommended resolution.
 
-### Summary of Milestone 6 Computational Recommendations
-> [!NOTE]
-> These resolutions are **computational recommendations** based on stability metrics and covariate correlation heuristics. The final researcher-approved resolutions have **not** yet been selected.
+### Recommendations & Reports (stored in `reports/`)
+- [reports/PCA_RECOMMENDATIONS.tsv](file://reports/PCA_RECOMMENDATIONS.tsv) (M5): Machine-readable Recommended, Conservative, and Maximum PC counts.
+- [reports/CLUSTERING_RECOMMENDATIONS.tsv](file://reports/CLUSTERING_RECOMMENDATIONS.tsv) (M6): Machine-readable selected resolutions and alternative recommendations for each dataset.
+- [reports/CLUSTERING_SWEEP_SUMMARY.tsv](file://reports/CLUSTERING_SWEEP_SUMMARY.tsv) (M6): Summary of metrics (stability ARI, cluster sizes, covariate correlation) across sweep values.
+- [reports/datasets/{ds}/ANALYSIS_RECOMMENDATION.md](file://reports/datasets/) (M7): Dataset-specific reports detailing the scientific rationale for resolution selection.
+- [reports/datasets/{ds}/markers/resolution_{res}/](file://reports/datasets/) (M7): Marker tables for all 40 combinations:
+  - `markers_all.tsv`: All detected markers.
+  - `markers_filtered.tsv`: Markers filtered by significance (adj. p-value < 0.05) and log2 fold change (> 0.25).
+  - `top_markers.tsv`: Top 20 ranked markers per cluster.
+  - `marker_summary.tsv`: Global summary of cluster stats.
+- [reports/datasets/{ds}/markers/resolution_{res}/figures/](file://reports/datasets/) (M7): Selected top-marker visualizations including downsampled (max 100 cells/cluster) heatmaps, dot plots, and FeaturePlots in PDF and PNG.
+- [reports/FIGURE_INDEX.tsv](file://reports/FIGURE_INDEX.tsv): Consolidated index of all diagnostic plots generated across all milestones.
 
-- **MPNST_1**: Recommended resolution **0.6** resolving **18** clusters (Bootstrap Stability ARI: `0.919`, no technical concern).
-- **MPNST_2**: Recommended resolution **0.3** resolving **9** clusters (Bootstrap Stability ARI: `0.933`, no technical concern).
-- **MPNST_3**: Recommended resolution **0.6** resolving **13** clusters (Bootstrap Stability ARI: `0.910`, no technical concern).
-- **MPNST_4**: Recommended resolution **0.7** resolving **14** clusters (Bootstrap Stability ARI: `0.740`, technical concern: `MT_Bias` with percent.mt $R^2 = 0.47$).
+### Consolidated Milestone Reports (stored in `reports/milestones/`)
+- [M0_REPORT.md](reports/milestones/M0_REPORT.md): Infrastructure, Environment, & SLURM Safety.
+- [M1_REPORT.md](reports/milestones/M1_REPORT.md): Real-Data Object & Layers Inventory.
+- [M2_REPORT.md](reports/milestones/M2_REPORT.md): Extraction & Pre-Filter metrics.
+- [M3_REPORT.md](reports/milestones/M3_REPORT.md): QC Filtering & doublet validation.
+- [M4_REPORT.md](reports/milestones/M4_REPORT.md): Normalization & HVF selection.
+- [M5_REPORT.md](reports/milestones/M5_REPORT.md): Principal Component Analysis & evaluation.
+- [M6_REPORT.md](reports/milestones/M6_REPORT.md): Clustering Resolution Sweep & Selection.
+- [M7_REPORT.md](reports/milestones/M7_REPORT.md): Marker Discovery & Dataset Recommendations.
 
 ---
 
-## 9. Reference Documentation
+## 9. Current Scientific Handoff
+
+As of the completion of Milestone 7, the Phase 1 pre-integration baseline is frozen with the following dataset recommendations:
+
+| Dataset | Recommended PCs | Recommended Resolution | Alternative Resolution | Status | Resolved Clusters | Covariate Concerns / Limitations |
+| --- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **MPNST_1** | 1–8 | **0.6** | 0.3 | CONFIRMED | 18 | None |
+| **MPNST_2** | 1–6 | **0.3** | 0.5 | CONFIRMED | 9 | None |
+| **MPNST_3** | 1–9 | **0.6** | 0.3 | CONFIRMED | 13 | None |
+| **MPNST_4** | 1–5 | **0.7** | 0.5 | CONFIRMED | 14 | Technical `MT_Bias` ($R^2 = 0.47$ at res 0.7); alternative res 0.5 recommended to reduce MT correlation ($R^2 = 0.24$) |
+
+### Important Scientific Context
+- **Pre-Integration Freeze**: The datasets are processed and stored independently. **No integration or batch correction has been executed** (e.g. no Harmony, CCA, RPCA, MNN, scVI).
+- **Multi-Resolution Preserved**: All clustering resolutions (0.1 to 1.0) and SNN graphs are preserved in the Seurat objects, with marker tables pre-computed for every resolution.
+- **Pre-Annotation Status**: No final biological cell-type annotations have been assigned to clusters; clusters are currently defined by their numerical partitions and associated marker signatures.
+- **Downstream Transition**: The workflow is currently halted at the **Post-M7 Independent Audit Gate**. Milestone M8 (Combined Pre-Integration Baseline) has **NOT** started.
+
+---
+
+## 10. Reference Documentation
 For detailed progress, requirements, and historical records:
 - [PROJECT.md](PROJECT.md) - Authoritative project specification.
 - [PROGRESS.md](PROGRESS.md) - Project milestone history and log.
