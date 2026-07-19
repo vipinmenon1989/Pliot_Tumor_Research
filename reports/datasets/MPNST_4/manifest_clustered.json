@@ -1,7 +1,7 @@
 {
   "dataset_id": "MPNST_4",
   "seurat_object": "results/datasets/MPNST_4/MPNST_4_clustered.rds",
-  "checksum": "7cbfc8f385d3cee4664b67e6d2ce5f33",
+  "checksum": "b40c0d2cc9a20765938b1ade1eabaaf8",
   "figures": {
     "umap_grid_png": "reports/datasets/MPNST_4/pca_umap_grid.png",
     "umap_grid_pdf": "reports/datasets/MPNST_4/pca_umap_grid.pdf",

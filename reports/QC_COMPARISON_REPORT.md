@@ -1,6 +1,6 @@
 # Quality Control Strategy Comparison Report
 
-*Generated on: 2026-07-09 19:53:15*
+*Generated on: 2026-07-19 08:31:30*
 
 ## 1. Objective & Scope
 This report provides a quantitative comparison between two quality control (QC) filtering strategies evaluated on the Phase 1 constituents:
@@ -44,7 +44,7 @@ This report provides a quantitative comparison between two quality control (QC) 
 ---
 
 ## 5. Provenance
-- **Git Commit Hash**: `31cc849c7c8aaf27e8f2b594fb40d0c54989a579`
+- **Git Commit Hash**: `7d953d7016529a5f7ce493c11f554345796f6e79`
 - **Input Raw Files**: `results/datasets/{ds}/{ds}_raw.rds`
 - **Output Filtered Strategy A**: `results/datasets/{ds}/{ds}_filtered.rds`
 - **Output Filtered Strategy B**: `results/datasets/{ds}/{ds}_filtered_specific.rds`

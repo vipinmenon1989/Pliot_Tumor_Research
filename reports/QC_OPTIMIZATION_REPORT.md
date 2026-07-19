@@ -1,6 +1,6 @@
 # Quality Control Threshold Optimization Review Report
 
-*Generated on: 2026-07-09 19:54:14*
+*Generated on: 2026-07-19 08:32:18*
 
 ## 1. Executive Summary & Objective
 The objective of this review is to evaluate whether applying uniform, global quality control thresholds across all constituent datasets is scientifically justified, or if batch-specific/dataset-specific thresholds are required before proceeding to Milestone 4 (M4) normalization.
@@ -195,6 +195,6 @@ Based on the sensitivity curves and distribution medians, we propose the followi
 
 ## 7. Provenance
 - **Input files**: 4 raw dataset RDS files under `results/datasets/`
-- **Git Commit Hash**: `31cc849c7c8aaf27e8f2b594fb40d0c54989a579`
+- **Git Commit Hash**: `7d953d7016529a5f7ce493c11f554345796f6e79`
 - **Generated figures**: Visualizations saved in `reports/qc_optimization/`
 - **Generated tables**: Summaries saved in `reports/qc_optimization/`

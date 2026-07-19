@@ -13,7 +13,7 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 | **M4** | Normalization and Variable Features | **Completed** | 2026-07-09 | 2026-07-09 |
 | **M5** | PCA and PC Evaluation | **Completed** | 2026-07-10 | 2026-07-10 |
 | **M6** | Clustering Resolution Sweep | **Completed** | 2026-07-18 | 2026-07-18 |
-| **M7** | Marker Discovery and Dataset Recommendations | Not Started | - | - |
+| **M7** | Marker Discovery and Dataset Recommendations | **Completed** | 2026-07-19 | 2026-07-19 |
 | **M8** | Combined Pre-Integration Baseline | Not Started | - | - |
 | **M9** | Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze | Not Started | - | - |
 
@@ -189,3 +189,22 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
   - `reports/CLUSTERING_SWEEP_SUMMARY.tsv` (Consolidated sweep summary)
   - `reports/milestones/M6_REPORT.md` (Consolidated Milestone 6 report)
   - `reports/FIGURE_INDEX.tsv` (Updated global figure index with all 20 clustering sweep plots)
+
+### M7 — Marker Discovery and Dataset Recommendations
+- **Status**: Completed (2026-07-19)
+- **HPC Execution Metrics**:
+  - SLURM JobID: `19399784`
+  - Partition: `ihc`
+  - Node: `ihc-grid-1-1-1`
+  - State: COMPLETED (ExitCode 0:0)
+  - Elapsed: 00:11:08
+  - MaxRSS: 29815040K (~28.43 GB)
+- **Key Scientific Findings**:
+  - Executed Wilcoxon rank-sum marker discovery across 4 datasets × 10 resolutions = 40 combinations using the project-approved `PrepSCTFindMarkers` workflow.
+  - Recommended resolutions confirmed to possess robust, high-quality marker support (median 1446 markers for MPNST_1 at 0.6, 816 markers for MPNST_2 at 0.3, 816 markers for MPNST_3 at 0.6, 794 markers for MPNST_4 at 0.7) with zero weak or small clusters.
+  - Validated MPNST_4 mitochondrial bias concern at resolution 0.7 (correlation with `percent.mt` $R^2 = 0.47$) and proposed resolution 0.5 (reducing correlation to $R^2 = 0.24$ and merging stress-response clusters) as the primary alternative baseline for integration in Milestone 8.
+- **Artifacts Generated**:
+  - `reports/datasets/MPNST_*/markers/resolution_*/markers_all.tsv`, `markers_filtered.tsv`, `top_markers.tsv`, and `marker_summary.tsv` for all 40 combinations.
+  - `reports/datasets/MPNST_*/markers/resolution_{rec}/figures/` (Top 5 marker heatmap, dot plot, and FeaturePlots for every cluster in PNG and PDF).
+  - `reports/datasets/MPNST_*/ANALYSIS_RECOMMENDATION.md` (Dataset-specific analysis recommendation reports).
+  - `reports/milestones/M7_REPORT.md` (Consolidated Milestone 7 report).

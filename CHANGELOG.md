@@ -136,3 +136,22 @@ Clustering Resolution Sweep and Dataset-Specific Cluster Selection
   * Diagnostic figures: `pca_umap_grid.png`, `umap_recommended.png`, `clustering_metrics.png`, `clustering_stability.png`, and `clustering_tree.png`.
 * **HPC execution**:
   * SLURM production job ID `19399140` completed with ExitCode 0:0, elapsed time 00:07:58, and MaxRSS ~28.22 GB.
+
+[M7]
+
+Marker Discovery and Dataset-Specific Recommendations
+
+* **Added**:
+  * Wilcoxon rank-sum marker discovery scripts running independently across all 4 datasets and 10 resolutions (40 combinations).
+  * FeaturePlot generators and dot plot generators for recommended resolutions, downsampling cell count to a maximum of 100 cells per cluster to construct clean, publication-ready heatmaps and figures.
+  * Dynamically queries active assay (`SCT` vs standard `RNA`) and executes `PrepSCTFindMarkers` if SCT is active.
+  * Validation unit tests (`tests/unit/test_markers.R`) verifying marker presence, specificity metrics, column ranges, and visualization checks.
+  * Global consolidated report (`reports/milestones/M7_REPORT.md`) and dataset-specific recommendation reports (`reports/datasets/{ds}/ANALYSIS_RECOMMENDATION.md`).
+* **Changed**:
+  * Integrated rules `discover_markers`, `visualize_markers`, `generate_m7_report`, and `test_markers` into `workflow/Snakefile`.
+* **Scientific decisions**:
+  * Assessed 40 dataset-resolution combinations to evaluate marker quality (median markers per cluster) and check for weak cluster support (fewer than 5 distinct markers) and small clusters (fewer than 10 cells).
+  * Confirmed that recommended resolutions provide robust, biologically-relevant marker support with zero weak or small clusters.
+  * Addressed mitochondrial bias in MPNST_4 (correlation with `percent.mt` $R^2 = 0.47$ at recommended resolution 0.7) and proposed resolution 0.5 (reducing correlation to $R^2 = 0.24$) as the primary alternative baseline.
+* **HPC execution**:
+  * SLURM production job ID `19399784` completed with Snakemake execution of clustering sweep, marker sweep, visualization, reporting, and validation in 11m 8s, utilizing ~28.43 GB of memory.

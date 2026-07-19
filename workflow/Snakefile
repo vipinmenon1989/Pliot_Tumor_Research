@@ -10,7 +10,8 @@ configfile: "config/config.yaml"
 
 # Global wildcard constraints to prevent ambiguity with _specific suffix files
 wildcard_constraints:
-    dataset_id = "MPNST_[0-9]+|sample_[0-9]+"
+    dataset_id = "MPNST_[0-9]+|sample_[0-9]+",
+    resolution = "[0-9]+\\.[0-9]+"
 
 # Default rule target
 rule all:
@@ -63,6 +64,10 @@ rule all:
         "reports/milestones/M6_REPORT.md",
         "reports/CLUSTERING_RECOMMENDATIONS.tsv",
         "reports/CLUSTERING_SWEEP_SUMMARY.tsv",
+        # Milestone 7 Outputs (Marker discovery and recommendations):
+        expand("reports/datasets/{dataset_id}/markers/resolution_{resolution}/markers_all.tsv", dataset_id=config["datasets"], resolution=list(map(lambda r: f"{r:.1f}", config["clustering"]["resolutions"]))),
+        "reports/milestones/M7_REPORT.md",
+        "logs/workflow/test_markers.done",
         # Final Figure Index:
         "reports/FIGURE_INDEX.tsv"
 
@@ -901,4 +906,128 @@ rule generate_m6_report:
         """
         python {input.script} {input.config} {output.report} {output.rec_tsv} {output.sweep_tsv} {params.datasets} > {log.log} 2>&1
         """
+
+# Helper function to get target files for M6 recommended resolutions
+def get_m6_recommended_vis(wildcards):
+    recs = {
+        "MPNST_1": "0.6",
+        "MPNST_2": "0.3",
+        "MPNST_3": "0.6",
+        "MPNST_4": "0.7",
+        "sample_1": "0.5",
+        "sample_2": "0.5",
+        "sample_3": "0.5",
+        "sample_4": "0.5"
+    }
+    return [f"reports/datasets/{ds}/markers/resolution_{recs.get(ds, '0.5')}/visualized_top5_markers.tsv" for ds in config["datasets"]]
+
+# Rule to discover markers for all dataset-resolution combinations
+rule discover_markers:
+    input:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_clustered.rds",
+        script = "scripts/R/discover_markers.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        markers_all = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/markers_all.tsv",
+        markers_filtered = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/markers_filtered.tsv",
+        top_markers = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/top_markers.tsv",
+        summary = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/marker_summary.tsv",
+        prov = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/provenance.json"
+    log:
+        log = "logs/workflow/markers_{dataset_id}_res_{resolution}.log"
+    benchmark:
+        "benchmarks/markers_{dataset_id}_res_{resolution}.tsv"
+    resources:
+        cpus = 1,
+        mem_mb = 16000,
+        runtime = 45
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --resolution {wildcards.resolution} \
+          --test-use {config[markers][test_use]} \
+          --min-pct {config[markers][min_pct]} \
+          --logfc-threshold {config[markers][logfc_threshold]} \
+          --only-pos {config[markers][only_pos]} \
+          --out-dir reports/datasets/{wildcards.dataset_id}/markers/resolution_{wildcards.resolution} \
+          --out-prov {output.prov} > {log.log} 2>&1
+        """
+
+# Rule to run selective visualization for M6 recommended resolutions
+rule visualize_markers:
+    input:
+        rds = "results/datasets/{dataset_id}/{dataset_id}_clustered.rds",
+        script = "scripts/R/visualize_markers.R",
+        markers = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/markers_all.tsv",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        vis_tsv = "reports/datasets/{dataset_id}/markers/resolution_{resolution}/visualized_top5_markers.tsv"
+    log:
+        log = "logs/workflow/visualize_markers_{dataset_id}_res_{resolution}.log"
+    benchmark:
+        "benchmarks/visualize_markers_{dataset_id}_res_{resolution}.tsv"
+    resources:
+        cpus = 1,
+        mem_mb = 16000,
+        runtime = 45
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.rds} \
+          --dataset-id {wildcards.dataset_id} \
+          --resolution {wildcards.resolution} \
+          --markers {input.markers} \
+          --out-dir reports/datasets/{wildcards.dataset_id}/markers/resolution_{wildcards.resolution} \
+          --out-prov reports/datasets/{wildcards.dataset_id}/markers/resolution_{wildcards.resolution}/prov_vis.json > {log.log} 2>&1
+        """
+
+# Rule to generate the final Milestone 7 summary report and recommendations
+rule generate_m7_report:
+    input:
+        script = "scripts/python/generate_m7_report.py",
+        config = "config/config.yaml",
+        m6_report = "reports/milestones/M6_REPORT.md",
+        summaries = expand("reports/datasets/{dataset_id}/markers/resolution_{resolution}/marker_summary.tsv", dataset_id=config["datasets"], resolution=list(map(lambda r: f"{r:.1f}", config["clustering"]["resolutions"]))),
+        vis_tsvs = get_m6_recommended_vis
+    params:
+        datasets = config["datasets"]
+    output:
+        report = "reports/milestones/M7_REPORT.md",
+        ds_rec_mds = expand("reports/datasets/{dataset_id}/ANALYSIS_RECOMMENDATION.md", dataset_id=config["datasets"])
+    log:
+        log = "logs/workflow/generate_m7_report.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        python {input.script} {input.config} {output.report} {params.datasets} > {log.log} 2>&1
+        """
+
+# Rule to run marker validation unit tests
+rule test_markers:
+    input:
+        script = "tests/unit/test_markers.R",
+        report = "reports/milestones/M7_REPORT.md",
+        ds_rec_mds = expand("reports/datasets/{dataset_id}/ANALYSIS_RECOMMENDATION.md", dataset_id=config["datasets"])
+    params:
+        datasets = " ".join(config["datasets"])
+    output:
+        done = "logs/workflow/test_markers.done"
+    log:
+        log = "logs/workflow/test_markers.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        Rscript {input.script} --datasets "{params.datasets}" > {log.log} 2>&1 && touch {output.done}
+        """
+
 
