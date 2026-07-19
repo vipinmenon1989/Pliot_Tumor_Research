@@ -1,0 +1,11 @@
+resolution	number_of_clusters	minimum_cluster_size	median_cluster_size	maximum_cluster_size	stability_score	technical_covariate_concern
+0.1	6	313	785	3036	0.9081	MT_Bias
+0.2	8	146	501	2035	0.7945	MT_Bias
+0.3	9	150	596	1727	0.7318	MT_Bias
+0.4	12	147	564	1195	0.6117	MT_Bias
+0.5	12	151	498	1439	0.6394	MT_Bias
+0.6	13	151	450	1032	0.6956	MT_Bias
+0.7	14	151	402.5	1005	0.7399	MT_Bias
+0.8	16	146	406.5	889	0.607	MT_Bias
+0.9	18	115	360	900	0.6531	MT_Bias
+1	18	128	388	767	0.7212	MT_Bias

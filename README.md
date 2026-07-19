@@ -178,7 +178,10 @@ Successful execution of Milestones M0–M6 yields the following major artifacts:
   - [M5_REPORT.md](reports/milestones/M5_REPORT.md): Principal Component Analysis & evaluation.
   - [M6_REPORT.md](reports/milestones/M6_REPORT.md): Clustering Resolution Sweep & Selection.
 
-### Summary of Milestone 6 Recommendations
+### Summary of Milestone 6 Computational Recommendations
+> [!NOTE]
+> These resolutions are **computational recommendations** based on stability metrics and covariate correlation heuristics. The final researcher-approved resolutions have **not** yet been selected.
+
 - **MPNST_1**: Recommended resolution **0.6** resolving **18** clusters (Bootstrap Stability ARI: `0.919`, no technical concern).
 - **MPNST_2**: Recommended resolution **0.3** resolving **9** clusters (Bootstrap Stability ARI: `0.933`, no technical concern).
 - **MPNST_3**: Recommended resolution **0.6** resolving **13** clusters (Bootstrap Stability ARI: `0.910`, no technical concern).

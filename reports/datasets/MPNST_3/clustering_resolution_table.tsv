@@ -1,0 +1,11 @@
+resolution	number_of_clusters	minimum_cluster_size	median_cluster_size	maximum_cluster_size	stability_score	technical_covariate_concern
+0.1	6	149	462	925	0.9742	None
+0.2	8	149	303.5	685	0.9266	None
+0.3	10	107	221	629	0.9032	None
+0.4	12	51	200	525	0.8537	None
+0.5	12	51	200.5	524	0.8945	None
+0.6	13	51	177	510	0.9101	None
+0.7	14	52	184	449	0.859	None
+0.8	14	52	184	449	0.8423	None
+0.9	14	71	184.5	449	0.8481	None
+1	16	52	165.5	422	0.8858	None
