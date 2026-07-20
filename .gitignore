@@ -1,6 +1,6 @@
 # Ignore real and intermediate RDS data files
 processed_mpnst.rds
-results/
+results/*
 data/
 data/synthetic/
 
@@ -22,6 +22,13 @@ benchmarks/
 !reports/**/*.tsv
 !reports/**/*.csv
 
+# Allow phase 1 manifest to be tracked
+!results/phase1_manifest.json
+
 # Explicitly ignore synthetic sample artifacts
 reports/datasets/sample_*/
 reports/qc_optimization/overlap_sample_*
+
+# Local test clean room
+test_clean_room/
+

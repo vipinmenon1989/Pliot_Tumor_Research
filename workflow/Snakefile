@@ -112,7 +112,9 @@ rule all:
         # Final Figure Index:
         "reports/FIGURE_INDEX.tsv",
         # Milestone 8 Outputs:
-        "logs/workflow/test_preintegration.done"
+        "logs/workflow/test_preintegration.done",
+        # Milestone 9 Canonical Output:
+        "logs/workflow/phase1_complete.done"
 
 # Rule to validate configuration format and parameters against schema
 rule validate_config:
@@ -1173,5 +1175,61 @@ rule test_preintegration:
         """
         Rscript {input.script} --datasets "{params.datasets}" > {log.log} 2>&1 && touch {output.done}
         """
+
+# Rule to generate the Phase 1 manifest contract
+rule generate_phase1_manifest:
+    input:
+        script = "scripts/python/generate_phase1_manifest.py",
+        m8_done = "logs/workflow/test_preintegration.done"
+    output:
+        manifest = "results/phase1_manifest.json"
+    log:
+        log = "logs/workflow/generate_phase1_manifest.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        python {input.script} > {log.log} 2>&1
+        """
+
+# Rule to run the project state consistency validator
+rule validate_project_state:
+    input:
+        script = "scripts/python/validate_project_state.py",
+        manifest = "results/phase1_manifest.json",
+        handoff = "reports/PHASE1_HANDOFF.md",
+        m9_report = "reports/milestones/M9_REPORT.md",
+        reconciliation_md = "reports/audits/M0_M8_RECONCILIATION.md",
+        reconciliation_tsv = "reports/audits/M0_M8_RECONCILIATION.tsv"
+    output:
+        done = "logs/workflow/validate_project_state.done"
+    log:
+        log = "logs/workflow/validate_project_state.log"
+    resources:
+        cpus = 1,
+        mem_mb = 4000,
+        runtime = 10
+    shell:
+        """
+        python {input.script} > {log.log} 2>&1 && touch {output.done}
+        """
+
+# Canonical Phase 1 target
+rule phase1_complete:
+    input:
+        "results/phase1_manifest.json",
+        "reports/PHASE1_HANDOFF.md",
+        "reports/milestones/M9_REPORT.md",
+        "logs/workflow/validate_project_state.done"
+    output:
+        done = "logs/workflow/phase1_complete.done"
+    shell:
+        """
+        echo "=== Phase 1 Pipeline Execution Successfully Completed & Frozen ==="
+        touch {output.done}
+        """
+
 
 

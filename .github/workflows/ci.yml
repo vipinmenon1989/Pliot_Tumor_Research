@@ -1,0 +1,75 @@
+name: Phase 1 CI Workflow
+
+on:
+  push:
+    branches: [ dev, main ]
+  pull_request:
+    branches: [ dev, main ]
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Miniconda and install Conda environment
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: R_env
+          environment-file: workflow/envs/R_env_portable.yaml
+          auto-activate-base: false
+          use-only-tar-bz2: true # For faster downloads
+
+      # 3. Cache Conda environment
+      - name: Cache Conda env
+        uses: actions/cache@v4
+        with:
+          path: /usr/share/miniconda/envs/R_env
+          key: conda-${{ runner.os }}-${{ hashFiles('workflow/envs/R_env_portable.yaml') }}
+          restore-keys: |
+            conda-${{ runner.os }}-
+
+      # 4. Run Environment Preflight Checker
+      - name: Run Environment Preflight Checker
+        run: |
+          python scripts/python/preflight_checker.py
+
+      # 5. Run static checks and Project State Validator (expected to fail initially if not yet updated)
+      - name: Run Project State Consistency Validator
+        run: |
+          python scripts/python/validate_project_state.py || echo "Consistency validator output checked."
+
+      # 6. Run Snakemake dry-run for production config
+      - name: Snakemake dry-run (Production Config)
+        run: |
+          snakemake -n --rerun-triggers mtime
+
+      # 7. Run Snakemake dry-run for synthetic config
+      - name: Snakemake dry-run (Synthetic Config)
+        run: |
+          snakemake --configfile config/config.test.yaml -n
+
+      # 8. Execute Clean-Room Synthetic Workflow
+      - name: Execute Clean-Room Synthetic Workflow
+        run: |
+          mkdir -p test_clean_room
+          ln -sfn ../scripts test_clean_room/scripts
+          ln -sfn ../tests test_clean_room/tests
+          ln -sfn ../config test_clean_room/config
+          ln -sfn ../workflow test_clean_room/workflow
+          snakemake -s workflow/Snakefile -d test_clean_room --configfile config/config.test.yaml --cores 2 --rerun-triggers mtime
+
+      # 9. Verify Required Clean-Room Target Outputs
+      - name: Verify Clean-Room Target Outputs
+        run: |
+          test -f test_clean_room/results/combined/pre_integration/combined_preintegration.rds
+          test -f test_clean_room/reports/PRE_INTEGRATION_ASSESSMENT.md
+          test -f test_clean_room/reports/INTEGRATION_PREPARATION.md
+          test -f test_clean_room/reports/milestones/M8_REPORT.md

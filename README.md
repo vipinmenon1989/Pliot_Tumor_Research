@@ -1,4 +1,5 @@
 # MPNST Phase 1 Analysis Workflow
+[![Phase 1 CI Workflow](https://github.com/vipinmenon1989/Pliot_Tumor_Research/actions/workflows/ci.yml/badge.svg)](https://github.com/vipinmenon1989/Pliot_Tumor_Research/actions/workflows/ci.yml)
 
 Reproducible, configuration-driven single-cell RNA-seq preprocessing and dataset auditing workflow for MPNST datasets.
 
@@ -11,10 +12,10 @@ The primary objective of this project is to construct a modular, reproducible, c
 
 ## 2. Current Project Status
 - **Current Phase**: Phase 1 (Independent Dataset Processing)
-- **Status**: **Completed: Milestones M0–M8**
-- **Latest Completed Milestone**: **M8 — Combined Pre-Integration Baseline**
-- **Next Required Step**: **Post-M8 Verification**
-- **Next Computational Milestone (After Approval)**: **Milestone M9 — Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze**
+- **Status**: **Completed: Milestones M0–M9**
+- **Latest Completed Milestone**: **M9 — Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze**
+- **Phase Status**: **PHASE 1 = FROZEN** | **PHASE 2 = NOT STARTED**
+- **Next Phase**: Phase 2 (Multi-dataset Integration & Downstream Annotation)
 
 > [!IMPORTANT]
 > **Strict Phase 1 Scope Constraint**:
@@ -43,9 +44,9 @@ M7 Marker discovery + recommendations (Resolution-specific markers & selection) 
     ↓
 M8 Combined pre-integration baseline (SCT, shared PCA, shared UMAP, neighbor mixing metrics) ✓
     ↓
-POST-M8 INDEPENDENT AUDIT GATE  <-- CURRENT GATE
+M9 Workflow hardening + CI/CD + Phase 1 freeze (reconciled and tested) ✓
     ↓
-M9 Workflow hardening + CI/CD + Phase 1 freeze (NOT STARTED)
+=== PHASE 1 FROZEN / PHASE 2 NOT STARTED ===
 ```
 
 ---
@@ -154,24 +155,18 @@ snakemake -n --configfile config/config.yaml
 
 # 2. Execute production steps via SLURM
 # Note: A generic end-to-end production entry point is not yet implemented.
-# Production execution currently uses milestone-specific SLURM wrapper scripts
-# to manage computing resources safely. Complete workflow generalization is scheduled for M9.
-sbatch scripts/shell/run_m7_workflow.sh
-```
+# ## 8. Current Outputs (Through Milestone 9)
 
----
+Successful execution of Milestones M0–M9 yields the following major artifacts:
 
-## 8. Current Outputs (Through Milestone 8)
-
-Successful execution of Milestones M0–M8 yields the following major artifacts:
-
-### Seurat RDS Objects (stored in `results/datasets/{ds}/` or `results/combined/`)
+### Seurat RDS & Manifest Objects (stored in `results/datasets/{ds}/` or `results/`)
 - `{ds}_raw.rds` (M2): Raw extracted datasets split by `sample_id`.
 - `{ds}_filtered_specific.rds` (M3): Filtered single-cell objects after scDblFinder doublet removal and dataset-specific QC thresholds.
 - `{ds}_normalized.rds` (M4): SCTransform-normalized and variance-stabilized Seurat objects with 3,000 highly variable features.
 - `{ds}_pca.rds` (M5): PCA-embedded Seurat objects computed on variable features.
 - `{ds}_clustered.rds` (M6): Clustered Seurat objects containing sweep resolution metadata (0.1 to 1.0) and active identity set to the recommended resolution.
 - `results/combined/pre_integration/combined_preintegration.rds` (M8): Combined pre-integration Seurat object containing all 19,716 cells in a shared non-integrated expression space.
+- `results/phase1_manifest.json` (M9): Programmatic, machine-readable validation manifest contract for Phase 2.
 
 ### Recommendations & Reports (stored in `reports/`)
 - [reports/PCA_RECOMMENDATIONS.tsv](file://reports/PCA_RECOMMENDATIONS.tsv) (M5): Machine-readable Recommended, Conservative, and Maximum PC counts.
@@ -182,6 +177,9 @@ Successful execution of Milestones M0–M8 yields the following major artifacts:
 - [reports/PRE_INTEGRATION_ASSESSMENT.md](file://reports/PRE_INTEGRATION_ASSESSMENT.md) (M8): Pre-integration baseline assessment report.
 - [reports/INTEGRATION_PREPARATION.md](file://reports/INTEGRATION_PREPARATION.md) (M8): Integration preparation design report.
 - [reports/combined/pre_integration/](file://reports/combined/pre_integration/) (M8): Pre-integration inventories, dictionaries, composition summaries, confounding analyses, and neighborhood mixing diagnostic tables.
+- [reports/audits/M0_M8_RECONCILIATION.md](file://reports/audits/M0_M8_RECONCILIATION.md) (M9): Three-layer verification audit report.
+- [reports/audits/M0_M8_RECONCILIATION.tsv](file://reports/audits/M0_M8_RECONCILIATION.tsv) (M9): Machine-readable audit TSV.
+- [reports/PHASE1_HANDOFF.md](file://reports/PHASE1_HANDOFF.md) (M9): Human-readable final Phase 1 handoff documentation.
 - [reports/FIGURE_INDEX.tsv](file://reports/FIGURE_INDEX.tsv): Consolidated index of all diagnostic plots generated across all milestones.
 
 ### Consolidated Milestone Reports (stored in `reports/milestones/`)
@@ -194,12 +192,13 @@ Successful execution of Milestones M0–M8 yields the following major artifacts:
 - [M6_REPORT.md](reports/milestones/M6_REPORT.md): Clustering Resolution Sweep & Selection.
 - [M7_REPORT.md](reports/milestones/M7_REPORT.md): Marker Discovery & Dataset Recommendations.
 - [M8_REPORT.md](reports/milestones/M8_REPORT.md): Combined Pre-Integration Baseline.
+- [M9_REPORT.md](reports/milestones/M9_REPORT.md): Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze.
 
 ---
 
 ## 9. Current Scientific Handoff
 
-As of the completion of Milestone 8, the Phase 1 pre-integration baseline is frozen with the following dataset recommendations:
+As of the completion of Milestone 9, the Phase 1 pre-integration baseline is frozen with the following dataset recommendations:
 
 | Dataset | Recommended PCs | Recommended Resolution | Alternative Resolution | Status | Resolved Clusters | Covariate Concerns / Limitations |
 | --- | :---: | :---: | :---: | :---: | :---: | :--- |
@@ -212,8 +211,7 @@ As of the completion of Milestone 8, the Phase 1 pre-integration baseline is fro
 - **Pre-Integration Freeze**: The datasets are combined but remain non-integrated. **No integration or batch correction has been executed** (e.g. no Harmony, CCA, RPCA, MNN, scVI).
 - **Multi-Resolution Preserved**: All clustering resolutions (0.1 to 1.0) and SNN graphs are preserved in the Seurat objects, with marker tables pre-computed for every resolution.
 - **Pre-Annotation Status**: No final biological cell-type annotations have been assigned to clusters; clusters are currently defined by their numerical partitions and associated marker signatures.
-- **Downstream Transition**: The workflow has completed Milestone M8 (Combined Pre-Integration Baseline). The next step is Milestone M9 (Workflow Hardening, CI/CD, and Phase 1 Freeze). No integration or batch correction has yet been performed.
-
+- **Downstream Transition**: The workflow has completed Milestone M9 (Workflow Hardening, CI/CD, and Phase 1 Freeze). **Phase 1 is FROZEN. Phase 2 is NOT STARTED.** No integration or batch correction has yet been performed.
 
 ---
 
@@ -223,3 +221,6 @@ For detailed progress, requirements, and historical records:
 - [PROGRESS.md](PROGRESS.md) - Project milestone history and log.
 - [CHANGELOG.md](CHANGELOG.md) - Technical changes & decisions log.
 - [reports/milestones/](reports/milestones/) - Directory containing all milestone reports.
+- [reports/PHASE1_HANDOFF.md](reports/PHASE1_HANDOFF.md) - Final Phase 1 handoff documentation.
+- [results/phase1_manifest.json](results/phase1_manifest.json) - Final Phase 1 manifest contract.
+

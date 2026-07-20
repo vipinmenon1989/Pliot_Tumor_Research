@@ -186,3 +186,25 @@ Combined Pre-Integration Baseline and Integration-Readiness Assessment
 * **HPC execution**:
   * SLURM production job ID `19403199` completed with Snakemake execution of combination, normalization, embedding, mixing diagnostics, visualizations, reports, and validation tests in 17m 17s, utilizing ~32.00 GB of memory.
 
+[M9]
+
+Workflow Hardening, CI/CD, Provenance Finalization, Phase 1 Handoff, and Phase 1 Freeze
+
+* **Added**:
+  - Top-level canonical Snakemake target `phase1_complete` which pulls in the Phase 1 manifest, handoff report, milestone report, audits, and consistency logs.
+  - Portable preflight environment validator script `scripts/python/preflight_checker.py` checking packages, configuration, and permissions.
+  - Python project-state consistency checker `validate_project_state.py` validating PROGRESS, CHANGELOG, README, and milestone report file synchronizations.
+  - Programmatic Phase 1 manifest generator `scripts/python/generate_phase1_manifest.py` generating SHA256 checksums and parameters for all RDS objects.
+  - GitHub Actions CI workflow configuration `.github/workflows/ci.yml` performing static, config, linting, and clean-room synthetic workflow testing.
+  - Human-readable final handoff documentation `reports/PHASE1_HANDOFF.md`.
+  - Consolidated Milestone 9 execution report `reports/milestones/M9_REPORT.md`.
+  - Three-layer verification audit report `reports/audits/M0_M8_RECONCILIATION.md` and machine-readable `M0_M8_RECONCILIATION.tsv`.
+* **Changed**:
+  - Updated `workflow/Snakefile` adding rules `generate_phase1_manifest`, `validate_project_state`, and `phase1_complete`, and linking them to rule `all`.
+  - Fully synchronized `README.md` and `PROGRESS.md` to reflect M0-M9 complete, Phase 1 frozen, and Phase 2 not started status.
+* **Scientific decisions**:
+  - Declared Phase 1 frozen and established the entry contract for Phase 2, defining the immutable `preint_*` namespace and requiring Phase 2 coordinates to use `postint_*`.
+* **HPC execution**:
+  - SLURM validation job ID `19403619` executed the Snakemake verification tests on the compute node in 1m 15s, using MaxRSS 16.00 GB.
+
+

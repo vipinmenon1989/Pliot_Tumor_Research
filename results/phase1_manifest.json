@@ -1,0 +1,212 @@
+{
+  "combined_preintegration": {
+    "assay_layer_strategy": "SCT default assay (counts, data, scale.data layers), RNA assay (counts, data layers)",
+    "combined_object_checksum": "c3fdce8b61602725977f989d8bbf10030ffe48ef6140372a13d2c59903a8dc66",
+    "combined_object_path": "results/combined/pre_integration/combined_preintegration.rds",
+    "composition_summary_path": "reports/combined/pre_integration/composition_dataset.tsv",
+    "confounding_findings_path": "reports/combined/pre_integration/confounding_summary.tsv",
+    "constituent_datasets": [
+      "MPNST_1",
+      "MPNST_2",
+      "MPNST_3",
+      "MPNST_4"
+    ],
+    "feature_count": 31764,
+    "integration_readiness_conclusion": "Strong dataset-associated structure is present before integration. Integration should be evaluated in Phase 2 against the frozen non-integrated baseline using both mixing and biological-conservation criteria.",
+    "major_metadata_umap_paths": {
+      "by_dataset": "reports/combined/pre_integration/umap/preintegration_umap_by_dataset.png",
+      "by_percent_mt": "reports/combined/pre_integration/umap/preintegration_umap_by_percent.mt.png",
+      "by_recommended_clusters": "reports/combined/pre_integration/umap/preintegration_umap_by_recommended_clusters.png"
+    },
+    "metadata_dictionary": "reports/combined/pre_integration/metadata_dictionary.tsv",
+    "metadata_inventory": "reports/combined/pre_integration/metadata_inventory.tsv",
+    "neighborhood_diagnostics_path": "reports/combined/pre_integration/neighborhood_mixing_summary.tsv",
+    "preserved_resolution_naming": "preint_MPNST_{dataset}_res_{resolution}",
+    "recommended_preint_clusters": "preint_recommended_cluster",
+    "shared_neighbor_configuration": {
+      "dims": 30,
+      "k": 15
+    },
+    "shared_pca_configuration": {
+      "features": 3000,
+      "npcs": 30
+    },
+    "shared_umap_configuration": {
+      "dims": 30,
+      "metric": "cosine",
+      "seed": 42
+    },
+    "total_cells": 19716
+  },
+  "config_checksum": "2c6e291fcf109bb98721d92b911d10349449de27bb38cb6edfc4052496f9e8b3",
+  "datasets": {
+    "MPNST_1": {
+      "alternative_resolution": 0.3,
+      "biological_interpretation_limitations": " donor clinical annotations (age, sex, anatomical site, clinical site, condition) are not recorded in the object, leaving technical batch and donor biological variation fully confounded.",
+      "cell_counts": {
+        "filtered": 7615,
+        "filtered_specific": 7615,
+        "raw": 7615
+      },
+      "clustered_object_checksum": "ba7894ac4ba7f576b816ce3854027e18e3d9a447bcbde0247fb2253c51df578f",
+      "clustered_object_path": "results/datasets/MPNST_1/MPNST_1_clustered.rds",
+      "dataset_identifier": "MPNST_1",
+      "doublet_method": "scDblFinder",
+      "filtered_object_checksum": "42d31aa7cd7986b6b752a81c9c15102c0cb82c3bacab0e77dc2f08a6cdf27cb5",
+      "filtered_object_path": "results/datasets/MPNST_1/MPNST_1_filtered_specific.rds",
+      "marker_paths_recommended": "reports/datasets/MPNST_1/markers/resolution_0.6/markers_all.tsv",
+      "normalization_method": "SCTransform",
+      "normalized_object_checksum": "da8118fd8be34db7bf18081b5c62b18f161376af67c8686f17e6d71fc59876f9",
+      "normalized_object_path": "results/datasets/MPNST_1/MPNST_1_normalized.rds",
+      "pca_object_checksum": "39cb1a686e5aeebfe39b726bd9b65949cf09f924db3d83d277e62c61eced1f64",
+      "pca_object_path": "results/datasets/MPNST_1/MPNST_1_pca.rds",
+      "qc_thresholds": {
+        "max_counts": 999999999,
+        "max_features": 999999999,
+        "max_percent_mt": 10.0,
+        "max_percent_ribo": 20.0,
+        "min_counts": 500,
+        "min_features": 200
+      },
+      "raw_object_checksum": "e8d0817128adcee70870594be250043c34ae83bf9ef18e02c399a59865b04bfb",
+      "raw_object_path": "results/datasets/MPNST_1/MPNST_1_raw.rds",
+      "recommended_pc_range": "1-8",
+      "recommended_resolution": 0.6,
+      "resolved_clusters": 18,
+      "technical_concerns": "None",
+      "variable_feature_parameters": {
+        "n_features": 3000
+      },
+      "warnings": "None"
+    },
+    "MPNST_2": {
+      "alternative_resolution": 0.5,
+      "biological_interpretation_limitations": " donor clinical annotations (age, sex, anatomical site, clinical site, condition) are not recorded in the object, leaving technical batch and donor biological variation fully confounded.",
+      "cell_counts": {
+        "filtered": 2284,
+        "filtered_specific": 2284,
+        "raw": 2284
+      },
+      "clustered_object_checksum": "595e893d813b340cc7ae56429233ee8ec7c27cd85885355fdb0a8a1dc174a94f",
+      "clustered_object_path": "results/datasets/MPNST_2/MPNST_2_clustered.rds",
+      "dataset_identifier": "MPNST_2",
+      "doublet_method": "scDblFinder",
+      "filtered_object_checksum": "700206901f33785cded4e04b5b47964f41fe78828f1cda46c8c9a273afb174dc",
+      "filtered_object_path": "results/datasets/MPNST_2/MPNST_2_filtered_specific.rds",
+      "marker_paths_recommended": "reports/datasets/MPNST_2/markers/resolution_0.3/markers_all.tsv",
+      "normalization_method": "SCTransform",
+      "normalized_object_checksum": "188153b8c9f73e2916410acbfecb439ea910982659f77680ebc931da7974fcd3",
+      "normalized_object_path": "results/datasets/MPNST_2/MPNST_2_normalized.rds",
+      "pca_object_checksum": "bcfe83a33425dd64682ae4bd2f1a212bb07b32591fd66d11b1d9215c7ada6fbb",
+      "pca_object_path": "results/datasets/MPNST_2/MPNST_2_pca.rds",
+      "qc_thresholds": {
+        "max_counts": 999999999,
+        "max_features": 999999999,
+        "max_percent_mt": 10.0,
+        "max_percent_ribo": 20.0,
+        "min_counts": 500,
+        "min_features": 200
+      },
+      "raw_object_checksum": "0d92326a50d26941f0987422c3a5cf92f0cc2895c73230e3984a72d8cd38c224",
+      "raw_object_path": "results/datasets/MPNST_2/MPNST_2_raw.rds",
+      "recommended_pc_range": "1-6",
+      "recommended_resolution": 0.3,
+      "resolved_clusters": 9,
+      "technical_concerns": "None",
+      "variable_feature_parameters": {
+        "n_features": 3000
+      },
+      "warnings": "None"
+    },
+    "MPNST_3": {
+      "alternative_resolution": 0.3,
+      "biological_interpretation_limitations": " donor clinical annotations (age, sex, anatomical site, clinical site, condition) are not recorded in the object, leaving technical batch and donor biological variation fully confounded.",
+      "cell_counts": {
+        "filtered": 2940,
+        "filtered_specific": 2940,
+        "raw": 2940
+      },
+      "clustered_object_checksum": "bf937b48be7c7699587fcaa511ba2d33f943616863b57aee58e18dd757480c96",
+      "clustered_object_path": "results/datasets/MPNST_3/MPNST_3_clustered.rds",
+      "dataset_identifier": "MPNST_3",
+      "doublet_method": "scDblFinder",
+      "filtered_object_checksum": "ddb7ef9b68f3c514f8355355bb3b83b14ace297496aca54fd9b928244881b4c4",
+      "filtered_object_path": "results/datasets/MPNST_3/MPNST_3_filtered_specific.rds",
+      "marker_paths_recommended": "reports/datasets/MPNST_3/markers/resolution_0.6/markers_all.tsv",
+      "normalization_method": "SCTransform",
+      "normalized_object_checksum": "83de11cab889d15817ac9a8900661def2df0f3d64df839933809fa0a1ceb146d",
+      "normalized_object_path": "results/datasets/MPNST_3/MPNST_3_normalized.rds",
+      "pca_object_checksum": "ee515f8d14c5b458bf068a990bbc957989b8e11f015a93a2d40bb8babca795a8",
+      "pca_object_path": "results/datasets/MPNST_3/MPNST_3_pca.rds",
+      "qc_thresholds": {
+        "max_counts": 999999999,
+        "max_features": 999999999,
+        "max_percent_mt": 10.0,
+        "max_percent_ribo": 20.0,
+        "min_counts": 500,
+        "min_features": 200
+      },
+      "raw_object_checksum": "26a0dbc4764bb4637f5935022b8e6b5bd038b2bab394f82934d78d023667b05a",
+      "raw_object_path": "results/datasets/MPNST_3/MPNST_3_raw.rds",
+      "recommended_pc_range": "1-9",
+      "recommended_resolution": 0.6,
+      "resolved_clusters": 13,
+      "technical_concerns": "None",
+      "variable_feature_parameters": {
+        "n_features": 3000
+      },
+      "warnings": "None"
+    },
+    "MPNST_4": {
+      "alternative_resolution": 0.5,
+      "biological_interpretation_limitations": " donor clinical annotations (age, sex, anatomical site, clinical site, condition) are not recorded in the object, leaving technical batch and donor biological variation fully confounded.",
+      "cell_counts": {
+        "filtered": 6877,
+        "filtered_specific": 6877,
+        "raw": 6877
+      },
+      "clustered_object_checksum": "3305ffa19fd6d89408bfb003fec4a3c21807cf19eaadad62a11a096593530896",
+      "clustered_object_path": "results/datasets/MPNST_4/MPNST_4_clustered.rds",
+      "dataset_identifier": "MPNST_4",
+      "doublet_method": "scDblFinder",
+      "filtered_object_checksum": "4bdaaa1bcf9a0ade18853f96bb68ce7c2b47efab53983d237bec485716d07a65",
+      "filtered_object_path": "results/datasets/MPNST_4/MPNST_4_filtered_specific.rds",
+      "marker_paths_recommended": "reports/datasets/MPNST_4/markers/resolution_0.7/markers_all.tsv",
+      "normalization_method": "SCTransform",
+      "normalized_object_checksum": "2478c21877641fd998a27ec5261996fe1789ded1abfee5ebfb01ddb6b1acf4fc",
+      "normalized_object_path": "results/datasets/MPNST_4/MPNST_4_normalized.rds",
+      "pca_object_checksum": "e45fa0c224f8ac9c6d25e8bb99f91de1a2b6c89912d3bc62b9effe46088a03b8",
+      "pca_object_path": "results/datasets/MPNST_4/MPNST_4_pca.rds",
+      "qc_thresholds": {
+        "max_counts": 999999999,
+        "max_features": 999999999,
+        "max_percent_mt": 10.0,
+        "max_percent_ribo": 20.0,
+        "min_counts": 500,
+        "min_features": 200
+      },
+      "raw_object_checksum": "4506f7fe8866bbe025afbe22d871b9e855d989bf86d8c5c937c487b75571f9e8",
+      "raw_object_path": "results/datasets/MPNST_4/MPNST_4_raw.rds",
+      "recommended_pc_range": "1-5",
+      "recommended_resolution": 0.7,
+      "resolved_clusters": 14,
+      "technical_concerns": "MT expression bias strongly correlated with Louvain cluster C09 (R^2 = 0.47).",
+      "variable_feature_parameters": {
+        "n_features": 3000
+      },
+      "warnings": "Technical mitochondrial correlation program bias identified in cluster C09."
+    }
+  },
+  "environment_specification": "workflow/envs/R_env_portable.yaml",
+  "git_branch": "dev",
+  "git_commit": "94ed4f5b7eac3c26650dbd16477d35d6873db226",
+  "git_status": "clean",
+  "original_input_checksum": "6934149b3828dcbf45d869708787e0ca046ec6f174bbf1f50930d326109e71bb",
+  "provenance_paths": {
+    "m0_m8_reconciliation": "reports/audits/M0_M8_RECONCILIATION.md",
+    "m1_audit": "reports/audits/m1_audit_provenance.json",
+    "m8_reconciliation": "reports/audits/M8_RECONCILIATION.md"
+  },
+  "snakemake_version": "9.23.1",
+  "workflow_completion_status": "completed"
+}

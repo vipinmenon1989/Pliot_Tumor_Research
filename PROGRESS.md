@@ -1,5 +1,8 @@
 # MPNST Phase 1 Project Progress
 
+**PHASE 1 = FROZEN**
+**PHASE 2 = NOT STARTED**
+
 This document tracks the progress of the Phase 1 independent dataset analysis, reproducible workflow engineering, marker discovery, and pre-integration handoff.
 
 | Milestone Status Summary
@@ -15,7 +18,7 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 | **M6** | Clustering Resolution Sweep | **Completed** | 2026-07-18 | 2026-07-18 |
 | **M7** | Marker Discovery and Dataset Recommendations | **Completed** | 2026-07-19 | 2026-07-19 |
 | **M8** | Combined Pre-Integration Baseline | **Completed** | 2026-07-20 | 2026-07-20 |
-| **M9** | Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze | Not Started | - | - |
+| **M9** | Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze | **Completed** | 2026-07-20 | 2026-07-20 |
 
 ---
 
@@ -237,4 +240,29 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
   - `reports/INTEGRATION_PREPARATION.md` (Integration preparation design report)
   - `reports/milestones/M8_REPORT.md` (Consolidated Milestone 8 report)
   - `reports/FIGURE_INDEX.tsv` (Consolidated global figure index with all 10 M8 figures)
+
+### M9 — Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze
+- **Status**: Completed (2026-07-20)
+- **Workflow Hardening**:
+  - Implemented top-level canonical target `phase1_complete` in `workflow/Snakefile` that runs all validation and manifest steps.
+  - Hardened configuration validation against schemas, path portability inside analysis scripts, and rerun safety.
+  - Implemented failure propagation tests to ensure corrupted inputs halt execution immediately.
+- **CI/CD Pipeline**:
+  - Configured GitHub Actions CI workflow in `.github/workflows/ci.yml` that performs linting, config validation, synthetic data generation, and clean-room synthetic workflow runs.
+- **Static Checks & Audits**:
+  - Implemented Python project-state consistency checker `validate_project_state.py` to prevent documentation drift.
+  - Compiled detailed three-layer verification audit for Milestones 0-8 in `reports/audits/M0_M8_RECONCILIATION.md` and `M0_M8_RECONCILIATION.tsv`.
+  - Built preflight checker `preflight_checker.py` to verify system requirements.
+- **Phase 1 Handoff**:
+  - Generated machine-readable contract `results/phase1_manifest.json` and human-readable final handoff report `reports/PHASE1_HANDOFF.md`.
+- **Artifacts Generated**:
+  - `.github/workflows/ci.yml` (GitHub Actions workflow file)
+  - `reports/audits/M0_M8_RECONCILIATION.md` and `M0_M8_RECONCILIATION.tsv` (Verification matrices)
+  - `scripts/python/preflight_checker.py` (Environment checker)
+  - `scripts/python/validate_project_state.py` (Consistency checker)
+  - `scripts/python/generate_phase1_manifest.py` (Manifest generator script)
+  - `results/phase1_manifest.json` (Machine-readable handoff contract)
+  - `reports/PHASE1_HANDOFF.md` (Human-readable handoff document)
+  - `reports/milestones/M9_REPORT.md` (Milestone 9 execution report)
+
 
