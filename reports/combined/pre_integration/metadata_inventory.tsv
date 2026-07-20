@@ -1,0 +1,92 @@
+metadata_field	type	num_unique_values	unique_values	missing_count	missing_percentage	classification	source	used_in_visualization	reason_if_not_used
+orig.ident	character	4	MPNST_1;MPNST_2;MPNST_3;MPNST_4	0	0	provenance	M1-M7	yes	Required pre-integration baseline metadata visualization.
+nCount_RNA	numeric	11586	cardinality > 20	0	0	technical	M1-M7	yes	Required pre-integration baseline metadata visualization.
+nFeature_RNA	integer	5827	cardinality > 20	0	0	technical	M1-M7	yes	Required pre-integration baseline metadata visualization.
+sample_id	character	4	MPNST_1;MPNST_2;MPNST_3;MPNST_4	0	0	provenance	M1-M7	yes	Required pre-integration baseline metadata visualization.
+percent.mt	numeric	11957	cardinality > 20	0	0	technical	M1-M7	yes	Required pre-integration baseline metadata visualization.
+orig.anno	character	16	B cells;CD4 T cells;CD56 NK cells;CD8 T cells;Cycling tumor cells;Dendritic;Endothelial;Fibroblast;Immature SC-like;Macrophages;Malignant NC-MES or MES-like;Malignant SCP-like;Mesenchymal lineage cells;NK cells;T cells;VSMCs/pericytes	0	0	biological	M1-M7	no	Not selected for pre-integration baseline visualizations.
+unintegrated_clusters	character	16	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+seurat_clusters	character	21	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+pca100_harmony_clusters	character	16	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+pca100_cca_clusters	character	10	1;10;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+pca100_mnn_clusters	character	13	0;1;10;11;12;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+pca100_rpca_clusters	character	17	0;1;10;11;12;13;14;15;16;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+nCount_SCT	numeric	5269	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+nFeature_SCT	integer	3824	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+pca100.sct_harmony_clusters	character	13	0;1;10;11;12;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+pca100.sct_cca_clusters	character	12	0;1;10;11;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+percent.ribo	numeric	19596	cardinality > 20	0	0	technical	M1-M7	yes	Required pre-integration baseline metadata visualization.
+doublet_class	character	1	singlet	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+doublet_score	numeric	19297	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+fail_min_features	logical	1	FALSE	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+fail_min_counts	logical	1	FALSE	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+fail_max_mt	logical	1	FALSE	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+fail_max_ribo	logical	1	FALSE	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+fail_doublet	logical	1	FALSE	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+retained	logical	1	TRUE	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.1	character	8	0;1;2;3;4;5;6;7	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.1	character	8	0;1;2;3;4;5;6;7	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.2	character	12	0;1;10;11;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.2	character	12	0;1;10;11;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.3	character	15	0;1;10;11;12;13;14;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.3	character	15	0;1;10;11;12;13;14;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.4	character	16	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.4	character	16	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.5	character	18	0;1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.5	character	18	0;1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.6	character	18	0;1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.6	character	18	0;1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.7	character	20	0;1;10;11;12;13;14;15;16;17;18;19;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.7	character	20	0;1;10;11;12;13;14;15;16;17;18;19;2;3;4;5;6;7;8;9	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.8	character	21	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.8	character	21	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.0.9	character	21	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_0.9	character	21	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+SCT_snn_res.1	character	21	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+cluster_res_1	character	21	cardinality > 20	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+recommended_resolution	numeric	3	0.3;0.6;0.7	0	0	technical	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.1	character	9	0;1;2;3;4;5;6;7	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.2	character	13	0;1;10;11;2;3;4;5;6;7;8;9	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.3	character	16	0;1;10;11;12;13;14;2;3;4;5;6;7;8;9	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.4	character	17	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.5	character	19	0;1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.6	character	19	0;1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.7	character	21	cardinality > 20	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.8	character	22	cardinality > 20	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_0.9	character	22	cardinality > 20	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_1_res_1.0	character	22	cardinality > 20	12101	61.3765469669304	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_M6_recommended_resolution	character	3	0.3;0.6;0.7	0	0	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_M7_recommended_resolution	character	3	0.3;0.6;0.7	0	0	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_M7_alternative_resolution	character	2	0.3;0.5	0	0	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_recommended_cluster	character	54	cardinality > 20	0	0	provenance	M8	yes	Required pre-integration baseline metadata visualization.
+preint_alternative_cluster	character	47	cardinality > 20	0	0	provenance	M8	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.1	character	7	0;1;2;3;4;5	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.2	character	8	0;1;2;3;4;5;6	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.3	character	10	0;1;2;3;4;5;6;7;8	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.4	character	10	0;1;2;3;4;5;6;7;8	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.5	character	11	0;1;2;3;4;5;6;7;8;9	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.6	character	13	0;1;10;11;2;3;4;5;6;7;8;9	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.7	character	15	0;1;10;11;12;13;2;3;4;5;6;7;8;9	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.8	character	15	0;1;10;11;12;13;2;3;4;5;6;7;8;9	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_0.9	character	17	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_2_res_1.0	character	17	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	17432	88.4155001014405	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.1	character	7	0;1;2;3;4;5	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.2	character	9	0;1;2;3;4;5;6;7	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.3	character	11	0;1;2;3;4;5;6;7;8;9	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.4	character	13	0;1;10;11;2;3;4;5;6;7;8;9	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.5	character	13	0;1;10;11;2;3;4;5;6;7;8;9	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.6	character	14	0;1;10;11;12;2;3;4;5;6;7;8;9	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.7	character	15	0;1;10;11;12;13;2;3;4;5;6;7;8;9	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.8	character	15	0;1;10;11;12;13;2;3;4;5;6;7;8;9	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_0.9	character	15	0;1;10;11;12;13;2;3;4;5;6;7;8;9	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_3_res_1.0	character	17	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	16776	85.0882531953743	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.1	character	7	0;1;2;3;4;5	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.2	character	9	0;1;2;3;4;5;6;7	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.3	character	10	0;1;2;3;4;5;6;7;8	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.4	character	13	0;1;10;11;2;3;4;5;6;7;8;9	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.5	character	13	0;1;10;11;2;3;4;5;6;7;8;9	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.6	character	14	0;1;10;11;12;2;3;4;5;6;7;8;9	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.7	character	15	0;1;10;11;12;13;2;3;4;5;6;7;8;9	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.8	character	17	0;1;10;11;12;13;14;15;2;3;4;5;6;7;8;9	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_0.9	character	19	0;1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.
+preint_MPNST_4_res_1.0	character	19	0;1;10;11;12;13;14;15;16;17;2;3;4;5;6;7;8;9	12839	65.1196997362548	provenance	M1-M7	no	Not selected for pre-integration baseline visualizations.

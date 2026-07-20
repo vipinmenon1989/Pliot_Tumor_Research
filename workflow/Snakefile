@@ -110,7 +110,9 @@ rule all:
         "reports/milestones/M7_REPORT.md",
         "logs/workflow/test_markers.done",
         # Final Figure Index:
-        "reports/FIGURE_INDEX.tsv"
+        "reports/FIGURE_INDEX.tsv",
+        # Milestone 8 Outputs:
+        "logs/workflow/test_preintegration.done"
 
 # Rule to validate configuration format and parameters against schema
 rule validate_config:
@@ -723,13 +725,14 @@ rule merge_figure_index:
         indices_m6 = expand("reports/datasets/{dataset_id}/figure_index_m6.tsv", dataset_id=config["datasets"]),
         indices_m7 = get_m7_figure_indices,
         indices_opt = "reports/qc_optimization/figure_index_optimization.tsv",
-        indices_comp = "reports/qc_comparison/figure_index_comparison.tsv"
+        indices_comp = "reports/qc_comparison/figure_index_comparison.tsv",
+        index_m8 = "reports/combined/pre_integration/figure_index_m8.tsv"
     output:
         merged = "reports/FIGURE_INDEX.tsv"
     log:
         log = "logs/workflow/merge_figure_index.log"
     run:
-        all_paths = list(input.indices_m2) + list(input.indices_m3) + list(input.indices_m3_spec) + list(input.indices_m4) + list(input.indices_m5) + list(input.indices_m6) + list(input.indices_m7) + [input.indices_opt, input.indices_comp]
+        all_paths = list(input.indices_m2) + list(input.indices_m3) + list(input.indices_m3_spec) + list(input.indices_m4) + list(input.indices_m5) + list(input.indices_m6) + list(input.indices_m7) + [input.indices_opt, input.indices_comp, input.index_m8]
         with open(output.merged, 'w') as out_f:
             header_written = False
             for path in all_paths:
@@ -1063,6 +1066,109 @@ rule test_markers:
         cpus = 1,
         mem_mb = 4000,
         runtime = 10
+    shell:
+        """
+        Rscript {input.script} --datasets "{params.datasets}" > {log.log} 2>&1 && touch {output.done}
+        """
+
+
+# Rule to combine constituent Seurat objects and namespace pre-integration metadata
+rule combine_pre_integration:
+    input:
+        rds_files = expand("results/datasets/{dataset_id}/{dataset_id}_clustered.rds", dataset_id=config["datasets"]),
+        script = "scripts/R/combine_pre_integration.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    params:
+        datasets = " ".join(config["datasets"])
+    output:
+        temp_rds = temp("results/combined/pre_integration/merged_temp.rds"),
+        dict_tsv = "reports/combined/pre_integration/metadata_dictionary.tsv",
+        inv_tsv = "reports/combined/pre_integration/metadata_inventory.tsv",
+        prov_comb = "results/combined/pre_integration/prov_combine.json"
+    log:
+        log = "logs/workflow/combine_pre_integration.log"
+    benchmark:
+        "benchmarks/combine_pre_integration.tsv"
+    resources:
+        cpus = 1,
+        mem_mb = 16000,
+        runtime = 30
+    shell:
+        """
+        Rscript {input.script} \
+          --inputs "{input.rds_files}" \
+          --datasets "{params.datasets}" \
+          --out-rds {output.temp_rds} \
+          --out-dict {output.dict_tsv} \
+          --out-inv {output.inv_tsv} \
+          --out-prov {output.prov_comb} > {log.log} 2>&1
+        """
+
+# Rule to run pre-integration dimensional reduction, shared embedding, neighborhood mixing, composition and report generation
+rule run_pre_integration_analysis:
+    input:
+        temp_rds = "results/combined/pre_integration/merged_temp.rds",
+        script = "scripts/R/analyze_pre_integration.R",
+        logging = "scripts/R/logging_utils.R",
+        prov = "scripts/R/provenance_utils.R"
+    output:
+        combined_rds = "results/combined/pre_integration/combined_preintegration.rds",
+        assess_report = "reports/PRE_INTEGRATION_ASSESSMENT.md",
+        prep_report = "reports/INTEGRATION_PREPARATION.md",
+        m8_report = "reports/milestones/M8_REPORT.md",
+        prov_analysis = "results/combined/pre_integration/prov_analysis.json",
+        fig_index_m8 = "reports/combined/pre_integration/figure_index_m8.tsv",
+        fig_elbow = "reports/combined/pre_integration/pca/pca_elbow.png",
+        fig_pca = "reports/combined/pre_integration/pca/pca_by_dataset.png",
+        fig_umap_ds = "reports/combined/pre_integration/umap/preintegration_umap_by_dataset.png",
+        fig_umap_ds_facet = "reports/combined/pre_integration/umap/preintegration_umap_faceted_by_dataset.png",
+        fig_umap_cl = "reports/combined/pre_integration/umap/preintegration_umap_by_recommended_clusters.png",
+        fig_umap_nfeat = "reports/combined/pre_integration/umap/preintegration_umap_by_nFeature_RNA.png",
+        fig_umap_ncount = "reports/combined/pre_integration/umap/preintegration_umap_by_nCount_RNA.png",
+        fig_umap_mt = "reports/combined/pre_integration/umap/preintegration_umap_by_percent.mt.png",
+        fig_umap_ribo = "reports/combined/pre_integration/umap/preintegration_umap_by_percent.ribo.png",
+        fig_mix = "reports/combined/pre_integration/neighborhood_dataset_mixing.png"
+    log:
+        log = "logs/workflow/run_pre_integration_analysis.log"
+    benchmark:
+        "benchmarks/run_pre_integration_analysis.tsv"
+    resources:
+        cpus = 4,
+        mem_mb = 32000,
+        runtime = 60
+    shell:
+        """
+        Rscript {input.script} \
+          --input {input.temp_rds} \
+          --out-rds {output.combined_rds} \
+          --out-plot-dir reports/combined/pre_integration \
+          --out-report-dir reports \
+          --out-prov {output.prov_analysis} \
+          --rule run_pre_integration_analysis > {log.log} 2>&1
+        """
+
+# Rule to run pre-integration validation tests
+rule test_preintegration:
+    input:
+        script = "tests/unit/test_preintegration.R",
+        combined_rds = "results/combined/pre_integration/combined_preintegration.rds",
+        assess_report = "reports/PRE_INTEGRATION_ASSESSMENT.md",
+        prep_report = "reports/INTEGRATION_PREPARATION.md",
+        m8_report = "reports/milestones/M8_REPORT.md",
+        dict_tsv = "reports/combined/pre_integration/metadata_dictionary.tsv",
+        inv_tsv = "reports/combined/pre_integration/metadata_inventory.tsv",
+        fig_index = "reports/FIGURE_INDEX.tsv"
+    params:
+        datasets = " ".join(config["datasets"])
+    output:
+        done = "logs/workflow/test_preintegration.done"
+    log:
+        log = "logs/workflow/test_preintegration.log"
+    resources:
+        cpus = 1,
+        mem_mb = 16000,
+        runtime = 15
     shell:
         """
         Rscript {input.script} --datasets "{params.datasets}" > {log.log} 2>&1 && touch {output.done}

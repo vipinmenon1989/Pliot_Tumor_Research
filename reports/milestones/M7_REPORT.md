@@ -1,6 +1,6 @@
 # Milestone 7 (M7) Execution Report — Marker Discovery and Dataset Recommendations
 
-*Generated on: 2026-07-19 11:29:00*
+*Generated on: 2026-07-19 21:12:39*
 
 ## 1. Execution Summary
 - **Authorized Milestone**: Milestone 7 (M7) — Marker Discovery and Dataset-Specific Recommendations
@@ -16,38 +16,38 @@
 
 | Dataset ID | Cells | Recommended PCs | M6 Resolution | M7 Resolution | Alternative Resolution | Status | Resolved Clusters | Median Markers/Cluster | Weak Clusters | Small Clusters |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **MPNST_1** | 6939 | 1 - 8 | 0.6 | **0.6** | 0.3 | **CONFIRMED** | 18 | 1446 | 0 | 0 |
-| **MPNST_2** | 1584 | 1 - 6 | 0.3 | **0.3** | 0.5 | **CONFIRMED** | 9 | 816 | 0 | 0 |
-| **MPNST_3** | 2301 | 1 - 9 | 0.6 | **0.6** | 0.3 | **CONFIRMED** | 13 | 816 | 0 | 0 |
-| **MPNST_4** | 5635 | 1 - 5 | 0.7 | **0.7** | 0.5 | **CONFIRMED** | 14 | 794 | 0 | 0 |
+| **MPNST_1** | 6939 | 1 - 8 | 0.5 | **0.6** | 0.3 | **REVISED** | 18 | 1446 | 0 | 0 |
+| **MPNST_2** | 1584 | 1 - 6 | 0.5 | **0.3** | 0.5 | **REVISED** | 9 | 816 | 0 | 0 |
+| **MPNST_3** | 2301 | 1 - 9 | 0.5 | **0.6** | 0.3 | **REVISED** | 13 | 816 | 0 | 0 |
+| **MPNST_4** | 5635 | 1 - 5 | 0.5 | **0.7** | 0.5 | **REVISED** | 14 | 794 | 0 | 0 |
 
 ---
 
 ## 3. Dataset-Specific Scientific Findings
 
 ### MPNST_1
-- **Resolution Selection**: M7 analysis **confirmed** the M6 computational resolution recommendation of **0.6** (resolving `18` clusters) with an alternative of **0.3**.
+- **Resolution Selection**: M7 analysis **revised** the M6 computational resolution recommendation of **0.6** (resolving `18` clusters) with an alternative of **0.3**.
 - **Marker Quality**: Median of `1446` markers per cluster (significance threshold: adjusted p-value $< 0.05$ and $\text{log2FC} > 0.25$).
 - **Weak Cluster Support**: `0` clusters have fewer than 5 markers (list: `None`).
 - **Small Clusters (< 10 cells)**: `0` clusters present (list: `None`).
 - **Biological Interpretation**: The recommended resolution isolates distinct, highly reproducible cell states. Alternative resolutions represent either under-clustered lineage blocks (at 0.3) or over-segmented technical variations (at 0.8–1.0).
 
 ### MPNST_2
-- **Resolution Selection**: M7 analysis **confirmed** the M6 computational resolution recommendation of **0.3** (resolving `9` clusters) with an alternative of **0.5**.
+- **Resolution Selection**: M7 analysis **revised** the M6 computational resolution recommendation of **0.3** (resolving `9` clusters) with an alternative of **0.5**.
 - **Marker Quality**: Median of `816` markers per cluster (significance threshold: adjusted p-value $< 0.05$ and $\text{log2FC} > 0.25$).
 - **Weak Cluster Support**: `0` clusters have fewer than 5 markers (list: `None`).
 - **Small Clusters (< 10 cells)**: `0` clusters present (list: `None`).
 - **Biological Interpretation**: The recommended resolution isolates distinct, highly reproducible cell states. Alternative resolutions represent either under-clustered lineage blocks (at 0.3) or over-segmented technical variations (at 0.8–1.0).
 
 ### MPNST_3
-- **Resolution Selection**: M7 analysis **confirmed** the M6 computational resolution recommendation of **0.6** (resolving `13` clusters) with an alternative of **0.3**.
+- **Resolution Selection**: M7 analysis **revised** the M6 computational resolution recommendation of **0.6** (resolving `13` clusters) with an alternative of **0.3**.
 - **Marker Quality**: Median of `816` markers per cluster (significance threshold: adjusted p-value $< 0.05$ and $\text{log2FC} > 0.25$).
 - **Weak Cluster Support**: `0` clusters have fewer than 5 markers (list: `None`).
 - **Small Clusters (< 10 cells)**: `0` clusters present (list: `None`).
 - **Biological Interpretation**: The recommended resolution isolates distinct, highly reproducible cell states. Alternative resolutions represent either under-clustered lineage blocks (at 0.3) or over-segmented technical variations (at 0.8–1.0).
 
 ### MPNST_4
-- **Resolution Selection**: M7 analysis **confirmed** the M6 computational resolution recommendation of **0.7** (resolving `14` clusters) with an alternative of **0.5**.
+- **Resolution Selection**: M7 analysis **revised** the M6 computational resolution recommendation of **0.7** (resolving `14` clusters) with an alternative of **0.5**.
 - **Marker Quality**: Median of `794` markers per cluster (significance threshold: adjusted p-value $< 0.05$ and $\text{log2FC} > 0.25$).
 - **Weak Cluster Support**: `0` clusters have fewer than 5 markers (list: `None`).
 - **Small Clusters (< 10 cells)**: `0` clusters present (list: `None`).
@@ -70,8 +70,8 @@ While we present resolution **0.7** as the recommended sweep value based on prog
 ---
 
 ## 5. HPC Execution and SLURM Job Information
-- **SLURM Job ID**: `19399799`
-- **SLURM Job Name**: `m7_real_workflow`
+- **SLURM Job ID**: `19402913`
+- **SLURM Job Name**: `m8_real_workflow`
 - **SLURM Node**: `ihc-grid-1-1-1`
 - **HPC Job Status**: COMPLETED (ExitCode 0:0)
 - **Resource Envelope**: walltime limit 12 hours, memory limit 64GB

@@ -1,6 +1,6 @@
 # Analysis and Resolution Recommendation Report — MPNST_4
 
-*Generated on: 2026-07-19 11:29:00*
+*Generated on: 2026-07-19 21:12:39*
 
 ## 1. OBSERVED RESULTS
 
@@ -38,10 +38,10 @@ At resolution 0.7, technical covariates (like sequencing depth or ribosomal perc
 
 ## 3. RECOMMENDATION
 
-- **M6 Computational Resolution Recommendation**: `0.7`
+- **M6 Computational Resolution Recommendation**: `0.5`
 - **M7 Final Resolution Recommendation**: **`0.7`**
 - **Alternative Resolution Recommendation**: **`0.5`**
-- **M7 Recommendation Status**: **CONFIRMS M6 recommendation**
+- **M7 Recommendation Status**: **REVISES M6 recommendation**
 
 ### Scientific Rationale
 The final recommendation of resolution `0.7` is supported by the joint optimization of clustering stability, cluster size constraints, and marker gene specificity. At this resolution, the dataset resolves `14` distinct cell clusters, each supported by robust marker expression (median `793.5` markers per cluster) and exhibiting zero singletons (minimum cluster size: `151`). This selection represents the most scientifically defensible trade-off between biological granularity and reproducibility.

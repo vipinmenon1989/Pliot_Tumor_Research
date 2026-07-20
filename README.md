@@ -11,10 +11,10 @@ The primary objective of this project is to construct a modular, reproducible, c
 
 ## 2. Current Project Status
 - **Current Phase**: Phase 1 (Independent Dataset Processing)
-- **Status**: **Completed: Milestones M0–M7**
-- **Latest Completed Milestone**: **M7 — Marker Discovery and Dataset-Specific Recommendations**
-- **Next Required Step**: **Post-M7 Independent Audit Gate**
-- **Next Computational Milestone (After Approval)**: **Milestone M8 — Combined Pre-Integration Baseline**
+- **Status**: **Completed: Milestones M0–M8**
+- **Latest Completed Milestone**: **M8 — Combined Pre-Integration Baseline**
+- **Next Required Step**: **Post-M8 Verification**
+- **Next Computational Milestone (After Approval)**: **Milestone M9 — Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze**
 
 > [!IMPORTANT]
 > **Strict Phase 1 Scope Constraint**:
@@ -41,9 +41,9 @@ M6 Clustering resolution sweep (SNN graph construction & sweeps 0.1–1.0) ✓
     ↓
 M7 Marker discovery + recommendations (Resolution-specific markers & selection) ✓
     ↓
-POST-M7 INDEPENDENT AUDIT GATE  <-- CURRENT GATE
+M8 Combined pre-integration baseline (SCT, shared PCA, shared UMAP, neighbor mixing metrics) ✓
     ↓
-M8 Combined pre-integration baseline (NOT STARTED)
+POST-M8 INDEPENDENT AUDIT GATE  <-- CURRENT GATE
     ↓
 M9 Workflow hardening + CI/CD + Phase 1 freeze (NOT STARTED)
 ```

@@ -14,7 +14,7 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
 | **M5** | PCA and PC Evaluation | **Completed** | 2026-07-10 | 2026-07-10 |
 | **M6** | Clustering Resolution Sweep | **Completed** | 2026-07-18 | 2026-07-18 |
 | **M7** | Marker Discovery and Dataset Recommendations | **Completed** | 2026-07-19 | 2026-07-19 |
-| **M8** | Combined Pre-Integration Baseline | Not Started | - | - |
+| **M8** | Combined Pre-Integration Baseline | **Completed** | 2026-07-20 | 2026-07-20 |
 | **M9** | Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze | Not Started | - | - |
 
 ---
@@ -209,3 +209,32 @@ This document tracks the progress of the Phase 1 independent dataset analysis, r
   - `reports/datasets/MPNST_*/ANALYSIS_RECOMMENDATION.md` (Dataset-specific analysis recommendation reports).
   - `reports/milestones/M7_REPORT.md` (Consolidated Milestone 7 report).
   - `reports/FIGURE_INDEX.tsv` (Consolidated global figure index with all 12 recommended-resolution marker figures).
+
+### M8 — Combined Pre-Integration Baseline
+- **Status**: Completed (2026-07-20)
+- **HPC Execution Metrics**:
+  - **Pre-Integration Baseline Run**: SLURM JobID `19403199` (COMPLETED, Elapsed: 17m 17s, MaxRSS: ~32.00 GB)
+- **Key Scientific & Engineering Accomplishments**:
+  - Merged the four constituent clustered Seurat objects, verifying cell counts (expected 19,716, actual 19,716) and cell name uniqueness (0 duplicates).
+  - Implemented namespaced clustering assignments (`preint_MPNST_{ds}_res_{resolution}`) for all 10 resolutions (0.1 to 1.0) and generated globally unique recommended/alternative cluster labels (e.g. `MPNST_1_C00` ... `MPNST_4_C13`).
+  - Constructed a mathematically valid shared non-integrated expression space by running a unified SCTransform on the merged raw counts, regressing `percent.mt` and selecting the top 3,000 variable features.
+  - Computed a new shared PCA and a new shared UMAP embedding (`umap_preintegration`) using PCs 1-30, showing complete spatial segregation of the four datasets.
+  - Implemented a block-based nearest neighbor algorithm in pure R (requiring zero external package dependencies) to calculate dataset-mixing diagnostics: mean same-dataset neighbor fraction is extremely high (>98% across all datasets), confirming massive batch/patient-specific segregation.
+  - Performed a clinical metadata audit and documented complete confounding of patient/sample identity with dataset identity.
+  - Generated and saved 10 UMAP and PCA baseline visualizations (PDF and PNG, total of 20 files) and registered them in the global figure index (`reports/FIGURE_INDEX.tsv`).
+  - Generated machine-readable metadata inventory (`metadata_inventory.tsv`) and dictionary (`metadata_dictionary.tsv`).
+  - Created a test suite `tests/unit/test_preintegration.R` to programmatically validate M8 integrity.
+- **Artifacts Generated**:
+  - `results/combined/pre_integration/combined_preintegration.rds` (Combined pre-integration Seurat object, 3.35 GB)
+  - `reports/combined/pre_integration/metadata_dictionary.tsv` (Metadata dictionary)
+  - `reports/combined/pre_integration/metadata_inventory.tsv` (Metadata inventory)
+  - `reports/combined/pre_integration/composition_dataset.tsv` and `composition_cluster.tsv` (Composition analysis TSVs)
+  - `reports/combined/pre_integration/confounding_summary.tsv` (Confounding summary TSV)
+  - `reports/combined/pre_integration/neighborhood_mixing_summary.tsv` and `pca_variance_explained.tsv` (Diagnostics TSVs)
+  - `reports/combined/pre_integration/figure_index_m8.tsv` (Local M8 figure index table)
+  - `reports/combined/pre_integration/pca/` and `umap/` directories (10 figures in PDF and PNG format, total 20 visual files)
+  - `reports/PRE_INTEGRATION_ASSESSMENT.md` (Pre-integration baseline assessment report)
+  - `reports/INTEGRATION_PREPARATION.md` (Integration preparation design report)
+  - `reports/milestones/M8_REPORT.md` (Consolidated Milestone 8 report)
+  - `reports/FIGURE_INDEX.tsv` (Consolidated global figure index with all 10 M8 figures)
+

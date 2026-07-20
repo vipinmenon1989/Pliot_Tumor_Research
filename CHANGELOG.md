@@ -161,3 +161,28 @@ Marker Discovery and Dataset-Specific Recommendations
 * **HPC execution**:
   * SLURM production job ID `19399784` completed with Snakemake execution of clustering sweep, marker sweep, visualization, reporting, and validation in 11m 8s, utilizing ~28.43 GB of memory.
   * SLURM production job ID `19399799` executed the standardized visualization, local index generation, and global index merge in 2m 21s, using MaxRSS 5.22 GB.
+
+[M8]
+
+Combined Pre-Integration Baseline and Integration-Readiness Assessment
+
+* **Added**:
+  * Unified combination script `scripts/R/combine_pre_integration.R` that merges the four constituent datasets, renames cells, namespaces resolution columns (`preint_MPNST_{ds}_res_{resolution}`), checks cell and feature counts, and outputs metadata inventories and dictionaries.
+  * Unified pre-integration analysis script `scripts/R/analyze_pre_integration.R` that executes global SCTransform normalization, PCA, neighbor graph construction, UMAP calculation (`umap_preintegration`), neighborhood dataset-mixing diagnostics, composition analysis, and generates reports and visualizations.
+  * Custom block-based matrix distance neighbor mixing diagnostic algorithm in pure R, calculating same-dataset neighbor fraction and Shannon entropy for each cell using a memory-efficient matrix approach without external package dependencies.
+  * Validation unit test suite `tests/unit/test_preintegration.R` asserting cell counts per dataset, uniqueness of cell names, namespaced resolution columns with proper `NA` mappings, dimensional reductions, absence of integrated embeddings, reports existence, and global figure index registration.
+  * SLURM execution script `scripts/shell/run_m8_workflow.sh` configured for partition `ihc` node `ihc-grid-1-1-1`.
+  * Consolidated global reports: `reports/PRE_INTEGRATION_ASSESSMENT.md`, `reports/INTEGRATION_PREPARATION.md`, and consolidated milestone report `reports/milestones/M8_REPORT.md`.
+  * Local figure index `reports/combined/pre_integration/figure_index_m8.tsv` and 10 pre-integration visualizations (PDF and PNG formats, total 20 visual files) including elbow, dataset PCA, dataset/sample/QC UMAPs, faceted views, recommended clusters UMAP, and neighbor mixing boxplots.
+* **Changed**:
+  * Integrated rules `combine_pre_integration`, `run_pre_integration_analysis`, and `test_preintegration` into `workflow/Snakefile`.
+  * Updated global `reports/FIGURE_INDEX.tsv` to register all 10 Milestone 8 pre-integration figures.
+* **Scientific decisions**:
+  * Established a mathematically valid shared non-integrated baseline space for Phase 1 datasets by running a single unified SCTransform on the merged raw counts.
+  * Prohibited dataset integration (Harmony, CCA, RPCA, fastMNN, scVI, etc.) or dimensional reduction concatenation to preserve a true baseline.
+  * Audited clinical covariates, documenting that patient/sample identity is 100% confounded with dataset identity due to missing patient demographics.
+  * Quantified dataset segregation via neighborhood diagnostics, showing an extremely high mean same-dataset neighbor fraction (>98%) across all datasets.
+  * Provided a scientific justification and proposed design for Phase 2 integration (Harmony, CCA, and RPCA benchmarking).
+* **HPC execution**:
+  * SLURM production job ID `19403199` completed with Snakemake execution of combination, normalization, embedding, mixing diagnostics, visualizations, reports, and validation tests in 17m 17s, utilizing ~32.00 GB of memory.
+

@@ -1,0 +1,5 @@
+check	value	status
+total_cells_sum	19716	OK
+combined_cells_actual	19716	OK
+duplicate_cell_names	0	OK
+retained_provenance	1	OK

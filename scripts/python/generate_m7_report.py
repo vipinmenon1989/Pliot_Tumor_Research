@@ -206,6 +206,10 @@ def main():
         m7_rec = data["m7_rec_res"]
         m7_alt = data["m7_alt_res"]
         pcs = data["pcs_used"]
+        try:
+            alt_pcs = str(int(pcs) + 2)
+        except ValueError:
+            alt_pcs = "N/A"
         
         # Retrieve stats of recommended resolution
         m7_rec_stats = next(r for r in data["resolutions"] if r["resolution"] == m7_rec)
@@ -224,7 +228,7 @@ def main():
             f"- **QC Strategy**: Dataset-specific cell-filtering thresholds implemented to decouple sequencing depth biases.",
             f"- **Normalization**: SCTransform v2 z-scored Pearson residuals used for feature variance stabilization.",
             f"- **Recommended PC Range**: `PC1:{pcs}` (Elbow knee-point detection).",
-            f"- **Alternative PC Range**: `PC1:{int(pcs)+2}` (Conservative variance expansion).",
+            f"- **Alternative PC Range**: `PC1:{alt_pcs}` (Conservative variance expansion).",
             "",
             "### Multi-Resolution Clustering & Marker Performance",
             "We compared the biological partitioning and marker gene specificity across resolutions 0.1 to 1.0:",

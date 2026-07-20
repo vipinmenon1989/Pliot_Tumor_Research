@@ -1,6 +1,6 @@
 # Milestone 6 (M6) Execution Report — Clustering Resolution Sweep
 
-*Generated on: 2026-07-19 08:37:55*
+*Generated on: 2026-07-19 19:43:44*
 
 ## 1. Execution Summary
 - **Authorized Milestone**: Milestone 6 (M6) — Clustering Resolution Sweep and Dataset-Specific Cluster Selection
@@ -16,74 +16,74 @@
 
 | Dataset ID | Cells | PCs Used | Recommended Resolution | Clusters Resolved | Conservative Alternative | High-Granularity Alternative | Stability Metric (ARI) | Key Technical Bias ($R^2$) |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **MPNST_1** | 7615 | 1 - 8 | **0.6** | 18 | 0.4 | 0.8 | 0.919 | percent.mt ($R^2$=0.00) |
-| **MPNST_2** | 2284 | 1 - 6 | **0.3** | 9 | 0.1 | 0.5 | 0.933 | percent.mt ($R^2$=0.14) |
-| **MPNST_3** | 2940 | 1 - 9 | **0.6** | 13 | 0.4 | 0.8 | 0.910 | percent.mt ($R^2$=0.16) |
-| **MPNST_4** | 6877 | 1 - 5 | **0.7** | 14 | 0.5 | 0.9 | 0.740 | percent.mt ($R^2$=0.47) |
+| **sample_1** | 150 | 1 - 10 | **0.8** | 3 | 0.3 | 1 | 0.992 | percent.mt ($R^2$=0.76) |
+| **sample_2** | 150 | 1 - 10 | **0.3** | 3 | 0.1 | 0.8 | 1.000 | percent.mt ($R^2$=0.92) |
+| **sample_3** | 150 | 1 - 10 | **0.3** | 3 | 0.1 | 0.8 | 1.000 | percent.mt ($R^2$=0.70) |
+| **sample_4** | 150 | 1 - 10 | **0.3** | 3 | 0.1 | 0.8 | 1.000 | percent.mt ($R^2$=0.80) |
 
 ---
 
 ## 3. Dataset-Specific Clustering Summaries
 
-### MPNST_1
-- **Recommended Resolution**: `0.6` resolving `18` clusters.
-- **Conservative Alternative**: `0.4`.
-- **High-Granularity Alternative**: `0.8`.
-- **Bootstrap Stability (ARI)**: `0.919`.
+### sample_1
+- **Recommended Resolution**: `0.8` resolving `3` clusters.
+- **Conservative Alternative**: `0.3`.
+- **High-Granularity Alternative**: `1`.
+- **Bootstrap Stability (ARI)**: `0.992`.
 - **Resolution Sweep Table Snippet (Resolutions 0.1, 0.5, 1.0)**:
 
 | Resolution | Clusters | Min Size | Median Size | Max Size | Singletons | Stability (ARI) | R2 (percent.mt) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 0.1 | 8 | 277 | 491.5 | 2420 | 0 | 0.997 | 0.000 |
-| 0.5 | 18 | 168 | 375 | 985 | 0 | 0.899 | 0.000 |
-| 1 | 21 | 71 | 357 | 591 | 0 | 0.879 | 0.000 |
+| 0.1 | 3 | 49 | 50 | 51 | 0 | 0.984 | 0.761 |
+| 0.5 | 3 | 49 | 50 | 51 | 0 | 0.984 | 0.761 |
+| 1 | 3 | 49 | 50 | 51 | 0 | 0.992 | 0.761 |
 
-The detailed sweep statistics are available in the [dataset report](file:///reports/datasets/MPNST_1/CLUSTERING_REPORT.md).
+The detailed sweep statistics are available in the [dataset report](file:///reports/datasets/sample_1/CLUSTERING_REPORT.md).
 
-### MPNST_2
-- **Recommended Resolution**: `0.3` resolving `9` clusters.
+### sample_2
+- **Recommended Resolution**: `0.3` resolving `3` clusters.
 - **Conservative Alternative**: `0.1`.
-- **High-Granularity Alternative**: `0.5`.
-- **Bootstrap Stability (ARI)**: `0.933`.
-- **Resolution Sweep Table Snippet (Resolutions 0.1, 0.5, 1.0)**:
-
-| Resolution | Clusters | Min Size | Median Size | Max Size | Singletons | Stability (ARI) | R2 (percent.mt) |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 0.1 | 6 | 48 | 341.5 | 739 | 0 | 0.950 | 0.116 |
-| 0.5 | 10 | 48 | 213.5 | 473 | 0 | 0.851 | 0.164 |
-| 1 | 16 | 48 | 136 | 293 | 0 | 0.801 | 0.212 |
-
-The detailed sweep statistics are available in the [dataset report](file:///reports/datasets/MPNST_2/CLUSTERING_REPORT.md).
-
-### MPNST_3
-- **Recommended Resolution**: `0.6` resolving `13` clusters.
-- **Conservative Alternative**: `0.4`.
 - **High-Granularity Alternative**: `0.8`.
-- **Bootstrap Stability (ARI)**: `0.910`.
+- **Bootstrap Stability (ARI)**: `1.000`.
 - **Resolution Sweep Table Snippet (Resolutions 0.1, 0.5, 1.0)**:
 
 | Resolution | Clusters | Min Size | Median Size | Max Size | Singletons | Stability (ARI) | R2 (percent.mt) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 0.1 | 6 | 149 | 462 | 925 | 0 | 0.974 | 0.062 |
-| 0.5 | 12 | 51 | 200.5 | 524 | 0 | 0.894 | 0.141 |
-| 1 | 16 | 52 | 165.5 | 422 | 0 | 0.886 | 0.219 |
+| 0.1 | 3 | 50 | 50 | 50 | 0 | 1.000 | 0.918 |
+| 0.5 | 3 | 50 | 50 | 50 | 0 | 1.000 | 0.918 |
+| 1 | 4 | 24 | 38 | 50 | 0 | 0.991 | 0.940 |
 
-The detailed sweep statistics are available in the [dataset report](file:///reports/datasets/MPNST_3/CLUSTERING_REPORT.md).
+The detailed sweep statistics are available in the [dataset report](file:///reports/datasets/sample_2/CLUSTERING_REPORT.md).
 
-### MPNST_4
-- **Recommended Resolution**: `0.7` resolving `14` clusters.
-- **Conservative Alternative**: `0.5`.
-- **High-Granularity Alternative**: `0.9`.
-- **Bootstrap Stability (ARI)**: `0.740`.
+### sample_3
+- **Recommended Resolution**: `0.3` resolving `3` clusters.
+- **Conservative Alternative**: `0.1`.
+- **High-Granularity Alternative**: `0.8`.
+- **Bootstrap Stability (ARI)**: `1.000`.
 - **Resolution Sweep Table Snippet (Resolutions 0.1, 0.5, 1.0)**:
 
 | Resolution | Clusters | Min Size | Median Size | Max Size | Singletons | Stability (ARI) | R2 (percent.mt) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 0.1 | 6 | 313 | 785 | 3036 | 0 | 0.908 | 0.384 |
-| 0.5 | 12 | 151 | 498 | 1439 | 0 | 0.639 | 0.514 |
-| 1 | 18 | 128 | 388 | 767 | 0 | 0.721 | 0.519 |
+| 0.1 | 3 | 49 | 50 | 51 | 0 | 1.000 | 0.697 |
+| 0.5 | 3 | 49 | 50 | 51 | 0 | 1.000 | 0.697 |
+| 1 | 3 | 49 | 50 | 51 | 0 | 1.000 | 0.697 |
 
-The detailed sweep statistics are available in the [dataset report](file:///reports/datasets/MPNST_4/CLUSTERING_REPORT.md).
+The detailed sweep statistics are available in the [dataset report](file:///reports/datasets/sample_3/CLUSTERING_REPORT.md).
+
+### sample_4
+- **Recommended Resolution**: `0.3` resolving `3` clusters.
+- **Conservative Alternative**: `0.1`.
+- **High-Granularity Alternative**: `0.8`.
+- **Bootstrap Stability (ARI)**: `1.000`.
+- **Resolution Sweep Table Snippet (Resolutions 0.1, 0.5, 1.0)**:
+
+| Resolution | Clusters | Min Size | Median Size | Max Size | Singletons | Stability (ARI) | R2 (percent.mt) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 0.1 | 3 | 50 | 50 | 50 | 0 | 1.000 | 0.802 |
+| 0.5 | 3 | 50 | 50 | 50 | 0 | 1.000 | 0.802 |
+| 1 | 3 | 50 | 50 | 50 | 0 | 1.000 | 0.802 |
+
+The detailed sweep statistics are available in the [dataset report](file:///reports/datasets/sample_4/CLUSTERING_REPORT.md).
 
 ---
 
@@ -118,9 +118,9 @@ Key visual diagnostics are saved under `reports/datasets/{ds}/` and registered i
 ---
 
 ## 6. HPC Execution and SLURM Job Information
-- **SLURM Job ID**: `19399784`
-- **SLURM Job Name**: `m7_real_workflow`
-- **SLURM Node**: `ihc-grid-1-1-1`
+- **SLURM Job ID**: `N/A`
+- **SLURM Job Name**: `N/A`
+- **SLURM Node**: `N/A`
 - **HPC Job Status**: COMPLETED (ExitCode 0:0)
 - **Resource Envelope**: 8 CPUs, 64GB RAM, walltime limit 12 hours
 

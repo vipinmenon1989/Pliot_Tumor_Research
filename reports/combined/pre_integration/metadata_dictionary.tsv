@@ -1,0 +1,54 @@
+metadata_field	source_milestone	source_dataset	resolution_applicable	pre_post_integration_status	data_type	description	provenance
+orig.ident	M1	global	N/A	pre-integration	character	Dataset/sample identifier	Seurat metadata
+nCount_RNA	M2	global	N/A	pre-integration	numeric	Total raw RNA count (library size)	QC extraction
+nFeature_RNA	M2	global	N/A	pre-integration	integer	Unique genes detected in RNA assay	QC extraction
+sample_id	M1	global	N/A	pre-integration	character	Dataset/sample identifier	Seurat metadata
+percent.mt	M2	global	N/A	pre-integration	numeric	Mitochondrial gene transcript percentage	QC extraction
+percent.ribo	M2	global	N/A	pre-integration	numeric	Ribosomal gene transcript percentage	QC extraction
+doublet_class	M3	global	N/A	pre-integration	character	Doublet class assignment (singlet/doublet)	scDblFinder doublet call
+doublet_score	M3	global	N/A	pre-integration	numeric	Doublet detection probability score	scDblFinder doublet score
+preint_M6_recommended_resolution	M6	global	N/A	pre-integration	character	Dataset-specific computationally recommended resolution	Clustering sweep
+preint_M7_recommended_resolution	M7	global	N/A	pre-integration	character	Dataset-specific finalized recommended resolution	Marker discovery review
+preint_M7_alternative_resolution	M7	global	N/A	pre-integration	character	Dataset-specific alternative resolution	Marker discovery review
+preint_recommended_cluster	M8	global	dataset-specific	pre-integration	character	Globally unique cluster label at recommended resolution	M8 metadata harmonization
+preint_alternative_cluster	M8	global	dataset-specific	pre-integration	character	Globally unique cluster label at alternative resolution	M8 metadata harmonization
+preint_MPNST_1_res_0.1	M6	MPNST_1	0.1	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.1	Independent M6 resolution sweep
+preint_MPNST_1_res_0.2	M6	MPNST_1	0.2	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.2	Independent M6 resolution sweep
+preint_MPNST_1_res_0.3	M6	MPNST_1	0.3	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.3	Independent M6 resolution sweep
+preint_MPNST_1_res_0.4	M6	MPNST_1	0.4	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.4	Independent M6 resolution sweep
+preint_MPNST_1_res_0.5	M6	MPNST_1	0.5	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.5	Independent M6 resolution sweep
+preint_MPNST_1_res_0.6	M6	MPNST_1	0.6	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.6	Independent M6 resolution sweep
+preint_MPNST_1_res_0.7	M6	MPNST_1	0.7	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.7	Independent M6 resolution sweep
+preint_MPNST_1_res_0.8	M6	MPNST_1	0.8	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.8	Independent M6 resolution sweep
+preint_MPNST_1_res_0.9	M6	MPNST_1	0.9	pre-integration	factor	Clustering partition for MPNST_1 at resolution 0.9	Independent M6 resolution sweep
+preint_MPNST_1_res_1.0	M6	MPNST_1	1.0	pre-integration	factor	Clustering partition for MPNST_1 at resolution 1.0	Independent M6 resolution sweep
+preint_MPNST_2_res_0.1	M6	MPNST_2	0.1	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.1	Independent M6 resolution sweep
+preint_MPNST_2_res_0.2	M6	MPNST_2	0.2	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.2	Independent M6 resolution sweep
+preint_MPNST_2_res_0.3	M6	MPNST_2	0.3	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.3	Independent M6 resolution sweep
+preint_MPNST_2_res_0.4	M6	MPNST_2	0.4	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.4	Independent M6 resolution sweep
+preint_MPNST_2_res_0.5	M6	MPNST_2	0.5	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.5	Independent M6 resolution sweep
+preint_MPNST_2_res_0.6	M6	MPNST_2	0.6	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.6	Independent M6 resolution sweep
+preint_MPNST_2_res_0.7	M6	MPNST_2	0.7	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.7	Independent M6 resolution sweep
+preint_MPNST_2_res_0.8	M6	MPNST_2	0.8	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.8	Independent M6 resolution sweep
+preint_MPNST_2_res_0.9	M6	MPNST_2	0.9	pre-integration	factor	Clustering partition for MPNST_2 at resolution 0.9	Independent M6 resolution sweep
+preint_MPNST_2_res_1.0	M6	MPNST_2	1.0	pre-integration	factor	Clustering partition for MPNST_2 at resolution 1.0	Independent M6 resolution sweep
+preint_MPNST_3_res_0.1	M6	MPNST_3	0.1	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.1	Independent M6 resolution sweep
+preint_MPNST_3_res_0.2	M6	MPNST_3	0.2	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.2	Independent M6 resolution sweep
+preint_MPNST_3_res_0.3	M6	MPNST_3	0.3	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.3	Independent M6 resolution sweep
+preint_MPNST_3_res_0.4	M6	MPNST_3	0.4	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.4	Independent M6 resolution sweep
+preint_MPNST_3_res_0.5	M6	MPNST_3	0.5	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.5	Independent M6 resolution sweep
+preint_MPNST_3_res_0.6	M6	MPNST_3	0.6	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.6	Independent M6 resolution sweep
+preint_MPNST_3_res_0.7	M6	MPNST_3	0.7	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.7	Independent M6 resolution sweep
+preint_MPNST_3_res_0.8	M6	MPNST_3	0.8	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.8	Independent M6 resolution sweep
+preint_MPNST_3_res_0.9	M6	MPNST_3	0.9	pre-integration	factor	Clustering partition for MPNST_3 at resolution 0.9	Independent M6 resolution sweep
+preint_MPNST_3_res_1.0	M6	MPNST_3	1.0	pre-integration	factor	Clustering partition for MPNST_3 at resolution 1.0	Independent M6 resolution sweep
+preint_MPNST_4_res_0.1	M6	MPNST_4	0.1	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.1	Independent M6 resolution sweep
+preint_MPNST_4_res_0.2	M6	MPNST_4	0.2	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.2	Independent M6 resolution sweep
+preint_MPNST_4_res_0.3	M6	MPNST_4	0.3	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.3	Independent M6 resolution sweep
+preint_MPNST_4_res_0.4	M6	MPNST_4	0.4	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.4	Independent M6 resolution sweep
+preint_MPNST_4_res_0.5	M6	MPNST_4	0.5	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.5	Independent M6 resolution sweep
+preint_MPNST_4_res_0.6	M6	MPNST_4	0.6	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.6	Independent M6 resolution sweep
+preint_MPNST_4_res_0.7	M6	MPNST_4	0.7	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.7	Independent M6 resolution sweep
+preint_MPNST_4_res_0.8	M6	MPNST_4	0.8	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.8	Independent M6 resolution sweep
+preint_MPNST_4_res_0.9	M6	MPNST_4	0.9	pre-integration	factor	Clustering partition for MPNST_4 at resolution 0.9	Independent M6 resolution sweep
+preint_MPNST_4_res_1.0	M6	MPNST_4	1.0	pre-integration	factor	Clustering partition for MPNST_4 at resolution 1.0	Independent M6 resolution sweep
