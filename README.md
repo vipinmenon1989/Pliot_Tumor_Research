@@ -161,28 +161,27 @@ sbatch scripts/shell/run_m7_workflow.sh
 
 ---
 
-## 8. Current Outputs (Through Milestone 7)
+## 8. Current Outputs (Through Milestone 8)
 
-Successful execution of Milestones M0–M7 yields the following major artifacts:
+Successful execution of Milestones M0–M8 yields the following major artifacts:
 
-### Seurat RDS Objects (stored in `results/datasets/{ds}/`)
+### Seurat RDS Objects (stored in `results/datasets/{ds}/` or `results/combined/`)
 - `{ds}_raw.rds` (M2): Raw extracted datasets split by `sample_id`.
 - `{ds}_filtered_specific.rds` (M3): Filtered single-cell objects after scDblFinder doublet removal and dataset-specific QC thresholds.
 - `{ds}_normalized.rds` (M4): SCTransform-normalized and variance-stabilized Seurat objects with 3,000 highly variable features.
 - `{ds}_pca.rds` (M5): PCA-embedded Seurat objects computed on variable features.
 - `{ds}_clustered.rds` (M6): Clustered Seurat objects containing sweep resolution metadata (0.1 to 1.0) and active identity set to the recommended resolution.
+- `results/combined/pre_integration/combined_preintegration.rds` (M8): Combined pre-integration Seurat object containing all 19,716 cells in a shared non-integrated expression space.
 
 ### Recommendations & Reports (stored in `reports/`)
 - [reports/PCA_RECOMMENDATIONS.tsv](file://reports/PCA_RECOMMENDATIONS.tsv) (M5): Machine-readable Recommended, Conservative, and Maximum PC counts.
 - [reports/CLUSTERING_RECOMMENDATIONS.tsv](file://reports/CLUSTERING_RECOMMENDATIONS.tsv) (M6): Machine-readable selected resolutions and alternative recommendations for each dataset.
 - [reports/CLUSTERING_SWEEP_SUMMARY.tsv](file://reports/CLUSTERING_SWEEP_SUMMARY.tsv) (M6): Summary of metrics (stability ARI, cluster sizes, covariate correlation) across sweep values.
 - [reports/datasets/{ds}/ANALYSIS_RECOMMENDATION.md](file://reports/datasets/) (M7): Dataset-specific reports detailing the scientific rationale for resolution selection.
-- [reports/datasets/{ds}/markers/resolution_{res}/](file://reports/datasets/) (M7): Marker tables for all 40 combinations:
-  - `markers_all.tsv`: All detected markers.
-  - `markers_filtered.tsv`: Markers filtered by significance (adj. p-value < 0.05) and log2 fold change (> 0.25).
-  - `top_markers.tsv`: Top 20 ranked markers per cluster.
-  - `marker_summary.tsv`: Global summary of cluster stats.
-- [reports/datasets/{ds}/markers/resolution_{res}/figures/](file://reports/datasets/) (M7): Selected top-marker visualizations including downsampled (max 100 cells/cluster) heatmaps, dot plots, and FeaturePlots in PDF and PNG.
+- [reports/datasets/{ds}/markers/resolution_{res}/](file://reports/datasets/) (M7): Marker tables for all 40 combinations.
+- [reports/PRE_INTEGRATION_ASSESSMENT.md](file://reports/PRE_INTEGRATION_ASSESSMENT.md) (M8): Pre-integration baseline assessment report.
+- [reports/INTEGRATION_PREPARATION.md](file://reports/INTEGRATION_PREPARATION.md) (M8): Integration preparation design report.
+- [reports/combined/pre_integration/](file://reports/combined/pre_integration/) (M8): Pre-integration inventories, dictionaries, composition summaries, confounding analyses, and neighborhood mixing diagnostic tables.
 - [reports/FIGURE_INDEX.tsv](file://reports/FIGURE_INDEX.tsv): Consolidated index of all diagnostic plots generated across all milestones.
 
 ### Consolidated Milestone Reports (stored in `reports/milestones/`)
@@ -194,25 +193,27 @@ Successful execution of Milestones M0–M7 yields the following major artifacts:
 - [M5_REPORT.md](reports/milestones/M5_REPORT.md): Principal Component Analysis & evaluation.
 - [M6_REPORT.md](reports/milestones/M6_REPORT.md): Clustering Resolution Sweep & Selection.
 - [M7_REPORT.md](reports/milestones/M7_REPORT.md): Marker Discovery & Dataset Recommendations.
+- [M8_REPORT.md](reports/milestones/M8_REPORT.md): Combined Pre-Integration Baseline.
 
 ---
 
 ## 9. Current Scientific Handoff
 
-As of the completion of Milestone 7, the Phase 1 pre-integration baseline is frozen with the following dataset recommendations:
+As of the completion of Milestone 8, the Phase 1 pre-integration baseline is frozen with the following dataset recommendations:
 
 | Dataset | Recommended PCs | Recommended Resolution | Alternative Resolution | Status | Resolved Clusters | Covariate Concerns / Limitations |
 | --- | :---: | :---: | :---: | :---: | :---: | :--- |
 | **MPNST_1** | 1–8 | **0.6** | 0.3 | CONFIRMED | 18 | None |
 | **MPNST_2** | 1–6 | **0.3** | 0.5 | CONFIRMED | 9 | None |
 | **MPNST_3** | 1–9 | **0.6** | 0.3 | CONFIRMED | 13 | None |
-| **MPNST_4** | 1–5 | **0.7** | 0.5 | CONFIRMED | 14 | Technical `MT_Bias` ($R^2 = 0.47$ at res 0.7); alternative res 0.5 recommended to reduce MT correlation ($R^2 = 0.24$) |
+| **MPNST_4** | 1–5 | **0.7** | 0.5 | CONFIRMED | 14 | Technical MT correlation ($R^2 = 0.47$ at res 0.7); alternative res 0.5 recommended to reduce MT correlation ($R^2 = 0.24$) |
 
 ### Important Scientific Context
-- **Pre-Integration Freeze**: The datasets are processed and stored independently. **No integration or batch correction has been executed** (e.g. no Harmony, CCA, RPCA, MNN, scVI).
+- **Pre-Integration Freeze**: The datasets are combined but remain non-integrated. **No integration or batch correction has been executed** (e.g. no Harmony, CCA, RPCA, MNN, scVI).
 - **Multi-Resolution Preserved**: All clustering resolutions (0.1 to 1.0) and SNN graphs are preserved in the Seurat objects, with marker tables pre-computed for every resolution.
 - **Pre-Annotation Status**: No final biological cell-type annotations have been assigned to clusters; clusters are currently defined by their numerical partitions and associated marker signatures.
-- **Downstream Transition**: The workflow is currently halted at the **Post-M7 Independent Audit Gate**. Milestone M8 (Combined Pre-Integration Baseline) has **NOT** started.
+- **Downstream Transition**: The workflow has completed Milestone M8 (Combined Pre-Integration Baseline). The next step is Milestone M9 (Workflow Hardening, CI/CD, and Phase 1 Freeze). No integration or batch correction has yet been performed.
+
 
 ---
 
