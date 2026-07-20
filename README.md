@@ -132,32 +132,41 @@ conda activate R_env
 > All production calculations must run inside a SLURM job allocation.
 
 ### Environment & Safety Verification
-Run the verification script to confirm repository sanity, clean whitespaces, check paths, and ensure no direct login node RDS reads:
+Verify system packages, configuration compatibility, directory permissions, and dataset visibility before running execution:
 ```bash
-./scripts/shell/verify_milestone.sh
+# Run preflight checker in synthetic mode (for testing/CI)
+python scripts/python/preflight_checker.py --mode synthetic
+
+# Run preflight checker in real/HPC mode (for real cluster execution)
+python scripts/python/preflight_checker.py --mode real
 ```
 
-### Synthetic/Test Configuration
+### Synthetic/Test Configuration (Quick-Start)
 Verify the Snakemake setup and execute a smoke test run using the synthetic dataset:
 ```bash
-# 1. Perform a dry-run to verify rule dependencies
+# 1. Run the preflight checker in synthetic mode
+python scripts/python/preflight_checker.py --mode synthetic
+
+# 2. Perform a dry-run to verify rule dependencies
 snakemake -n --configfile config/config.test.yaml
 
-# 2. Execute the synthetic workflow locally
+# 3. Execute the synthetic workflow locally
 snakemake --cores 4 --configfile config/config.test.yaml
 ```
 
-### Real-Data Workflow Execution
+### Real-Data/HPC Workflow Execution
 To run the production workflow on the real datasets:
 ```bash
-# 1. Perform a production dry-run
+# 1. Run the preflight checker in real/HPC mode
+python scripts/python/preflight_checker.py --mode real
+
+# 2. Perform a production dry-run
 snakemake -n --configfile config/config.yaml
+```
 
-# 2. Execute production steps via SLURM
-# Note: A generic end-to-end production entry point is not yet implemented.
-# ## 8. Current Outputs (Through Milestone 9)
+---
 
-Successful execution of Milestones M0–M9 yields the following major artifacts:
+## 8. Current Outputs (Through Milestone 9)
 
 ### Seurat RDS & Manifest Objects (stored in `results/datasets/{ds}/` or `results/`)
 - `{ds}_raw.rds` (M2): Raw extracted datasets split by `sample_id`.

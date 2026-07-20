@@ -6,6 +6,7 @@ Verifies directories, configurations, python and R package availability, and sys
 
 import os
 import sys
+import argparse
 import subprocess
 import yaml
 from jsonschema import validate, ValidationError
@@ -19,6 +20,9 @@ def log_failure(message, fix_hint=None):
         print(f"       \033[93mHINT:\033[0m {fix_hint}")
     print()
 
+def log_info(message):
+    print(f"\033[94m[INFO]\033[0m {message}")
+
 def run_command(cmd):
     try:
         res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
@@ -27,7 +31,32 @@ def run_command(cmd):
         return False, str(e)
 
 def main():
-    print("=== Starting Preflight Validation Checker ===")
+    parser = argparse.ArgumentParser(description="Preflight Checker for MPNST Phase 1 Workflow")
+    parser.add_argument(
+        "--mode",
+        choices=["synthetic", "real"],
+        required=True,
+        help="Execution mode: 'synthetic' (test/CI execution on synthetic data) or 'real' (HPC execution on real patient tumor data)."
+    )
+    parser.add_argument(
+        "--config",
+        help="Path to alternative configuration file. If not specified, defaults based on mode."
+    )
+    
+    args = parser.parse_args()
+    mode = args.mode
+    
+    # Establish default config path based on mode
+    if args.config:
+        config_path = args.config
+    else:
+        if mode == "synthetic":
+            config_path = "config/config.test.yaml"
+        else:
+            config_path = "config/config.yaml"
+
+    print(f"=== Starting Preflight Validation Checker (Mode: {mode.upper()}) ===")
+    print(f"Config path: {config_path}")
     errors = 0
 
     # 1. Check directories
@@ -72,8 +101,7 @@ def main():
         log_failure("Failed to load critical R packages in R.", f"Install packages Seurat, sctransform, or scDblFinder. Detailed error: {r_pkg_out}")
         errors += 1
 
-    # 6. Read and validate configuration file config/config.yaml against schema
-    config_path = "config/config.yaml"
+    # 6. Read and validate configuration file against schema
     schema_path = "config/schemas/config.schema.yaml"
     if os.path.exists(config_path) and os.path.exists(schema_path):
         try:
@@ -82,24 +110,31 @@ def main():
             with open(schema_path, "r") as sf:
                 schema_data = yaml.safe_load(sf)
             validate(instance=config_data, schema=schema_data)
-            log_success("Configuration file config/config.yaml is valid against schemas.")
+            log_success(f"Configuration file {config_path} is valid against schemas.")
             
             # Check if input rds exists (file existence check only)
             input_rds_path = config_data.get("input_rds")
-            if input_rds_path and os.path.exists(input_rds_path):
-                log_success(f"Input immutable dataset exists: '{input_rds_path}'.")
+            if input_rds_path:
+                if os.path.exists(input_rds_path):
+                    log_success(f"Input dataset exists: '{input_rds_path}'.")
+                else:
+                    if mode == "real":
+                        log_failure(f"Input immutable dataset not found at: '{input_rds_path}'.", "Verify that the processed_mpnst.rds file is located at the specified path.")
+                        errors += 1
+                    else:
+                        log_info(f"Synthetic/test input dataset not found at: '{input_rds_path}'. (This is expected as it will be generated dynamically by the Snakemake workflow).")
             else:
-                log_failure(f"Input immutable dataset not found at: '{input_rds_path}'.", "Verify that the processed_mpnst.rds file is located at the specified path.")
+                log_failure(f"Configuration file {config_path} is missing 'input_rds' field.")
                 errors += 1
 
         except ValidationError as ve:
-            log_failure(f"Configuration file validation failed: {ve.message}", "Correct config/config.yaml format.")
+            log_failure(f"Configuration file validation failed: {ve.message}", f"Correct {config_path} format.")
             errors += 1
         except Exception as e:
             log_failure(f"Error reading configuration/schema: {str(e)}")
             errors += 1
     else:
-        log_failure("Missing config/config.yaml or config/schemas/config.schema.yaml.", "Restore configuration files.")
+        log_failure(f"Missing configuration file at {config_path} or schema at {schema_path}.")
         errors += 1
 
     # 7. Check write permissions in outputs
@@ -124,7 +159,11 @@ def main():
     if sbatch_ok:
         log_success(f"SLURM scheduler is available: {sbatch_ver}")
     else:
-        print("[INFO] SLURM is not available locally. (HPC job submission will run locally or requires cluster access).")
+        if mode == "real":
+            log_failure("SLURM scheduler (sbatch) is missing, but required for real/HPC mode execution.", "Run in an environment/node with SLURM cluster access.")
+            errors += 1
+        else:
+            log_info("SLURM is not available locally. (This is fine for synthetic/test mode on non-HPC machines).")
 
     print("=== Preflight Validation Summary ===")
     if errors == 0:

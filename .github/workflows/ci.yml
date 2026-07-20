@@ -39,7 +39,12 @@ jobs:
       # 4. Run Environment Preflight Checker
       - name: Run Environment Preflight Checker
         run: |
-          python scripts/python/preflight_checker.py
+          python scripts/python/preflight_checker.py --mode synthetic
+
+      # 4b. Run Preflight Checker Unit Tests
+      - name: Run Preflight Checker Unit Tests
+        run: |
+          python tests/unit/test_preflight.py
 
       # 5. Run static checks and Project State Validator (expected to fail initially if not yet updated)
       - name: Run Project State Consistency Validator
