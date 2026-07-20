@@ -46,22 +46,23 @@ jobs:
         run: |
           python tests/unit/test_preflight.py
 
-      # 5. Run static checks and Project State Validator (expected to fail initially if not yet updated)
+      # 5. Run static checks and Project State Validator
       - name: Run Project State Consistency Validator
         run: |
-          python scripts/python/validate_project_state.py || echo "Consistency validator output checked."
+          python scripts/python/validate_project_state.py
 
-      # 6. Run Snakemake dry-run for production config
-      - name: Snakemake dry-run (Production Config)
+      # 6. Run Snakemake dry-run & DAG Regression Check (Synthetic Config)
+      - name: Snakemake dry-run & DAG Regression Check (Synthetic Config)
         run: |
-          snakemake -n --rerun-triggers mtime
+          snakemake --snakefile workflow/Snakefile --configfile config/config.test.yaml -n -p --rerun-triggers mtime synthetic_complete > dry_run.out
+          cat dry_run.out
+          if grep -E "processed_mpnst.rds" dry_run.out; then
+              echo "ERROR: Synthetic dry-run references real HPC paths or datasets!"
+              exit 1
+          fi
+          echo "SUCCESS: Synthetic DAG has no real HPC RDS dependency."
 
-      # 7. Run Snakemake dry-run for synthetic config
-      - name: Snakemake dry-run (Synthetic Config)
-        run: |
-          snakemake --configfile config/config.test.yaml -n
-
-      # 8. Execute Clean-Room Synthetic Workflow
+      # 7. Execute Clean-Room Synthetic Workflow
       - name: Execute Clean-Room Synthetic Workflow
         run: |
           mkdir -p test_clean_room
@@ -69,12 +70,14 @@ jobs:
           ln -sfn ../tests test_clean_room/tests
           ln -sfn ../config test_clean_room/config
           ln -sfn ../workflow test_clean_room/workflow
-          snakemake -s workflow/Snakefile -d test_clean_room --configfile config/config.test.yaml --cores 2 --rerun-triggers mtime
+          snakemake -s workflow/Snakefile -d test_clean_room --configfile config/config.test.yaml --cores 2 --rerun-triggers mtime synthetic_complete
 
-      # 9. Verify Required Clean-Room Target Outputs
+      # 8. Verify Required Clean-Room Target Outputs
       - name: Verify Clean-Room Target Outputs
         run: |
           test -f test_clean_room/results/combined/pre_integration/combined_preintegration.rds
           test -f test_clean_room/reports/PRE_INTEGRATION_ASSESSMENT.md
           test -f test_clean_room/reports/INTEGRATION_PREPARATION.md
           test -f test_clean_room/reports/milestones/M8_REPORT.md
+          test -f test_clean_room/logs/workflow/phase1_complete.done
+          test -f test_clean_room/logs/workflow/validate_project_state.done

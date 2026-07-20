@@ -1231,5 +1231,10 @@ rule phase1_complete:
         touch {output.done}
         """
 
+# Target for synthetic complete validation in CI/reviewer runs
+rule synthetic_complete:
+    input:
+        "logs/workflow/phase1_complete.done"
+
 
 
