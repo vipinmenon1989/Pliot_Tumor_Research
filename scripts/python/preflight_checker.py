@@ -36,17 +36,31 @@ def main():
         "--mode",
         choices=["synthetic", "real"],
         required=True,
-        help="Execution mode: 'synthetic' (test/CI execution on synthetic data) or 'real' (HPC execution on real patient tumor data)."
+        help="Execution mode: 'synthetic' (test/CI execution on synthetic data) or 'real' (execution on real patient tumor data)."
     )
     parser.add_argument(
         "--config",
         help="Path to alternative configuration file. If not specified, defaults based on mode."
     )
+    parser.add_argument(
+        "--input-rds",
+        help="CLI override path to the input RDS file. Overrides the config file setting."
+    )
+    parser.add_argument(
+        "--require-slurm",
+        action="store_true",
+        help="If set, requires the SLURM scheduler (sbatch) to be available (fails otherwise)."
+    )
+    parser.add_argument(
+        "--skip-r-packages",
+        action="store_true",
+        help="Skip the slow check for critical R packages (Seurat, sctransform, scDblFinder)."
+    )
     
     args = parser.parse_args()
     mode = args.mode
     
-    # Establish default config path based on mode
+    # 1. Establish default config path based on mode
     if args.config:
         config_path = args.config
     else:
@@ -59,7 +73,7 @@ def main():
     print(f"Config path: {config_path}")
     errors = 0
 
-    # 1. Check directories
+    # 2. Check directories
     required_dirs = ["workflow", "config", "scripts", "tests"]
     for d in required_dirs:
         if os.path.isdir(d):
@@ -68,7 +82,7 @@ def main():
             log_failure(f"Directory '{d}/' is missing.", f"Create the directory '{d}/' or restore it from the repository.")
             errors += 1
 
-    # 2. Check Python version and dependencies
+    # 3. Check Python version and dependencies
     py_ok, py_ver = run_command([sys.executable, "--version"])
     if py_ok:
         log_success(f"Python is available: {py_ver}")
@@ -76,7 +90,7 @@ def main():
         log_failure("Python is not available or executable.", "Activate the correct Conda environment (e.g. conda activate R_env).")
         errors += 1
 
-    # 3. Check R availability
+    # 4. Check R availability
     r_ok, r_ver = run_command(["Rscript", "--version"])
     if r_ok:
         log_success(f"Rscript is available: {r_ver}")
@@ -84,7 +98,7 @@ def main():
         log_failure("Rscript is not available in the current PATH.", "Ensure R is installed and Rscript is in your PATH, or activate R_env.")
         errors += 1
 
-    # 4. Check Snakemake availability
+    # 5. Check Snakemake availability
     sm_ok, sm_ver = run_command(["snakemake", "--version"])
     if sm_ok:
         log_success(f"Snakemake is available: version {sm_ver}")
@@ -92,17 +106,21 @@ def main():
         log_failure("Snakemake is not available in the current PATH.", "Install snakemake (pip install snakemake or conda install snakemake).")
         errors += 1
 
-    # 5. Check critical R packages (without loading the large RDS file)
-    r_pkg_cmd = ["Rscript", "-e", "libs <- c('Seurat', 'sctransform', 'scDblFinder'); for (l in libs) { library(l, character.only=TRUE) }; cat('OK')"]
-    r_pkg_ok, r_pkg_out = run_command(r_pkg_cmd)
-    if r_pkg_ok and "OK" in r_pkg_out:
-        log_success("Critical R packages are available: Seurat, sctransform, scDblFinder.")
+    # 6. Check critical R packages (without loading the large RDS file)
+    if args.skip_r_packages:
+        log_info("Skipping critical R packages check (--skip-r-packages).")
     else:
-        log_failure("Failed to load critical R packages in R.", f"Install packages Seurat, sctransform, or scDblFinder. Detailed error: {r_pkg_out}")
-        errors += 1
+        r_pkg_cmd = ["Rscript", "-e", "libs <- c('Seurat', 'sctransform', 'scDblFinder'); for (l in libs) { library(l, character.only=TRUE) }; cat('OK')"]
+        r_pkg_ok, r_pkg_out = run_command(r_pkg_cmd)
+        if r_pkg_ok and "OK" in r_pkg_out:
+            log_success("Critical R packages are available: Seurat, sctransform, scDblFinder.")
+        else:
+            log_failure("Failed to load critical R packages in R.", f"Install packages Seurat, sctransform, or scDblFinder. Detailed error: {r_pkg_out}")
+            errors += 1
 
-    # 6. Read and validate configuration file against schema
+    # 7. Read and validate configuration file against schema
     schema_path = "config/schemas/config.schema.yaml"
+    resolved_rds_path = None
     if os.path.exists(config_path) and os.path.exists(schema_path):
         try:
             with open(config_path, "r") as cf:
@@ -112,17 +130,24 @@ def main():
             validate(instance=config_data, schema=schema_data)
             log_success(f"Configuration file {config_path} is valid against schemas.")
             
+            # 8. Path resolution and precedence
+            if args.input_rds:
+                resolved_rds_path = args.input_rds
+                log_info(f"Resolved input path (via CLI override): '{resolved_rds_path}'")
+            else:
+                resolved_rds_path = config_data.get("input_rds")
+                log_info(f"Resolved input path (via config): '{resolved_rds_path}'")
+            
             # Check if input rds exists (file existence check only)
-            input_rds_path = config_data.get("input_rds")
-            if input_rds_path:
-                if os.path.exists(input_rds_path):
-                    log_success(f"Input dataset exists: '{input_rds_path}'.")
+            if resolved_rds_path:
+                if os.path.exists(resolved_rds_path):
+                    log_success(f"Input dataset exists: '{resolved_rds_path}'.")
                 else:
                     if mode == "real":
-                        log_failure(f"Input immutable dataset not found at: '{input_rds_path}'.", "Verify that the processed_mpnst.rds file is located at the specified path.")
+                        log_failure(f"Input immutable dataset not found at: '{resolved_rds_path}'.", "Verify that the processed_mpnst.rds file is located at the specified path.")
                         errors += 1
                     else:
-                        log_info(f"Synthetic/test input dataset not found at: '{input_rds_path}'. (This is expected as it will be generated dynamically by the Snakemake workflow).")
+                        log_info(f"Synthetic/test input dataset not found at: '{resolved_rds_path}'. (This is expected as it will be generated dynamically by the Snakemake workflow).")
             else:
                 log_failure(f"Configuration file {config_path} is missing 'input_rds' field.")
                 errors += 1
@@ -137,7 +162,7 @@ def main():
         log_failure(f"Missing configuration file at {config_path} or schema at {schema_path}.")
         errors += 1
 
-    # 7. Check write permissions in outputs
+    # 9. Check write permissions in outputs
     out_dirs = ["results", "reports", "logs"]
     for od in out_dirs:
         if os.path.exists(od):
@@ -154,16 +179,16 @@ def main():
                 log_failure(f"Directory '{od}/' does not exist and parent directory is not writable.", "Change write permissions of the project root.")
                 errors += 1
 
-    # 8. Check SLURM commands if available
+    # 10. Check SLURM commands if available
     sbatch_ok, sbatch_ver = run_command(["sbatch", "--version"])
     if sbatch_ok:
         log_success(f"SLURM scheduler is available: {sbatch_ver}")
     else:
-        if mode == "real":
-            log_failure("SLURM scheduler (sbatch) is missing, but required for real/HPC mode execution.", "Run in an environment/node with SLURM cluster access.")
+        if args.require_slurm:
+            log_failure("SLURM scheduler (sbatch) is missing, and explicitly required (--require-slurm).", "Run in an environment/node with SLURM cluster access.")
             errors += 1
         else:
-            log_info("SLURM is not available locally. (This is fine for synthetic/test mode on non-HPC machines).")
+            log_info("SLURM is not available locally. (This is fine since --require-slurm was not specified).")
 
     print("=== Preflight Validation Summary ===")
     if errors == 0:
