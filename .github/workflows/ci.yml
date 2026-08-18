@@ -54,7 +54,7 @@ jobs:
       # 6. Run Snakemake dry-run & DAG Regression Check (Synthetic Config)
       - name: Snakemake dry-run & DAG Regression Check (Synthetic Config)
         run: |
-          snakemake --snakefile workflow/Snakefile --configfile config/config.test.yaml -n -p --rerun-triggers mtime synthetic_complete > dry_run.out
+          snakemake --snakefile workflow/Snakefile --configfile config/config.test.yaml -n -p synthetic_complete --rerun-triggers mtime > dry_run.out
           cat dry_run.out
           if grep -E "processed_mpnst.rds" dry_run.out; then
               echo "ERROR: Synthetic dry-run references real HPC paths or datasets!"
@@ -70,7 +70,7 @@ jobs:
           ln -sfn ../tests test_clean_room/tests
           ln -sfn ../config test_clean_room/config
           ln -sfn ../workflow test_clean_room/workflow
-          snakemake -s workflow/Snakefile -d test_clean_room --configfile config/config.test.yaml --cores 2 --rerun-triggers mtime synthetic_complete
+          snakemake -s workflow/Snakefile -d test_clean_room --configfile config/config.test.yaml --cores 2 synthetic_complete --rerun-triggers mtime
 
       # 8. Verify Required Clean-Room Target Outputs
       - name: Verify Clean-Room Target Outputs

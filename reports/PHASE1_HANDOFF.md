@@ -132,7 +132,7 @@ ln -s ../scripts scripts
 ln -s ../tests tests
 ln -s ../config config
 ln -s ../workflow workflow
-snakemake -s workflow/Snakefile --configfile config/config.test.yaml --cores 4 --rerun-triggers mtime
+snakemake -s workflow/Snakefile --configfile config/config.test.yaml --cores 4 synthetic_complete --rerun-triggers mtime
 ```
 
 ### 6.4 Running the Production Workflow

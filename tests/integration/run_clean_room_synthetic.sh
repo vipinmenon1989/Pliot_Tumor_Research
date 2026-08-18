@@ -51,6 +51,7 @@ cd test_clean_room
 snakemake -s workflow/Snakefile \
   --configfile config/config.test.yaml \
   --cores 4 \
+  synthetic_complete \
   --rerun-triggers mtime
 
 echo "=== Clean-Room Synthetic Workflow Finished Successfully ==="
