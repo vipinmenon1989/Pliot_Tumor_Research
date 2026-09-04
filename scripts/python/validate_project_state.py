@@ -9,6 +9,10 @@ import os
 import sys
 import re
 
+# Accepted Phase 2 status declarations (Phase 2 M10 update: the project moved past
+# "NOT STARTED", so the validator now requires an explicit status rather than a fixed one).
+PHASE2_STATUS_PATTERN = r"PHASE\s*2\s*=\s*(NOT\s*STARTED|IN\s*PROGRESS|FROZEN|COMPLETE[D]?)"
+
 def log_success(msg):
     print(f"\033[92m[PASS]\033[0m {msg}")
 
@@ -74,10 +78,12 @@ def main():
         log_failure("PROGRESS.md is missing 'PHASE 1 = FROZEN'.")
         errors += 1
 
-    if file_contains("PROGRESS.md", r"PHASE\s*2\s*=\s*NOT\s*STARTED"):
-        log_success("PROGRESS.md shows 'PHASE 2 = NOT STARTED'.")
+    # Phase 2 status line must be present and explicit. Accepts NOT STARTED (pre-M10),
+    # IN PROGRESS (M10 onwards) or FROZEN/COMPLETE (post-M17).
+    if file_contains("PROGRESS.md", PHASE2_STATUS_PATTERN):
+        log_success("PROGRESS.md declares an explicit 'PHASE 2 = ...' status.")
     else:
-        log_failure("PROGRESS.md is missing 'PHASE 2 = NOT STARTED'.")
+        log_failure("PROGRESS.md is missing an explicit 'PHASE 2 = ...' status line.")
         errors += 1
 
     # 3. Verify CHANGELOG.md consistency
@@ -104,10 +110,10 @@ def main():
         log_failure("README.md is missing 'PHASE 1 = FROZEN'.")
         errors += 1
 
-    if file_contains("README.md", r"PHASE\s*2\s*=\s*NOT\s*STARTED"):
-        log_success("README.md shows 'PHASE 2 = NOT STARTED'.")
+    if file_contains("README.md", PHASE2_STATUS_PATTERN):
+        log_success("README.md declares an explicit 'PHASE 2 = ...' status.")
     else:
-        log_failure("README.md is missing 'PHASE 2 = NOT STARTED'.")
+        log_failure("README.md is missing an explicit 'PHASE 2 = ...' status line.")
         errors += 1
 
     # Check for M9_REPORT.md in README

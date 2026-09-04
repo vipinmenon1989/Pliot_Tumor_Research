@@ -1,0 +1,523 @@
+{
+  "phase": "phase2",
+  "generated": "2026-09-03T09:21:49-0400",
+  "completion_status": "COMPLETE",
+  "phase1_input": {
+    "path": "results/combined/pre_integration/combined_preintegration.rds",
+    "md5": "88a442688f912d882f6c6da01820e329",
+    "sha256": "c3fdce8b61602725977f989d8bbf10030ffe48ef6140372a13d2c59903a8dc66",
+    "verified_unchanged_at_freeze": true,
+    "manifest": "results/phase1_manifest.json"
+  },
+  "m11_harmony_object": {
+    "path": "results/phase2/harmony/phase2_harmony_integrated.rds",
+    "md5": "cf63e84313a91de25fe2e41660f78f06",
+    "sha256": "6085976f788633b68c07c1ddff49e20e6f6f6727579cb7900854febd2ae6e69d"
+  },
+  "intermediate_objects": {
+    "m13_clustered": {
+      "path": "results/phase2/clustering/phase2_harmony_clustered.rds",
+      "md5": "b91f0eecd73e202804ac7c6859db4c46"
+    },
+    "m15_annotated": {
+      "path": "results/phase2/annotation/phase2_harmony_annotated.rds",
+      "md5": "96b681515e38a4822e98120abace2447"
+    },
+    "m16_refined": {
+      "path": "results/phase2/composition/phase2_harmony_refined.rds",
+      "md5": "63146e84e43d8f036cca6fd6d1ef99b3"
+    },
+    "m15a_ccc": {
+      "path": "results/phase2/annotation/phase2_harmony_ccc.rds",
+      "md5": "c1730272dee5c3cfbf011f673ab26900"
+    }
+  },
+  "final_object": {
+    "path": "results/phase2/phase2_final_object.rds",
+    "md5": "153d5f6acc70f9c05aa48cabc4f4ac2d",
+    "sha256": "62e97524836309170c38be9335a10a4c76baa48a246b2963d2d440cebead0cf3",
+    "size_bytes": 6055964264,
+    "cells": 19716,
+    "features_default_assay": 29113,
+    "assays": ["RNA", "SCT"],
+    "default_assay": "SCT",
+    "reductions": ["pca", "postint_harmony", "postint_umap_harmony", "umap_preintegration"],
+    "graphs": ["postint_harmony_nn", "postint_harmony_snn", "SCT_nn", "SCT_snn"],
+    "n_metadata_columns": 149,
+    "rna_layers": "counts.MPNST_1.1;data.MPNST_1.1;scale.data.1;counts.MPNST_2.2;data.MPNST_2.2;scale.data.2;counts.MPNST_3.3;data.MPNST_3.3;scale.data.3;counts.MPNST_4.4;data.MPNST_4.4;scale.data.4",
+    "sct_layers": "counts;data;scale.data",
+    "sct_models": 4
+  },
+  "harmony": {
+    "variable": "sample_id",
+    "dims": "1:30",
+    "input_reduction": "pca",
+    "output_reduction": "postint_harmony",
+    "version": "1.2.4",
+    "parameters_explicit": {
+      "object": "Phase 1 handoff Seurat object (loaded read-only)",
+      "group.by.vars": "sample_id",
+      "reduction.use": "pca",
+      "dims.use": "1:30",
+      "reduction.save": "postint_harmony",
+      "verbose": true
+    },
+    "parameters_default": {
+      "project.dim": {
+        "value": true,
+        "source": "RunHarmony.Seurat default"
+      },
+      "theta": {
+        "value": 2,
+        "source": "harmony default (NULL -> rep(2, length(vars_use)))"
+      },
+      "sigma": {
+        "value": 0.1,
+        "source": "harmony default"
+      },
+      "lambda": {
+        "value": 1,
+        "source": "harmony default"
+      },
+      "nclust": {
+        "value": 100,
+        "source": "harmony default (NULL -> min(round(N/30), 100))"
+      },
+      "max_iter": {
+        "value": 10,
+        "source": "harmony default"
+      },
+      "early_stop": {
+        "value": true,
+        "source": "harmony default"
+      },
+      "ncores": {
+        "value": 1,
+        "source": "harmony default"
+      },
+      "plot_convergence": {
+        "value": false,
+        "source": "harmony default"
+      },
+      "alpha": {
+        "value": 0.2,
+        "source": "harmony_options() default"
+      },
+      "tau": {
+        "value": 0,
+        "source": "harmony_options() default"
+      },
+      "block.size": {
+        "value": 0.05,
+        "source": "harmony_options() default"
+      },
+      "max.iter.cluster": {
+        "value": 20,
+        "source": "harmony_options() default"
+      },
+      "epsilon.cluster": {
+        "value": 0.001,
+        "source": "harmony_options() default"
+      },
+      "epsilon.harmony": {
+        "value": 0.01,
+        "source": "harmony_options() default"
+      }
+    },
+    "iterations_run": 9,
+    "reproducibility_check": {
+      "method": "matrix-level re-run with identical inputs, seed and defaults",
+      "max_abs_difference": 0,
+      "status": "MATCH"
+    }
+  },
+  "integration_assessment": {
+    "report": "reports/phase2/HARMONY_ASSESSMENT.md",
+    "recommendation": "ACCEPT DEFAULT HARMONY WITH CAVEATS",
+    "headline_metrics": {
+      "technical": {
+        "same_sample_fraction_pre": 0.972766619327788,
+        "same_sample_fraction_post": 0.77841008994387,
+        "entropy_pre": 0.0490158428314373,
+        "entropy_post": 0.356546902696637,
+        "inv_simpson_pre": 1.0548967459081,
+        "inv_simpson_post": 1.44078965306195,
+        "dominance_ratio_pre": 3.84549845599243,
+        "dominance_ratio_post": 2.8996616830374,
+        "silhouette_sample_pre": -0.010381100132674,
+        "silhouette_sample_post": -0.00757416748934696
+      },
+      "biological": {
+        "within_sample_knn_retention": 0.820619463041861,
+        "global_knn_retention": 0.659809291945628,
+        "phase1_cluster_coherence_pre": 0.864438358017177,
+        "phase1_cluster_coherence_post": 0.842672617839995,
+        "program_silhouette_pre": 0.0626569745315491,
+        "program_silhouette_post": 0.0729367259898066
+      }
+    },
+    "caveats": {
+      "C1": "B/plasma cohesion fell 44% under Harmony; cross-check downstream B/plasma clusters against the non-integrated baseline.",
+      "C2": "Fibroblast cohesion fell 44%; same requirement for fibroblast/stromal clusters and MPNST_4-derived structure."
+    }
+  },
+  "clustering": {
+    "reduction": "postint_harmony",
+    "dims": "1:30",
+    "k_param": 20,
+    "algorithm": "Louvain (algorithm 1)",
+    "resolutions_evaluated": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    "metadata_columns": ["postint_harmony_clusters_res_0.1", "postint_harmony_clusters_res_0.2", "postint_harmony_clusters_res_0.3", "postint_harmony_clusters_res_0.4", "postint_harmony_clusters_res_0.5", "postint_harmony_clusters_res_0.6", "postint_harmony_clusters_res_0.7", "postint_harmony_clusters_res_0.8", "postint_harmony_clusters_res_0.9", "postint_harmony_clusters_res_1.0"],
+    "primary_resolution": 1,
+    "n_primary_clusters": 26,
+    "alternative_resolution": 0.7,
+    "n_alternative_clusters": 21,
+    "primary_column": "postint_harmony_primary_cluster",
+    "alternative_column": "postint_harmony_alternative_cluster",
+    "assessment": "reports/phase2/CLUSTERING_ASSESSMENT.md"
+  },
+  "markers": {
+    "parameters": {
+      "assay": "SCT",
+      "layer": "data",
+      "normalisation": "SCTransform residuals; PrepSCTFindMarkers applied (4 models)",
+      "test.use": "wilcox",
+      "min.pct": 0.25,
+      "logfc.threshold": 0.25,
+      "only.pos": true,
+      "recorrect_umi": false,
+      "random.seed": 42,
+      "presto_accelerated": true,
+      "scope": "cluster characterisation for annotation - NOT condition-level differential expression"
+    },
+    "prep_sct_find_markers": {
+      "required": true,
+      "n_sct_models": 4,
+      "applied": true
+    },
+    "tables": ["results/phase2/markers/all_cluster_markers.tsv", "results/phase2/markers/filtered_cluster_markers.tsv", "results/phase2/markers/top_markers_per_cluster.tsv", "results/phase2/markers/top10_markers_per_cluster.tsv", "results/phase2/markers/top20_markers_per_cluster.tsv", "results/phase2/markers/top50_markers_per_cluster.tsv", "results/phase2/markers/marker_summary_by_cluster.tsv"],
+    "report": "reports/phase2/MARKER_REPORT.md",
+    "statistical_scope": "Cluster characterisation for annotation. NOT condition-level differential expression."
+  },
+  "ccc_annotation": {
+    "amendment": "CCC-oriented annotation layer, authorized 2026-09-03",
+    "field": "annotation_ccc",
+    "supporting_fields": ["annotation_ccc_compartment", "annotation_ccc_is_tumor", "annotation_ccc_ccc_ready"],
+    "mapping_table": "results/phase2/annotation/CCC_ANNOTATION_MAPPING.tsv",
+    "mapping_config": "config/phase2/ccc_annotation_map.tsv",
+    "summary_table": "results/phase2/annotation/CCC_ANNOTATION_SUMMARY.tsv",
+    "size_audit": "results/phase2/annotation/CCC_POPULATION_SIZE_AUDIT.tsv",
+    "tumor_composition": "results/phase2/annotation/MPNST_TUMOR_COMPOSITION.tsv",
+    "marker_summary": "results/phase2/annotation/CCC_MARKER_SUMMARY.tsv",
+    "readiness_report": "reports/phase2/CCC_READINESS.md",
+    "figures": "results/phase2/figures/CCC_annotation",
+    "script": "scripts/R/phase2/build_ccc_annotation.R",
+    "record": "results/phase2/annotation/m15a_ccc_annotation_record.json",
+    "tumor_collapse_criteria": "Keyed on the DETAILED Level 2 label. Collapsed into MPNST-Tumor: MPNST-like malignant (SCP-like), MPNST-like malignant (NC-like), Schwann-lineage tumour-like, Cycling tumour-like. NOT collapsed: Candidate malignant (provisional label, Low confidence, patient-private evidence only) and everything outside Level 1 'Malignant / tumour'. The inference 'non-immune => tumour' was never used; fibroblast, endothelial, pericyte, uncertain and low-quality populations were never absorbed.",
+    "population_counts": {
+      "B-cell": 233,
+      "Candidate-Malignant-Unresolved": 1231,
+      "CD4-T": 606,
+      "CD8-T": 382,
+      "Dendritic": 612,
+      "Endothelial": 960,
+      "Fibroblast": 5064,
+      "Low-quality-excluded": 438,
+      "Macrophage": 3065,
+      "Monocyte": 190,
+      "MPNST-Tumor": 3420,
+      "NK": 106,
+      "Pericyte-VSMC": 435,
+      "Plasma-cell": 1709,
+      "Plasmacytoid-DC": 287,
+      "T-cell-other": 258,
+      "Uncertain": 720
+    },
+    "n_populations": 17,
+    "mpnst_tumor_cells": 3420,
+    "mpnst_tumor_percent": 17.346,
+    "detailed_tumor_states_retained": true,
+    "downstream_use": "Phase 3 sample-aware cell-cell communication. No CCC method was executed in Phase 2."
+  },
+  "annotation": {
+    "map": "config/phase2/annotation_map_M15.tsv",
+    "evidence_table": "results/phase2/annotation/ANNOTATION_EVIDENCE.tsv",
+    "report": "reports/phase2/ANNOTATION_REPORT.md",
+    "final_columns": ["postint_celltype_level1", "postint_celltype_level2", "postint_celltype_level3", "postint_annotation_confidence", "postint_celltype_level1_initial", "postint_celltype_level2_initial", "postint_celltype_level3_initial", "postint_annotation_confidence_initial", "postint_celltype_level1_refined", "postint_celltype_level2_refined", "postint_celltype_level3_refined", "postint_annotation_confidence_refined", "postint_annotation_initial", "postint_annotation_refined"],
+    "cnv_inference_performed": false,
+    "refinement": {
+      "rules": "R1 unscored/deliberate; R2 assigned = top-scoring panel -> confirmed; R3 assigned ranks 2nd within 0.25 z -> confirmed; R4 otherwise -> confidence downgraded one step, LABEL RETAINED",
+      "labels_changed": 0,
+      "confidence_downgraded": 5,
+      "rationale": "M15 labels rest on specific marker genes and cited literature, which is stronger evidence than a coarse compartment panel mean; the review therefore adjusts confidence rather than overriding labels."
+    }
+  },
+  "composition": {
+    "directory": "results/phase2/composition",
+    "statistical_scope": "DESCRIPTIVE ONLY - no inferential condition-level or differential-abundance testing.",
+    "condition_field_exists": false
+  },
+  "figures": {
+    "root": "results/phase2/figures",
+    "milestones": ["M12", "M13", "M14", "M15", "M16", "final"],
+    "additional": "reports/phase2/figures/m12",
+    "index": "reports/FIGURE_INDEX.tsv"
+  },
+  "tables": {
+    "final_suite": "results/phase2/tables/final"
+  },
+  "reports": {
+    "harmony_variable_decision": "reports/phase2/HARMONY_VARIABLE_DECISION.md",
+    "harmony_assessment": "reports/phase2/HARMONY_ASSESSMENT.md",
+    "clustering_assessment": "reports/phase2/CLUSTERING_ASSESSMENT.md",
+    "marker_report": "reports/phase2/MARKER_REPORT.md",
+    "annotation_report": "reports/phase2/ANNOTATION_REPORT.md",
+    "handoff": "reports/phase2/PHASE2_HANDOFF.md",
+    "plan": "reports/phase2/PHASE2_PLAN.md",
+    "milestones": ["reports/phase2/milestones/M10_REPORT.md", "reports/phase2/milestones/M11_REPORT.md", "reports/phase2/milestones/M12_REPORT.md", "reports/phase2/milestones/M13_REPORT.md", "reports/phase2/milestones/M14_REPORT.md", "reports/phase2/milestones/M15_REPORT.md", "reports/phase2/milestones/M16_REPORT.md", "reports/phase2/milestones/M17_REPORT.md"]
+  },
+  "scripts": {
+    "m10": "scripts/R/phase2/inspect_phase1_handoff.R",
+    "m11": "scripts/R/phase2/run_harmony_integration.R",
+    "m12": "scripts/R/phase2/evaluate_harmony.R",
+    "m12_supplement": "scripts/R/phase2/m12_supplement_figures.R",
+    "m13": "scripts/R/phase2/cluster_sweep_harmony.R",
+    "m14": "scripts/R/phase2/discover_markers_harmony.R",
+    "m15": "scripts/R/phase2/annotate_celltypes.R",
+    "m16": "scripts/R/phase2/refine_and_compose.R",
+    "m15a": "scripts/R/phase2/build_ccc_annotation.R",
+    "m17": "scripts/R/phase2/validate_and_freeze.R",
+    "slurm": ["scripts/shell/phase2/run_m10_inspect.sh", "scripts/shell/phase2/run_m11_harmony.sh", "scripts/shell/phase2/run_m12_evaluate.sh", "scripts/shell/phase2/run_m12_supplement.sh", "scripts/shell/phase2/run_m13_clustering.sh", "scripts/shell/phase2/run_m14_markers.sh", "scripts/shell/phase2/run_m15_annotation.sh", "scripts/shell/phase2/run_m15a_ccc_annotation.sh", "scripts/shell/phase2/run_m16_composition.sh", "scripts/shell/phase2/run_m17_freeze.sh"]
+  },
+  "environment": {
+    "r_version": "R version 4.4.3 (2025-02-28)",
+    "r_binary": "/local/projects-t3/lilab/vmenon/anaconda3/envs/R_env/lib/R/bin/R",
+    "conda_env": "R_env",
+    "package_versions": {
+      "Seurat": "5.4.0",
+      "SeuratObject": "5.3.0",
+      "harmony": "1.2.4",
+      "Matrix": "1.7.4",
+      "sctransform": "0.4.3",
+      "glmGamPoi": "1.18.0",
+      "presto": "1.0.0",
+      "cluster": "2.1.8.1",
+      "RANN": "2.6.2",
+      "uwot": "0.2.4",
+      "aricode": "1.0.3",
+      "ggplot2": "4.0.1",
+      "patchwork": "1.3.2",
+      "viridis": "0.6.5",
+      "RColorBrewer": "1.1.3",
+      "dplyr": "1.1.4",
+      "tidyr": "1.3.2",
+      "reshape2": "1.4.5",
+      "jsonlite": "2.0.0",
+      "digest": "0.6.39"
+    },
+    "spec": "workflow/envs/R_env_portable.yaml",
+    "records": ["reports/phase2/PHASE2_ENVIRONMENT.tsv", "reports/phase2/PHASE2_SESSIONINFO.txt"]
+  },
+  "random_seeds": {
+    "global": 42,
+    "harmony": 42,
+    "umap": 42,
+    "clustering": 42,
+    "markers": 42,
+    "module_scores": 42
+  },
+  "slurm_jobs": {
+    "m10_inspect": {
+      "jobid": "19886411",
+      "state": "COMPLETED",
+      "elapsed": "00:02:17",
+      "maxrss_gib": 4.73,
+      "cpus": 4,
+      "mem": "96G"
+    },
+    "m11_harmony": {
+      "jobid": "19886486",
+      "state": "COMPLETED",
+      "elapsed": "00:08:24",
+      "maxrss_gib": 8.38,
+      "cpus": 8,
+      "mem": "64G"
+    },
+    "m12_evaluate": {
+      "jobid": "19886628",
+      "state": "COMPLETED",
+      "elapsed": "00:04:09",
+      "maxrss_gib": 8.14,
+      "cpus": 8,
+      "mem": "96G"
+    },
+    "m12_supplement": {
+      "jobid": "19886682",
+      "state": "COMPLETED",
+      "elapsed": "00:01:32",
+      "maxrss_gib": 7.18,
+      "cpus": 4,
+      "mem": "64G",
+      "failed_attempts": [
+        {
+          "jobid": "19886675",
+          "reason": "dpi=NA rejected by ggplot2 4.0.1"
+        }
+      ]
+    },
+    "m13_clustering": {
+      "jobid": "19886690",
+      "state": "COMPLETED",
+      "elapsed": "00:09:37",
+      "maxrss_gib": 12.09,
+      "cpus": 8,
+      "mem": "128G",
+      "failed_attempts": [
+        {
+          "jobid": "19886683",
+          "reason": "preservation guard fired; whole-frame metadata digest replaced with a stricter per-column check"
+        },
+        {
+          "jobid": "19886685",
+          "reason": "unnamed-vector indexing defect"
+        },
+        {
+          "jobid": "19886687",
+          "reason": "sprintf integer format applied to median()"
+        }
+      ]
+    },
+    "m14_markers": {
+      "jobid": "19886699",
+      "state": "COMPLETED",
+      "elapsed": "00:04:26",
+      "maxrss_gib": 16.4,
+      "cpus": 12,
+      "mem": "250G"
+    },
+    "m15_annotation": {
+      "jobid": "19886713",
+      "state": "COMPLETED",
+      "elapsed": "00:08:35",
+      "maxrss_gib": 8.55,
+      "cpus": 8,
+      "mem": "128G"
+    },
+    "m16_composition": {
+      "jobid": "19886728",
+      "state": "COMPLETED",
+      "elapsed": "00:07:34",
+      "maxrss_gib": 8.48,
+      "cpus": 8,
+      "mem": "128G"
+    },
+    "m15a_ccc_annotation": {
+      "jobid": "19893067",
+      "state": "COMPLETED",
+      "cpus": 8,
+      "mem": "128G"
+    },
+    "m17_freeze_initial": {
+      "jobid": "19886743",
+      "state": "COMPLETED",
+      "elapsed": "00:07:39",
+      "maxrss_gib": 8.13,
+      "cpus": 8,
+      "mem": "128G",
+      "note": "first freeze, before the CCC amendment"
+    },
+    "m17_freeze": {
+      "jobid": "19893267",
+      "state": "running_at_manifest_write",
+      "note": "re-freeze including annotation_ccc"
+    }
+  },
+  "git": {
+    "commit": "751a535cb1ffcb0aabbf0dba0c3b692847f807ac",
+    "branch": "dev",
+    "status": " M .gitignore\n M CHANGELOG.md\n M PROGRESS.md\n M PROJECT.md\n M README.md\n M reports/FIGURE_INDEX.tsv\n M scripts/python/validate_project_state.py\n?? config/phase2/\n?? reports/phase2/\n?? scripts/R/phase2/\n?? scripts/shell/phase2/"
+  },
+  "validation": {
+    "pre_save": {
+      "cell_count_correct": true,
+      "no_duplicate_cell_ids": true,
+      "feature_count_default": true,
+      "assays_present": true,
+      "default_assay_is_SCT": true,
+      "pre_harmony_pca_present": true,
+      "pre_harmony_umap_present": true,
+      "harmony_reduction_present": true,
+      "harmony_umap_present": true,
+      "phase1_graphs_present": true,
+      "harmony_graphs_present": true,
+      "all_10_resolutions_present": true,
+      "primary_cluster_present": true,
+      "alternative_cluster_present": true,
+      "all_annotation_cols_present": true,
+      "phase1_metadata_preserved": true,
+      "no_missing_annotations": true,
+      "no_missing_cluster_labels": true,
+      "harmony_dims_30": true,
+      "no_nonfinite_pca": true,
+      "no_nonfinite_harmony": true,
+      "no_nonfinite_umap_pre": true,
+      "no_nonfinite_umap_harmony": true,
+      "initial_annotation_retained": true,
+      "ccc_annotation_present": true,
+      "ccc_no_missing_labels": true,
+      "ccc_mpnst_tumor_present": true,
+      "ccc_immune_identities_kept": true,
+      "ccc_stromal_kept_separate": true,
+      "ccc_tumor_only_from_malignant_detail": true,
+      "ccc_no_fibro_endo_in_tumor": true,
+      "ccc_no_immune_in_tumor": true,
+      "ccc_no_uncertain_in_tumor": true,
+      "ccc_is_tumor_flag_consistent": true,
+      "detailed_tumor_states_retained": true,
+      "no_cnv_columns": true,
+      "no_pseudobulk_de_outputs": true,
+      "no_trajectory_columns": true,
+      "phase1_handoff_object_unchanged": true
+    },
+    "post_reload": {
+      "reload_cells": true,
+      "reload_features": true,
+      "reload_assays": true,
+      "reload_default_assay": true,
+      "reload_reductions": true,
+      "reload_graphs": true,
+      "reload_meta_cols": true,
+      "reload_sct_models": true,
+      "reload_umap_identical": true,
+      "reload_annotation_identical": true,
+      "reload_all_resolutions": true,
+      "reload_all_annotation": true,
+      "reload_no_duplicate_cells": true,
+      "reload_no_nonfinite": true,
+      "reload_ccc_present": true,
+      "reload_ccc_identical": true,
+      "reload_ccc_mpnst_tumor": true,
+      "reload_detailed_and_ccc_coexist": true
+    },
+    "phase1_artefacts": [
+      {
+        "path": "processed_mpnst.rds",
+        "size_bytes": 7761386746,
+        "mtime": "2026-07-06T11:29:09"
+      },
+      {
+        "path": "results/combined/pre_integration/combined_preintegration.rds",
+        "size_bytes": 6041513977,
+        "mtime": "2026-07-19T23:25:44"
+      },
+      {
+        "path": "results/phase1_manifest.json",
+        "size_bytes": 10776,
+        "mtime": "2026-07-20T12:47:15"
+      }
+    ]
+  },
+  "warnings": [],
+  "known_limitations": ["Dataset = sample = patient = presumed technical batch is a single 4-level variable. Residual structure cannot be apportioned between uncorrected batch effect and real between-patient tumour biology.", "No biological-condition, clinical or technical covariate exists in the data. No condition-level figure or table could be produced and none was fabricated.", "No CNV inference was performed (outside Phase 2 scope). All malignant calls are expression- and provenance-based and are labelled conservatively.", "The malignant fraction is 23.6% under the conservative annotation and could be up to ~49% if the four fibroblast-programme clusters are MPNST Mes-NC-like malignant cells. This is the largest quantitative uncertainty in Phase 2.", "M12 caveats C1 (B/plasma cohesion -44%) and C2 (fibroblast cohesion -44%) apply to clusters C2/C21/C22 and C0/C3/C5/C7/C15/C25 respectively.", "The primary clustering resolution 1.0 sits at the top of the tested sweep, so its stability term is one-sided; the alternative 0.7 is interior and two-sided-validated.", "The SCT assay carries four SCTransform models (Phase 1 M8 ran SCTransform layer-wise). PrepSCTFindMarkers() was applied for marker discovery; residual per-sample normalisation differences persist in the SCT residuals.", "Cluster C15 (438 cells) is a technical mitochondrial-high artefact and should be excluded from biological interpretation.", "Annotation is per cluster, so C19 (venous + lymphatic endothelium) and C4 (T and NK together) are under-resolved.", "lisi, kBET and clustree are not installed; native inverse-Simpson, dominance-ratio and ggplot-based substitutes were used and are documented.", "Phase 1 documentation defects D1-D9 (M10_REPORT.md section 7) remain uncorrected pending researcher instruction.", "annotation_ccc collapses four detailed malignant states into MPNST-Tumor. The three 'Candidate malignant' clusters (C13, C17, C18; 1,231 cells) were deliberately NOT collapsed and remain as Candidate-Malignant-Unresolved - they may be promoted if Phase 3 CNV evidence supports them, which would raise the MPNST-Tumor fraction.", "The CD4-T versus T-cell-other boundary inside the sub-resolved T/NK cluster is soft, because CD4 transcript detection is sparse in droplet scRNA-seq and the gate relies partly on IL7R/CCR7.", "Populations flagged not CCC-ready in CCC_POPULATION_SIZE_AUDIT.tsv (Uncertain, Low-quality-excluded, Candidate-Malignant-Unresolved) must be excluded from communication inference."],
+  "scientific_prohibitions_respected": ["no condition-level pseudobulk DE", "no cell-level condition DE", "no differential abundance inference", "no survival analysis", "no trajectory inference", "no RNA velocity", "no CNV inference", "no cell-cell communication", "no perturbation or predictive modelling", "no deep learning", "no Snakemake used in Phase 2"]
+}

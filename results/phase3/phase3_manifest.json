@@ -1,0 +1,490 @@
+{
+  "phase": "phase3",
+  "generated": "2026-09-03T13:43:18-0400",
+  "completion_status": "COMPLETE",
+  "objective": "Determine how MPNST tumour cells interact with immune and other TME populations, identify recurrent and biologically plausible signalling circuits, establish which findings are concordant across independent CCC frameworks, and connect candidate tumour-derived signals to receiver-cell transcriptional states.",
+  "not_a_benchmarking_study": true,
+  "phase2_input": {
+    "path": "results/phase2/phase2_final_object.rds",
+    "md5": "153d5f6acc70f9c05aa48cabc4f4ac2d",
+    "cells": 19716,
+    "ccc_field": "annotation_ccc",
+    "sample_field": "sample_id",
+    "sample_equals": "dataset and patient",
+    "condition_field_exists": false
+  },
+  "ccc_input_object": {
+    "path": "results/phase3/ccc/ccc_input_object.rds",
+    "md5": "aeb02c59df8a42a24074df509c662f7f",
+    "cells": 17327,
+    "populations": 14,
+    "expression_basis": "RNA assay, JoinLayers, LogNormalize (scale.factor 1e4)",
+    "rationale": "The SCT assay carries four SCTransform models so SCT values are not on a common footing across samples. Harmony coordinates are never used as expression."
+  },
+  "populations_analysed": [
+    "MPNST-Tumor",
+    "Macrophage",
+    "Monocyte",
+    "Dendritic",
+    "Plasmacytoid-DC",
+    "CD8-T",
+    "CD4-T",
+    "NK",
+    "T-cell-other",
+    "B-cell",
+    "Plasma-cell",
+    "Fibroblast",
+    "Pericyte-VSMC",
+    "Endothelial"
+  ],
+  "populations_excluded": {
+    "Candidate-Malignant-Unresolved": 1231,
+    "Uncertain": 720,
+    "Low-quality-excluded": 438,
+    "reason": "flagged not CCC-ready in the Phase 2 M15A audit"
+  },
+  "minimum_cell_policy": {
+    "min_cells_per_population_per_sample": 10,
+    "basis": "CellChat's min.cells default and the conventional floor for per-group mean-expression estimates",
+    "min_populations_per_sample": 3,
+    "absence_rule": "A population below the minimum is recorded NOT EVALUABLE, never as absence of signalling.",
+    "outcome": "all 14 populations and all 182 directed pairs evaluable in all 4 samples"
+  },
+  "methods": {
+    "LIANA": {
+      "version": "0.1.14",
+      "role": "primary multi-resource consensus LR framework",
+      "resource": "Consensus",
+      "methods": [
+        "natmi",
+        "connectome",
+        "logfc",
+        "sca",
+        "cellphonedb"
+      ],
+      "aggregation": "liana_aggregate (robust rank aggregation)",
+      "support_rule": "aggregate_rank <= 0.05 in >=1 sample",
+      "input_route": "SingleCellExperiment (liana 0.1.14's Seurat path uses the defunct GetAssayData(slot=); SeuratObject was NOT downgraded)",
+      "omnipathr_version": "3.14.0"
+    },
+    "CellChat": {
+      "version": "2.2.0.9001",
+      "role": "independent pathway- and network-oriented framework",
+      "database": "CellChatDB.human",
+      "db_interactions": 3233,
+      "db_pathways": 290,
+      "parameters": {
+        "raw.use": true,
+        "population.size": true,
+        "min.cells": 10,
+        "seed": 42
+      },
+      "support_rule": "present in subsetCommunication() output (significant links only)",
+      "execution": "one SLURM job per sample (parallelism; identical results)"
+    },
+    "CellPhoneDB": {
+      "version": "5.0.1",
+      "role": "independent permutation-based LR framework",
+      "database": "v5.0.0",
+      "iterations": 1000,
+      "threshold": 0.1,
+      "pvalue": 0.05,
+      "support_rule": "permutation p < 0.05 AND mean expression > 0 in >=1 sample",
+      "environment": "isolated conda env cpdb_env (R_env untouched)"
+    },
+    "NicheNet": {
+      "version": "2.2.1.1",
+      "role": "receiver-response modelling, NOT a fourth LR framework",
+      "prior_model_record": "zenodo 7074291",
+      "gene_set_of_interest": "receiver population marker genes (cluster characterisation, NOT condition DE)",
+      "score": "aupr_corrected"
+    },
+    "LochNESS": {
+      "formulation": "official MMCA (shendurelab/MMCA @ af629c498f421d6f0bfb325e9fd6b2dab0e22837)",
+      "role": "orthogonal transcriptional-neighbourhood phenotype; NOT a ligand-receptor method",
+      "k_rule": "round(0.5*sqrt(N))",
+      "representation": "L2-normalised postint_harmony, per lineage",
+      "same_sample_exclusion": true,
+      "nulls": [
+        "exact sample-level permutation",
+        "cell-level shuffle x100"
+      ]
+    }
+  },
+  "no_score_averaging": "Raw scores are never averaged across tools. Each LR framework contributes a boolean support flag only. NicheNet enters as orthogonal receiver-response support, never as a fourth LR vote.",
+  "known_partial_non_independence": "LIANA's method set includes a CellPhoneDB-style score, so LIANA and the standalone CellPhoneDB run are not fully independent.",
+  "concordance": {
+    "total_keys": 502846,
+    "supported_keys": 36486,
+    "classes": {
+      "High concordance": 5848,
+      "Moderate concordance": 499,
+      "Single-method (only one framework could test it)": 24654,
+      "Discordant/ambiguous": 5485
+    },
+    "resource_overlap": {
+      "testable_by_3": 1347,
+      "testable_by_2": 13064,
+      "testable_by_1": 488435
+    },
+    "method_overlap_table": "results/phase3/ccc/concordance/method_overlap_counts.tsv",
+    "class_definitions": {
+      "High concordance": "supported by all frameworks that could test it (>=2)",
+      "Moderate concordance": "supported by 2 of 3 testable frameworks",
+      "Single-method": "supported by the ONLY framework whose resource contained it",
+      "Discordant/ambiguous": "testable by >=2 frameworks but supported by only 1 - genuine disagreement"
+    }
+  },
+  "prioritisation": {
+    "rule": "lexicographic tiers on concordance, sample recurrence and expression support; no weighted composite",
+    "tiers": {
+      "P1_highest": 1587,
+      "P2_high": 1435,
+      "P3_moderate": 163,
+      "P4_moderate_low": 1513,
+      "P5_low": 8697,
+      "P6_exploratory": 23091
+    },
+    "tumour_centric_supported": 7080
+  },
+  "evidence_integration": {
+    "streams": [
+      ">=2 LR frameworks",
+      ">=3/4 samples",
+      "expression support",
+      "NicheNet receiver response"
+    ],
+    "counts_by_depth": {
+      "4": 325,
+      "3": 3406,
+      "2": 7365,
+      "1": 14518,
+      "0": 10872
+    },
+    "tumour_centric_ge3_streams": 547,
+    "lochness_role": "receiver-LINEAGE-level context; not interaction-specific and never LR evidence"
+  },
+  "sample_awareness": {
+    "samples": [
+      "MPNST_1",
+      "MPNST_2",
+      "MPNST_3",
+      "MPNST_4"
+    ],
+    "sample_equals_patient": true,
+    "condition_variable": null,
+    "recurrence": {
+      "supported_in_4": 4083,
+      "supported_in_ge3": 8966,
+      "supported_in_ge2": 16928,
+      "single_sample_only": 19558
+    }
+  },
+  "robustness": {
+    "leave_one_sample_out_retention": {
+      "MPNST_1": 0.711,
+      "MPNST_2": 0.763,
+      "MPNST_3": 0.792,
+      "MPNST_4": 0.794
+    },
+    "single_sample_fraction": 0.536,
+    "discordant_interactions": 5485
+  },
+  "lochness_results": {
+    "lineages": [
+      "Macrophage",
+      "Fibroblast",
+      "Endothelial",
+      "CD8-T"
+    ],
+    "mean_lochness": {
+      "Macrophage": -0.163,
+      "Fibroblast": 0.104,
+      "Endothelial": -0.176,
+      "CD8-T": -0.311
+    },
+    "nullA_p_descriptive": {
+      "Macrophage": 0.667,
+      "Fibroblast": 0.833,
+      "Endothelial": 0.333,
+      "CD8-T": 0.333
+    },
+    "nullA_p_floor": 0.167,
+    "conclusion": "No receiver lineage shows neighbourhood structure associated with the tumour-derived APP signalling context beyond chance. A legitimate negative result.",
+    "implementation_comparison": {
+      "R_MMCA_vs_Python_MMCA_equivalent": {
+        "pearson": 1.0,
+        "max_abs_diff": 0.0
+      },
+      "R_MMCA_vs_Python_perturbseq_formulation": {
+        "pearson": 0.3764,
+        "rmse": 0.5515
+      },
+      "conclusion": "The implementations are numerically identical given mathematically equivalent inputs. The perturb-seq formulation diverges because it omits same-sample exclusion."
+    }
+  },
+  "figures": {
+    "final": "results/phase3/figures/final",
+    "per_milestone": "results/phase3/figures/M19..M26",
+    "n_final_files": 36,
+    "index": "reports/FIGURE_INDEX.tsv"
+  },
+  "tables": {
+    "final": "results/phase3/tables/final",
+    "n_final_files": 29,
+    "master": "results/phase3/ccc/prioritized/MPNST_CCC_MASTER_TABLE.tsv"
+  },
+  "reports": {
+    "handoff": "reports/phase3/PHASE3_HANDOFF.md",
+    "method_plan": "reports/phase3/PHASE3_METHOD_PLAN.md",
+    "perturbseq_audit": "reports/phase3/PERTURBSEQ_CODE_REUSE_AUDIT.md",
+    "lochness_audit": "reports/phase3/LOCHNESS_IMPLEMENTATION_AUDIT.md",
+    "lochness_design": "reports/phase3/LOCHNESS_MPNST_DESIGN.md",
+    "concordance": "reports/phase3/CCC_CONCORDANCE_REPORT.md",
+    "interactions": "reports/phase3/MPNST_INTERACTION_REPORT.md",
+    "receiver_response": "reports/phase3/RECEIVER_RESPONSE_REPORT.md",
+    "lochness_report": "reports/phase3/LOCHNESS_MPNST_REPORT.md",
+    "robustness": "reports/phase3/ROBUSTNESS_REPORT.md",
+    "milestones": [
+      "reports/phase3/milestones/M18_REPORT.md",
+      "reports/phase3/milestones/M19_REPORT.md",
+      "reports/phase3/milestones/M20_REPORT.md",
+      "reports/phase3/milestones/M21_REPORT.md",
+      "reports/phase3/milestones/M22_REPORT.md",
+      "reports/phase3/milestones/M23_REPORT.md",
+      "reports/phase3/milestones/M24_REPORT.md",
+      "reports/phase3/milestones/M25_REPORT.md",
+      "reports/phase3/milestones/M26_REPORT.md",
+      "reports/phase3/milestones/M27_REPORT.md"
+    ]
+  },
+  "scripts": {
+    "ccc": [
+      "scripts/phase3/ccc/prepare_ccc_inputs.R",
+      "scripts/phase3/ccc/prioritize_interactions.R",
+      "scripts/phase3/ccc/run_cellchat.R",
+      "scripts/phase3/ccc/run_cellphonedb.py",
+      "scripts/phase3/ccc/run_liana.R"
+    ],
+    "concordance": [
+      "scripts/phase3/concordance/build_concordance.R",
+      "scripts/phase3/concordance/integrate_evidence.R",
+      "scripts/phase3/concordance/make_ccc_figures.R",
+      "scripts/phase3/concordance/robustness.R"
+    ],
+    "lochness": [
+      "scripts/phase3/lochness/compare_implementations.R",
+      "scripts/phase3/lochness/lochness_mpnst.R",
+      "scripts/phase3/lochness/lochness_python_port.py"
+    ],
+    "receiver_response": [
+      "scripts/phase3/receiver_response/run_nichenet.R"
+    ]
+  },
+  "slurm_scripts": [
+    "scripts/shell/phase3/install_phase3_deps.sh",
+    "scripts/shell/phase3/install_phase3_deps_retry.sh",
+    "scripts/shell/phase3/install_phase3_deps_retry2.sh",
+    "scripts/shell/phase3/prefetch_nichenet.sh",
+    "scripts/shell/phase3/prefetch_nichenet2.sh",
+    "scripts/shell/phase3/prefetch_nichenet3.sh",
+    "scripts/shell/phase3/probe_network.sh",
+    "scripts/shell/phase3/run_m19_ccc_inputs.sh",
+    "scripts/shell/phase3/run_m20_cellchat.sh",
+    "scripts/shell/phase3/run_m20_cellchat_one.sh",
+    "scripts/shell/phase3/run_m20_cellphonedb.sh",
+    "scripts/shell/phase3/run_m20_liana.sh",
+    "scripts/shell/phase3/run_m21_m22.sh",
+    "scripts/shell/phase3/run_m23.sh",
+    "scripts/shell/phase3/run_m24.sh",
+    "scripts/shell/phase3/run_m25_m26.sh"
+  ],
+  "environment": {
+    "r_env": "R 4.4.3; Seurat 5.4.0; SeuratObject 5.3.0; harmony 1.2.4; Matrix 1.7.4 (all unchanged from Phase 2)",
+    "installed_for_phase3": {
+      "liana": "0.1.14",
+      "CellChat": "2.2.0.9001",
+      "nichenetr": "2.2.1.1",
+      "OmnipathR": "3.14.0",
+      "decoupleR": "2.12.0",
+      "NMF": "0.28",
+      "FNN": "1.1.4.1",
+      "systemfonts": "1.3.2",
+      "ggraph": "2.2.2",
+      "ggpubr": "1.0.0"
+    },
+    "dependency_change_recorded": {
+      "igraph": {
+        "before": "2.2.1",
+        "after": "2.1.4",
+        "note": "downgraded by the conda solver; Phase 2 outputs are frozen artefacts and unaffected"
+      }
+    },
+    "isolated_env": {
+      "cpdb_env": "Python 3.10; cellphonedb 5.0.1; anndata 0.11.4; scanpy 1.11.5"
+    },
+    "exports": [
+      "reports/phase3/environment/R_env_PRE_PHASE3.yml",
+      "reports/phase3/environment/R_env_PHASE3.yml",
+      "reports/phase3/environment/cpdb_env_PHASE3.yml"
+    ],
+    "install_log": "reports/phase3/environment/PHASE3_INSTALL_LOG.md"
+  },
+  "external_references": {
+    "MMCA": {
+      "path": "external/MMCA_ref",
+      "commit": "af629c498f421d6f0bfb325e9fd6b2dab0e22837",
+      "note": "repository of scripts, not an installable R package; vendored read-only"
+    },
+    "nichenet_prior": "external/nichenet (zenodo 7074291)",
+    "cellphonedb_db": "external/cellphonedb",
+    "perturbseq_pipeline": "READ-ONLY reference; no runtime dependency created"
+  },
+  "random_seeds": {
+    "global": 42,
+    "liana": 42,
+    "cellchat": 42,
+    "cellphonedb": 42,
+    "nichenet": 42,
+    "lochness": 42
+  },
+  "slurm_jobs": {
+    "netprobe": {
+      "jobid": "19894719",
+      "state": "COMPLETED",
+      "elapsed": "00:00:02"
+    },
+    "install_1": {
+      "jobid": "19894761",
+      "state": "COMPLETED",
+      "elapsed": "00:43:55",
+      "note": "liana OK; CellChat+nichenetr failed on a compile chain"
+    },
+    "install_retry_1": {
+      "jobid": "19895124",
+      "state": "COMPLETED",
+      "elapsed": "00:04:45"
+    },
+    "install_retry_2": {
+      "jobid": "19895459",
+      "state": "COMPLETED",
+      "elapsed": "00:11:02",
+      "note": "CellChat and nichenetr installed"
+    },
+    "m19_inputs": {
+      "jobid": "19894939",
+      "state": "COMPLETED",
+      "elapsed": "00:08:24",
+      "maxrss_gib": 27.43
+    },
+    "m20_liana_failed": {
+      "jobid": "19895133",
+      "state": "FAILED",
+      "reason": "liana 0.1.14 calls the defunct GetAssayData(slot=)"
+    },
+    "m20_liana": {
+      "jobid": "19895159",
+      "state": "COMPLETED",
+      "elapsed": "00:38:22"
+    },
+    "m20_cellphonedb_failed": {
+      "jobid": "19895344",
+      "state": "FAILED",
+      "reason": "download_database() keyword is cpdb_version, not version"
+    },
+    "m20_cellphonedb": {
+      "jobid": "19895438",
+      "state": "COMPLETED",
+      "elapsed": "00:02:14"
+    },
+    "m20_cellchat_serial_cancelled": {
+      "jobid": "19895564",
+      "state": "CANCELLED",
+      "reason": "serial ETA ~5 h; re-run as four parallel per-sample jobs"
+    },
+    "m20_cellchat_parallel": {
+      "jobids": [
+        "19895738",
+        "19895739",
+        "19895740",
+        "19895741"
+      ],
+      "state": "COMPLETED",
+      "elapsed": [
+        "00:44:13",
+        "00:19:49",
+        "00:22:51",
+        "00:24:19"
+      ]
+    },
+    "nichenet_prefetch": {
+      "jobids": [
+        "19895781",
+        "19895842",
+        "19895947"
+      ],
+      "state": "COMPLETED",
+      "note": "first two truncated the 262 MB Zenodo file; third used a resumable download with size verification"
+    },
+    "m21_m22_failed_1": {
+      "jobid": "19896027",
+      "state": "FAILED",
+      "reason": "pandas wrote booleans as strings"
+    },
+    "m21_m22_failed_2": {
+      "jobid": "19896062_pred",
+      "state": "FAILED",
+      "reason": "geom_curve cannot draw autocrine self-loops"
+    },
+    "m21_m22": {
+      "jobid": "19896062",
+      "state": "COMPLETED",
+      "elapsed": "00:05:42"
+    },
+    "m23_nichenet": {
+      "jobid": "19896063",
+      "state": "COMPLETED",
+      "elapsed": "00:03:13"
+    },
+    "m24_lochness": {
+      "jobid": "19896064",
+      "state": "COMPLETED",
+      "elapsed": "00:04:14"
+    },
+    "m25_m26": {
+      "jobid": "19896065",
+      "state": "COMPLETED",
+      "elapsed": "00:00:24"
+    }
+  },
+  "git": {
+    "commit": "751a535cb1ffcb0aabbf0dba0c3b692847f807ac",
+    "branch": "dev",
+    "status": " M .gitignore\n M CHANGELOG.md\n M PROGRESS.md\n M PROJECT.md\n M README.md\n M reports/FIGURE_INDEX.tsv\n M scripts/python/validate_project_state.py\n?? config/phase2/\n?? external/\n?? reports/phase2/\n?? reports/phase3/\n?? scripts/R/phase2/\n?? scripts/phase3/\n?? scripts/shell/phase2/\n?? scripts/shell/phase3/\n"
+  },
+  "scientific_caveats": [
+    "scRNA-seq ligand-receptor analysis infers communication POTENTIAL from expression and associated transcriptional programmes. It does not establish physical cell adjacency or direct signalling.",
+    "sample_id is simultaneously the dataset, the patient and the batch. No between-tumour or condition-level claim is supportable.",
+    "No biological-condition variable exists, so no condition-level CCC comparison was possible and none was fabricated.",
+    "53.6% of supported interactions are supported in only one patient; these are reported, not discarded.",
+    "Most interaction keys (488,435 of 502,846) exist in only one framework's LR resource, so 'single-method' usually reflects resource non-overlap rather than disagreement.",
+    "LIANA and CellPhoneDB are not fully independent (LIANA includes a CellPhoneDB-style score).",
+    "LochNESS found no receiver-state structure associated with the tumour-derived APP context beyond chance, and the score is unstable across embeddings (Spearman 0.02-0.42) and reference samples (0.31-0.50).",
+    "With four samples the exact sample-level permutation null has a p-value floor of 1/6 = 0.167, so all LochNESS permutation results are descriptive ranks, not significance tests.",
+    "The Phase 2 malignant fraction is itself uncertain (17.35% conservatively, up to ~49% if the fibroblast clusters are Mes-NC-like malignant), which propagates into every tumour-centric CCC result.",
+    "NicheNet did not rank APP among the top ligands explaining the macrophage programme, despite APP-CD74 being the strongest LR co-expression finding. This divergence is reported, not reconciled."
+  ],
+  "prohibitions_respected": [
+    "no survival analysis",
+    "no treatment-response modelling",
+    "no deep learning or Transformers",
+    "no trajectory inference",
+    "no RNA velocity",
+    "no CNV inference",
+    "no spatial inference",
+    "no pseudobulk condition DE unrelated to receiver-response",
+    "no large unrelated pathway screens",
+    "no arbitrary composite scores",
+    "no CCC method executed beyond inference (no Phase 4 spatial work)"
+  ]
+}
