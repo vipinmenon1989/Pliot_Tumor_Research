@@ -1458,7 +1458,11 @@
     "R_env": "UNCHANGED - no package installed, upgraded or downgraded",
     "isolated_python_env": "p5_cnmf_env (cnmf 1.7.1, python 3.11)",
     "gene_sets": "external/genesets MSigDB v2024.1.Hs GMT files with md5s in MSIGDB_CHECKSUMS.md5",
-    "snapshots": ["reports/phase5/environment/p5_cnmf_env.yml", "reports/phase5/environment/R_env_POST_PHASE5.yml", "reports/phase5/environment/R_env_PRE_PHASE5.yml"]
+    "snapshots": [
+      "reports/phase5/environment/p5_cnmf_env.yml",
+      "reports/phase5/environment/R_env_POST_PHASE5.yml",
+      "reports/phase5/environment/R_env_PRE_PHASE5.yml"
+    ]
   },
   "slurm_job_ids": [
     "19899333",
@@ -1474,7 +1478,7 @@
     "19899744",
     "19899750"
   ],
-  "git_commit": "88611f34d91172bea306df098132e514b62cac2f",
+  "git_commit": "040a5529d83df98910fb43f40ee9bd71c0823b87",
   "reports": [
     "reports/phase5/milestones/M36_REPORT.md",
     "reports/phase5/milestones/M37_REPORT.md",
@@ -1504,5 +1508,6 @@
     "no inferCNV, CopyKAT or any second CNV method",
     "R_env not modified; cNMF isolated in p5_cnmf_env",
     "Phase 7 not initiated"
-  ]
+  ],
+  "git_note": "git_commit is the commit that contains this phase scripts, reports and manifest; the analyses ran against the tree immediately before it."
 }

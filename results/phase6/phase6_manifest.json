@@ -2390,8 +2390,15 @@
   ],
   "environment": {
     "R_env": "UNCHANGED - decoupleR 2.12.0 and OmnipathR 3.14.0 were already installed, so nothing was added for Phase 6",
-    "networks_cached": ["external/networks/collectri_human.tsv", "external/networks/collectri_omnipath_raw.tsv", "external/networks/progeny_human_top500.tsv"],
-    "snapshots": ["reports/phase6/environment/R_env_POST_PHASE6.yml", "reports/phase6/environment/R_env_PRE_PHASE6.yml"]
+    "networks_cached": [
+      "external/networks/collectri_human.tsv",
+      "external/networks/collectri_omnipath_raw.tsv",
+      "external/networks/progeny_human_top500.tsv"
+    ],
+    "snapshots": [
+      "reports/phase6/environment/R_env_POST_PHASE6.yml",
+      "reports/phase6/environment/R_env_PRE_PHASE6.yml"
+    ]
   },
   "slurm_job_ids": [
     "19899746",
@@ -2399,7 +2406,7 @@
     "19899749",
     "19899752"
   ],
-  "git_commit": "88611f34d91172bea306df098132e514b62cac2f",
+  "git_commit": "040a5529d83df98910fb43f40ee9bd71c0823b87",
   "reports": [],
   "limitations": [
     "n = 4 patients; sample_id = patient = dataset, so biological and technical effects cannot be fully separated",
@@ -2424,5 +2431,6 @@
     "program, TF activity and pathway activity were kept as independent layers - no weighted composite score and no single numeric rank",
     "R_env not modified",
     "Phase 7 NOT initiated - it requires separate authorization and new biological evidence"
-  ]
+  ],
+  "git_note": "git_commit is the commit that contains this phase scripts, reports and manifest; the analyses ran against the tree immediately before it."
 }
