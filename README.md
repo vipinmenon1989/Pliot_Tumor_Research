@@ -11,11 +11,95 @@ The primary objective of this project is to construct a modular, reproducible, c
 ---
 
 ## 2. Current Project Status
-- **Current Phase**: Phase 1 (Independent Dataset Processing)
-- **Status**: **Completed: Milestones M0–M9**
-- **Latest Completed Milestone**: **M9 — Workflow Hardening, CI/CD, Provenance, and Phase 1 Freeze**
-- **Phase Status**: **PHASE 1 = FROZEN** | **PHASE 2 = NOT STARTED**
-- **Next Phase**: Phase 2 (Multi-dataset Integration & Downstream Annotation)
+- **Current Phase**: **Phase 4 — complete and frozen** (2026-09-03)
+- **Phase 1**: complete and frozen (M0–M9) · **Phase 2**: complete and frozen (M10–M17 + M15A)
+  · **Phase 3**: complete and frozen (M18–M27) · **Phase 4**: complete and frozen (M28–M35,
+  plus **M35A** — SCEVAN figure consolidation, visualization only)
+- **Phase 4 headline**: the malignant compartment is **1.88× larger than Phase 2 estimated**
+  (3,420 → **6,434 cells**, 17.35% → **32.63%**), and **4,036 of 5,064 cells Phase 2 called
+  `Fibroblast` carry inferred copy-number alterations** — majority-malignant in 3 of 4 patients.
+  The Phase 3 CCC architecture **survives** the relabelling (high-concordance interactions
+  −2.6%, median change across 23 named axes −3.1%, no axis lost); what changed is
+  **attribution**, with 3,051 sender reassignments concentrated in the ECM→integrin axis.
+  Final object `results/phase4/phase4_final_object.rds` (md5 `e85ba848…`, 23/23 validation
+  checks). Handoff [reports/phase4/PHASE4_HANDOFF.md](reports/phase4/PHASE4_HANDOFF.md).
+- **Phase 4 caveats that travel with those numbers**: the 32.63% figure is **not
+  patient-robust** (dropping MPNST_4 returns it to the Phase 2 value); **no malignant
+  transcriptional state is recurrent** across patients (0 of 8), so a tumour-state → TME model
+  could not be built; and one sanity-gate amendment was made **after** seeing which sample it
+  excluded — documented as such in
+  [reports/phase4/MALIGNANCY_DECISION_RULES.md](reports/phase4/MALIGNANCY_DECISION_RULES.md).
+- **M35A — the SCEVAN evidence, made visible** (2026-09-03, **visualization only; nothing was
+  re-run and no call, rule, clone, state or threshold changed; the final object was neither loaded
+  nor modified**). The native SCEVAN CNA heatmaps are surfaced **verbatim** into
+  `results/phase4/figures/final/` as `17`–`20`, each beside a companion panel built from the same
+  frozen clone assignments, and eight custom figures (`21`–`28`) carry the argument:
+  **clone composition is the strongest evidence** — SCEVAN builds subclones from copy number
+  alone and never sees a Phase 2 label, and **4 of 4 MPNST_2 clones and 7 of 8 MPNST_4 clones are
+  fibroblast-dominated** while all 7 MPNST_1 clones mix the disputed identities. Malignant-called
+  fibroblast-labelled cells separate from non-malignant ones with **Cliff's delta 0.78–0.92** and
+  their genome-wide CNA profile correlates **0.934 / 0.972** with the malignant compartment against
+  **0.184** with non-malignant fibroblasts — **in the 2 of 4 patients where that contrast can be
+  made at all**, which the figures state rather than hide. **Fibroblast → Malignant is 4,036 at
+  every tested threshold**; the 32.63% cohort fraction is not. MPNST_3 is shown failing, not
+  omitted. Audit
+  [reports/phase4/M35A_SCEVAN_FIGURE_AUDIT.md](reports/phase4/M35A_SCEVAN_FIGURE_AUDIT.md);
+  handoff §28. **SCEVAN infers copy number from expression and provides no DNA-level proof.**
+- **Phase 3 headline**: 36,486 supported ligand–receptor interactions across LIANA, CellChat and
+  CellPhoneDB; **547 tumour-centric interactions with ≥3 independent evidence streams**. Primary
+  deliverable `results/phase3/ccc/prioritized/MPNST_CCC_MASTER_TABLE.tsv`.
+
+### Phase 4 — what it is for
+
+Phase 2 defined `MPNST-Tumor` **conservatively**: 3,420 cells (17.35%), only where positive
+MPNST/Schwann/neural-crest marker evidence existed. That was the right call on marker evidence
+alone, but it leaves 5,064 `Fibroblast`, 1,231 `Candidate-Malignant-Unresolved`, 720
+`Uncertain` and 435 `Pericyte-VSMC` cells whose malignant status marker expression cannot
+settle — and that uncertainty propagates into every tumour-centric Phase 3 interaction.
+
+**SCEVAN** (De Falco *et al.*, Nat Commun 14:1074, 2023; doi:10.1038/s41467-023-36790-9)
+supplies the orthogonal evidence: inferred large-scale copy number from raw counts, with
+automatic confident-normal detection and subclonal resolution. Phase 4 uses it to refine
+malignant identity, resolve tumour states and clones, and then run a **targeted sensitivity
+analysis** on the Phase 3 conclusions.
+
+**Phase 4 does not invalidate Phase 2 or Phase 3.** Phase 2 annotation is historical
+biological annotation; Phase 4 malignancy is additional orthogonal evidence. No Phase 2 or
+Phase 3 label is overwritten — Phase 4 only adds metadata fields. See `PROJECT.md` §P4.
+
+- **Phase 4 directories**: scripts `scripts/phase4/{scevan,malignancy,tumor_states,ccc_refinement,utils}`
+  · SLURM `scripts/shell/phase4/` · results `results/phase4/` · reports `reports/phase4/`
+  · logs `logs/phase4/`
+- **Phase 4 environment**: `R_env`, **unchanged** — SCEVAN 1.0.3 and yaGST 2017.8.25 were
+  already installed, so no dependency moved. Phase 3's CCC stack is reused at identical
+  versions so the Phase 3 → Phase 4 comparison is not confounded by tool drift.
+- **Phase 4 directories**: results `results/phase4/` (figures `figures/final/`, tables
+  `tables/final/`, manifest `phase4_manifest.json`) · reports `reports/phase4/` · scripts
+  `scripts/phase4/` · SLURM `scripts/shell/phase4/` · logs `logs/phase4/`
+- **Phase 4 environment**: `R_env` **unchanged** — SCEVAN 1.0.3 and yaGST were already
+  installed, so **no dependency moved**. One addition anywhere: Python umap-learn 0.5.12 in an
+  isolated `p4_umap_env`, required by SCEVAN's subclone stage.
+- **Phase 5**: **not begun; requires separate authorization.**
+- **Status**: **Completed: Milestones M0–M9** (Phase 1) and **M10–M17** (Phase 2)
+- **Latest Completed Milestone**: **M17 — Phase 2 Validation, Freeze and Handoff** (re-frozen 2026-09-03 after the M15A CCC-annotation amendment)
+- **Phase Status**: **PHASE 1 = FROZEN** | **PHASE 2 = COMPLETE**
+- **Final Phase 2 object**: `results/phase2/phase2_final_object.rds`
+  (19,716 cells; md5 `153d5f6acc70f9c05aa48cabc4f4ac2d`) — carries **both** the detailed
+  literature-supported annotation and the CCC-oriented `annotation_ccc` layer
+  (`MPNST-Tumor` = 3,420 cells, 17.35%)
+- **Phase 2 handoff**: [reports/phase2/PHASE2_HANDOFF.md](reports/phase2/PHASE2_HANDOFF.md)
+  · CCC readiness [reports/phase2/CCC_READINESS.md](reports/phase2/CCC_READINESS.md)
+  · manifest `results/phase2/phase2_manifest.json`
+- **Phase 3 architecture**: sample-aware CCC → multi-method inference
+  (LIANA · CellChat · CellPhoneDB) → concordance → tumour↔immune prioritisation →
+  NicheNet receiver-response → LochNESS receiver-state → integrated interaction map.
+  See `PROJECT.md` §P3 and [reports/phase3/PHASE3_METHOD_PLAN.md](reports/phase3/PHASE3_METHOD_PLAN.md).
+- **Phase 3 environment**: `R_env` (unchanged Phase 2 stack) plus liana/CellChat/nichenetr;
+  CellPhoneDB in an isolated `cpdb_env`. See
+  [reports/phase3/environment/PHASE3_INSTALL_LOG.md](reports/phase3/environment/PHASE3_INSTALL_LOG.md).
+- **Where things live**: final figures `results/phase3/figures/final/` · final tables
+  `results/phase3/tables/` and `results/phase3/ccc/prioritized/` · milestone reports
+  `reports/phase3/milestones/` · Phase 3 manifest `results/phase3/phase3_manifest.json`.
 
 > [!IMPORTANT]
 > **Strict Phase 1 Scope Constraint**:

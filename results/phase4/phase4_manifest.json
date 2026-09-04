@@ -1,0 +1,3140 @@
+{
+  "phase": "Phase 4 - SCEVAN malignancy refinement, tumour-state resolution, targeted CCC reassessment",
+  "generated": "2026-09-03T17:20:01-0400",
+  "completion_status": "COMPLETE",
+  "objective": "Resolve malignant identity with orthogonal copy-number evidence, resolve tumour states and clones, then test whether the Phase 3 biological architecture survives the better tumour definition. Phase 4 does NOT invalidate Phase 2 or Phase 3.",
+  "phase2_input": {
+    "path": "results/phase2/phase2_final_object.rds",
+    "md5": "153d5f6acc70f9c05aa48cabc4f4ac2d",
+    "cells": 19716,
+    "checksum_verified": true
+  },
+  "phase3_input": {
+    "master_table": "results/phase3/ccc/prioritized/MPNST_CCC_MASTER_TABLE.tsv",
+    "concordance": "results/phase3/tables/final/CCC_CONCORDANCE.tsv",
+    "ccc_object": {
+      "path": "results/phase3/ccc/ccc_input_object.rds",
+      "md5": "aeb02c59df8a42a24074df509c662f7f"
+    }
+  },
+  "phase4_object": {
+    "path": "results/phase4/phase4_final_object.rds",
+    "size_bytes": 6057010311,
+    "md5": "e85ba8486e456917e2483f2773bdbaf3",
+    "sha256": "a658447744e5ee8621fc5a3127492ceb11bce37bac4d6f3f0f7255bdcb647ae4",
+    "cells": 19716,
+    "features_rna": 31764,
+    "features_sct": 29113,
+    "assays": [
+      "RNA",
+      "SCT"
+    ],
+    "default_assay": "SCT",
+    "reductions": [
+      "pca",
+      "umap_preintegration",
+      "postint_harmony",
+      "postint_umap_harmony"
+    ],
+    "rna_layers": [
+      "counts.MPNST_1.1",
+      "data.MPNST_1.1",
+      "scale.data.1",
+      "counts.MPNST_2.2",
+      "data.MPNST_2.2",
+      "scale.data.2",
+      "counts.MPNST_3.3",
+      "data.MPNST_3.3",
+      "scale.data.3",
+      "counts.MPNST_4.4",
+      "data.MPNST_4.4",
+      "scale.data.4"
+    ],
+    "sct_layers": [
+      "counts",
+      "data",
+      "scale.data"
+    ],
+    "n_metadata_columns": 181,
+    "phase4_fields_added": [
+      "scevan_call",
+      "scevan_confident_normal",
+      "scevan_clone",
+      "scevan_subclone_raw",
+      "scevan_sample_reliable",
+      "population_class",
+      "cnv_burden",
+      "cnv_frac_gain",
+      "cnv_frac_loss",
+      "cnv_mean_abs",
+      "cnv_ref_threshold",
+      "cnv_elevated",
+      "malignancy_phase2",
+      "malignancy_scevan",
+      "malignancy_scevan_sens",
+      "malignancy_refined",
+      "malignancy_confidence",
+      "malignancy_rule",
+      "malignancy_reason",
+      "annotation_ccc_phase3",
+      "annotation_ccc_refined",
+      "marker_evidence",
+      "score_malignant_schwann_nc",
+      "score_nonmalignant_max",
+      "pop_frac",
+      "pop_n_assessed",
+      "runs_agree",
+      "scevan_sample",
+      "cnv_summary",
+      "tumor_state_phase4",
+      "tumor_clone_phase4",
+      "tumor_cluster_phase4"
+    ],
+    "phase2_metadata_columns_preserved": 149,
+    "validation_checks": [
+      {
+        "check": "cell count == 19716",
+        "pass": true,
+        "detail": "got 19716"
+      },
+      {
+        "check": "feature count (RNA) == 31764",
+        "pass": true,
+        "detail": "got 31764"
+      },
+      {
+        "check": "assays preserved",
+        "pass": true,
+        "detail": "RNA,SCT"
+      },
+      {
+        "check": "RNA layers present",
+        "pass": true,
+        "detail": "12 layers"
+      },
+      {
+        "check": "SCT layers present",
+        "pass": true,
+        "detail": "3 layers"
+      },
+      {
+        "check": "reductions preserved",
+        "pass": true,
+        "detail": "pca,umap_preintegration,postint_harmony,postint_umap_harmony"
+      },
+      {
+        "check": "no duplicate cell IDs",
+        "pass": true,
+        "detail": "0 dups"
+      },
+      {
+        "check": "no duplicate feature names",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "all Phase 2 metadata columns retained",
+        "pass": true,
+        "detail": "0 missing"
+      },
+      {
+        "check": "Phase 4 fields present",
+        "pass": true,
+        "detail": "0 missing"
+      },
+      {
+        "check": "no missing malignancy_refined",
+        "pass": true,
+        "detail": "0 NA"
+      },
+      {
+        "check": "no missing malignancy_confidence",
+        "pass": true,
+        "detail": "0 NA"
+      },
+      {
+        "check": "no missing annotation_ccc_refined",
+        "pass": true,
+        "detail": "0 NA"
+      },
+      {
+        "check": "malignancy_refined levels valid",
+        "pass": true,
+        "detail": "Ambiguous/Excluded-low-quality/Malignant/Non-malignant"
+      },
+      {
+        "check": "embedding finite: pca",
+        "pass": true,
+        "detail": "0 non-finite of 985800"
+      },
+      {
+        "check": "embedding finite: umap_preintegration",
+        "pass": true,
+        "detail": "0 non-finite of 39432"
+      },
+      {
+        "check": "embedding finite: postint_harmony",
+        "pass": true,
+        "detail": "0 non-finite of 591480"
+      },
+      {
+        "check": "embedding finite: postint_umap_harmony",
+        "pass": true,
+        "detail": "0 non-finite of 39432"
+      },
+      {
+        "check": "annotation_ccc == annotation_ccc_phase3",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "refined MPNST-Tumor implies Malignant",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "Ambiguous cells are never MPNST-Tumor",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "tumour states only on Malignant cells",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "save/load md5 stable",
+        "pass": true,
+        "detail": "e85ba8486e456917e2483f2773bdbaf3"
+      }
+    ],
+    "validation_passed": 23,
+    "validation_total": 23,
+    "malignancy_refined": {
+      "Ambiguous": 3766,
+      "Excluded-low-quality": 438,
+      "Malignant": 6434,
+      "Non-malignant": 9078
+    },
+    "malignancy_confidence": {
+      "High": 8961,
+      "Low": 3766,
+      "Moderate": 6989
+    },
+    "annotation_ccc_refined": {
+      "Ambiguous-unresolved": 3766,
+      "B-cell": 144,
+      "CD4-T": 279,
+      "CD8-T": 247,
+      "Dendritic": 612,
+      "Endothelial": 749,
+      "Fibroblast": 908,
+      "Low-quality-excluded": 438,
+      "Macrophage": 3065,
+      "Monocyte": 190,
+      "MPNST-Tumor": 6434,
+      "NK": 74,
+      "Pericyte-VSMC": 348,
+      "Plasma-cell": 1709,
+      "Plasmacytoid-DC": 122,
+      "T-cell-other": 155,
+      "Uncertain": 476
+    },
+    "tumor_states": {
+      "Cycling": 290,
+      "Interferon": 72,
+      "Mesenchymal_ECM-1": 1851,
+      "Mesenchymal_ECM-2": 1598,
+      "Mesenchymal_ECM-3": 1291,
+      "Mesenchymal_ECM-4": 648,
+      "Mesenchymal_ECM-5": 505,
+      "Schwann_like": 179
+    },
+    "tumor_clones": 22,
+    "generated": "2026-09-03T17:15:21-0400",
+    "slurm": {
+      "job_id": "19897640"
+    }
+  },
+  "scevan": {
+    "version": "1.0.3",
+    "package_date": "2025-02-12",
+    "yagst_version": "2017.8.25",
+    "source": "https://github.com/AntonioDeFalco/SCEVAN",
+    "reference": "De Falco et al., Nat Commun 14:1074 (2023), doi:10.1038/s41467-023-36790-9",
+    "already_installed": true,
+    "installed_by_phase4": false,
+    "git_commit_or_tag": "not applicable - installed as an R package, no repository clone made",
+    "known_defects_worked_around": [
+      "output_dir ignored by getScevanCNV/getScevanCNVfinal/plotAllClonalCN/plotAllSubclonalCN/plotConsensusCNA/analyzeSegm2 (hardcoded './output'); each run sets its own working directory instead. Package not patched.",
+      "subcloneAnalysisPipeline -> plotTSNE requires Python umap-learn via reticulate, and runs BEFORE subclone labels are written to classDf; satisfied with an isolated p4_umap_env.",
+      "plotCloneTree fails under ggplot2 4.x (ggtree calls the removed ggplot2::is.waive); SCEVAN catches this internally, so the clone PHYLOGENY PLOT is absent while all clone assignments, CN profiles and onco-heatmaps are intact. ggplot2 was NOT downgraded."
+    ]
+  },
+  "input_basis": {
+    "assay": "RNA",
+    "layer": "per-sample 'counts' layers (Seurat v5 split)",
+    "identifier_type": "gene_symbol",
+    "integer_verified": true,
+    "sct_deliberately_unused": "SCT carries four SCTransform models; not on a common footing across samples",
+    "genes_mapping_to_scevan_annotation": 28340,
+    "chromosomes": "1-22 only; X and Y not assessable",
+    "scevan_removes": "cell-cycle genes and all HLA-* genes"
+  },
+  "sample_ids": [
+    "MPNST_1",
+    "MPNST_2",
+    "MPNST_3",
+    "MPNST_4"
+  ],
+  "sample_equals": "patient = dataset",
+  "scevan_parameters": {
+    "SUBCLONES": true,
+    "ClonalCN": true,
+    "plotTree": true,
+    "beta_vega": 0.5,
+    "organism": "human",
+    "ngenes_chr": 5,
+    "perc_genes": 10,
+    "FIXED_NORMAL_CELLS": false,
+    "fixed_normal_cells_prohibited_because": "TRUE executes cellType_pred[!cellType_pred %in% norm_cell_names] <- 'malignant', forcing every non-reference cell to malignant - the non-immune-equals-tumour inference Phase 2 banned.",
+    "par_cores": 8,
+    "random_seed": 42
+  },
+  "normal_reference_strategy": {
+    "strategy_primary": "SCEVAN automatic confident-normal detection (norm_cell = NULL, findConfident = TRUE). Fully independent of Phase 2 labels - this is the primary, non-circular run.",
+    "strategy_sensitivity": "Supply high-confidence IMMUNE cells only as norm_cell, with FIXED_NORMAL_CELLS = FALSE so classification still proceeds by CNA clustering. FIXED_NORMAL_CELLS = TRUE is PROHIBITED here: it forces every non-reference cell to 'malignant', which is the non-immune-equals-tumour inference Phase 2 explicitly banned.",
+    "immune_reference_populations": [
+      "CD4-T",
+      "CD8-T",
+      "NK",
+      "T-cell-other",
+      "B-cell",
+      "Plasma-cell",
+      "Macrophage",
+      "Monocyte",
+      "Dendritic",
+      "Plasmacytoid-DC"
+    ],
+    "immune_reference_cells": 7448,
+    "immune_reference_by_sample": {
+      "MPNST_1": 2036,
+      "MPNST_2": 762,
+      "MPNST_3": 2323,
+      "MPNST_4": 2327
+    },
+    "endothelial_considered_separately": {
+      "population": "Endothelial",
+      "cells": 960,
+      "note": "Endothelium is a Phase 3 receiver of interest and a CCC partner; excluded from the reference set to keep its malignancy call independent."
+    },
+    "disputed_never_fixed_normal": [
+      "MPNST-Tumor",
+      "Candidate-Malignant-Unresolved",
+      "Fibroblast",
+      "Pericyte-VSMC",
+      "Uncertain",
+      "Low-quality-excluded"
+    ],
+    "disputed_cells": 11308
+  },
+  "random_seeds": {
+    "scevan": 42,
+    "clustering": 42,
+    "umap": 42,
+    "module_scores": 42,
+    "subsampling": 42
+  },
+  "m29_per_sample": {
+    "MPNST_1": {
+      "primary": {
+        "tag": "primary",
+        "status": "SUCCESS",
+        "elapsed_min": 18.46825777,
+        "rundir": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_1/primary",
+        "sample_name_in_scevan": "MPNST_1_primary",
+        "classification_tsv": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_1/primary/scevan_classification_MPNST_1_primary.tsv",
+        "cells_in": 7615,
+        "cells_returned": 7615,
+        "class_table": {
+          "filtered": 572,
+          "normal": 5091,
+          "tumor": 1952
+        },
+        "confident_normal": 30,
+        "subclone_table": {
+          "1": 442,
+          "2": 340,
+          "3": 54,
+          "4": 516,
+          "5": 370,
+          "6": 176,
+          "7": 54
+        },
+        "n_subclones": 7,
+        "files_written": [
+          "MPNST_1_primary_Clonal_CN.seg",
+          "MPNST_1_primary_CNAmtx.RData",
+          "MPNST_1_primary_CNAmtxSubclones.RData",
+          "MPNST_1_primary_count_mtx_annot.RData",
+          "MPNST_1_primary_subclone1_CN.seg",
+          "MPNST_1_primary_subclone2_CN.seg",
+          "MPNST_1_primary_subclone3_CN.seg",
+          "MPNST_1_primary_subclone4_CN.seg",
+          "MPNST_1_primary_subclone5_CN.seg",
+          "MPNST_1_primary_subclone6_CN.seg",
+          "MPNST_1_primary_subclone7_CN.seg",
+          "MPNST_1_primary_SubcloneDiffAnalysis.RData",
+          "MPNST_1_primary-DEchr1-151057758-154627999_subclones.png",
+          "MPNST_1_primary-DEchr1-22652762-28578545_subclones.png",
+          "MPNST_1_primary-DEchr1-629062-6635586_subclones.png",
+          "MPNST_1_primary-DEchr10-68331174-87191468_subclones.png",
+          "MPNST_1_primary-DEchr11-85694224-128813267_subclones.png",
+          "MPNST_1_primary-DEchr12-6328757-10398506_subclones.png",
+          "MPNST_1_primary-DEchr12-80792520-104106524_subclones.png",
+          "MPNST_1_primary-DEchr13-18697003-29850684_subclones.png",
+          "MPNST_1_primary-DEchr14-20256558-24379604_subclones.png",
+          "MPNST_1_primary-DEchr14-34706769-67600287_subclones.png",
+          "MPNST_1_primary-DEchr15-23685400-101976543_subclones.png",
+          "MPNST_1_primary-DEchr15-70047790-74645414_subclones.png",
+          "MPNST_1_primary-DEchr16-27313668-31131393_subclones.png",
+          "MPNST_1_primary-DEchr16-29905012-30894960_subclones.png",
+          "MPNST_1_primary-DEchr16-46407-2899382_subclones.png",
+          "MPNST_1_primary-DEchr17-39063303-50373214_subclones.png",
+          "MPNST_1_primary-DEchr17-73283624-83095119_subclones.png",
+          "MPNST_1_primary-DEchr19-301444-23395560_subclones.png",
+          "MPNST_1_primary-DEchr19-34359480-44160309_subclones.png",
+          "MPNST_1_primary-DEchr3-48989886-52706083_subclones.png",
+          "MPNST_1_primary-DEchr4-10439874-77819615_subclones.png",
+          "MPNST_1_primary-DEchr5-196871-69679259_subclones.png",
+          "MPNST_1_primary-DEchr6-30876421-34773794_subclones.png",
+          "MPNST_1_primary-DEchr7-103297422-133082088_subclones.png",
+          "MPNST_1_primary-DEchr8-22440819-42371808_subclones.png",
+          "MPNST_1_primary-DEchr8-47773108-143599541_subclones.png",
+          "MPNST_1_primary-DEchr8-89901859-120050913_subclones.png",
+          "MPNST_1_primary-DEchr8-93957338-142403240_subclones.png",
+          "MPNST_1_primary-DEchr8-94249253-108435333_subclones.png",
+          "MPNST_1_primaryCloneTree.png",
+          "MPNST_1_primaryconsensus.png",
+          "MPNST_1_primaryheatmap_subclones.png",
+          "MPNST_1_primaryheatmap.png",
+          "MPNST_1_primaryOncoHeat.png",
+          "MPNST_1_primaryOncoHeat2.png",
+          "MPNST_1_primaryonlytumorheatmap.png",
+          "MPNST_1_primaryonlytumorvega_output",
+          "MPNST_1_primarypathwayAnalysis_subclones1.png",
+          "MPNST_1_primarypathwayAnalysis_subclones2.png",
+          "MPNST_1_primarypathwayAnalysis_subclones3.png",
+          "MPNST_1_primarypathwayAnalysis_subclones4.png",
+          "MPNST_1_primarypathwayAnalysis_subclones5.png",
+          "MPNST_1_primarypathwayAnalysis_subclones6.png",
+          "MPNST_1_primarypathwayAnalysis_subclones7.png",
+          "MPNST_1_primaryPlotOncoHeat.RData",
+          "MPNST_1_primaryumap_CNA.png",
+          "MPNST_1_primaryumap_scRNA.png",
+          "MPNST_1_primaryvega_output"
+        ],
+        "norm_cell_n": 0,
+        "parameters": {
+          "par_cores": 8,
+          "SUBCLONES": true,
+          "beta_vega": 0.5,
+          "ClonalCN": true,
+          "plotTree": true,
+          "organism": "human",
+          "FIXED_NORMAL_CELLS": false,
+          "ngenes_chr": 5,
+          "perc_genes": 10,
+          "seed": 42
+        }
+      },
+      "sensitivity": {
+        "tag": "sensitivity",
+        "status": "SUCCESS",
+        "elapsed_min": 15.45464489,
+        "rundir": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_1/sensitivity",
+        "sample_name_in_scevan": "MPNST_1_sensitivity",
+        "classification_tsv": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_1/sensitivity/scevan_classification_MPNST_1_sensitivity.tsv",
+        "cells_in": 7615,
+        "cells_returned": 7615,
+        "class_table": {
+          "filtered": 572,
+          "normal": 5116,
+          "tumor": 1927
+        },
+        "confident_normal": 2036,
+        "subclone_table": {
+          "1": 413,
+          "2": 495,
+          "3": 288,
+          "4": 53,
+          "5": 369,
+          "6": 212,
+          "7": 97
+        },
+        "n_subclones": 7,
+        "files_written": [
+          "MPNST_1_sensitivity_Clonal_CN.seg",
+          "MPNST_1_sensitivity_CNAmtx.RData",
+          "MPNST_1_sensitivity_CNAmtxSubclones.RData",
+          "MPNST_1_sensitivity_count_mtx_annot.RData",
+          "MPNST_1_sensitivity_subclone1_CN.seg",
+          "MPNST_1_sensitivity_subclone2_CN.seg",
+          "MPNST_1_sensitivity_subclone3_CN.seg",
+          "MPNST_1_sensitivity_subclone4_CN.seg",
+          "MPNST_1_sensitivity_subclone5_CN.seg",
+          "MPNST_1_sensitivity_subclone6_CN.seg",
+          "MPNST_1_sensitivity_subclone7_CN.seg",
+          "MPNST_1_sensitivity_SubcloneDiffAnalysis.RData",
+          "MPNST_1_sensitivity-DEchr1-151057758-154220628_subclones.png",
+          "MPNST_1_sensitivity-DEchr1-179081377-186421378_subclones.png",
+          "MPNST_1_sensitivity-DEchr1-23019448-28582983_subclones.png",
+          "MPNST_1_sensitivity-DEchr1-629062-6635586_subclones.png",
+          "MPNST_1_sensitivity-DEchr12-6328757-10398506_subclones.png",
+          "MPNST_1_sensitivity-DEchr15-68578969-74645414_subclones.png",
+          "MPNST_1_sensitivity-DEchr16-46407-4538828_subclones.png",
+          "MPNST_1_sensitivity-DEchr17-38297023-44503430_subclones.png",
+          "MPNST_1_sensitivity-DEchr19-301444-44993341_subclones.png",
+          "MPNST_1_sensitivity-DEchr2-166195185-218254356_subclones.png",
+          "MPNST_1_sensitivity-DEchr22-29788608-44010531_subclones.png",
+          "MPNST_1_sensitivity-DEchr22-37634654-43015145_subclones.png",
+          "MPNST_1_sensitivity-DEchr3-49015488-52685917_subclones.png",
+          "MPNST_1_sensitivity-DEchr3-51662693-101861022_subclones.png",
+          "MPNST_1_sensitivity-DEchr3-51662693-57598220_subclones.png",
+          "MPNST_1_sensitivity-DEchr4-39459000-77952790_subclones.png",
+          "MPNST_1_sensitivity-DEchr5-10249921-65481920_subclones.png",
+          "MPNST_1_sensitivity-DEchr6-30876421-34883138_subclones.png",
+          "MPNST_1_sensitivity-DEchr8-47736909-143599541_subclones.png",
+          "MPNST_1_sensitivity-DEchr8-90621995-115809673_subclones.png",
+          "MPNST_1_sensitivity-DEchr9-214854-131500197_subclones.png",
+          "MPNST_1_sensitivityCloneTree.png",
+          "MPNST_1_sensitivityconsensus.png",
+          "MPNST_1_sensitivityheatmap_subclones.png",
+          "MPNST_1_sensitivityheatmap.png",
+          "MPNST_1_sensitivityOncoHeat.png",
+          "MPNST_1_sensitivityOncoHeat2.png",
+          "MPNST_1_sensitivityonlytumorheatmap.png",
+          "MPNST_1_sensitivityonlytumorvega_output",
+          "MPNST_1_sensitivitypathwayAnalysis_subclones1.png",
+          "MPNST_1_sensitivitypathwayAnalysis_subclones2.png",
+          "MPNST_1_sensitivitypathwayAnalysis_subclones3.png",
+          "MPNST_1_sensitivitypathwayAnalysis_subclones4.png",
+          "MPNST_1_sensitivitypathwayAnalysis_subclones5.png",
+          "MPNST_1_sensitivitypathwayAnalysis_subclones6.png",
+          "MPNST_1_sensitivitypathwayAnalysis_subclones7.png",
+          "MPNST_1_sensitivityPlotOncoHeat.RData",
+          "MPNST_1_sensitivityumap_CNA.png",
+          "MPNST_1_sensitivityumap_scRNA.png",
+          "MPNST_1_sensitivityvega_output"
+        ],
+        "norm_cell_n": 2036,
+        "parameters": {
+          "par_cores": 8,
+          "SUBCLONES": true,
+          "beta_vega": 0.5,
+          "ClonalCN": true,
+          "plotTree": true,
+          "organism": "human",
+          "FIXED_NORMAL_CELLS": false,
+          "ngenes_chr": 5,
+          "perc_genes": 10,
+          "seed": 42
+        }
+      },
+      "concordance": {
+        "cells_common": 7615,
+        "agreement": 0.99514117,
+        "crosstab": [
+          {
+            "filtered": 572,
+            "normal": 0,
+            "tumor": 0,
+            "_row": "filtered"
+          },
+          {
+            "filtered": 0,
+            "normal": 5085,
+            "tumor": 6,
+            "_row": "normal"
+          },
+          {
+            "filtered": 0,
+            "normal": 31,
+            "tumor": 1921,
+            "_row": "tumor"
+          }
+        ]
+      },
+      "meta": {
+        "sample": "MPNST_1",
+        "cells": 7615,
+        "genes_input": 30121,
+        "counts_input": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_1/counts_raw.rds",
+        "counts_md5": "5adee13f6ff36bbb63132e238e521b24",
+        "metadata_md5": "4c004e255f402e650aecafd742cdbc8d",
+        "scevan_version": "1.0.3",
+        "yagst_version": "2017.8.25",
+        "r_version": "R version 4.4.3 (2025-02-28)",
+        "immune_reference_populations": [
+          "CD4-T",
+          "CD8-T",
+          "NK",
+          "T-cell-other",
+          "B-cell",
+          "Plasma-cell",
+          "Macrophage",
+          "Monocyte",
+          "Dendritic",
+          "Plasmacytoid-DC"
+        ],
+        "immune_reference_cells": 2036,
+        "disputed_excluded_from_reference": [
+          "MPNST-Tumor",
+          "Candidate-Malignant-Unresolved",
+          "Fibroblast",
+          "Pericyte-VSMC",
+          "Uncertain",
+          "Low-quality-excluded"
+        ],
+        "fixed_normal_cells": false,
+        "fixed_normal_cells_rationale": "FIXED_NORMAL_CELLS = TRUE forces every cell outside the reference set to 'malignant' (SCEVAN source: cellType_pred[!cellType_pred %in% norm_cell_names] <- 'malignant'). That is the non-immune-equals-tumour inference Phase 2 banned, so it is prohibited in this project.",
+        "scevan_output_dir_defect": "SCEVAN 1.0.3 hardcodes path='./output' in getScevanCNV, getScevanCNVfinal, plotAllClonalCN, plotAllSubclonalCN, plotConsensusCNA and analyzeSegm2, and plotCNclonal does not forward output_dir. Each run therefore sets its own working directory and uses SCEVAN's default output_dir. Package not patched.",
+        "slurm": {
+          "job_id": "19896752",
+          "array_task": "1",
+          "cpus": 8,
+          "node": "ihc-grid-1-1-1.igs.umaryland.edu"
+        },
+        "generated": "2026-09-03T15:51:26-0400"
+      }
+    },
+    "MPNST_2": {
+      "primary": {
+        "tag": "primary",
+        "status": "SUCCESS",
+        "elapsed_min": 4.50244137,
+        "rundir": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_2/primary",
+        "sample_name_in_scevan": "MPNST_2_primary",
+        "classification_tsv": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_2/primary/scevan_classification_MPNST_2_primary.tsv",
+        "cells_in": 2284,
+        "cells_returned": 2284,
+        "class_table": {
+          "filtered": 79,
+          "normal": 1511,
+          "tumor": 694
+        },
+        "confident_normal": 30,
+        "subclone_table": {
+          "1": 158,
+          "2": 186,
+          "3": 234,
+          "4": 116
+        },
+        "n_subclones": 4,
+        "files_written": [
+          "MPNST_2_primary_Clonal_CN.seg",
+          "MPNST_2_primary_CNAmtx.RData",
+          "MPNST_2_primary_CNAmtxSubclones.RData",
+          "MPNST_2_primary_count_mtx_annot.RData",
+          "MPNST_2_primary_subclone1_CN.seg",
+          "MPNST_2_primary_subclone2_CN.seg",
+          "MPNST_2_primary_subclone3_CN.seg",
+          "MPNST_2_primary_subclone4_CN.seg",
+          "MPNST_2_primary_SubcloneDiffAnalysis.RData",
+          "MPNST_2_primaryCloneTree.png",
+          "MPNST_2_primaryconsensus.png",
+          "MPNST_2_primaryheatmap_subclones.png",
+          "MPNST_2_primaryheatmap.png",
+          "MPNST_2_primaryOncoHeat.png",
+          "MPNST_2_primaryOncoHeat2.png",
+          "MPNST_2_primaryonlytumorheatmap.png",
+          "MPNST_2_primaryonlytumorvega_output",
+          "MPNST_2_primarypathwayAnalysis_subclones1.png",
+          "MPNST_2_primarypathwayAnalysis_subclones2.png",
+          "MPNST_2_primarypathwayAnalysis_subclones3.png",
+          "MPNST_2_primarypathwayAnalysis_subclones4.png",
+          "MPNST_2_primaryPlotOncoHeat.RData",
+          "MPNST_2_primaryumap_CNA.png",
+          "MPNST_2_primaryumap_scRNA.png",
+          "MPNST_2_primaryvega_output"
+        ],
+        "norm_cell_n": 0,
+        "parameters": {
+          "par_cores": 8,
+          "SUBCLONES": true,
+          "beta_vega": 0.5,
+          "ClonalCN": true,
+          "plotTree": true,
+          "organism": "human",
+          "FIXED_NORMAL_CELLS": false,
+          "ngenes_chr": 5,
+          "perc_genes": 10,
+          "seed": 42
+        }
+      },
+      "sensitivity": {
+        "tag": "sensitivity",
+        "status": "SUCCESS",
+        "elapsed_min": 3.33070312,
+        "rundir": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_2/sensitivity",
+        "sample_name_in_scevan": "MPNST_2_sensitivity",
+        "classification_tsv": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_2/sensitivity/scevan_classification_MPNST_2_sensitivity.tsv",
+        "cells_in": 2284,
+        "cells_returned": 2284,
+        "class_table": {
+          "filtered": 79,
+          "normal": 1460,
+          "tumor": 745
+        },
+        "confident_normal": 762,
+        "subclone_table": {
+          "1": 129,
+          "2": 183,
+          "3": 345,
+          "4": 88
+        },
+        "n_subclones": 4,
+        "files_written": [
+          "MPNST_2_sensitivity_Clonal_CN.seg",
+          "MPNST_2_sensitivity_CNAmtx.RData",
+          "MPNST_2_sensitivity_CNAmtxSubclones.RData",
+          "MPNST_2_sensitivity_count_mtx_annot.RData",
+          "MPNST_2_sensitivity_subclone1_CN.seg",
+          "MPNST_2_sensitivity_subclone2_CN.seg",
+          "MPNST_2_sensitivity_subclone3_CN.seg",
+          "MPNST_2_sensitivity_subclone4_CN.seg",
+          "MPNST_2_sensitivity_SubcloneDiffAnalysis.RData",
+          "MPNST_2_sensitivity-DEchr17-48070052-51162428_subclones.png",
+          "MPNST_2_sensitivity-DEchr2-180967248-191425389_subclones.png",
+          "MPNST_2_sensitivity-DEchr9-121338988-128772414_subclones.png",
+          "MPNST_2_sensitivityCloneTree.png",
+          "MPNST_2_sensitivityconsensus.png",
+          "MPNST_2_sensitivityheatmap_subclones.png",
+          "MPNST_2_sensitivityheatmap.png",
+          "MPNST_2_sensitivityOncoHeat.png",
+          "MPNST_2_sensitivityOncoHeat2.png",
+          "MPNST_2_sensitivityonlytumorheatmap.png",
+          "MPNST_2_sensitivityonlytumorvega_output",
+          "MPNST_2_sensitivitypathwayAnalysis_subclones1.png",
+          "MPNST_2_sensitivitypathwayAnalysis_subclones2.png",
+          "MPNST_2_sensitivitypathwayAnalysis_subclones3.png",
+          "MPNST_2_sensitivitypathwayAnalysis_subclones4.png",
+          "MPNST_2_sensitivityPlotOncoHeat.RData",
+          "MPNST_2_sensitivityumap_CNA.png",
+          "MPNST_2_sensitivityumap_scRNA.png",
+          "MPNST_2_sensitivityvega_output"
+        ],
+        "norm_cell_n": 762,
+        "parameters": {
+          "par_cores": 8,
+          "SUBCLONES": true,
+          "beta_vega": 0.5,
+          "ClonalCN": true,
+          "plotTree": true,
+          "organism": "human",
+          "FIXED_NORMAL_CELLS": false,
+          "ngenes_chr": 5,
+          "perc_genes": 10,
+          "seed": 42
+        }
+      },
+      "concordance": {
+        "cells_common": 2284,
+        "agreement": 0.96628722,
+        "crosstab": [
+          {
+            "filtered": 79,
+            "normal": 0,
+            "tumor": 0,
+            "_row": "filtered"
+          },
+          {
+            "filtered": 0,
+            "normal": 1447,
+            "tumor": 64,
+            "_row": "normal"
+          },
+          {
+            "filtered": 0,
+            "normal": 13,
+            "tumor": 681,
+            "_row": "tumor"
+          }
+        ]
+      },
+      "meta": {
+        "sample": "MPNST_2",
+        "cells": 2284,
+        "genes_input": 19922,
+        "counts_input": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_2/counts_raw.rds",
+        "counts_md5": "f35dd2bb1e60a24bc9afcc33ec462b11",
+        "metadata_md5": "4c004e255f402e650aecafd742cdbc8d",
+        "scevan_version": "1.0.3",
+        "yagst_version": "2017.8.25",
+        "r_version": "R version 4.4.3 (2025-02-28)",
+        "immune_reference_populations": [
+          "CD4-T",
+          "CD8-T",
+          "NK",
+          "T-cell-other",
+          "B-cell",
+          "Plasma-cell",
+          "Macrophage",
+          "Monocyte",
+          "Dendritic",
+          "Plasmacytoid-DC"
+        ],
+        "immune_reference_cells": 762,
+        "disputed_excluded_from_reference": [
+          "MPNST-Tumor",
+          "Candidate-Malignant-Unresolved",
+          "Fibroblast",
+          "Pericyte-VSMC",
+          "Uncertain",
+          "Low-quality-excluded"
+        ],
+        "fixed_normal_cells": false,
+        "fixed_normal_cells_rationale": "FIXED_NORMAL_CELLS = TRUE forces every cell outside the reference set to 'malignant' (SCEVAN source: cellType_pred[!cellType_pred %in% norm_cell_names] <- 'malignant'). That is the non-immune-equals-tumour inference Phase 2 banned, so it is prohibited in this project.",
+        "scevan_output_dir_defect": "SCEVAN 1.0.3 hardcodes path='./output' in getScevanCNV, getScevanCNVfinal, plotAllClonalCN, plotAllSubclonalCN, plotConsensusCNA and analyzeSegm2, and plotCNclonal does not forward output_dir. Each run therefore sets its own working directory and uses SCEVAN's default output_dir. Package not patched.",
+        "slurm": {
+          "job_id": "19896753",
+          "array_task": "2",
+          "cpus": 8,
+          "node": "ihc-grid-1-1-1.igs.umaryland.edu"
+        },
+        "generated": "2026-09-03T15:25:20-0400"
+      }
+    },
+    "MPNST_3": {
+      "primary": {
+        "tag": "primary",
+        "status": "SUCCESS",
+        "elapsed_min": 5.88326306,
+        "rundir": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_3/primary",
+        "sample_name_in_scevan": "MPNST_3_primary",
+        "classification_tsv": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_3/primary/scevan_classification_MPNST_3_primary.tsv",
+        "cells_in": 2940,
+        "cells_returned": 2940,
+        "class_table": {
+          "filtered": 191,
+          "normal": 1335,
+          "tumor": 1414
+        },
+        "confident_normal": 25,
+        "subclone_table": {
+          "1": 338,
+          "2": 402,
+          "3": 674
+        },
+        "n_subclones": 3,
+        "files_written": [
+          "MPNST_3_primary_Clonal_CN.seg",
+          "MPNST_3_primary_CNAmtx.RData",
+          "MPNST_3_primary_CNAmtxSubclones.RData",
+          "MPNST_3_primary_count_mtx_annot.RData",
+          "MPNST_3_primary_subclone1_CN.seg",
+          "MPNST_3_primary_subclone2_CN.seg",
+          "MPNST_3_primary_subclone3_CN.seg",
+          "MPNST_3_primary_SubcloneDiffAnalysis.RData",
+          "MPNST_3_primary-DEchr11-66664998-68844410_subclones.png",
+          "MPNST_3_primary-DEchr12-21635342-49828750_subclones.png",
+          "MPNST_3_primary-DEchr12-40196744-50748667_subclones.png",
+          "MPNST_3_primary-DEchr12-7470813-22690665_subclones.png",
+          "MPNST_3_primary-DEchr16-3024027-8849331_subclones.png",
+          "MPNST_3_primary-DEchr19-34428352-49807113_subclones.png",
+          "MPNST_3_primary-DEchr19-48469032-49640201_subclones.png",
+          "MPNST_3_primary-DEchr20-17941597-31577923_subclones.png",
+          "MPNST_3_primary-DEchr22-46761894-50783663_subclones.png",
+          "MPNST_3_primary-DEchr4-173331695-189963204_subclones.png",
+          "MPNST_3_primary-DEchr6-25962802-30597179_subclones.png",
+          "MPNST_3_primaryCloneTree.png",
+          "MPNST_3_primaryconsensus.png",
+          "MPNST_3_primaryheatmap_subclones.png",
+          "MPNST_3_primaryheatmap.png",
+          "MPNST_3_primaryOncoHeat.png",
+          "MPNST_3_primaryOncoHeat2.png",
+          "MPNST_3_primaryonlytumorheatmap.png",
+          "MPNST_3_primaryonlytumorvega_output",
+          "MPNST_3_primarypathwayAnalysis_subclones1.png",
+          "MPNST_3_primarypathwayAnalysis_subclones2.png",
+          "MPNST_3_primarypathwayAnalysis_subclones3.png",
+          "MPNST_3_primaryPlotOncoHeat.RData",
+          "MPNST_3_primaryumap_CNA.png",
+          "MPNST_3_primaryumap_scRNA.png",
+          "MPNST_3_primaryvega_output"
+        ],
+        "norm_cell_n": 0,
+        "parameters": {
+          "par_cores": 8,
+          "SUBCLONES": true,
+          "beta_vega": 0.5,
+          "ClonalCN": true,
+          "plotTree": true,
+          "organism": "human",
+          "FIXED_NORMAL_CELLS": false,
+          "ngenes_chr": 5,
+          "perc_genes": 10,
+          "seed": 42
+        }
+      },
+      "sensitivity": {
+        "tag": "sensitivity",
+        "status": "SUCCESS",
+        "elapsed_min": 5.06177838,
+        "rundir": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_3/sensitivity",
+        "sample_name_in_scevan": "MPNST_3_sensitivity",
+        "classification_tsv": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_3/sensitivity/scevan_classification_MPNST_3_sensitivity.tsv",
+        "cells_in": 2940,
+        "cells_returned": 2940,
+        "class_table": {
+          "filtered": 191,
+          "normal": 1437,
+          "tumor": 1312
+        },
+        "confident_normal": 2323,
+        "subclone_table": {
+          "1": 363,
+          "2": 288,
+          "3": 248,
+          "4": 255,
+          "5": 158
+        },
+        "n_subclones": 5,
+        "files_written": [
+          "MPNST_3_sensitivity_Clonal_CN.seg",
+          "MPNST_3_sensitivity_CNAmtx.RData",
+          "MPNST_3_sensitivity_CNAmtxSubclones.RData",
+          "MPNST_3_sensitivity_count_mtx_annot.RData",
+          "MPNST_3_sensitivity_subclone1_CN.seg",
+          "MPNST_3_sensitivity_subclone2_CN.seg",
+          "MPNST_3_sensitivity_subclone3_CN.seg",
+          "MPNST_3_sensitivity_subclone4_CN.seg",
+          "MPNST_3_sensitivity_subclone5_CN.seg",
+          "MPNST_3_sensitivity_SubcloneDiffAnalysis.RData",
+          "MPNST_3_sensitivity-DEchr1-156463727-161714352_subclones.png",
+          "MPNST_3_sensitivity-DEchr1-61681046-89150456_subclones.png",
+          "MPNST_3_sensitivity-DEchr11-108121516-134265855_subclones.png",
+          "MPNST_3_sensitivity-DEchr11-167784-825573_subclones.png",
+          "MPNST_3_sensitivity-DEchr11-167784-9265390_subclones.png",
+          "MPNST_3_sensitivity-DEchr11-47980558-61020377_subclones.png",
+          "MPNST_3_sensitivity-DEchr11-66520637-75206549_subclones.png",
+          "MPNST_3_sensitivity-DEchr12-121209857-133107544_subclones.png",
+          "MPNST_3_sensitivity-DEchr12-280129-25250936_subclones.png",
+          "MPNST_3_sensitivity-DEchr12-7129698-11171613_subclones.png",
+          "MPNST_3_sensitivity-DEchr14-64914361-74612378_subclones.png",
+          "MPNST_3_sensitivity-DEchr16-53055033-57186116_subclones.png",
+          "MPNST_3_sensitivity-DEchr17-30248195-67697261_subclones.png",
+          "MPNST_3_sensitivity-DEchr17-4004445-8290092_subclones.png",
+          "MPNST_3_sensitivity-DEchr17-439978-4987652_subclones.png",
+          "MPNST_3_sensitivity-DEchr17-78110458-81523847_subclones.png",
+          "MPNST_3_sensitivity-DEchr17-82057506-83095119_subclones.png",
+          "MPNST_3_sensitivity-DEchr19-49806869-58573575_subclones.png",
+          "MPNST_3_sensitivity-DEchr2-210002565-218663443_subclones.png",
+          "MPNST_3_sensitivity-DEchr21-25716503-46665124_subclones.png",
+          "MPNST_3_sensitivity-DEchr22-22887780-31207019_subclones.png",
+          "MPNST_3_sensitivity-DEchr3-70954693-101566446_subclones.png",
+          "MPNST_3_sensitivity-DEchr5-131245493-140539856_subclones.png",
+          "MPNST_3_sensitivity-DEchr6-24704861-31652705_subclones.png",
+          "MPNST_3_sensitivity-DEchr7-143244093-158956747_subclones.png",
+          "MPNST_3_sensitivity-DEchr8-94925972-109334385_subclones.png",
+          "MPNST_3_sensitivity-DEchr9-121038-19373545_subclones.png",
+          "MPNST_3_sensitivityCloneTree.png",
+          "MPNST_3_sensitivityconsensus.png",
+          "MPNST_3_sensitivityheatmap_subclones.png",
+          "MPNST_3_sensitivityheatmap.png",
+          "MPNST_3_sensitivityOncoHeat.png",
+          "MPNST_3_sensitivityOncoHeat2.png",
+          "MPNST_3_sensitivityonlytumorheatmap.png",
+          "MPNST_3_sensitivityonlytumorvega_output",
+          "MPNST_3_sensitivitypathwayAnalysis_subclones1.png",
+          "MPNST_3_sensitivitypathwayAnalysis_subclones2.png",
+          "MPNST_3_sensitivitypathwayAnalysis_subclones3.png",
+          "MPNST_3_sensitivitypathwayAnalysis_subclones4.png",
+          "MPNST_3_sensitivitypathwayAnalysis_subclones5.png",
+          "MPNST_3_sensitivityPlotOncoHeat.RData",
+          "MPNST_3_sensitivityumap_CNA.png",
+          "MPNST_3_sensitivityumap_scRNA.png",
+          "MPNST_3_sensitivityvega_output"
+        ],
+        "norm_cell_n": 2323,
+        "parameters": {
+          "par_cores": 8,
+          "SUBCLONES": true,
+          "beta_vega": 0.5,
+          "ClonalCN": true,
+          "plotTree": true,
+          "organism": "human",
+          "FIXED_NORMAL_CELLS": false,
+          "ngenes_chr": 5,
+          "perc_genes": 10,
+          "seed": 42
+        }
+      },
+      "concordance": {
+        "cells_common": 2940,
+        "agreement": 0.08639456,
+        "crosstab": [
+          {
+            "filtered": 191,
+            "normal": 0,
+            "tumor": 0,
+            "_row": "filtered"
+          },
+          {
+            "filtered": 0,
+            "normal": 43,
+            "tumor": 1292,
+            "_row": "normal"
+          },
+          {
+            "filtered": 0,
+            "normal": 1394,
+            "tumor": 20,
+            "_row": "tumor"
+          }
+        ]
+      },
+      "meta": {
+        "sample": "MPNST_3",
+        "cells": 2940,
+        "genes_input": 20150,
+        "counts_input": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_3/counts_raw.rds",
+        "counts_md5": "05f9233983b09e48b7af62cfcff3f2f5",
+        "metadata_md5": "4c004e255f402e650aecafd742cdbc8d",
+        "scevan_version": "1.0.3",
+        "yagst_version": "2017.8.25",
+        "r_version": "R version 4.4.3 (2025-02-28)",
+        "immune_reference_populations": [
+          "CD4-T",
+          "CD8-T",
+          "NK",
+          "T-cell-other",
+          "B-cell",
+          "Plasma-cell",
+          "Macrophage",
+          "Monocyte",
+          "Dendritic",
+          "Plasmacytoid-DC"
+        ],
+        "immune_reference_cells": 2323,
+        "disputed_excluded_from_reference": [
+          "MPNST-Tumor",
+          "Candidate-Malignant-Unresolved",
+          "Fibroblast",
+          "Pericyte-VSMC",
+          "Uncertain",
+          "Low-quality-excluded"
+        ],
+        "fixed_normal_cells": false,
+        "fixed_normal_cells_rationale": "FIXED_NORMAL_CELLS = TRUE forces every cell outside the reference set to 'malignant' (SCEVAN source: cellType_pred[!cellType_pred %in% norm_cell_names] <- 'malignant'). That is the non-immune-equals-tumour inference Phase 2 banned, so it is prohibited in this project.",
+        "scevan_output_dir_defect": "SCEVAN 1.0.3 hardcodes path='./output' in getScevanCNV, getScevanCNVfinal, plotAllClonalCN, plotAllSubclonalCN, plotConsensusCNA and analyzeSegm2, and plotCNclonal does not forward output_dir. Each run therefore sets its own working directory and uses SCEVAN's default output_dir. Package not patched.",
+        "slurm": {
+          "job_id": "19896754",
+          "array_task": "3",
+          "cpus": 8,
+          "node": "ihc-grid-1-1-1.igs.umaryland.edu"
+        },
+        "generated": "2026-09-03T15:28:26-0400"
+      }
+    },
+    "MPNST_4": {
+      "primary": {
+        "tag": "primary",
+        "status": "SUCCESS",
+        "elapsed_min": 23.72107631,
+        "rundir": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_4/primary",
+        "sample_name_in_scevan": "MPNST_4_primary",
+        "classification_tsv": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_4/primary/scevan_classification_MPNST_4_primary.tsv",
+        "cells_in": 6877,
+        "cells_returned": 6877,
+        "class_table": {
+          "filtered": 425,
+          "normal": 1718,
+          "tumor": 4734
+        },
+        "confident_normal": 30,
+        "subclone_table": {
+          "1": 288,
+          "2": 907,
+          "3": 582,
+          "4": 1158,
+          "5": 326,
+          "6": 772,
+          "7": 549,
+          "8": 152
+        },
+        "n_subclones": 8,
+        "files_written": [
+          "MPNST_4_primary_Clonal_CN.seg",
+          "MPNST_4_primary_CNAmtx.RData",
+          "MPNST_4_primary_CNAmtxSubclones.RData",
+          "MPNST_4_primary_count_mtx_annot.RData",
+          "MPNST_4_primary_subclone1_CN.seg",
+          "MPNST_4_primary_subclone2_CN.seg",
+          "MPNST_4_primary_subclone3_CN.seg",
+          "MPNST_4_primary_subclone4_CN.seg",
+          "MPNST_4_primary_subclone5_CN.seg",
+          "MPNST_4_primary_subclone6_CN.seg",
+          "MPNST_4_primary_subclone7_CN.seg",
+          "MPNST_4_primary_subclone8_CN.seg",
+          "MPNST_4_primary_SubcloneDiffAnalysis.RData",
+          "MPNST_4_primary-DEchr1-151402724-155209051_subclones.png",
+          "MPNST_4_primary-DEchr1-157993273-163321791_subclones.png",
+          "MPNST_4_primary-DEchr1-185045364-198937429_subclones.png",
+          "MPNST_4_primary-DEchr1-77888513-89198932_subclones.png",
+          "MPNST_4_primary-DEchr1-99645943-151372733_subclones.png",
+          "MPNST_4_primary-DEchr11-167784-57743554_subclones.png",
+          "MPNST_4_primary-DEchr12-57216795-92189660_subclones.png",
+          "MPNST_4_primary-DEchr13-109752698-114327328_subclones.png",
+          "MPNST_4_primary-DEchr13-25246201-32428311_subclones.png",
+          "MPNST_4_primary-DEchr15-42158701-49046563_subclones.png",
+          "MPNST_4_primary-DEchr15-64387748-74873365_subclones.png",
+          "MPNST_4_primary-DEchr18-158383-9285985_subclones.png",
+          "MPNST_4_primary-DEchr19-19785839-36528660_subclones.png",
+          "MPNST_4_primary-DEchr20-270863-3223870_subclones.png",
+          "MPNST_4_primary-DEchr20-37289638-46513559_subclones.png",
+          "MPNST_4_primary-DEchr3-112596794-125375354_subclones.png",
+          "MPNST_4_primary-DEchr4-151102751-189963204_subclones.png",
+          "MPNST_4_primary-DEchr5-35852695-54310582_subclones.png",
+          "MPNST_4_primary-DEchr6-291630-31897687_subclones.png",
+          "MPNST_4_primary-DEchr7-192969-66495474_subclones.png",
+          "MPNST_4_primary-DEchr7-92836483-128771807_subclones.png",
+          "MPNST_4_primary-DEchr8-38105242-56218798_subclones.png",
+          "MPNST_4_primary-DEchr8-73780097-120372036_subclones.png",
+          "MPNST_4_primary-DEchr8-97644179-117540262_subclones.png",
+          "MPNST_4_primary-DEchr9-134641774-137870016_subclones.png",
+          "MPNST_4_primary-DEchr9-89605013-121223014_subclones.png",
+          "MPNST_4_primaryCloneTree.png",
+          "MPNST_4_primaryconsensus.png",
+          "MPNST_4_primaryheatmap_subclones.png",
+          "MPNST_4_primaryheatmap.png",
+          "MPNST_4_primaryOncoHeat.png",
+          "MPNST_4_primaryOncoHeat2.png",
+          "MPNST_4_primaryonlytumorheatmap.png",
+          "MPNST_4_primaryonlytumorvega_output",
+          "MPNST_4_primarypathwayAnalysis_subclones1.png",
+          "MPNST_4_primarypathwayAnalysis_subclones2.png",
+          "MPNST_4_primarypathwayAnalysis_subclones3.png",
+          "MPNST_4_primarypathwayAnalysis_subclones4.png",
+          "MPNST_4_primarypathwayAnalysis_subclones5.png",
+          "MPNST_4_primarypathwayAnalysis_subclones6.png",
+          "MPNST_4_primarypathwayAnalysis_subclones7.png",
+          "MPNST_4_primarypathwayAnalysis_subclones8.png",
+          "MPNST_4_primaryPlotOncoHeat.RData",
+          "MPNST_4_primaryumap_CNA.png",
+          "MPNST_4_primaryumap_scRNA.png",
+          "MPNST_4_primaryvega_output"
+        ],
+        "norm_cell_n": 0,
+        "parameters": {
+          "par_cores": 8,
+          "SUBCLONES": true,
+          "beta_vega": 0.5,
+          "ClonalCN": true,
+          "plotTree": true,
+          "organism": "human",
+          "FIXED_NORMAL_CELLS": false,
+          "ngenes_chr": 5,
+          "perc_genes": 10,
+          "seed": 42
+        }
+      },
+      "sensitivity": {
+        "tag": "sensitivity",
+        "status": "SUCCESS",
+        "elapsed_min": 17.9103967,
+        "rundir": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_4/sensitivity",
+        "sample_name_in_scevan": "MPNST_4_sensitivity",
+        "classification_tsv": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_4/sensitivity/scevan_classification_MPNST_4_sensitivity.tsv",
+        "cells_in": 6877,
+        "cells_returned": 6877,
+        "class_table": {
+          "filtered": 425,
+          "normal": 1732,
+          "tumor": 4720
+        },
+        "confident_normal": 2327,
+        "subclone_table": {
+          "1": 1652,
+          "2": 1183,
+          "3": 1053,
+          "4": 169,
+          "5": 517,
+          "6": 146
+        },
+        "n_subclones": 6,
+        "files_written": [
+          "MPNST_4_sensitivity_Clonal_CN.seg",
+          "MPNST_4_sensitivity_CNAmtx.RData",
+          "MPNST_4_sensitivity_CNAmtxSubclones.RData",
+          "MPNST_4_sensitivity_count_mtx_annot.RData",
+          "MPNST_4_sensitivity_subclone1_CN.seg",
+          "MPNST_4_sensitivity_subclone2_CN.seg",
+          "MPNST_4_sensitivity_subclone3_CN.seg",
+          "MPNST_4_sensitivity_subclone4_CN.seg",
+          "MPNST_4_sensitivity_subclone5_CN.seg",
+          "MPNST_4_sensitivity_subclone6_CN.seg",
+          "MPNST_4_sensitivity_SubcloneDiffAnalysis.RData",
+          "MPNST_4_sensitivity-DEchr1-153606886-155209051_subclones.png",
+          "MPNST_4_sensitivity-DEchr1-157993273-162529629_subclones.png",
+          "MPNST_4_sensitivity-DEchr1-53916574-153550136_subclones.png",
+          "MPNST_4_sensitivity-DEchr10-88990531-102382899_subclones.png",
+          "MPNST_4_sensitivity-DEchr11-167784-18013162_subclones.png",
+          "MPNST_4_sensitivity-DEchr11-45909669-59212951_subclones.png",
+          "MPNST_4_sensitivity-DEchr11-68891276-74398473_subclones.png",
+          "MPNST_4_sensitivity-DEchr11-85659708-102470384_subclones.png",
+          "MPNST_4_sensitivity-DEchr12-57128493-92189660_subclones.png",
+          "MPNST_4_sensitivity-DEchr13-102597003-114327328_subclones.png",
+          "MPNST_4_sensitivity-DEchr13-30202630-72782096_subclones.png",
+          "MPNST_4_sensitivity-DEchr13-42272153-49528987_subclones.png",
+          "MPNST_4_sensitivity-DEchr14-89124871-95319906_subclones.png",
+          "MPNST_4_sensitivity-DEchr15-41230839-48645849_subclones.png",
+          "MPNST_4_sensitivity-DEchr17-38419280-83095119_subclones.png",
+          "MPNST_4_sensitivity-DEchr17-4710489-15999717_subclones.png",
+          "MPNST_4_sensitivity-DEchr18-158383-5630700_subclones.png",
+          "MPNST_4_sensitivity-DEchr19-19538248-37548762_subclones.png",
+          "MPNST_4_sensitivity-DEchr2-210002565-218405941_subclones.png",
+          "MPNST_4_sensitivity-DEchr20-270863-3407625_subclones.png",
+          "MPNST_4_sensitivity-DEchr20-37289638-53495330_subclones.png",
+          "MPNST_4_sensitivity-DEchr22-16601887-19436075_subclones.png",
+          "MPNST_4_sensitivity-DEchr3-112596794-125375354_subclones.png",
+          "MPNST_4_sensitivity-DEchr4-152618632-189963204_subclones.png",
+          "MPNST_4_sensitivity-DEchr5-35852695-54310582_subclones.png",
+          "MPNST_4_sensitivity-DEchr6-291630-31660772_subclones.png",
+          "MPNST_4_sensitivity-DEchr7-2354086-66495474_subclones.png",
+          "MPNST_4_sensitivity-DEchr7-92836483-128771807_subclones.png",
+          "MPNST_4_sensitivity-DEchr8-22245104-24919098_subclones.png",
+          "MPNST_4_sensitivity-DEchr8-37762593-56218798_subclones.png",
+          "MPNST_4_sensitivity-DEchr8-70635318-120050913_subclones.png",
+          "MPNST_4_sensitivity-DEchr8-97644179-109565996_subclones.png",
+          "MPNST_4_sensitivity-DEchr9-134030305-137870016_subclones.png",
+          "MPNST_4_sensitivity-DEchr9-88388419-117415070_subclones.png",
+          "MPNST_4_sensitivityCloneTree.png",
+          "MPNST_4_sensitivityconsensus.png",
+          "MPNST_4_sensitivityheatmap_subclones.png",
+          "MPNST_4_sensitivityheatmap.png",
+          "MPNST_4_sensitivityOncoHeat.png",
+          "MPNST_4_sensitivityOncoHeat2.png",
+          "MPNST_4_sensitivityonlytumorheatmap.png",
+          "MPNST_4_sensitivityonlytumorvega_output",
+          "MPNST_4_sensitivitypathwayAnalysis_subclones1.png",
+          "MPNST_4_sensitivitypathwayAnalysis_subclones2.png",
+          "MPNST_4_sensitivitypathwayAnalysis_subclones3.png",
+          "MPNST_4_sensitivitypathwayAnalysis_subclones4.png",
+          "MPNST_4_sensitivitypathwayAnalysis_subclones5.png",
+          "MPNST_4_sensitivitypathwayAnalysis_subclones6.png",
+          "MPNST_4_sensitivityPlotOncoHeat.RData",
+          "MPNST_4_sensitivityumap_CNA.png",
+          "MPNST_4_sensitivityumap_scRNA.png",
+          "MPNST_4_sensitivityvega_output"
+        ],
+        "norm_cell_n": 2327,
+        "parameters": {
+          "par_cores": 8,
+          "SUBCLONES": true,
+          "beta_vega": 0.5,
+          "ClonalCN": true,
+          "plotTree": true,
+          "organism": "human",
+          "FIXED_NORMAL_CELLS": false,
+          "ngenes_chr": 5,
+          "perc_genes": 10,
+          "seed": 42
+        }
+      },
+      "concordance": {
+        "cells_common": 6877,
+        "agreement": 0.99738258,
+        "crosstab": [
+          {
+            "filtered": 425,
+            "normal": 0,
+            "tumor": 0,
+            "_row": "filtered"
+          },
+          {
+            "filtered": 0,
+            "normal": 1716,
+            "tumor": 2,
+            "_row": "normal"
+          },
+          {
+            "filtered": 0,
+            "normal": 16,
+            "tumor": 4718,
+            "_row": "tumor"
+          }
+        ]
+      },
+      "meta": {
+        "sample": "MPNST_4",
+        "cells": 6877,
+        "genes_input": 21867,
+        "counts_input": "/autofs/projects-t3/lilab/vmenon/Tumor_research/Pilot_MPNST/results/phase4/scevan/by_sample/MPNST_4/counts_raw.rds",
+        "counts_md5": "d504a6a1f891630f1a07c5e294af4cf9",
+        "metadata_md5": "4c004e255f402e650aecafd742cdbc8d",
+        "scevan_version": "1.0.3",
+        "yagst_version": "2017.8.25",
+        "r_version": "R version 4.4.3 (2025-02-28)",
+        "immune_reference_populations": [
+          "CD4-T",
+          "CD8-T",
+          "NK",
+          "T-cell-other",
+          "B-cell",
+          "Plasma-cell",
+          "Macrophage",
+          "Monocyte",
+          "Dendritic",
+          "Plasmacytoid-DC"
+        ],
+        "immune_reference_cells": 2327,
+        "disputed_excluded_from_reference": [
+          "MPNST-Tumor",
+          "Candidate-Malignant-Unresolved",
+          "Fibroblast",
+          "Pericyte-VSMC",
+          "Uncertain",
+          "Low-quality-excluded"
+        ],
+        "fixed_normal_cells": false,
+        "fixed_normal_cells_rationale": "FIXED_NORMAL_CELLS = TRUE forces every cell outside the reference set to 'malignant' (SCEVAN source: cellType_pred[!cellType_pred %in% norm_cell_names] <- 'malignant'). That is the non-immune-equals-tumour inference Phase 2 banned, so it is prohibited in this project.",
+        "scevan_output_dir_defect": "SCEVAN 1.0.3 hardcodes path='./output' in getScevanCNV, getScevanCNVfinal, plotAllClonalCN, plotAllSubclonalCN, plotConsensusCNA and analyzeSegm2, and plotCNclonal does not forward output_dir. Each run therefore sets its own working directory and uses SCEVAN's default output_dir. Package not patched.",
+        "slurm": {
+          "job_id": "19896712",
+          "array_task": "4",
+          "cpus": 8,
+          "node": "ihc-grid-1-1-1.igs.umaryland.edu"
+        },
+        "generated": "2026-09-03T15:59:12-0400"
+      }
+    }
+  },
+  "malignancy": {
+    "thresholds": {
+      "pop_frac_high": 0.5,
+      "pop_frac_low": 0.25,
+      "pop_min_assessed": 20,
+      "cna_abs": 0.1,
+      "cna_normal_pctile": 0.95
+    },
+    "immune_sanity_max": 0.25,
+    "immune_pops_max": 3,
+    "sanity_artefact_pops": "Plasma-cell",
+    "threshold_sensitivity": [
+      {
+        "pop_frac_low": 0.15,
+        "is_a_priori": false,
+        "Malignant": 8295,
+        "malignant_fraction": 0.42072428,
+        "Non_malignant": 8015,
+        "Ambiguous": 2968,
+        "fibroblast_malignant": 4036,
+        "mpnst_tumor_still_malignant": 3266,
+        "candidate_malignant": 836
+      },
+      {
+        "pop_frac_low": 0.2,
+        "is_a_priori": false,
+        "Malignant": 8295,
+        "malignant_fraction": 0.42072428,
+        "Non_malignant": 8015,
+        "Ambiguous": 2968,
+        "fibroblast_malignant": 4036,
+        "mpnst_tumor_still_malignant": 3266,
+        "candidate_malignant": 836
+      },
+      {
+        "pop_frac_low": 0.25,
+        "is_a_priori": true,
+        "Malignant": 6434,
+        "malignant_fraction": 0.32633394,
+        "Non_malignant": 8015,
+        "Ambiguous": 4829,
+        "fibroblast_malignant": 4036,
+        "mpnst_tumor_still_malignant": 1405,
+        "candidate_malignant": 836
+      },
+      {
+        "pop_frac_low": 0.3,
+        "is_a_priori": false,
+        "Malignant": 6434,
+        "malignant_fraction": 0.32633394,
+        "Non_malignant": 8015,
+        "Ambiguous": 4829,
+        "fibroblast_malignant": 4036,
+        "mpnst_tumor_still_malignant": 1405,
+        "candidate_malignant": 836
+      },
+      {
+        "pop_frac_low": 0.4,
+        "is_a_priori": false,
+        "Malignant": 6434,
+        "malignant_fraction": 0.32633394,
+        "Non_malignant": 8015,
+        "Ambiguous": 4829,
+        "fibroblast_malignant": 4036,
+        "mpnst_tumor_still_malignant": 1405,
+        "candidate_malignant": 836
+      }
+    ],
+    "sample_reliability": [
+      {
+        "sample_id": "MPNST_1",
+        "immune_cells": 2036,
+        "immune_assessed_all": 1711,
+        "immune_malignant_all": 62,
+        "rate_all_immune": 0.03623612,
+        "plasma_assessed": 314,
+        "plasma_malignant": 62,
+        "immune_assessed_excl_plasma": 1397,
+        "immune_malignant_excl_plasma": 0,
+        "rate_excl_plasma": 0,
+        "rate_excl_plasma_sensitivity": 0,
+        "n_immune_pops_tested": 8,
+        "n_immune_pops_failing": 0,
+        "failing_populations": "",
+        "fail_by_rate": false,
+        "fail_by_breadth": false,
+        "scevan_reliable": true,
+        "flat_gate_would_have_failed": false,
+        "verdict": "PASS"
+      },
+      {
+        "sample_id": "MPNST_2",
+        "immune_cells": 762,
+        "immune_assessed_all": 731,
+        "immune_malignant_all": 40,
+        "rate_all_immune": 0.05471956,
+        "plasma_assessed": 63,
+        "plasma_malignant": 40,
+        "immune_assessed_excl_plasma": 668,
+        "immune_malignant_excl_plasma": 0,
+        "rate_excl_plasma": 0,
+        "rate_excl_plasma_sensitivity": 0.00149701,
+        "n_immune_pops_tested": 5,
+        "n_immune_pops_failing": 0,
+        "failing_populations": "",
+        "fail_by_rate": false,
+        "fail_by_breadth": false,
+        "scevan_reliable": true,
+        "flat_gate_would_have_failed": false,
+        "verdict": "PASS"
+      },
+      {
+        "sample_id": "MPNST_3",
+        "immune_cells": 2323,
+        "immune_assessed_all": 2167,
+        "immune_malignant_all": 1279,
+        "rate_all_immune": 0.59021689,
+        "plasma_assessed": 418,
+        "plasma_malignant": 415,
+        "immune_assessed_excl_plasma": 1749,
+        "immune_malignant_excl_plasma": 864,
+        "rate_excl_plasma": 0.49399657,
+        "rate_excl_plasma_sensitivity": 0.51229274,
+        "n_immune_pops_tested": 9,
+        "n_immune_pops_failing": 6,
+        "failing_populations": "Plasmacytoid-DC=1.00; CD8-T=0.99; T-cell-other=1.00; B-cell=1.00; CD4-T=1.00; NK=1.00",
+        "fail_by_rate": true,
+        "fail_by_breadth": true,
+        "scevan_reliable": false,
+        "flat_gate_would_have_failed": true,
+        "verdict": "FAIL (rate AND breadth) - promotions disabled"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "immune_cells": 2327,
+        "immune_assessed_all": 2097,
+        "immune_malignant_all": 614,
+        "rate_all_immune": 0.29279924,
+        "plasma_assessed": 619,
+        "plasma_malignant": 608,
+        "immune_assessed_excl_plasma": 1478,
+        "immune_malignant_excl_plasma": 6,
+        "rate_excl_plasma": 0.00405954,
+        "rate_excl_plasma_sensitivity": 0.00202977,
+        "n_immune_pops_tested": 9,
+        "n_immune_pops_failing": 0,
+        "failing_populations": "",
+        "fail_by_rate": false,
+        "fail_by_breadth": false,
+        "scevan_reliable": true,
+        "flat_gate_would_have_failed": true,
+        "verdict": "PASS"
+      }
+    ],
+    "population_classes": {
+      "EXCLUDED": "Low-quality-excluded",
+      "PHASE2_MALIGNANT": "MPNST-Tumor",
+      "CANONICAL_IMMUNE": [
+        "CD4-T",
+        "CD8-T",
+        "NK",
+        "T-cell-other",
+        "B-cell",
+        "Plasma-cell",
+        "Macrophage",
+        "Monocyte",
+        "Dendritic",
+        "Plasmacytoid-DC"
+      ],
+      "CANONICAL_ENDO": "Endothelial",
+      "DISPUTED_STROMAL": [
+        "Fibroblast",
+        "Pericyte-VSMC"
+      ],
+      "PROVISIONAL": [
+        "Candidate-Malignant-Unresolved",
+        "Uncertain"
+      ]
+    },
+    "headline": {
+      "n_cells": 19716,
+      "phase2_malignant": 3420,
+      "phase2_fraction": 0.17346318,
+      "scevan_assessed": 18449,
+      "scevan_malignant": 8794,
+      "scevan_fraction_of_all": 0.44603368,
+      "scevan_fraction_of_assessed": 0.4766654,
+      "refined_malignant": 6434,
+      "refined_fraction": 0.32633394,
+      "refined_nonmalignant": 9078,
+      "refined_ambiguous": 3766,
+      "refined_excluded": 438,
+      "refined_high_confidence_malignant": 3261
+    },
+    "cna_reference": {
+      "MPNST_1": {
+        "confident_normals": 30,
+        "threshold_p95": 0.2135279,
+        "median_burden_all": 0.14922698
+      },
+      "MPNST_2": {
+        "confident_normals": 30,
+        "threshold_p95": 0.27602937,
+        "median_burden_all": 0.22234422
+      },
+      "MPNST_3": {
+        "confident_normals": 25,
+        "threshold_p95": 0.34934444,
+        "median_burden_all": 0.15647592
+      },
+      "MPNST_4": {
+        "confident_normals": 30,
+        "threshold_p95": 0.32868258,
+        "median_burden_all": 0.23985024
+      }
+    },
+    "marker_panels_present": {
+      "malignant_schwann_nc": [
+        "S100B",
+        "SOX10",
+        "PLP1",
+        "MPZ",
+        "PMP22",
+        "NGFR",
+        "L1CAM",
+        "GFRA3",
+        "CRYAB",
+        "ERBB3",
+        "SOX9",
+        "TWIST1",
+        "PAX3",
+        "ZIC1",
+        "ETS1",
+        "FOXD3",
+        "NES",
+        "CDH19",
+        "PLEKHB1",
+        "MIA",
+        "SEMA3B",
+        "ABCB5",
+        "RSPO3"
+      ],
+      "nonmalignant_fibroblast": [
+        "DCN",
+        "LUM",
+        "PI16",
+        "CFD",
+        "FBLN1",
+        "FBLN2",
+        "MMP2",
+        "GSN",
+        "CLU",
+        "APOD",
+        "SFRP2",
+        "PDGFRA"
+      ],
+      "nonmalignant_immune": [
+        "PTPRC",
+        "CD3E",
+        "CD3D",
+        "CD2",
+        "CD68",
+        "CD14",
+        "LYZ",
+        "AIF1",
+        "CD79A",
+        "MS4A1",
+        "NKG7",
+        "GZMB",
+        "TYROBP",
+        "FCER1G"
+      ],
+      "nonmalignant_endo": [
+        "VWF",
+        "CDH5",
+        "CLDN5",
+        "ERG",
+        "EGFL7",
+        "RAMP2",
+        "PLVAP"
+      ],
+      "nonmalignant_mural": [
+        "RGS5",
+        "NOTCH3",
+        "ACTA2",
+        "MYH11",
+        "PDGFRB",
+        "TAGLN",
+        "MYL9",
+        "HIGD1B"
+      ]
+    },
+    "marker_medians": {
+      "malignant": -0.13512661,
+      "nonmalignant_max": 0.42153504
+    },
+    "rule_counts": {
+      "R0": 438,
+      "R10": 8,
+      "R11": 168,
+      "R12": 445,
+      "R13": 1227,
+      "R13x": 15,
+      "R14": 2874,
+      "R15": 6,
+      "R16": 811,
+      "R17": 907,
+      "R17x": 22,
+      "R18": 21,
+      "R19": 476,
+      "R1a": 742,
+      "R1b": 445,
+      "R2": 1127,
+      "R20": 326,
+      "R3": 100,
+      "R4": 178,
+      "R5": 1933,
+      "R6": 4711,
+      "R7": 19,
+      "R7p": 1125,
+      "R8": 851,
+      "R9": 741
+    },
+    "refined_by_confidence": [
+      {
+        "High": 0,
+        "Low": 3766,
+        "Moderate": 0,
+        "_row": "Ambiguous"
+      },
+      {
+        "High": 438,
+        "Low": 0,
+        "Moderate": 0,
+        "_row": "Excluded-low-quality"
+      },
+      {
+        "High": 3261,
+        "Low": 0,
+        "Moderate": 3173,
+        "_row": "Malignant"
+      },
+      {
+        "High": 5262,
+        "Low": 0,
+        "Moderate": 3816,
+        "_row": "Non-malignant"
+      }
+    ],
+    "refined_by_sample": [
+      {
+        "MPNST_1": 2415,
+        "MPNST_2": 127,
+        "MPNST_3": 936,
+        "MPNST_4": 288,
+        "_row": "Ambiguous"
+      },
+      {
+        "MPNST_1": 11,
+        "MPNST_2": 6,
+        "MPNST_3": 0,
+        "MPNST_4": 421,
+        "_row": "Excluded-low-quality"
+      },
+      {
+        "MPNST_1": 1886,
+        "MPNST_2": 651,
+        "MPNST_3": 212,
+        "MPNST_4": 3685,
+        "_row": "Malignant"
+      },
+      {
+        "MPNST_1": 3303,
+        "MPNST_2": 1500,
+        "MPNST_3": 1792,
+        "MPNST_4": 2483,
+        "_row": "Non-malignant"
+      }
+    ],
+    "ccc_refined_counts": {
+      "Ambiguous-unresolved": 3766,
+      "B-cell": 144,
+      "CD4-T": 279,
+      "CD8-T": 247,
+      "Dendritic": 612,
+      "Endothelial": 749,
+      "Fibroblast": 908,
+      "Low-quality-excluded": 438,
+      "Macrophage": 3065,
+      "Monocyte": 190,
+      "MPNST-Tumor": 6434,
+      "NK": 74,
+      "Pericyte-VSMC": 348,
+      "Plasma-cell": 1709,
+      "Plasmacytoid-DC": 122,
+      "T-cell-other": 155,
+      "Uncertain": 476
+    },
+    "scevan_version": "1.0.3",
+    "slurm": {
+      "job_id": "19897148"
+    },
+    "generated": "2026-09-03T16:03:54-0400"
+  },
+  "malignancy_decision_rules": "reports/phase4/MALIGNANCY_DECISION_RULES.md (thresholds fixed a priori; Amendment A1 added after M29 and labelled as such)",
+  "refined_ccc_input": {
+    "phase2_input": {
+      "path": "results/phase2/phase2_final_object.rds",
+      "md5": "153d5f6acc70f9c05aa48cabc4f4ac2d"
+    },
+    "malignancy_calls": {
+      "path": "results/phase4/malignancy/PHASE4_MALIGNANCY_CALLS.tsv",
+      "md5": "66e5e46dc4e7ce753c5e574099ac2faa"
+    },
+    "refined_ccc_object": {
+      "path": "results/phase4/ccc_refinement/ccc_input_object_refined.rds",
+      "md5": "99fd641faf0cc1f7e38448406c883f32",
+      "cells": 15036,
+      "populations": [
+        "B-cell",
+        "CD4-T",
+        "CD8-T",
+        "Dendritic",
+        "Endothelial",
+        "Fibroblast",
+        "Macrophage",
+        "Monocyte",
+        "MPNST-Tumor",
+        "NK",
+        "Pericyte-VSMC",
+        "Plasma-cell",
+        "Plasmacytoid-DC",
+        "T-cell-other"
+      ]
+    },
+    "min_cells": 10,
+    "not_ready_excluded": [
+      "Ambiguous-unresolved",
+      "Low-quality-excluded",
+      "Uncertain",
+      "Candidate-Malignant-Unresolved"
+    ],
+    "expression_basis": "RNA assay, JoinLayers, LogNormalize (scale.factor 1e4) - identical to Phase 3",
+    "reuse_statement": "scripts/phase3/ccc/run_liana.R, run_cellchat.R and run_cellphonedb.py are reused UNMODIFIED at Phase 3 versions; only the ccc_label definition differs. This is a label-sensitivity analysis.",
+    "cells_relabelled": 8795,
+    "population_counts": {
+      "B-cell": 144,
+      "CD4-T": 279,
+      "CD8-T": 247,
+      "Dendritic": 612,
+      "Endothelial": 749,
+      "Fibroblast": 908,
+      "Macrophage": 3065,
+      "Monocyte": 190,
+      "MPNST-Tumor": 6434,
+      "NK": 74,
+      "Pericyte-VSMC": 348,
+      "Plasma-cell": 1709,
+      "Plasmacytoid-DC": 122,
+      "T-cell-other": 155
+    },
+    "generated": "2026-09-03T16:13:13-0400",
+    "slurm": {
+      "job_id": "19897175"
+    }
+  },
+  "tumour_states": {
+    "malignant_cells": 6434,
+    "total_cells": 19716,
+    "malignant_fraction": 0.32633394,
+    "by_confidence": {
+      "High": 3261,
+      "Moderate": 3173
+    },
+    "by_patient": {
+      "MPNST_1": 1886,
+      "MPNST_2": 651,
+      "MPNST_3": 212,
+      "MPNST_4": 3685
+    },
+    "phase2_origin": {
+      "Fibroblast": 4036,
+      "MPNST-Tumor": 1405,
+      "Candidate-Malignant-Unresolved": 836,
+      "Uncertain": 92,
+      "Pericyte-VSMC": 65
+    },
+    "reductions_created": [
+      "malignant_pca",
+      "malignant_harmony",
+      "malignant_umap"
+    ],
+    "phase2_reductions_modified": false,
+    "dims_used": 30,
+    "npcs_computed": 50,
+    "variance_explained_at_ndim": 0.9302935,
+    "knn_overlap_phase2_vs_malignant_harmony": 0.17330588,
+    "harmony_batch_variable": "sample_id",
+    "resolution_sweep": [
+      {
+        "resolution": 0.2,
+        "n_clusters": 8,
+        "n_clusters_lt30_cells": 0,
+        "n_clusters_multipatient": 4,
+        "frac_multipatient": 0.5,
+        "min_size": 72,
+        "max_size": 1851
+      },
+      {
+        "resolution": 0.3,
+        "n_clusters": 10,
+        "n_clusters_lt30_cells": 1,
+        "n_clusters_multipatient": 4,
+        "frac_multipatient": 0.4,
+        "min_size": 28,
+        "max_size": 1585
+      },
+      {
+        "resolution": 0.4,
+        "n_clusters": 10,
+        "n_clusters_lt30_cells": 0,
+        "n_clusters_multipatient": 5,
+        "frac_multipatient": 0.5,
+        "min_size": 43,
+        "max_size": 1542
+      },
+      {
+        "resolution": 0.5,
+        "n_clusters": 11,
+        "n_clusters_lt30_cells": 0,
+        "n_clusters_multipatient": 5,
+        "frac_multipatient": 0.45454545,
+        "min_size": 72,
+        "max_size": 1276
+      },
+      {
+        "resolution": 0.7,
+        "n_clusters": 15,
+        "n_clusters_lt30_cells": 0,
+        "n_clusters_multipatient": 7,
+        "frac_multipatient": 0.46666667,
+        "min_size": 48,
+        "max_size": 877
+      },
+      {
+        "resolution": 1,
+        "n_clusters": 17,
+        "n_clusters_lt30_cells": 0,
+        "n_clusters_multipatient": 7,
+        "frac_multipatient": 0.41176471,
+        "min_size": 66,
+        "max_size": 805
+      }
+    ],
+    "resolution_selected": 0.2,
+    "n_states": 8,
+    "states": {
+      "Cycling": 290,
+      "Interferon": 72,
+      "Mesenchymal_ECM-1": 1851,
+      "Mesenchymal_ECM-2": 1598,
+      "Mesenchymal_ECM-3": 1291,
+      "Mesenchymal_ECM-4": 648,
+      "Mesenchymal_ECM-5": 505,
+      "Schwann_like": 179
+    },
+    "state_recurrence_summary": {
+      "recurrent": 0,
+      "shared_2_patients": 1,
+      "patient_private_or_dominated": 7,
+      "fraction_malignant_in_patient_private_states": 0.97217905
+    },
+    "state_definitions": [
+      {
+        "cluster": "0",
+        "state": "Mesenchymal_ECM-1",
+        "evidence": "prog_Mesenchymal_ECM 0.619, next prog_Stress 0.163"
+      },
+      {
+        "cluster": "1",
+        "state": "Mesenchymal_ECM-2",
+        "evidence": "prog_Mesenchymal_ECM 0.956, next prog_Interferon 0.044"
+      },
+      {
+        "cluster": "2",
+        "state": "Mesenchymal_ECM-3",
+        "evidence": "prog_Mesenchymal_ECM 1.095, next prog_Immune_interacting 0.156"
+      },
+      {
+        "cluster": "3",
+        "state": "Mesenchymal_ECM-4",
+        "evidence": "prog_Mesenchymal_ECM 1.255, next prog_Immune_interacting 0.659"
+      },
+      {
+        "cluster": "4",
+        "state": "Mesenchymal_ECM-5",
+        "evidence": "prog_Mesenchymal_ECM 0.887, next prog_Interferon 0.102"
+      },
+      {
+        "cluster": "5",
+        "state": "Cycling",
+        "evidence": "prog_Cycling 0.960, next prog_Mesenchymal_ECM 0.698"
+      },
+      {
+        "cluster": "6",
+        "state": "Schwann_like",
+        "evidence": "prog_Schwann_like 1.222, next prog_Immune_interacting 0.966"
+      },
+      {
+        "cluster": "7",
+        "state": "Interferon",
+        "evidence": "prog_Interferon 1.140, next prog_Immune_interacting 0.619"
+      }
+    ],
+    "clone_state_cramers_v": 0.69277868,
+    "programme_panels_present": {
+      "Schwann_like": [
+        "S100B",
+        "PLP1",
+        "MPZ",
+        "PMP22",
+        "SOX10",
+        "MBP",
+        "CNP",
+        "GFRA3",
+        "CDH19",
+        "NGFR",
+        "L1CAM",
+        "MIA",
+        "SEMA3B",
+        "PLEKHB1",
+        "CRYAB"
+      ],
+      "NeuralCrest_like": [
+        "SOX9",
+        "TWIST1",
+        "PAX3",
+        "ZIC1",
+        "FOXD3",
+        "ETS1",
+        "NES",
+        "ERBB3",
+        "ABCB5",
+        "SOX4",
+        "ID1",
+        "TFAP2A",
+        "MSX1"
+      ],
+      "Mesenchymal_ECM": [
+        "COL1A1",
+        "COL1A2",
+        "COL3A1",
+        "COL5A1",
+        "COL6A3",
+        "FN1",
+        "POSTN",
+        "SPARC",
+        "THBS2",
+        "LOX",
+        "TNC",
+        "FBN1",
+        "VCAN",
+        "TAGLN",
+        "ACTA2"
+      ],
+      "Cycling": [
+        "MKI67",
+        "TOP2A",
+        "UBE2C",
+        "NEK2",
+        "KIF20A",
+        "DLGAP5",
+        "HJURP",
+        "ASPM",
+        "CCNB1",
+        "CDK1",
+        "PLK1",
+        "BIRC5",
+        "TYMS",
+        "RRM2"
+      ],
+      "Stress": [
+        "HSPA1A",
+        "HSPA1B",
+        "HSPB1",
+        "DNAJB1",
+        "HSPH1",
+        "JUN",
+        "JUNB",
+        "FOS",
+        "FOSB",
+        "EGR1",
+        "ATF3",
+        "DDIT3",
+        "HSPA6"
+      ],
+      "Interferon": [
+        "ISG15",
+        "IFI6",
+        "IFI27",
+        "IFIT1",
+        "IFIT3",
+        "MX1",
+        "MX2",
+        "OAS1",
+        "OASL",
+        "STAT1",
+        "IRF7",
+        "B2M",
+        "BST2"
+      ],
+      "Angiogenic": [
+        "VEGFA",
+        "ANGPT2",
+        "ANGPTL4",
+        "ADM",
+        "NDRG1",
+        "SLC2A1",
+        "HIF1A",
+        "EGLN3",
+        "PGK1",
+        "LDHA",
+        "CA9",
+        "BNIP3"
+      ],
+      "Immune_interacting": [
+        "APP",
+        "CD99",
+        "ANXA1",
+        "THBS1",
+        "HLA-A",
+        "HLA-B",
+        "HLA-C",
+        "HLA-E",
+        "HLA-F",
+        "B2M",
+        "CD47",
+        "LGALS1",
+        "LGALS3",
+        "MIF",
+        "CSF1",
+        "IL15"
+      ],
+      "Notch_perivascular": [
+        "JAG1",
+        "JAG2",
+        "DLL4",
+        "DLL1",
+        "NOTCH1",
+        "NOTCH2",
+        "NOTCH3",
+        "HEY1",
+        "HEY2",
+        "HES1",
+        "RGS5",
+        "PDGFRB"
+      ]
+    },
+    "markers_significant": 12889,
+    "expression_basis": "RNA counts (M28 extraction) -> LogNormalize 1e4; SCT not used (four models)",
+    "slurm": {
+      "job_id": "19897639",
+      "cpus": 8
+    },
+    "generated": "2026-09-03T17:06:44-0400"
+  },
+  "ccc_sensitivity": {
+    "phase3_master": {
+      "path": "results/phase3/ccc/prioritized/MPNST_CCC_MASTER_TABLE.tsv",
+      "rows": 36486
+    },
+    "phase3_concordance": {
+      "path": "results/phase3/tables/final/CCC_CONCORDANCE.tsv",
+      "rows": 502846
+    },
+    "phase4_concordance": {
+      "path": "results/phase4/ccc_refinement/concordance/CCC_CONCORDANCE.tsv",
+      "rows": 494973
+    },
+    "union_keys": 506605,
+    "change_class_counts": {
+      "Not-supported-either": 464702,
+      "Stable": 18276,
+      "Weakened": 8446,
+      "Newly-supported": 5421,
+      "Lost": 3963,
+      "Sender-reassigned": 3051,
+      "Strengthened": 2746
+    },
+    "sender_reassignment_groups": 4944,
+    "axis_verdicts": [
+      {
+        "ligand": "APP",
+        "receptor": "CD74",
+        "axis": "tumour->myeloid antigen-presentation",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 96,
+        "p4_supported_keys": 93
+      },
+      {
+        "ligand": "CD99",
+        "receptor": "PILRA",
+        "axis": "tumour->myeloid inhibitory",
+        "verdict": "strengthened",
+        "sender_changed": false,
+        "p3_supported_keys": 57,
+        "p4_supported_keys": 65
+      },
+      {
+        "ligand": "ANXA1",
+        "receptor": "FPR1",
+        "axis": "tumour->myeloid chemotaxis",
+        "verdict": "stable",
+        "sender_changed": false,
+        "p3_supported_keys": 49,
+        "p4_supported_keys": 49
+      },
+      {
+        "ligand": "THBS1",
+        "receptor": "CD36",
+        "axis": "tumour->myeloid scavenger",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 58,
+        "p4_supported_keys": 53
+      },
+      {
+        "ligand": "HLA-F",
+        "receptor": "LILRB1",
+        "axis": "tumour->myeloid/lymphoid inhibitory",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 72,
+        "p4_supported_keys": 71
+      },
+      {
+        "ligand": "HLA-F",
+        "receptor": "LILRB2",
+        "axis": "tumour->myeloid inhibitory",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 65,
+        "p4_supported_keys": 63
+      },
+      {
+        "ligand": "HLA-E",
+        "receptor": "KLRC1",
+        "axis": "tumour->NK inhibitory",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 49,
+        "p4_supported_keys": 48
+      },
+      {
+        "ligand": "BAG6",
+        "receptor": "NCR3",
+        "axis": "tumour->NK activating",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 54,
+        "p4_supported_keys": 47
+      },
+      {
+        "ligand": "CD58",
+        "receptor": "CD2",
+        "axis": "tumour->lymphoid adhesion/costimulation",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 69,
+        "p4_supported_keys": 68
+      },
+      {
+        "ligand": "VEGFA",
+        "receptor": "KDR",
+        "axis": "tumour->endothelial angiogenic",
+        "verdict": "strengthened",
+        "sender_changed": true,
+        "p3_supported_keys": 9,
+        "p4_supported_keys": 10
+      },
+      {
+        "ligand": "VEGFA",
+        "receptor": "FLT1",
+        "axis": "tumour->endothelial angiogenic",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 25,
+        "p4_supported_keys": 18
+      },
+      {
+        "ligand": "VEGFA",
+        "receptor": "NRP1",
+        "axis": "tumour->endothelial angiogenic",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 53,
+        "p4_supported_keys": 46
+      },
+      {
+        "ligand": "JAG1",
+        "receptor": "NOTCH3",
+        "axis": "tumour->pericyte Notch",
+        "verdict": "stable",
+        "sender_changed": true,
+        "p3_supported_keys": 18,
+        "p4_supported_keys": 18
+      },
+      {
+        "ligand": "JAG1",
+        "receptor": "NOTCH4",
+        "axis": "tumour->endothelial Notch",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 17,
+        "p4_supported_keys": 15
+      },
+      {
+        "ligand": "JAG1",
+        "receptor": "NOTCH2",
+        "axis": "TME->tumour Notch",
+        "verdict": "strengthened",
+        "sender_changed": false,
+        "p3_supported_keys": 40,
+        "p4_supported_keys": 43
+      },
+      {
+        "ligand": "JAG2",
+        "receptor": "NOTCH2",
+        "axis": "TME->tumour Notch",
+        "verdict": "stable",
+        "sender_changed": false,
+        "p3_supported_keys": 13,
+        "p4_supported_keys": 13
+      },
+      {
+        "ligand": "DLL4",
+        "receptor": "NOTCH2",
+        "axis": "TME->tumour Notch",
+        "verdict": "weakened",
+        "sender_changed": true,
+        "p3_supported_keys": 19,
+        "p4_supported_keys": 13
+      },
+      {
+        "ligand": "FGF2",
+        "receptor": "FGFR1",
+        "axis": "tumour->stromal growth factor",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 23,
+        "p4_supported_keys": 22
+      },
+      {
+        "ligand": "SLIT2",
+        "receptor": "ROBO1",
+        "axis": "tumour->stromal guidance",
+        "verdict": "weakened",
+        "sender_changed": false,
+        "p3_supported_keys": 18,
+        "p4_supported_keys": 11
+      },
+      {
+        "ligand": "COL1A1",
+        "receptor": "ITGAV_ITGB8",
+        "axis": "ECM->tumour integrin",
+        "verdict": "weakened",
+        "sender_changed": true,
+        "p3_supported_keys": 18,
+        "p4_supported_keys": 10
+      },
+      {
+        "ligand": "COL1A2",
+        "receptor": "ITGAV_ITGB8",
+        "axis": "ECM->tumour integrin",
+        "verdict": "weakened",
+        "sender_changed": true,
+        "p3_supported_keys": 20,
+        "p4_supported_keys": 18
+      },
+      {
+        "ligand": "COL6A2",
+        "receptor": "ITGAV_ITGB8",
+        "axis": "ECM->tumour integrin",
+        "verdict": "weakened",
+        "sender_changed": true,
+        "p3_supported_keys": 20,
+        "p4_supported_keys": 14
+      },
+      {
+        "ligand": "FN1",
+        "receptor": "ITGAV_ITGB8",
+        "axis": "ECM->tumour integrin",
+        "verdict": "strengthened",
+        "sender_changed": true,
+        "p3_supported_keys": 15,
+        "p4_supported_keys": 20
+      }
+    ],
+    "fibroblast_question": {
+      "n": 9483,
+      "retained_as_fibroblast": 6547,
+      "reassigned_to_tumour": 1565,
+      "lost_or_ambiguous": 1371
+    },
+    "method_reuse": "scripts/phase3/ccc/run_liana.R, run_cellchat.R and run_cellphonedb.py reused UNMODIFIED at Phase 3 versions (liana 0.1.14, CellChat 2.2.0.9001, CellPhoneDB 5.0.1); only ccc_label differs.",
+    "no_composite_score": true,
+    "generated": "2026-09-03T17:00:51-0400",
+    "slurm": {
+      "job_id": "19897616"
+    }
+  },
+  "state_tme_model": {
+    "malignant_cells": 6434,
+    "states": {
+      "Cycling": 290,
+      "Interferon": 72,
+      "Mesenchymal_ECM-1": 1851,
+      "Mesenchymal_ECM-2": 1598,
+      "Mesenchymal_ECM-3": 1291,
+      "Mesenchymal_ECM-4": 648,
+      "Mesenchymal_ECM-5": 505,
+      "Schwann_like": 179
+    },
+    "ccc_populations": [
+      "B-cell",
+      "CD4-T",
+      "CD8-T",
+      "Dendritic",
+      "Endothelial",
+      "Fibroblast",
+      "Macrophage",
+      "Monocyte",
+      "MPNST-Tumor",
+      "NK",
+      "Pericyte-VSMC",
+      "Plasma-cell",
+      "Plasmacytoid-DC",
+      "T-cell-other"
+    ],
+    "detection_floor": 0.1,
+    "min_cells_per_stratum": 10,
+    "programmes": [
+      "Myeloid antigen-presentation / inhibitory",
+      "NK / CD8 inhibitory and activating",
+      "Angiogenic / vascular",
+      "Notch perivascular",
+      "Growth factor / guidance / ECM",
+      "Receiver-state cytokines (Phase 3 NicheNet)"
+    ],
+    "evidence_rows": 176,
+    "supported_3plus_patients": 12,
+    "programme_leaders": [
+      {
+        "programme": "Receiver-state cytokines (Phase 3 NicheNet)",
+        "tumor_state_phase4": "Cycling",
+        "receivers_supported": 4,
+        "state_recurrence": "PATIENT-DOMINATED (>80% one patient) / exploratory - not recurrent MPNST biology"
+      },
+      {
+        "programme": "Myeloid antigen-presentation / inhibitory",
+        "tumor_state_phase4": "Cycling",
+        "receivers_supported": 3,
+        "state_recurrence": "PATIENT-DOMINATED (>80% one patient) / exploratory - not recurrent MPNST biology"
+      },
+      {
+        "programme": "NK / CD8 inhibitory and activating",
+        "tumor_state_phase4": "Cycling",
+        "receivers_supported": 2,
+        "state_recurrence": "PATIENT-DOMINATED (>80% one patient) / exploratory - not recurrent MPNST biology"
+      },
+      {
+        "programme": "Angiogenic / vascular",
+        "tumor_state_phase4": "Cycling",
+        "receivers_supported": 1,
+        "state_recurrence": "PATIENT-DOMINATED (>80% one patient) / exploratory - not recurrent MPNST biology"
+      },
+      {
+        "programme": "Growth factor / guidance / ECM",
+        "tumor_state_phase4": "Cycling",
+        "receivers_supported": 1,
+        "state_recurrence": "PATIENT-DOMINATED (>80% one patient) / exploratory - not recurrent MPNST biology"
+      },
+      {
+        "programme": "Notch perivascular",
+        "tumor_state_phase4": "Cycling",
+        "receivers_supported": 1,
+        "state_recurrence": "PATIENT-DOMINATED (>80% one patient) / exploratory - not recurrent MPNST biology"
+      }
+    ],
+    "no_composite_score": true,
+    "targeted_design": "LR frameworks were NOT run per tumour state (§45). Evidence is per-state, per-patient ligand/receptor expression on the Phase 3-prioritized axes, cross-referenced with the M32 sensitivity verdicts and with Phase 3 NicheNet and LochNESS results reused verbatim.",
+    "phase3_reused": {
+      "nichenet": "results/phase3/tables/final/NicheNet_ligand_activity.tsv",
+      "lochness": "results/phase3/tables/final/lochness_summary.tsv"
+    },
+    "generated": "2026-09-03T17:07:21-0400",
+    "slurm": {
+      "job_id": "19897639"
+    }
+  },
+  "robustness": {
+    "q1_states": {
+      "n_states": 8,
+      "states_in_1_patient": 4,
+      "states_in_2_patients": 1,
+      "states_in_3plus": 3,
+      "states_in_all_4": 2,
+      "max_dominant_patient_fraction": 1,
+      "median_dominant_patient_fraction": 0.99768519,
+      "single_patient_states": [
+        "Mesenchymal_ECM-1",
+        "Mesenchymal_ECM-3",
+        "Mesenchymal_ECM-5",
+        "Interferon"
+      ]
+    },
+    "q2_cnv": {
+      "broad_clonal_events": 59,
+      "events_in_all_4_patients": 1,
+      "events_in_1_patient": 23,
+      "events_in_3plus": 3,
+      "median_pairwise_jaccard": 0.13846154,
+      "max_pairwise_jaccard": 0.23333333,
+      "min_pairwise_jaccard": 0.07142857,
+      "wording_rule": "Patterns shared between patients are described as SHARED or RECURRENT CNA patterns, never as the same clone (§50)."
+    },
+    "q3_ccc_changes": {
+      "changed_interactions": 23627,
+      "by_class": [
+        {
+          "change_class": "Lost",
+          "n": 3963,
+          "median_phase4_patients": 0,
+          "supported_in_1_patient_only": 0,
+          "supported_in_3plus": 0,
+          "frac_single_patient": 0
+        },
+        {
+          "change_class": "Newly-supported",
+          "n": 5421,
+          "median_phase4_patients": 1,
+          "supported_in_1_patient_only": 4977,
+          "supported_in_3plus": 27,
+          "frac_single_patient": 0.91809629
+        },
+        {
+          "change_class": "Sender-reassigned",
+          "n": 3051,
+          "median_phase4_patients": 0,
+          "supported_in_1_patient_only": 0,
+          "supported_in_3plus": 0,
+          "frac_single_patient": 0
+        },
+        {
+          "change_class": "Strengthened",
+          "n": 2746,
+          "median_phase4_patients": 2,
+          "supported_in_1_patient_only": 284,
+          "supported_in_3plus": 1031,
+          "frac_single_patient": 0.10342316
+        },
+        {
+          "change_class": "Weakened",
+          "n": 8446,
+          "median_phase4_patients": 2,
+          "supported_in_1_patient_only": 3619,
+          "supported_in_3plus": 2316,
+          "frac_single_patient": 0.42848686
+        }
+      ],
+      "newly_supported_single_patient_fraction": 0.91809629,
+      "interpretation": "A change class dominated by single-patient support is a WEAK result and is reported as such rather than promoted."
+    },
+    "q4_loso": {
+      "retention_by_dropped_patient": [
+        {
+          "dropped_patient": "MPNST_1",
+          "n_supported_full": 34893,
+          "n_supported_without": 25382,
+          "retention": 0.72742384
+        },
+        {
+          "dropped_patient": "MPNST_2",
+          "n_supported_full": 34893,
+          "n_supported_without": 28780,
+          "retention": 0.82480727
+        },
+        {
+          "dropped_patient": "MPNST_3",
+          "n_supported_full": 34893,
+          "n_supported_without": 31973,
+          "retention": 0.91631559
+        },
+        {
+          "dropped_patient": "MPNST_4",
+          "n_supported_full": 34893,
+          "n_supported_without": 33315,
+          "retention": 0.95477603
+        }
+      ],
+      "min_retention": 0.72742384,
+      "max_retention": 0.95477603,
+      "note": "Retention below ~0.5 for any single dropped patient would mean that patient dominates the refined interaction set."
+    },
+    "q5_malignancy_loso": [
+      {
+        "dropped_patient": "none",
+        "n_cells": 19716,
+        "refined_malignant": 6434,
+        "refined_fraction": 0.32633394,
+        "phase2_fraction": 0.17346318,
+        "fold_change": 1.88128655
+      },
+      {
+        "dropped_patient": "MPNST_1",
+        "n_cells": 12101,
+        "refined_malignant": 4548,
+        "refined_fraction": 0.37583671,
+        "phase2_fraction": 0.0819767,
+        "fold_change": 4.58467742
+      },
+      {
+        "dropped_patient": "MPNST_2",
+        "n_cells": 17432,
+        "refined_malignant": 5783,
+        "refined_fraction": 0.33174621,
+        "phase2_fraction": 0.19062643,
+        "fold_change": 1.74029491
+      },
+      {
+        "dropped_patient": "MPNST_3",
+        "n_cells": 16776,
+        "refined_malignant": 6222,
+        "refined_fraction": 0.37088698,
+        "phase2_fraction": 0.19009299,
+        "fold_change": 1.95108184
+      },
+      {
+        "dropped_patient": "MPNST_4",
+        "n_cells": 12839,
+        "refined_malignant": 2749,
+        "refined_fraction": 0.21411325,
+        "phase2_fraction": 0.21465846,
+        "fold_change": 0.99746009
+      }
+    ],
+    "q6_patient_consistency": [
+      {
+        "annotation_ccc_phase3": "Candidate-Malignant-Unresolved",
+        "patients": 4,
+        "patients_majority_malignant": 1,
+        "min_frac": 0,
+        "max_frac": 0.69565217,
+        "spread": 0.69565217,
+        "per_patient": "MPNST_1=0.70; MPNST_2=0.17; MPNST_3=0.00; MPNST_4=0.38"
+      },
+      {
+        "annotation_ccc_phase3": "Fibroblast",
+        "patients": 4,
+        "patients_majority_malignant": 3,
+        "min_frac": 0,
+        "max_frac": 0.97566746,
+        "spread": 0.97566746,
+        "per_patient": "MPNST_1=0.62; MPNST_2=0.55; MPNST_3=0.00; MPNST_4=0.98"
+      },
+      {
+        "annotation_ccc_phase3": "MPNST-Tumor",
+        "patients": 4,
+        "patients_majority_malignant": 2,
+        "min_frac": 0.07216495,
+        "max_frac": 0.97439759,
+        "spread": 0.90223264,
+        "per_patient": "MPNST_1=0.22; MPNST_2=0.07; MPNST_3=0.92; MPNST_4=0.97"
+      },
+      {
+        "annotation_ccc_phase3": "Pericyte-VSMC",
+        "patients": 4,
+        "patients_majority_malignant": 1,
+        "min_frac": 0,
+        "max_frac": 0.89041096,
+        "spread": 0.89041096,
+        "per_patient": "MPNST_1=0.00; MPNST_2=0.00; MPNST_3=0.00; MPNST_4=0.89"
+      },
+      {
+        "annotation_ccc_phase3": "Uncertain",
+        "patients": 4,
+        "patients_majority_malignant": 1,
+        "min_frac": 0,
+        "max_frac": 0.93258427,
+        "spread": 0.93258427,
+        "per_patient": "MPNST_1=0.01; MPNST_2=0.06; MPNST_3=0.00; MPNST_4=0.93"
+      }
+    ],
+    "n_patients": 4,
+    "limitation": "n = 4. No population-level or epidemiological claim follows. sample_id = patient = dataset, so biological and technical effects cannot be fully separated - the same confound recorded in Phase 2 and Phase 3.",
+    "generated": "2026-09-03T17:07:37-0400",
+    "slurm": {
+      "job_id": "19897639"
+    }
+  },
+  "method_reuse": "scripts/phase3/ccc/run_liana.R, run_cellchat.R, run_cellphonedb.py and scripts/phase3/concordance/build_concordance.R were reused COMPLETELY UNMODIFIED at Phase 3 versions and thresholds. Only the ccc_label definition differs, which is what makes the Phase 3 -> Phase 4 comparison a label-sensitivity analysis rather than a tool-drift confound.",
+  "scripts": [
+    "scripts/phase4/ccc_refinement/m32_ccc_sensitivity.R",
+    "scripts/phase4/ccc_refinement/prepare_refined_ccc_inputs.R",
+    "scripts/phase4/malignancy/m30_figures.R",
+    "scripts/phase4/malignancy/m30_integrate_malignancy.R",
+    "scripts/phase4/malignancy/m34_robustness.R",
+    "scripts/phase4/scevan/m28_feasibility.R",
+    "scripts/phase4/scevan/m29_aggregate.R",
+    "scripts/phase4/scevan/m29_run_scevan.R",
+    "scripts/phase4/tumor_states/m31_tumor_states.R",
+    "scripts/phase4/tumor_states/m33_state_tme_model.R",
+    "scripts/phase4/utils/m35_assemble.R",
+    "scripts/phase4/utils/m35_build_final_object.R",
+    "scripts/phase4/utils/m35_cna_heatmap.R",
+    "scripts/phase4/utils/phase4_plot_utils.R",
+    "scripts/shell/phase4/install_umap_learn.sh",
+    "scripts/shell/phase4/run_m28_feasibility.sh",
+    "scripts/shell/phase4/run_m29_scevan.sh",
+    "scripts/shell/phase4/run_m30.sh",
+    "scripts/shell/phase4/run_m31_m33_m34.sh",
+    "scripts/shell/phase4/run_m32_cellchat.sh",
+    "scripts/shell/phase4/run_m32_cellphonedb.sh",
+    "scripts/shell/phase4/run_m32_concordance.sh",
+    "scripts/shell/phase4/run_m32_liana.sh",
+    "scripts/shell/phase4/run_m32_prepare.sh",
+    "scripts/shell/phase4/run_m32_sensitivity.sh",
+    "scripts/shell/phase4/run_m35.sh",
+    "scripts/shell/phase4/submit_m30_to_m35.sh",
+    "scripts/shell/phase4/submit_m32_to_m35.sh"
+  ],
+  "reused_phase3_scripts": [
+    "scripts/phase3/ccc/run_liana.R",
+    "scripts/phase3/ccc/run_cellchat.R",
+    "scripts/phase3/ccc/run_cellphonedb.py",
+    "scripts/phase3/concordance/build_concordance.R"
+  ],
+  "figures": [
+    "results/phase4/figures/final/01_phase2_vs_scevan_malignancy.pdf",
+    "results/phase4/figures/final/01_phase2_vs_scevan_malignancy.png",
+    "results/phase4/figures/final/01_scevan_malignancy_umap.pdf",
+    "results/phase4/figures/final/01_scevan_malignancy_umap.png",
+    "results/phase4/figures/final/02_phase2_vs_scevan_malignancy.pdf",
+    "results/phase4/figures/final/02_phase2_vs_scevan_malignancy.png",
+    "results/phase4/figures/final/02_scevan_malignancy_umap.pdf",
+    "results/phase4/figures/final/02_scevan_malignancy_umap.png",
+    "results/phase4/figures/final/03_refined_malignancy_umap.pdf",
+    "results/phase4/figures/final/03_refined_malignancy_umap.png",
+    "results/phase4/figures/final/04_malignancy_by_phase2_cluster.pdf",
+    "results/phase4/figures/final/04_malignancy_by_phase2_cluster.png",
+    "results/phase4/figures/final/04_scevan_cna_heatmap.pdf",
+    "results/phase4/figures/final/04_scevan_cna_heatmap.png",
+    "results/phase4/figures/final/05_malignancy_by_annotation.pdf",
+    "results/phase4/figures/final/05_malignancy_by_annotation.png",
+    "results/phase4/figures/final/05_scevan_clones_by_patient.pdf",
+    "results/phase4/figures/final/05_scevan_clones_by_patient.png",
+    "results/phase4/figures/final/06_ambiguous_population_malignancy.pdf",
+    "results/phase4/figures/final/06_ambiguous_population_malignancy.png",
+    "results/phase4/figures/final/06_malignancy_by_patient.pdf",
+    "results/phase4/figures/final/06_malignancy_by_patient.png",
+    "results/phase4/figures/final/07_ambiguous_population_malignancy.pdf",
+    "results/phase4/figures/final/07_ambiguous_population_malignancy.png",
+    "results/phase4/figures/final/07_refined_malignant_fraction.pdf",
+    "results/phase4/figures/final/07_refined_malignant_fraction.png",
+    "results/phase4/figures/final/08_cnv_profiles_by_annotation.pdf",
+    "results/phase4/figures/final/08_cnv_profiles_by_annotation.png",
+    "results/phase4/figures/final/08_tumor_state_umap.pdf",
+    "results/phase4/figures/final/08_tumor_state_umap.png",
+    "results/phase4/figures/final/09_tumor_state_marker_heatmap.pdf",
+    "results/phase4/figures/final/09_tumor_state_marker_heatmap.png",
+    "results/phase4/figures/final/10_clone_vs_tumor_state.pdf",
+    "results/phase4/figures/final/10_clone_vs_tumor_state.png",
+    "results/phase4/figures/final/11_phase3_vs_phase4_ccc.pdf",
+    "results/phase4/figures/final/11_phase3_vs_phase4_ccc.png",
+    "results/phase4/figures/final/12_refined_tumor_to_immune.pdf",
+    "results/phase4/figures/final/12_refined_tumor_to_immune.png",
+    "results/phase4/figures/final/13_refined_tumor_to_vascular.pdf",
+    "results/phase4/figures/final/13_refined_tumor_to_vascular.png",
+    "results/phase4/figures/final/14_tumor_state_specific_ccc.pdf",
+    "results/phase4/figures/final/14_tumor_state_specific_ccc.png",
+    "results/phase4/figures/final/15_final_tumor_state_tme_model.pdf",
+    "results/phase4/figures/final/15_final_tumor_state_tme_model.png",
+    "results/phase4/figures/final/16_cnv_profiles_by_annotation.pdf",
+    "results/phase4/figures/final/16_cnv_profiles_by_annotation.png",
+    "results/phase4/figures/final/29_01_scevan_call_umap_by_patient.pdf",
+    "results/phase4/figures/final/29_01_scevan_call_umap_by_patient.png",
+    "results/phase4/figures/final/29_02_scevan_clones_umap_by_patient.pdf",
+    "results/phase4/figures/final/29_02_scevan_clones_umap_by_patient.png",
+    "results/phase4/figures/final/29_03_clone_composition_by_annotation.pdf",
+    "results/phase4/figures/final/29_03_clone_composition_by_annotation.png",
+    "results/phase4/figures/final/31_01_tumor_state_umap.pdf",
+    "results/phase4/figures/final/31_01_tumor_state_umap.png",
+    "results/phase4/figures/final/31_02_tumor_state_patient_contribution.pdf",
+    "results/phase4/figures/final/31_02_tumor_state_patient_contribution.png",
+    "results/phase4/figures/final/31_03_scevan_clone_umap.pdf",
+    "results/phase4/figures/final/31_03_scevan_clone_umap.png",
+    "results/phase4/figures/final/31_04_clone_vs_tumor_state.pdf",
+    "results/phase4/figures/final/31_04_clone_vs_tumor_state.png",
+    "results/phase4/figures/final/31_05_tumor_state_marker_dotplot.pdf",
+    "results/phase4/figures/final/31_05_tumor_state_marker_dotplot.png",
+    "results/phase4/figures/final/31_06_tumor_state_program_heatmap.pdf",
+    "results/phase4/figures/final/31_06_tumor_state_program_heatmap.png",
+    "results/phase4/figures/final/31_07_tumor_state_marker_heatmap.pdf",
+    "results/phase4/figures/final/31_07_tumor_state_marker_heatmap.png",
+    "results/phase4/figures/final/31_08_tumor_state_patient_composition.pdf",
+    "results/phase4/figures/final/31_08_tumor_state_patient_composition.png",
+    "results/phase4/figures/final/32_01_phase3_vs_phase4_ccc.pdf",
+    "results/phase4/figures/final/32_01_phase3_vs_phase4_ccc.png",
+    "results/phase4/figures/final/32_02_axis_sensitivity.pdf",
+    "results/phase4/figures/final/32_02_axis_sensitivity.png",
+    "results/phase4/figures/final/33_01_tumor_state_specific_ccc.pdf",
+    "results/phase4/figures/final/33_01_tumor_state_specific_ccc.png",
+    "results/phase4/figures/final/33_02_state_ligand_expression_by_patient.pdf",
+    "results/phase4/figures/final/33_02_state_ligand_expression_by_patient.png",
+    "results/phase4/figures/final/33_03_programme_carriage_by_state.pdf",
+    "results/phase4/figures/final/33_03_programme_carriage_by_state.png",
+    "results/phase4/figures/final/34_01_state_patient_representation.pdf",
+    "results/phase4/figures/final/34_01_state_patient_representation.png",
+    "results/phase4/figures/final/34_02_malignancy_leave_one_patient_out.pdf",
+    "results/phase4/figures/final/34_02_malignancy_leave_one_patient_out.png",
+    "results/phase4/figures/final/34_03_refinement_patient_consistency.pdf",
+    "results/phase4/figures/final/34_03_refinement_patient_consistency.png",
+    "results/phase4/figures/final/34_04_ccc_leave_one_patient_out.pdf",
+    "results/phase4/figures/final/34_04_ccc_leave_one_patient_out.png",
+    "results/phase4/figures/final/17_scevan_native_cna_MPNST1.pdf",
+    "results/phase4/figures/final/18_scevan_native_cna_MPNST2.pdf",
+    "results/phase4/figures/final/19_scevan_native_cna_MPNST4.pdf",
+    "results/phase4/figures/final/20_scevan_cna_reliable_patients.pdf",
+    "results/phase4/figures/final/21_scevan_clone_composition_phase2.pdf",
+    "results/phase4/figures/final/21_scevan_clone_composition_phase2.png",
+    "results/phase4/figures/final/22_fibroblast_cna_burden_by_patient.pdf",
+    "results/phase4/figures/final/22_fibroblast_cna_burden_by_patient.png",
+    "results/phase4/figures/final/23_fibroblast_malignant_vs_nonmalignant_cna_profile.pdf",
+    "results/phase4/figures/final/24_phase2_to_phase4_malignancy_transition.pdf",
+    "results/phase4/figures/final/24_phase2_to_phase4_malignancy_transition.png",
+    "results/phase4/figures/final/25_MPNST3_scevan_failure_qc.pdf",
+    "results/phase4/figures/final/25_MPNST3_scevan_failure_qc.png",
+    "results/phase4/figures/final/26_fibroblast_malignancy_threshold_robustness.pdf",
+    "results/phase4/figures/final/26_fibroblast_malignancy_threshold_robustness.png",
+    "results/phase4/figures/final/27_broad_cna_recurrence.pdf",
+    "results/phase4/figures/final/28_phase4_scevan_evidence_summary.pdf",
+    "results/phase4/figures/final/28_phase4_scevan_evidence_summary.png"
+  ],
+  "figures_final_required": [
+    "01_scevan_malignancy_umap",
+    "02_phase2_vs_scevan_malignancy",
+    "03_refined_malignancy_umap",
+    "04_scevan_cna_heatmap",
+    "16_cnv_profiles_by_annotation",
+    "05_scevan_clones_by_patient",
+    "06_ambiguous_population_malignancy",
+    "07_refined_malignant_fraction",
+    "08_tumor_state_umap",
+    "09_tumor_state_marker_heatmap",
+    "10_clone_vs_tumor_state",
+    "11_phase3_vs_phase4_ccc",
+    "12_refined_tumor_to_immune",
+    "13_refined_tumor_to_vascular",
+    "14_tumor_state_specific_ccc",
+    "15_final_tumor_state_tme_model"
+  ],
+  "figures_missing": [],
+  "tables": [
+    "results/phase4/tables/final/AMBIGUOUS_POPULATION_MALIGNANCY_AUDIT.tsv",
+    "results/phase4/tables/final/CCC_CHANGE_PATIENT_DEPENDENCE.tsv",
+    "results/phase4/tables/final/CCC_CONCORDANCE.tsv",
+    "results/phase4/tables/final/CCC_LABEL_PHASE3_VS_PHASE4.tsv",
+    "results/phase4/tables/final/CCC_REFINED_LEAVE_ONE_PATIENT_OUT.tsv",
+    "results/phase4/tables/final/CCC_REFINED_SAMPLE_CELL_COUNTS.tsv",
+    "results/phase4/tables/final/CLONE_VS_TUMOR_STATE.tsv",
+    "results/phase4/tables/final/CNA_PROFILES_BY_ANNOTATION.tsv.gz",
+    "results/phase4/tables/final/CNV_PATTERN_PATIENT_SIMILARITY.tsv",
+    "results/phase4/tables/final/FIBROBLAST_INTERACTION_REASSIGNMENT.tsv",
+    "results/phase4/tables/final/immune_to_tumor_interactions.tsv",
+    "results/phase4/tables/final/LINEAGE_MARKER_EVIDENCE_BY_POPULATION.tsv",
+    "results/phase4/tables/final/MALIGNANCY_LEAVE_ONE_PATIENT_OUT.tsv",
+    "results/phase4/tables/final/MALIGNANCY_PATIENT_CONSISTENCY.tsv",
+    "results/phase4/tables/final/MALIGNANCY_SUMMARY_BY_CLUSTER.tsv",
+    "results/phase4/tables/final/MALIGNANCY_SUMMARY_BY_SAMPLE.tsv",
+    "results/phase4/tables/final/MALIGNANCY_THRESHOLD_SENSITIVITY.tsv",
+    "results/phase4/tables/final/patient_recurrence.tsv",
+    "results/phase4/tables/final/PHASE3_AXIS_SENSITIVITY.tsv",
+    "results/phase4/tables/final/PHASE3_VS_PHASE4_CCC.tsv",
+    "results/phase4/tables/final/PHASE4_MALIGNANCY_CALLS.tsv",
+    "results/phase4/tables/final/RECEIVER_RECEPTOR_EXPRESSION.tsv.gz",
+    "results/phase4/tables/final/REFINED_TUMOR_CCC.tsv",
+    "results/phase4/tables/final/sample_recurrence.tsv",
+    "results/phase4/tables/final/SCEVAN_ARM_LEVEL_EVENTS.tsv",
+    "results/phase4/tables/final/SCEVAN_CELL_CLASSIFICATION_RAW.tsv",
+    "results/phase4/tables/final/SCEVAN_CELL_CLASSIFICATION.tsv",
+    "results/phase4/tables/final/SCEVAN_CLONES.tsv",
+    "results/phase4/tables/final/SCEVAN_CNV_SUMMARY.tsv",
+    "results/phase4/tables/final/SCEVAN_NATIVE_FIGURE_INDEX.tsv",
+    "results/phase4/tables/final/SCEVAN_POPULATION_MALIGNANT_FRACTION.tsv",
+    "results/phase4/tables/final/SCEVAN_RECURRENT_BROAD_EVENTS.tsv",
+    "results/phase4/tables/final/SCEVAN_RUN_ACCOUNTING.tsv",
+    "results/phase4/tables/final/SCEVAN_SAMPLE_RELIABILITY.tsv",
+    "results/phase4/tables/final/SCEVAN_VS_PHASE2_ANNOTATION.tsv",
+    "results/phase4/tables/final/tme_to_tme_interactions.tsv",
+    "results/phase4/tables/final/TUMOR_STATE_ASSIGNMENTS.tsv",
+    "results/phase4/tables/final/TUMOR_STATE_DEFINITIONS.tsv",
+    "results/phase4/tables/final/TUMOR_STATE_LIGAND_EXPRESSION.tsv.gz",
+    "results/phase4/tables/final/TUMOR_STATE_MARKERS.tsv",
+    "results/phase4/tables/final/TUMOR_STATE_PATIENT_DISTRIBUTION.tsv",
+    "results/phase4/tables/final/TUMOR_STATE_PROGRAM_SCORES.tsv",
+    "results/phase4/tables/final/TUMOR_STATE_PROGRAMME_LEADERS.tsv",
+    "results/phase4/tables/final/TUMOR_STATE_RESOLUTION_SWEEP.tsv",
+    "results/phase4/tables/final/TUMOR_STATE_TME_EVIDENCE.tsv",
+    "results/phase4/tables/final/tumor_to_immune_interactions.tsv",
+    "results/phase4/tables/final/tumor_to_stromal_interactions.tsv",
+    "results/phase4/tables/final/SCEVAN_CLONE_COMPOSITION_VISUALIZATION.tsv",
+    "results/phase4/tables/final/M35A_FIBROBLAST_CNA_EFFECT_SIZES.tsv",
+    "results/phase4/tables/final/M35A_FIBROBLAST_CNA_PROFILE_CORRELATION.tsv"
+  ],
+  "tables_missing": [],
+  "reports": [
+    "reports/phase4/AMBIGUOUS_POPULATION_MALIGNANCY_REPORT.md",
+    "reports/phase4/environment/p4_umap_env_PHASE4.yml",
+    "reports/phase4/environment/PHASE4_INSTALL_LOG.md",
+    "reports/phase4/environment/R_env_PRE_PHASE4.yml",
+    "reports/phase4/MALIGNANCY_DECISION_RULES.md",
+    "reports/phase4/MALIGNANCY_REFINEMENT_REPORT.md",
+    "reports/phase4/milestones/M28_REPORT.md",
+    "reports/phase4/milestones/M29_REPORT.md",
+    "reports/phase4/milestones/M30_REPORT.md",
+    "reports/phase4/milestones/M31_REPORT.md",
+    "reports/phase4/milestones/M32_REPORT.md",
+    "reports/phase4/milestones/M33_REPORT.md",
+    "reports/phase4/milestones/M34_REPORT.md",
+    "reports/phase4/ROBUSTNESS_REPORT.md",
+    "reports/phase4/SCEVAN_CNV_AND_CLONE_REPORT.md",
+    "reports/phase4/SCEVAN_FEASIBILITY.md",
+    "reports/phase4/TUMOR_STATE_COMMUNICATION_REPORT.md"
+  ],
+  "environment": {
+    "r_version": "R version 4.4.3 (2025-02-28)",
+    "core_unchanged_from_phase2_and_3": {
+      "Seurat": "5.4.0",
+      "SeuratObject": "5.3.0",
+      "Matrix": "1.7.4",
+      "harmony": "1.2.4",
+      "sctransform": "0.4.3"
+    },
+    "scevan": "1.0.3",
+    "yaGST": "2017.8.25",
+    "ccc_stack_reused_at_phase3_versions": {
+      "liana": "0.1.14",
+      "CellChat": "2.2.0.9001",
+      "nichenetr": "2.2.1.1"
+    },
+    "r_env_dependency_changes_in_phase4": "none",
+    "added_environments": {
+      "p4_umap_env": "python 3.11 + umap-learn 0.5.12, isolated"
+    },
+    "exports": [
+      "reports/phase4/environment/p4_umap_env_PHASE4.yml",
+      "reports/phase4/environment/PHASE4_INSTALL_LOG.md",
+      "reports/phase4/environment/R_env_PRE_PHASE4.yml"
+    ]
+  },
+  "git": {
+    "commit": "751a535cb1ffcb0aabbf0dba0c3b692847f807ac",
+    "branch": "dev"
+  },
+  "limitations": [
+    "A. SCEVAN infers copy number from gene-expression patterns. It is NOT DNA sequencing.",
+    "B. CNV inference is reliable for broad chromosomal, arm-level and large-segment events; single-gene CNV calls are not asserted.",
+    "C. Some MPNST malignant cells may be copy-number quiet, so a SCEVAN normal call is NOT proof of non-malignancy.",
+    "D. Tumour state and CNV clone are not equivalent concepts and are kept separate.",
+    "E. n = 4 patients. No population-level or epidemiological claim follows.",
+    "F. sample_id = patient = dataset, so biological and technical effects cannot be fully separated.",
+    "G. SCEVAN's annotation covers chromosomes 1-22; X and Y events are not assessable.",
+    "H. SCEVAN removes cell-cycle genes and all HLA-* genes before inference, so the CNV analysis is structurally blind to the HLA-E/HLA-F loci Phase 3 highlighted.",
+    "I. Per-sample SCEVAN reliability differs; see SCEVAN_SAMPLE_RELIABILITY.tsv and Amendment A1. Where a sample failed the immune sanity check, malignant PROMOTIONS from it were disabled, which costs sensitivity in that patient.",
+    "J. Ambiguous is a terminal outcome, not a hidden tumour class. Ambiguous cells are excluded from the refined CCC analysis as NOT EVALUABLE, which is not the same as no signalling.",
+    "K. The clone phylogeny plot is absent because of a ggtree/ggplot2 4.x incompatibility inside SCEVAN; ggplot2 was not downgraded and no clone data is affected."
+  ],
+  "prohibitions_respected": [
+    "no spatial analysis",
+    "no trajectory inference",
+    "no RNA velocity",
+    "no survival analysis",
+    "no treatment-response modelling",
+    "no deep learning or Transformers",
+    "no new pan-cancer analysis",
+    "no large condition-level DE",
+    "no inferCNV",
+    "no CopyKAT",
+    "no second CNV method added for benchmarking",
+    "Phase 5 not initiated"
+  ],
+  "m35a_figure_consolidation": {
+    "milestone": "M35A",
+    "generated": "2026-09-03T21:18:08-0400",
+    "objective": "Surface, consolidate and improve the visualization of the EXISTING Phase 4 SCEVAN evidence so the malignant fibroblast-like / Mesenchymal-ECM conclusion is visually defensible.",
+    "reruns_performed": "none - SCEVAN, malignancy rules, amendments A1/A2, clone assignments, tumour states, CCC and thresholds were all re-used unchanged",
+    "final_object_untouched": {
+      "path": "results/phase4/phase4_final_object.rds",
+      "md5": "e85ba8486e456917e2483f2773bdbaf3",
+      "loaded": false,
+      "modified": false
+    },
+    "plotting_input": {
+      "path": "results/phase4/malignancy/phase4_malignancy_metadata.rds",
+      "md5": "694b49bca0a52b0ea00266544276abaa",
+      "cells": 19716,
+      "note": "the 6 GB final object was never loaded; this 5 MB metadata frame carries every field the figures need"
+    },
+    "native_scevan_sources": {
+      "index": "results/phase4/tables/SCEVAN_NATIVE_FIGURE_INDEX.tsv",
+      "surfaced": ["heatmap_subclones.png", "heatmap.png", "onlytumorheatmap.png", "consensus.png"],
+      "not_surfaced": ["OncoHeat.png / OncoHeat2.png - cytoband labels unreadable at page scale and invite gene-level over-reading", "umap_CNA.png / umap_scRNA.png - redundant with existing figures 01/02, 05, 31_03", "CloneTree.png - all 8 files are BLANK (ggtree/ggplot2 4.x defect, handoff limitation K); phylogeny plotting was not forced"],
+      "embedded_verbatim": true,
+      "cna_values_redrawn": false
+    },
+    "scripts": ["scripts/phase4/figures/m35a_common.R", "scripts/phase4/figures/m35a_native_figures.R", "scripts/phase4/figures/m35a_clone_composition.R", "scripts/phase4/figures/m35a_fibroblast_cna.R", "scripts/phase4/figures/m35a_transition.R", "scripts/phase4/figures/m35a_mpnst3_qc.R", "scripts/phase4/figures/m35a_threshold.R", "scripts/phase4/figures/m35a_broad_cna.R", "scripts/phase4/figures/m35a_summary.R", "scripts/phase4/figures/m35a_finalize.R", "scripts/shell/phase4/run_m35a_figures.sh"],
+    "figures": [
+      {
+        "path": "results/phase4/figures/final/17_scevan_native_cna_MPNST1.pdf",
+        "md5": "d542346f9b0906f8cbfeb32efec53f61",
+        "bytes": 3883076,
+        "script": "scripts/phase4/figures/m35a_native_figures.R",
+        "analysis": "scevan_native_cna_heatmap"
+      },
+      {
+        "path": "results/phase4/figures/final/18_scevan_native_cna_MPNST2.pdf",
+        "md5": "ffb9ad232e476cb7f2553d51288b2954",
+        "bytes": 2234725,
+        "script": "scripts/phase4/figures/m35a_native_figures.R",
+        "analysis": "scevan_native_cna_heatmap"
+      },
+      {
+        "path": "results/phase4/figures/final/19_scevan_native_cna_MPNST4.pdf",
+        "md5": "415623934af53a55fe4d1fe89692084d",
+        "bytes": 4223654,
+        "script": "scripts/phase4/figures/m35a_native_figures.R",
+        "analysis": "scevan_native_cna_heatmap"
+      },
+      {
+        "path": "results/phase4/figures/final/20_scevan_cna_reliable_patients.pdf",
+        "md5": "0fe9a8626bd6817fb2e4b4a5a2cf4bea",
+        "bytes": 2202224,
+        "script": "scripts/phase4/figures/m35a_native_figures.R",
+        "analysis": "scevan_native_cna_heatmap"
+      },
+      {
+        "path": "results/phase4/figures/final/21_scevan_clone_composition_phase2.pdf",
+        "md5": "6d7ae8a6bb1f9e455ce71ceb4008aa23",
+        "bytes": 9566,
+        "script": "scripts/phase4/figures/m35a_clone_composition.R",
+        "analysis": "scevan_clone_composition_by_phase2_annotation"
+      },
+      {
+        "path": "results/phase4/figures/final/21_scevan_clone_composition_phase2.png",
+        "md5": "08f5baeab032db913c02eded8ad23d99",
+        "bytes": 264669,
+        "script": "scripts/phase4/figures/m35a_clone_composition.R",
+        "analysis": "scevan_clone_composition_by_phase2_annotation"
+      },
+      {
+        "path": "results/phase4/figures/final/22_fibroblast_cna_burden_by_patient.pdf",
+        "md5": "9cfc2a58770c52d8b66f2109276ad472",
+        "bytes": 316697,
+        "script": "scripts/phase4/figures/m35a_fibroblast_cna.R",
+        "analysis": "fibroblast_cna_burden_by_patient"
+      },
+      {
+        "path": "results/phase4/figures/final/22_fibroblast_cna_burden_by_patient.png",
+        "md5": "c5af0d749bb7e83b38a97828680631da",
+        "bytes": 636437,
+        "script": "scripts/phase4/figures/m35a_fibroblast_cna.R",
+        "analysis": "fibroblast_cna_burden_by_patient"
+      },
+      {
+        "path": "results/phase4/figures/final/23_fibroblast_malignant_vs_nonmalignant_cna_profile.pdf",
+        "md5": "9c6cceede2c07cf8fcb063f5e88003c6",
+        "bytes": 200818,
+        "script": "scripts/phase4/figures/m35a_fibroblast_cna.R",
+        "analysis": "fibroblast_cna_profile_comparison"
+      },
+      {
+        "path": "results/phase4/figures/final/24_phase2_to_phase4_malignancy_transition.pdf",
+        "md5": "c1e1fa5f8d6465cf403cd50d876c1053",
+        "bytes": 13880,
+        "script": "scripts/phase4/figures/m35a_transition.R",
+        "analysis": "phase2_to_phase4_identity_transition"
+      },
+      {
+        "path": "results/phase4/figures/final/24_phase2_to_phase4_malignancy_transition.png",
+        "md5": "ada811aadfdc67e0acda2fb245f52bbc",
+        "bytes": 350900,
+        "script": "scripts/phase4/figures/m35a_transition.R",
+        "analysis": "phase2_to_phase4_identity_transition"
+      },
+      {
+        "path": "results/phase4/figures/final/25_MPNST3_scevan_failure_qc.pdf",
+        "md5": "2c32b341c5c1a7d2f80e4a238e8d609e",
+        "bytes": 32836,
+        "script": "scripts/phase4/figures/m35a_mpnst3_qc.R",
+        "analysis": "mpnst3_scevan_failure_qc"
+      },
+      {
+        "path": "results/phase4/figures/final/25_MPNST3_scevan_failure_qc.png",
+        "md5": "c3194d9c5d21898dcb9fa41ca42304b7",
+        "bytes": 521842,
+        "script": "scripts/phase4/figures/m35a_mpnst3_qc.R",
+        "analysis": "mpnst3_scevan_failure_qc"
+      },
+      {
+        "path": "results/phase4/figures/final/26_fibroblast_malignancy_threshold_robustness.pdf",
+        "md5": "329cd01ff1c6e28bee804f3cc8567d7f",
+        "bytes": 7840,
+        "script": "scripts/phase4/figures/m35a_threshold.R",
+        "analysis": "malignancy_threshold_sensitivity"
+      },
+      {
+        "path": "results/phase4/figures/final/26_fibroblast_malignancy_threshold_robustness.png",
+        "md5": "0f00eeb9fbf88f711f41f5c20acd174e",
+        "bytes": 279260,
+        "script": "scripts/phase4/figures/m35a_threshold.R",
+        "analysis": "malignancy_threshold_sensitivity"
+      },
+      {
+        "path": "results/phase4/figures/final/27_broad_cna_recurrence.pdf",
+        "md5": "938616a4a397b92352c9258b7b9e2f39",
+        "bytes": 7115,
+        "script": "scripts/phase4/figures/m35a_broad_cna.R",
+        "analysis": "broad_cna_recurrence"
+      },
+      {
+        "path": "results/phase4/figures/final/28_phase4_scevan_evidence_summary.pdf",
+        "md5": "1a504df162ef402c3b53ea9a43ac1bfe",
+        "bytes": 4045574,
+        "script": "scripts/phase4/figures/m35a_summary.R",
+        "analysis": "phase4_scevan_evidence_summary"
+      },
+      {
+        "path": "results/phase4/figures/final/28_phase4_scevan_evidence_summary.png",
+        "md5": "82876645d8d179183d2c359bcedce112",
+        "bytes": 1488008,
+        "script": "scripts/phase4/figures/m35a_summary.R",
+        "analysis": "phase4_scevan_evidence_summary"
+      }
+    ],
+    "tables": [
+      {
+        "path": "results/phase4/tables/final/SCEVAN_CLONE_COMPOSITION_VISUALIZATION.tsv",
+        "md5": "fcb883c167c9f46e15fa4f9d46da8807",
+        "bytes": 22537
+      },
+      {
+        "path": "results/phase4/tables/final/M35A_FIBROBLAST_CNA_EFFECT_SIZES.tsv",
+        "md5": "45c08190019bd3a7ba2faa243ad36ffc",
+        "bytes": 1626
+      },
+      {
+        "path": "results/phase4/tables/final/M35A_FIBROBLAST_CNA_PROFILE_CORRELATION.tsv",
+        "md5": "26c41596c90b2a77cb25f3d2372b025e",
+        "bytes": 400
+      }
+    ],
+    "slurm_job_ids": ["19899301", "19899307", "19899308", "19899311", "19899312"],
+    "slurm_final_job_id": "19899312",
+    "slurm_note": "all runs COMPLETED exit 0; the reruns are figure-quality iterations found by inspecting rendered output, not failures. Peak MaxRSS 2.11 GiB against a 24 G request.",
+    "git_commit": "751a535cb1ffcb0aabbf0dba0c3b692847f807ac",
+    "reports": ["reports/phase4/M35A_SCEVAN_FIGURE_AUDIT.md", "reports/phase4/PHASE4_HANDOFF.md (section 28)"],
+    "numerical_validation": {
+      "performed_before_every_figure": true,
+      "checks": 18,
+      "total_cells": 19716,
+      "refined": {
+        "Malignant": 6434,
+        "Non-malignant": 9078,
+        "Ambiguous": 3766,
+        "Excluded-low-quality": 438
+      },
+      "fibroblast": {
+        "total": 5064,
+        "Malignant": 4036,
+        "Non-malignant": 908,
+        "Ambiguous": 120
+      },
+      "candidate_malignant_unresolved": {
+        "Malignant": 836,
+        "Ambiguous": 395,
+        "Non-malignant": 0
+      },
+      "mpnst_tumor": {
+        "Malignant": 1405,
+        "Ambiguous": 2015
+      },
+      "clones": {
+        "MPNST_1": 7,
+        "MPNST_2": 4,
+        "MPNST_3": 3,
+        "MPNST_4": 8
+      },
+      "result": "all checks passed in every figure script"
+    },
+    "discrepancy_found": {
+      "where": "PHASE4_HANDOFF.md section 12",
+      "text": "'Every MPNST_1 clone mixes Candidate-Malignant-Unresolved, Fibroblast and MPNST-Tumor together'",
+      "finding": "holds for 6 of 7 clones: MPNST_1_clone6 (176 cells) carries 108 Candidate-Malignant-Unresolved and 68 MPNST-Tumor and NO Fibroblast cells; MPNST_1_clone7 carries 1",
+      "accurate_statement": "all 7 MPNST_1 clones mix Candidate-Malignant-Unresolved with MPNST-Tumor; 6 of 7 additionally carry Fibroblast cells",
+      "impact": "none on any call, count, clone assignment or conclusion; the two exceptions are 230 of MPNST_1's 1,952 malignant cells",
+      "action": "recorded in handoff section 28.7 and in M35A_SCEVAN_FIGURE_AUDIT.md; section 12 left as written; figure 21 plots the composition as it actually is"
+    },
+    "key_results": {
+      "clone_composition": "MPNST_2 4/4 fibroblast-dominated; MPNST_4 7/8 (clone 8 endothelial); MPNST_1 all 7 mix CMU with MPNST-Tumor, 6/7 also carry Fibroblast",
+      "cliffs_delta_fibroblast_mal_vs_nonmal": {
+        "MPNST_1": "0.834-0.917 across the four CNA metrics",
+        "MPNST_2": "0.781-0.890",
+        "MPNST_3": "NOT EVALUABLE - promotions disabled",
+        "MPNST_4": "NOT EVALUABLE - 1 non-malignant fibroblast"
+      },
+      "cna_profile_correlation": {
+        "MPNST_1": "r(Fib->Mal, MPNST-Tumor->Mal) = 0.934 vs r(Fib->Mal, Fib->Non-mal) = 0.184, immune -0.055",
+        "MPNST_2": "r(Fib->Mal, Fib->Non-mal) = 0.346, immune -0.387; no evaluable MPNST-Tumor->Malignant group (n=7)",
+        "MPNST_4": "r(Fib->Mal, MPNST-Tumor->Mal) = 0.972, immune -0.381"
+      },
+      "threshold_stability": "Fibroblast -> Malignant = 4036 at pop_frac_low 0.15/0.20/0.25/0.30/0.40; retained MPNST-Tumor 3266 -> 1405; refined fraction 42.07% -> 32.63%",
+      "mpnst3": "primary/sensitivity agreement 0.0864; clones are T/NK, plasma/pDC/B and plasma-dominated; 6 of 9 immune populations ~100% malignant; median 1,594 genes/cell shown as context only",
+      "honest_limit": "the malignant vs non-malignant fibroblast contrast exists in 2 of 4 patients only (MPNST_4 has 1 non-malignant fibroblast, MPNST_3 has no malignant fibroblasts)"
+    },
+    "prohibitions_respected": ["SCEVAN not re-run", "malignancy_refined / malignancy_confidence unchanged", "malignancy decision rules unchanged", "amendments A1/A2 unchanged", "SCEVAN calls and clones unchanged", "tumour states unchanged", "CCC not re-run", "NicheNet not re-run", "LochNESS not re-run", "tumour cells not re-clustered", "cNMF not run", "Phase 5 not started", "inferCNV not installed", "CopyKAT not installed", "R environment unchanged", "ggplot2 / ggtree not downgraded", "clone phylogeny plotting not forced", "phase4_final_object.rds neither loaded nor modified", "no single-gene CNV claim; NF1/NF2 described only as broad segments containing the locus", "no claim that SCEVAN provides DNA-level proof"]
+  }
+}
