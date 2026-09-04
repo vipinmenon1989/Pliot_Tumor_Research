@@ -2921,12 +2921,33 @@
     },
     "native_scevan_sources": {
       "index": "results/phase4/tables/SCEVAN_NATIVE_FIGURE_INDEX.tsv",
-      "surfaced": ["heatmap_subclones.png", "heatmap.png", "onlytumorheatmap.png", "consensus.png"],
-      "not_surfaced": ["OncoHeat.png / OncoHeat2.png - cytoband labels unreadable at page scale and invite gene-level over-reading", "umap_CNA.png / umap_scRNA.png - redundant with existing figures 01/02, 05, 31_03", "CloneTree.png - all 8 files are BLANK (ggtree/ggplot2 4.x defect, handoff limitation K); phylogeny plotting was not forced"],
+      "surfaced": [
+        "heatmap_subclones.png",
+        "heatmap.png",
+        "onlytumorheatmap.png",
+        "consensus.png"
+      ],
+      "not_surfaced": [
+        "OncoHeat.png / OncoHeat2.png - cytoband labels unreadable at page scale and invite gene-level over-reading",
+        "umap_CNA.png / umap_scRNA.png - redundant with existing figures 01/02, 05, 31_03",
+        "CloneTree.png - all 8 files are BLANK (ggtree/ggplot2 4.x defect, handoff limitation K); phylogeny plotting was not forced"
+      ],
       "embedded_verbatim": true,
       "cna_values_redrawn": false
     },
-    "scripts": ["scripts/phase4/figures/m35a_common.R", "scripts/phase4/figures/m35a_native_figures.R", "scripts/phase4/figures/m35a_clone_composition.R", "scripts/phase4/figures/m35a_fibroblast_cna.R", "scripts/phase4/figures/m35a_transition.R", "scripts/phase4/figures/m35a_mpnst3_qc.R", "scripts/phase4/figures/m35a_threshold.R", "scripts/phase4/figures/m35a_broad_cna.R", "scripts/phase4/figures/m35a_summary.R", "scripts/phase4/figures/m35a_finalize.R", "scripts/shell/phase4/run_m35a_figures.sh"],
+    "scripts": [
+      "scripts/phase4/figures/m35a_common.R",
+      "scripts/phase4/figures/m35a_native_figures.R",
+      "scripts/phase4/figures/m35a_clone_composition.R",
+      "scripts/phase4/figures/m35a_fibroblast_cna.R",
+      "scripts/phase4/figures/m35a_transition.R",
+      "scripts/phase4/figures/m35a_mpnst3_qc.R",
+      "scripts/phase4/figures/m35a_threshold.R",
+      "scripts/phase4/figures/m35a_broad_cna.R",
+      "scripts/phase4/figures/m35a_summary.R",
+      "scripts/phase4/figures/m35a_finalize.R",
+      "scripts/shell/phase4/run_m35a_figures.sh"
+    ],
     "figures": [
       {
         "path": "results/phase4/figures/final/17_scevan_native_cna_MPNST1.pdf",
@@ -3072,11 +3093,20 @@
         "bytes": 400
       }
     ],
-    "slurm_job_ids": ["19899301", "19899307", "19899308", "19899311", "19899312"],
+    "slurm_job_ids": [
+      "19899301",
+      "19899307",
+      "19899308",
+      "19899311",
+      "19899312"
+    ],
     "slurm_final_job_id": "19899312",
     "slurm_note": "all runs COMPLETED exit 0; the reruns are figure-quality iterations found by inspecting rendered output, not failures. Peak MaxRSS 2.11 GiB against a 24 G request.",
-    "git_commit": "751a535cb1ffcb0aabbf0dba0c3b692847f807ac",
-    "reports": ["reports/phase4/M35A_SCEVAN_FIGURE_AUDIT.md", "reports/phase4/PHASE4_HANDOFF.md (section 28)"],
+    "git_commit": "1048ac5991eb58d2ebda27627e681171fb801854",
+    "reports": [
+      "reports/phase4/M35A_SCEVAN_FIGURE_AUDIT.md",
+      "reports/phase4/PHASE4_HANDOFF.md (section 28)"
+    ],
     "numerical_validation": {
       "performed_before_every_figure": true,
       "checks": 18,
@@ -3135,6 +3165,29 @@
       "mpnst3": "primary/sensitivity agreement 0.0864; clones are T/NK, plasma/pDC/B and plasma-dominated; 6 of 9 immune populations ~100% malignant; median 1,594 genes/cell shown as context only",
       "honest_limit": "the malignant vs non-malignant fibroblast contrast exists in 2 of 4 patients only (MPNST_4 has 1 non-malignant fibroblast, MPNST_3 has no malignant fibroblasts)"
     },
-    "prohibitions_respected": ["SCEVAN not re-run", "malignancy_refined / malignancy_confidence unchanged", "malignancy decision rules unchanged", "amendments A1/A2 unchanged", "SCEVAN calls and clones unchanged", "tumour states unchanged", "CCC not re-run", "NicheNet not re-run", "LochNESS not re-run", "tumour cells not re-clustered", "cNMF not run", "Phase 5 not started", "inferCNV not installed", "CopyKAT not installed", "R environment unchanged", "ggplot2 / ggtree not downgraded", "clone phylogeny plotting not forced", "phase4_final_object.rds neither loaded nor modified", "no single-gene CNV claim; NF1/NF2 described only as broad segments containing the locus", "no claim that SCEVAN provides DNA-level proof"]
+    "prohibitions_respected": [
+      "SCEVAN not re-run",
+      "malignancy_refined / malignancy_confidence unchanged",
+      "malignancy decision rules unchanged",
+      "amendments A1/A2 unchanged",
+      "SCEVAN calls and clones unchanged",
+      "tumour states unchanged",
+      "CCC not re-run",
+      "NicheNet not re-run",
+      "LochNESS not re-run",
+      "tumour cells not re-clustered",
+      "cNMF not run",
+      "Phase 5 not started",
+      "inferCNV not installed",
+      "CopyKAT not installed",
+      "R environment unchanged",
+      "ggplot2 / ggtree not downgraded",
+      "clone phylogeny plotting not forced",
+      "phase4_final_object.rds neither loaded nor modified",
+      "no single-gene CNV claim; NF1/NF2 described only as broad segments containing the locus",
+      "no claim that SCEVAN provides DNA-level proof"
+    ],
+    "git_commit_generated_from": "751a535cb1ffcb0aabbf0dba0c3b692847f807ac",
+    "git_note": "git_commit is the commit that contains the M35A scripts, reports and this manifest block. git_commit_generated_from is the tree state the figures were rendered against; the two differ only by the M35A commit itself."
   }
 }
