@@ -32,3 +32,47 @@ reports/qc_optimization/overlap_sample_*
 # Local test clean room
 test_clean_room/
 
+# Phase 2: the annotation map is source-of-truth configuration and must be tracked
+!config/**/*.tsv
+!config/phase2/annotation_map_M15.tsv
+
+# Phase 3: external reference material.
+# external/MMCA is a git clone (embedded repo) and external/nichenet holds a 262 MB Zenodo
+# model; neither belongs in this repository's history. The small vendored MMCA reference
+# SCRIPTS are tracked, since the LochNESS audit cites them line by line.
+external/MMCA/
+external/nichenet/
+external/cellphonedb/
+!external/MMCA_ref/
+!external/MMCA_ref/*.R
+
+# Phase 3 configuration and Python ports are source and must be tracked
+!scripts/phase3/**
+!config/phase2/*.tsv
+
+# Phase manifests are small JSON DOCUMENTATION, not data, and belong in history.
+# Git does not descend into an ignored directory, so each phase directory must be
+# un-ignored, re-ignored at its contents, then the manifest allowed back through.
+!results/phase2/
+results/phase2/*
+!results/phase2/phase2_manifest.json
+!results/phase3/
+results/phase3/*
+!results/phase3/phase3_manifest.json
+!results/phase4/
+results/phase4/*
+!results/phase4/phase4_manifest.json
+!results/phase5/
+results/phase5/*
+!results/phase5/phase5_manifest.json
+!results/phase6/
+results/phase6/*
+!results/phase6/phase6_manifest.json
+
+# Phase 5/6 external reference data. The GENE SETS and the RAW CollecTRI dump are
+# downloadable reference material, not this project's output, and the raw dump is
+# 17 MB; the checksum manifest and the small PROCESSED networks are tracked so the
+# analysis is reproducible without carrying the bulk in history.
+external/genesets/*.gmt
+external/networks/collectri_omnipath_raw.tsv
+!external/genesets/MSIGDB_CHECKSUMS.md5

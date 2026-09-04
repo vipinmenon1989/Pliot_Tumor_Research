@@ -1,0 +1,1508 @@
+{
+  "phase": "Phase 5 - malignant transcriptional programs",
+  "generated": "2026-09-03T23:56:44-0400",
+  "completion_status": "COMPLETE",
+  "objective": "Test whether recurrent CONTINUOUS malignant transcriptional programs exist across patients even though Phase 4 found 0 of 8 DISCRETE malignant states recurrent, and determine what separates malignant ECM-like MPNST cells from genuine fibroblasts.",
+  "phase4_input": {
+    "path": "results/phase4/phase4_final_object.rds",
+    "md5": "e85ba8486e456917e2483f2773bdbaf3",
+    "sha256": "a658447744e5ee8621fc5a3127492ceb11bce37bac4d6f3f0f7255bdcb647ae4",
+    "opened": "read-only",
+    "modified": false,
+    "md5_after_phase5": "e85ba8486e456917e2483f2773bdbaf3"
+  },
+  "historical_annotation_field": {
+    "selected": "annotation_ccc_phase3",
+    "expected": "annotation_ccc_phase3",
+    "matched_expectation": true,
+    "eligible_matches": [
+      "annotation_ccc",
+      "annotation_ccc_phase3"
+    ],
+    "excluded_by_design": "annotation_ccc_refined - encodes the Phase 4 conclusion, so using it would make the M39 fibroblast comparison circular",
+    "audit_table": "results/phase5/validation/M36_HISTORICAL_ANNOTATION_FIELD_AUDIT.tsv"
+  },
+  "m36_feasibility": [
+    {
+      "sample_id": "MPNST_4",
+      "n_malignant": 3685,
+      "frac_of_malignant": 0.572738576313335,
+      "median_nCount": 5250,
+      "median_nFeature": 2249,
+      "conf_High": 936,
+      "conf_Moderate": 2749,
+      "conf_Low": 0,
+      "n_clones": 8,
+      "clone_reliable": "TRUE"
+    },
+    {
+      "sample_id": "MPNST_1",
+      "n_malignant": 1886,
+      "frac_of_malignant": 0.293130245570407,
+      "median_nCount": 16033.5,
+      "median_nFeature": 5361,
+      "conf_High": 1861,
+      "conf_Moderate": 25,
+      "conf_Low": 0,
+      "n_clones": 7,
+      "clone_reliable": "TRUE"
+    },
+    {
+      "sample_id": "MPNST_2",
+      "n_malignant": 651,
+      "frac_of_malignant": 0.10118122474355,
+      "median_nCount": 18901,
+      "median_nFeature": 3978,
+      "conf_High": 464,
+      "conf_Moderate": 187,
+      "conf_Low": 0,
+      "n_clones": 4,
+      "clone_reliable": "TRUE"
+    },
+    {
+      "sample_id": "MPNST_3",
+      "n_malignant": 212,
+      "frac_of_malignant": 0.0329499533727075,
+      "median_nCount": 9327,
+      "median_nFeature": 3299,
+      "conf_High": 0,
+      "conf_Moderate": 212,
+      "conf_Low": 0,
+      "n_clones": 3,
+      "clone_reliable": "FALSE"
+    }
+  ],
+  "patient_imbalance": {
+    "dominant_patient": "MPNST_4",
+    "dominant_fraction": 0.572738576313335,
+    "smallest_patient": "MPNST_3",
+    "smallest_n": 212,
+    "imbalance_ratio": 17.3820754716981,
+    "note": "patient imbalance is severe enough that a patient-balanced sensitivity analysis is mandatory, not optional"
+  },
+  "m37_prepare": {
+    "milestone": "M37a",
+    "generated": "2026-09-03T21:55:03-0400",
+    "gene_universe": {
+      "genes_input": 31764,
+      "min_frac_malignant_cells": 0.005,
+      "mitochondrial_removed": 13,
+      "genes_primary": 19663,
+      "cellcycle_genes_in_universe": 95,
+      "retained_families": [
+        {
+          "family": "ECM",
+          "n_expected": 5,
+          "n_present": 5,
+          "missing": ""
+        },
+        {
+          "family": "HLA",
+          "n_expected": 4,
+          "n_present": 4,
+          "missing": ""
+        },
+        {
+          "family": "Interferon",
+          "n_expected": 4,
+          "n_present": 4,
+          "missing": ""
+        },
+        {
+          "family": "Schwann",
+          "n_expected": 4,
+          "n_present": 4,
+          "missing": ""
+        },
+        {
+          "family": "NeuralCrest",
+          "n_expected": 4,
+          "n_present": 4,
+          "missing": ""
+        },
+        {
+          "family": "Angiogenic",
+          "n_expected": 3,
+          "n_present": 3,
+          "missing": ""
+        },
+        {
+          "family": "CellCycle",
+          "n_expected": 4,
+          "n_present": 4,
+          "missing": ""
+        }
+      ]
+    },
+    "balanced_design": {
+      "strategy": "equal-cell downsampling per patient, capped at the smallest patient with >= 500 malignant cells; smaller patients contribute all their cells",
+      "cap": 651,
+      "cap_patient": "MPNST_2",
+      "seed": 42,
+      "n_cells": 2165,
+      "per_patient_full": {
+        "MPNST_1": 1886,
+        "MPNST_2": 651,
+        "MPNST_3": 212,
+        "MPNST_4": 3685
+      },
+      "per_patient_balanced": {
+        "MPNST_1": 651,
+        "MPNST_2": 651,
+        "MPNST_3": 212,
+        "MPNST_4": 651
+      },
+      "dominant_fraction_full": 0.572738576313335,
+      "dominant_fraction_balanced": 0.300692840646651
+    },
+    "runs": {
+      "primary": {
+        "tag": "primary",
+        "genes": 19663,
+        "cells": 6434,
+        "dir": "results/phase5/programs/cnmf_input/primary"
+      },
+      "balanced": {
+        "tag": "balanced",
+        "genes": 19663,
+        "cells": 2165,
+        "dir": "results/phase5/programs/cnmf_input/balanced"
+      },
+      "nocc": {
+        "tag": "nocc",
+        "genes": 19568,
+        "cells": 6434,
+        "dir": "results/phase5/programs/cnmf_input/nocc"
+      }
+    }
+  },
+  "k_selection": {
+    "constants": {
+      "dt": "0_1",
+      "max_cosine": 0.75,
+      "min_dominant_share": 0.01,
+      "activity_threshold": 0.2,
+      "min_cells": 10,
+      "min_frac": 0.05,
+      "min_patients": 3,
+      "activity_grid": [
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3
+      ],
+      "frac_grid": [
+        0.025,
+        0.05,
+        0.1
+      ]
+    },
+    "decision": {
+      "rule": "largest K with max program cosine <= 0.75, no dead program (>= 1% dominant share), and stability >= the median stability of the K values satisfying both",
+      "eligible_K": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "median_stability_of_eligible": 0.833955918547247,
+      "selected_K": 8
+    }
+  },
+  "selected_K": 8,
+  "m38_programs": {
+    "milestone": "M38",
+    "K": 8,
+    "dt": "0_1",
+    "generated": "2026-09-03T22:54:23-0400",
+    "recurrence_criteria": {
+      "activity_threshold": 0.2,
+      "min_cells": 10,
+      "min_frac_of_patient": 0.05,
+      "min_patients": 3,
+      "declared": "before program labels were assigned"
+    },
+    "ecm_state_programs": {
+      "states": [
+        "Mesenchymal_ECM-1",
+        "Mesenchymal_ECM-2",
+        "Mesenchymal_ECM-4",
+        "Mesenchymal_ECM-3",
+        "Mesenchymal_ECM-5"
+      ],
+      "dominant_program_per_state": [
+        "P2",
+        "P1",
+        "P1",
+        "P3",
+        "P1"
+      ],
+      "n_distinct_programs": 3,
+      "interpretation": "the Mesenchymal_ECM states map onto 3 distinct programs"
+    },
+    "programs": [
+      {
+        "program_id": "P1",
+        "program_label": "Translation_ribosomal",
+        "top_genes": "RPL10,RPL19,RPS2,RPLP1,EEF1A1,RPS12,RPS4Y1,RPS4X,DLK1,NPM1,OGN,RPS3A,H3F3A,RPL5,RPL6,RPS23,RPS28,RPL9,RPL18A,HNRNPA1",
+        "dominant_pathway": "REACTOME_EUKARYOTIC_TRANSLATION_INITIATION",
+        "likely_technical": true,
+        "technical_class": "Translation_ribosomal",
+        "frac_ribosomal_top50": 0.54,
+        "frac_pseudogene_top50": 0,
+        "n_myeloid_markers_top50": 0,
+        "best_family": "Mesenchymal_ECM",
+        "best_family_frac": 0.2,
+        "n_active_cells": 3720,
+        "n_cells_dominant": 3493,
+        "patients_represented": 2,
+        "carrying_patients": "MPNST_2,MPNST_4",
+        "dominant_patient": "MPNST_4",
+        "dominant_patient_fraction": 0.974462365591398,
+        "recurrence_status": "shared-limited",
+        "balanced_cosine": 0.924994113910727,
+        "balanced_top100_jaccard": 0.438848920863309,
+        "balanced_support": true,
+        "label_basis": "technical-dominated: 54% of the top 50 genes are ribosomal, 0% pseudogene/lncRNA, 0 myeloid markers; top set REACTOME_EUKARYOTIC_TRANSLATION_INITIATION. The marker-family match (Mesenchymal_ECM at 0.20) is not treated as the label.",
+        "interpretation": "technical-dominated: 54% of the top 50 genes are ribosomal, 0% pseudogene/lncRNA, 0 myeloid markers; top set REACTOME_EUKARYOTIC_TRANSLATION_INITIATION. The marker-family match (Mesenchymal_ECM at 0.20) is not treated as the label.; shared-limited across patients (2 carrying); dominant patient MPNST_4 at 0.97 of active cells; balanced-run cosine 0.92"
+      },
+      {
+        "program_id": "P2",
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "top_genes": "TSHZ2,AUTS2,TENM2,AFF3,FRMD4A,LINC00478,CHN1,CASC15,NLGN1,PARD3,CNTN4,ZSWIM6,FAM155A,BAZ2B,ZEB1,PKP4,VPS13B,FBXL7,LDB2,RBMS3",
+        "dominant_pathway": "REACTOME_NEURONAL_SYSTEM",
+        "likely_technical": false,
+        "frac_ribosomal_top50": 0,
+        "frac_pseudogene_top50": 0.06,
+        "n_myeloid_markers_top50": 0,
+        "best_family": "Schwann_like",
+        "best_family_frac": 0,
+        "n_active_cells": 1286,
+        "n_cells_dominant": 1002,
+        "patients_represented": 1,
+        "carrying_patients": "MPNST_1",
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 0.996889580093313,
+        "recurrence_status": "patient-private",
+        "balanced_cosine": 0.978229842176348,
+        "balanced_top100_jaccard": 0.851851851851852,
+        "balanced_support": true,
+        "label_basis": "top-200 genes overlap Schwann_like at 0.00 of the family (next 0.00); top set REACTOME_NEURONAL_SYSTEM",
+        "interpretation": "top-200 genes overlap Schwann_like at 0.00 of the family (next 0.00); top set REACTOME_NEURONAL_SYSTEM; patient-private across patients (1 carrying); dominant patient MPNST_1 at 1.00 of active cells; balanced-run cosine 0.98"
+      },
+      {
+        "program_id": "P3",
+        "program_label": "Mesenchymal_ECM_mixed",
+        "top_genes": "SERPINF1,CST3,FBLN1,C1R,SFRP2,EFEMP1,CLU,NNMT,COX7A1,THY1,MFAP5,PLA2G2A,PDGFRL,S100A10,CXCL14,DCN,ECM1,FBLN2,IGFBP4,DUSP1",
+        "dominant_pathway": "HALLMARK_TNFA_SIGNALING_VIA_NFKB",
+        "likely_technical": false,
+        "frac_ribosomal_top50": 0.04,
+        "frac_pseudogene_top50": 0,
+        "n_myeloid_markers_top50": 0,
+        "best_family": "Mesenchymal_ECM",
+        "best_family_frac": 0.466666666666667,
+        "n_active_cells": 670,
+        "n_cells_dominant": 652,
+        "patients_represented": 1,
+        "carrying_patients": "MPNST_2",
+        "dominant_patient": "MPNST_2",
+        "dominant_patient_fraction": 0.971641791044776,
+        "recurrence_status": "patient-private",
+        "balanced_cosine": 0.958191882916394,
+        "balanced_top100_jaccard": 0.626016260162602,
+        "balanced_support": true,
+        "label_basis": "top-200 genes overlap Mesenchymal_ECM at 0.47 of the family (next 0.31); top set HALLMARK_TNFA_SIGNALING_VIA_NFKB",
+        "interpretation": "top-200 genes overlap Mesenchymal_ECM at 0.47 of the family (next 0.31); top set HALLMARK_TNFA_SIGNALING_VIA_NFKB; patient-private across patients (1 carrying); dominant patient MPNST_2 at 0.97 of active cells; balanced-run cosine 0.96"
+      },
+      {
+        "program_id": "P4",
+        "program_label": "Hypoxia_Angio",
+        "top_genes": "GBE1,IGF1R,ADAMTS9-AS2,OSBPL3,VEGFA,FAM46A,RNF144A,KIAA1244,DIP2C,RP11-61L23.2,SDK1,RP11-486O13.4,RPA3-AS1,GRB10,CHRM3,FRMD5,CDKAL1,RP11-152P17.2,CAMK1D,ZMAT4",
+        "dominant_pathway": "HALLMARK_UV_RESPONSE_DN",
+        "likely_technical": false,
+        "frac_ribosomal_top50": 0,
+        "frac_pseudogene_top50": 0.16,
+        "n_myeloid_markers_top50": 0,
+        "best_family": "Hypoxia_Angio",
+        "best_family_frac": 0.25,
+        "n_active_cells": 973,
+        "n_cells_dominant": 581,
+        "patients_represented": 1,
+        "carrying_patients": "MPNST_1",
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 0.995889003083248,
+        "recurrence_status": "patient-private",
+        "balanced_cosine": 0.633251839344926,
+        "balanced_top100_jaccard": 0.0101010101010101,
+        "balanced_support": true,
+        "label_basis": "top-200 genes overlap Hypoxia_Angio at 0.25 of the family (next 0.00); top set HALLMARK_UV_RESPONSE_DN",
+        "interpretation": "top-200 genes overlap Hypoxia_Angio at 0.25 of the family (next 0.00); top set HALLMARK_UV_RESPONSE_DN; patient-private across patients (1 carrying); dominant patient MPNST_1 at 1.00 of active cells; balanced-run cosine 0.63"
+      },
+      {
+        "program_id": "P5",
+        "program_label": "Translation_ribosomal",
+        "top_genes": "RPS7P1,RPS7P10,RPS3AP6,RPL3P4,RPL6P27,AC022431.1,MIR4426,RPL5P34,AC016739.2,CTD-2192J16.15,RP11-864N7.2,RP11-215A21.2,RP11-51O6.1,RPL7AP30,RP11-592N21.1,RPS23P8,AC004453.8,OOEP,FAM211A-AS1,RPL7AP6",
+        "dominant_pathway": "REACTOME_TRANSLATION",
+        "likely_technical": true,
+        "technical_class": "Translation_ribosomal",
+        "frac_ribosomal_top50": 0.36,
+        "frac_pseudogene_top50": 0.66,
+        "n_myeloid_markers_top50": 0,
+        "best_family": "Schwann_like",
+        "best_family_frac": 0,
+        "n_active_cells": 828,
+        "n_cells_dominant": 301,
+        "patients_represented": 1,
+        "carrying_patients": "MPNST_1",
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 1,
+        "recurrence_status": "patient-private",
+        "balanced_cosine": 0.503808230616179,
+        "balanced_top100_jaccard": 0.680672268907563,
+        "balanced_support": true,
+        "label_basis": "technical-dominated: 36% of the top 50 genes are ribosomal, 66% pseudogene/lncRNA, 0 myeloid markers; top set REACTOME_TRANSLATION. The marker-family match (Schwann_like at 0.00) is not treated as the label.",
+        "interpretation": "technical-dominated: 36% of the top 50 genes are ribosomal, 66% pseudogene/lncRNA, 0 myeloid markers; top set REACTOME_TRANSLATION. The marker-family match (Schwann_like at 0.00) is not treated as the label.; patient-private across patients (1 carrying); dominant patient MPNST_1 at 1.00 of active cells; balanced-run cosine 0.50"
+      },
+      {
+        "program_id": "P6",
+        "program_label": "Schwann_like_mixed",
+        "top_genes": "S100B,AP1S2,GPM6B,SERPINE2,CRYAB,S100A6,CAPS,FXYD3,MIA,PLEKHB1,GAP43,CD58,KCNN4,HLA-DRB1,MT2A,CDH19,HLA-DRB5,PDLIM4,DIRAS3,PMP2",
+        "dominant_pathway": "HALLMARK_INTERFERON_GAMMA_RESPONSE",
+        "likely_technical": false,
+        "frac_ribosomal_top50": 0,
+        "frac_pseudogene_top50": 0.02,
+        "n_myeloid_markers_top50": 0,
+        "best_family": "Schwann_like",
+        "best_family_frac": 0.666666666666667,
+        "n_active_cells": 184,
+        "n_cells_dominant": 177,
+        "patients_represented": 1,
+        "carrying_patients": "MPNST_3",
+        "dominant_patient": "MPNST_3",
+        "dominant_patient_fraction": 0.673913043478261,
+        "recurrence_status": "patient-private",
+        "balanced_cosine": 0.963328805521028,
+        "balanced_top100_jaccard": 0.769911504424779,
+        "balanced_support": true,
+        "label_basis": "top-200 genes overlap Schwann_like at 0.67 of the family (next 0.42); top set HALLMARK_INTERFERON_GAMMA_RESPONSE",
+        "interpretation": "top-200 genes overlap Schwann_like at 0.67 of the family (next 0.42); top set HALLMARK_INTERFERON_GAMMA_RESPONSE; patient-private across patients (1 carrying); dominant patient MPNST_3 at 0.67 of active cells; balanced-run cosine 0.96"
+      },
+      {
+        "program_id": "P7",
+        "program_label": "Cycling",
+        "top_genes": "NUSAP1,PRC1,TOP2A,UBE2C,ASPM,HMGB2,TPX2,AURKB,CENPF,MKI67,DLGAP5,BIRC5,UBE2T,GTSE1,CDKN3,CDK1,ANLN,H2AFZ,STMN1,DEPDC1",
+        "dominant_pathway": "REACTOME_CELL_CYCLE_MITOTIC",
+        "likely_technical": false,
+        "frac_ribosomal_top50": 0,
+        "frac_pseudogene_top50": 0,
+        "n_myeloid_markers_top50": 0,
+        "best_family": "Cycling",
+        "best_family_frac": 1,
+        "n_active_cells": 229,
+        "n_cells_dominant": 144,
+        "patients_represented": 1,
+        "carrying_patients": "MPNST_4",
+        "dominant_patient": "MPNST_4",
+        "dominant_patient_fraction": 0.873362445414847,
+        "recurrence_status": "patient-private",
+        "balanced_cosine": 0.954334545268998,
+        "balanced_top100_jaccard": 0.869158878504673,
+        "balanced_support": true,
+        "label_basis": "top-200 genes overlap Cycling at 1.00 of the family (next 0.00); top set REACTOME_CELL_CYCLE_MITOTIC",
+        "interpretation": "top-200 genes overlap Cycling at 1.00 of the family (next 0.00); top set REACTOME_CELL_CYCLE_MITOTIC; patient-private across patients (1 carrying); dominant patient MPNST_4 at 0.87 of active cells; balanced-run cosine 0.95"
+      },
+      {
+        "program_id": "P8",
+        "program_label": "Myeloid_ambient_like",
+        "top_genes": "C1QC,C1QB,C1QA,CD14,RNASE1,FOLR2,MS4A4A,AIF1,TYROBP,MS4A6A,MNDA,F13A1,FCGR3A,CSF1R,CCL3,STAB1,VSIG4,S100A9,CD163,LYVE1",
+        "dominant_pathway": "REACTOME_NEUTROPHIL_DEGRANULATION",
+        "likely_technical": true,
+        "technical_class": "Myeloid_ambient_like",
+        "frac_ribosomal_top50": 0,
+        "frac_pseudogene_top50": 0,
+        "n_myeloid_markers_top50": 18,
+        "best_family": "AntigenPresent",
+        "best_family_frac": 0.666666666666667,
+        "n_active_cells": 89,
+        "n_cells_dominant": 84,
+        "patients_represented": 1,
+        "carrying_patients": "MPNST_3",
+        "dominant_patient": "MPNST_3",
+        "dominant_patient_fraction": 0.98876404494382,
+        "recurrence_status": "patient-private",
+        "balanced_cosine": 0.913950757072657,
+        "balanced_top100_jaccard": 0.709401709401709,
+        "balanced_support": true,
+        "label_basis": "technical-dominated: 0% of the top 50 genes are ribosomal, 0% pseudogene/lncRNA, 18 myeloid markers; top set REACTOME_NEUTROPHIL_DEGRANULATION. The marker-family match (AntigenPresent at 0.67) is not treated as the label.",
+        "interpretation": "technical-dominated: 0% of the top 50 genes are ribosomal, 0% pseudogene/lncRNA, 18 myeloid markers; top set REACTOME_NEUTROPHIL_DEGRANULATION. The marker-family match (AntigenPresent at 0.67) is not treated as the label.; patient-private across patients (1 carrying); dominant patient MPNST_3 at 0.99 of active cells; balanced-run cosine 0.91"
+      }
+    ],
+    "n_programs": 8,
+    "n_recurrent": 0,
+    "n_shared_limited": 1,
+    "n_patient_private": 7,
+    "n_uncertain": 0,
+    "n_likely_technical": 3,
+    "technical_programs": [
+      "P1",
+      "P5",
+      "P8"
+    ]
+  },
+  "m39_malignant_ecm": {
+    "milestone": "M39",
+    "K": 8,
+    "generated": "2026-09-03T22:49:59-0400",
+    "evaluability": [
+      {
+        "sample_id": "MPNST_1",
+        "A_malignant_ECM": 512,
+        "B_true_fibroblast": 303,
+        "evaluable": true,
+        "reason": "evaluable"
+      },
+      {
+        "sample_id": "MPNST_2",
+        "A_malignant_ECM": 637,
+        "B_true_fibroblast": 503,
+        "evaluable": true,
+        "reason": "evaluable"
+      },
+      {
+        "sample_id": "MPNST_3",
+        "A_malignant_ECM": 0,
+        "B_true_fibroblast": 101,
+        "evaluable": false,
+        "reason": "too few malignant ECM-like cells (MPNST_3 promotions were disabled in Phase 4)"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "A_malignant_ECM": 2887,
+        "B_true_fibroblast": 1,
+        "evaluable": false,
+        "reason": "too few non-malignant fibroblasts to compare against"
+      }
+    ],
+    "evaluable_patients": [
+      "MPNST_1",
+      "MPNST_2"
+    ],
+    "min_cells_declared": 30,
+    "signature": {
+      "criteria": {
+        "min_abs_pseudobulk_log2FC": 1,
+        "min_auc": 0.65,
+        "min_pct_detected": 0.1,
+        "must_hold_in": "every evaluable patient"
+      },
+      "n_up_malignant": 61,
+      "n_up_fibroblast": 31,
+      "evaluable_patients": [
+        "MPNST_1",
+        "MPNST_2"
+      ],
+      "no_classifier_trained": true
+    },
+    "program_projection": {
+      "method": "non-negative least squares by multiplicative update with the consensus spectra held FIXED; projected cells cannot influence the programs",
+      "n_projected": 5064,
+      "programs": 8
+    }
+  },
+  "m40_robustness": {
+    "milestone": "M40",
+    "K": 8,
+    "generated": "2026-09-03T23:37:27-0400",
+    "technical_covariates": [
+      {
+        "program": "P1",
+        "covariate": "nCount_RNA",
+        "rho_MPNST_1": 0.041070350431957,
+        "rho_MPNST_2": 0.137651329806238,
+        "rho_MPNST_3": -0.225813955995006,
+        "rho_MPNST_4": -0.190131579857585,
+        "max_abs_within_patient_rho": 0.225813955995006,
+        "median_within_patient_rho": -0.0745306147128139
+      },
+      {
+        "program": "P1",
+        "covariate": "nFeature_RNA",
+        "rho_MPNST_1": 0.0571609977909572,
+        "rho_MPNST_2": 0.195300149100801,
+        "rho_MPNST_3": -0.23998874548099,
+        "rho_MPNST_4": -0.182277366956362,
+        "max_abs_within_patient_rho": 0.23998874548099,
+        "median_within_patient_rho": -0.0625581845827022
+      },
+      {
+        "program": "P1",
+        "covariate": "percent.mt",
+        "rho_MPNST_2": -0.0692485633370163,
+        "rho_MPNST_3": 0.201075031730029,
+        "rho_MPNST_4": 0.164928187991033,
+        "max_abs_within_patient_rho": 0.201075031730029,
+        "median_within_patient_rho": 0.164928187991033
+      },
+      {
+        "program": "P2",
+        "covariate": "nCount_RNA",
+        "rho_MPNST_1": -0.166401734437365,
+        "rho_MPNST_2": -0.265177684228408,
+        "rho_MPNST_3": 0.188942327736914,
+        "rho_MPNST_4": -0.427545437988724,
+        "max_abs_within_patient_rho": 0.427545437988724,
+        "median_within_patient_rho": -0.215789709332886
+      },
+      {
+        "program": "P2",
+        "covariate": "nFeature_RNA",
+        "rho_MPNST_1": -0.189552818408383,
+        "rho_MPNST_2": -0.159618487204848,
+        "rho_MPNST_3": 0.233812262780192,
+        "rho_MPNST_4": -0.32561529425422,
+        "max_abs_within_patient_rho": 0.32561529425422,
+        "median_within_patient_rho": -0.174585652806615
+      },
+      {
+        "program": "P2",
+        "covariate": "percent.mt",
+        "rho_MPNST_2": -0.0410213763682254,
+        "rho_MPNST_3": -0.0651846723610706,
+        "rho_MPNST_4": 0.261231935817361,
+        "max_abs_within_patient_rho": 0.261231935817361,
+        "median_within_patient_rho": -0.0410213763682254
+      },
+      {
+        "program": "P3",
+        "covariate": "nCount_RNA",
+        "rho_MPNST_1": 0.225722790344871,
+        "rho_MPNST_2": -0.117827812545147,
+        "rho_MPNST_3": 0.215801313969144,
+        "rho_MPNST_4": 0.334779117480849,
+        "max_abs_within_patient_rho": 0.334779117480849,
+        "median_within_patient_rho": 0.220762052157008
+      },
+      {
+        "program": "P3",
+        "covariate": "nFeature_RNA",
+        "rho_MPNST_1": 0.276010939920092,
+        "rho_MPNST_2": -0.225410830657872,
+        "rho_MPNST_3": 0.170109926143695,
+        "rho_MPNST_4": 0.234960555381063,
+        "max_abs_within_patient_rho": 0.276010939920092,
+        "median_within_patient_rho": 0.202535240762379
+      },
+      {
+        "program": "P3",
+        "covariate": "percent.mt",
+        "rho_MPNST_2": 0.116719786383882,
+        "rho_MPNST_3": -0.100792845370241,
+        "rho_MPNST_4": -0.212204055076404,
+        "max_abs_within_patient_rho": 0.212204055076404,
+        "median_within_patient_rho": -0.100792845370241
+      },
+      {
+        "program": "P4",
+        "covariate": "nCount_RNA",
+        "rho_MPNST_1": -0.134457572871753,
+        "rho_MPNST_2": 0.22153503000088,
+        "rho_MPNST_3": -0.535397642800155,
+        "rho_MPNST_4": -0.193463389830999,
+        "max_abs_within_patient_rho": 0.535397642800155,
+        "median_within_patient_rho": -0.163960481351376
+      },
+      {
+        "program": "P4",
+        "covariate": "nFeature_RNA",
+        "rho_MPNST_1": -0.117263633323354,
+        "rho_MPNST_2": 0.31013563020606,
+        "rho_MPNST_3": -0.512646762619953,
+        "rho_MPNST_4": -0.104771675614639,
+        "max_abs_within_patient_rho": 0.512646762619953,
+        "median_within_patient_rho": -0.111017654468996
+      },
+      {
+        "program": "P4",
+        "covariate": "percent.mt",
+        "rho_MPNST_2": -0.0547333442535323,
+        "rho_MPNST_3": 0.525769678407224,
+        "rho_MPNST_4": 0.157659774958231,
+        "max_abs_within_patient_rho": 0.525769678407224,
+        "median_within_patient_rho": 0.157659774958231
+      },
+      {
+        "program": "P5",
+        "covariate": "nCount_RNA",
+        "rho_MPNST_1": 0.569280213811764,
+        "rho_MPNST_2": 0.014530752538334,
+        "rho_MPNST_3": 0.331012297906722,
+        "rho_MPNST_4": 0.413069866469075,
+        "max_abs_within_patient_rho": 0.569280213811764,
+        "median_within_patient_rho": 0.372041082187898
+      },
+      {
+        "program": "P5",
+        "covariate": "nFeature_RNA",
+        "rho_MPNST_1": 0.589519323536473,
+        "rho_MPNST_2": 0.0427985675977533,
+        "rho_MPNST_3": 0.292110224344376,
+        "rho_MPNST_4": 0.310212512212623,
+        "max_abs_within_patient_rho": 0.589519323536473,
+        "median_within_patient_rho": 0.3011613682785
+      },
+      {
+        "program": "P5",
+        "covariate": "percent.mt",
+        "rho_MPNST_2": -0.046075079476519,
+        "rho_MPNST_3": -0.214337144471331,
+        "rho_MPNST_4": -0.283543762657265,
+        "max_abs_within_patient_rho": 0.283543762657265,
+        "median_within_patient_rho": -0.214337144471331
+      },
+      {
+        "program": "P6",
+        "covariate": "nCount_RNA",
+        "rho_MPNST_1": 0.0387616223714607,
+        "rho_MPNST_2": 0.189985656419851,
+        "rho_MPNST_3": 0.642888350830445,
+        "rho_MPNST_4": 0.294171077400936,
+        "max_abs_within_patient_rho": 0.642888350830445,
+        "median_within_patient_rho": 0.242078366910393
+      },
+      {
+        "program": "P6",
+        "covariate": "nFeature_RNA",
+        "rho_MPNST_1": 0.0864708082416204,
+        "rho_MPNST_2": 0.265268040143128,
+        "rho_MPNST_3": 0.665404958372583,
+        "rho_MPNST_4": 0.257040140641697,
+        "max_abs_within_patient_rho": 0.665404958372583,
+        "median_within_patient_rho": 0.261154090392413
+      },
+      {
+        "program": "P6",
+        "covariate": "percent.mt",
+        "rho_MPNST_2": -0.175985870843523,
+        "rho_MPNST_3": -0.643655986776481,
+        "rho_MPNST_4": -0.203107449307534,
+        "max_abs_within_patient_rho": 0.643655986776481,
+        "median_within_patient_rho": -0.203107449307534
+      },
+      {
+        "program": "P7",
+        "covariate": "nCount_RNA",
+        "rho_MPNST_1": 0.0740156150853914,
+        "rho_MPNST_2": 0.201029875149719,
+        "rho_MPNST_3": 0.371691628792914,
+        "rho_MPNST_4": 0.372002620376018,
+        "max_abs_within_patient_rho": 0.372002620376018,
+        "median_within_patient_rho": 0.286360751971317
+      },
+      {
+        "program": "P7",
+        "covariate": "nFeature_RNA",
+        "rho_MPNST_1": 0.126016133290638,
+        "rho_MPNST_2": 0.285688188932192,
+        "rho_MPNST_3": 0.355743541065815,
+        "rho_MPNST_4": 0.338127464418335,
+        "max_abs_within_patient_rho": 0.355743541065815,
+        "median_within_patient_rho": 0.311907826675264
+      },
+      {
+        "program": "P7",
+        "covariate": "percent.mt",
+        "rho_MPNST_2": -0.219481806778704,
+        "rho_MPNST_3": -0.176428719312814,
+        "rho_MPNST_4": -0.215530735093259,
+        "max_abs_within_patient_rho": 0.219481806778704,
+        "median_within_patient_rho": -0.215530735093259
+      },
+      {
+        "program": "P8",
+        "covariate": "nCount_RNA",
+        "rho_MPNST_1": -0.0904813746757954,
+        "rho_MPNST_2": -0.323085259794101,
+        "rho_MPNST_3": -0.712904302368503,
+        "rho_MPNST_4": -0.0967006385840133,
+        "max_abs_within_patient_rho": 0.712904302368503,
+        "median_within_patient_rho": -0.209892949189057
+      },
+      {
+        "program": "P8",
+        "covariate": "nFeature_RNA",
+        "rho_MPNST_1": -0.0401860718584416,
+        "rho_MPNST_2": -0.264067784907025,
+        "rho_MPNST_3": -0.726671700491856,
+        "rho_MPNST_4": -0.0954027577802356,
+        "max_abs_within_patient_rho": 0.726671700491856,
+        "median_within_patient_rho": -0.17973527134363
+      },
+      {
+        "program": "P8",
+        "covariate": "percent.mt",
+        "rho_MPNST_2": 0.051888809503834,
+        "rho_MPNST_3": 0.613090406492103,
+        "rho_MPNST_4": 0.0576163584160513,
+        "max_abs_within_patient_rho": 0.613090406492103,
+        "median_within_patient_rho": 0.0576163584160513
+      }
+    ],
+    "nortech_recurrence": [
+      {
+        "K": 4,
+        "n_programs": 4,
+        "n_recurrent": 1,
+        "n_shared_limited": 2,
+        "n_patient_private": 1,
+        "n_uncertain": 0
+      },
+      {
+        "K": 5,
+        "n_programs": 5,
+        "n_recurrent": 0,
+        "n_shared_limited": 2,
+        "n_patient_private": 3,
+        "n_uncertain": 0
+      },
+      {
+        "K": 6,
+        "n_programs": 6,
+        "n_recurrent": 0,
+        "n_shared_limited": 3,
+        "n_patient_private": 3,
+        "n_uncertain": 0
+      },
+      {
+        "K": 7,
+        "n_programs": 7,
+        "n_recurrent": 0,
+        "n_shared_limited": 1,
+        "n_patient_private": 6,
+        "n_uncertain": 0
+      },
+      {
+        "K": 8,
+        "n_programs": 8,
+        "n_recurrent": 0,
+        "n_shared_limited": 2,
+        "n_patient_private": 6,
+        "n_uncertain": 0
+      },
+      {
+        "K": 9,
+        "n_programs": 9,
+        "n_recurrent": 0,
+        "n_shared_limited": 1,
+        "n_patient_private": 8,
+        "n_uncertain": 0
+      },
+      {
+        "K": 10,
+        "n_programs": 10,
+        "n_recurrent": 0,
+        "n_shared_limited": 1,
+        "n_patient_private": 8,
+        "n_uncertain": 1
+      },
+      {
+        "K": 11,
+        "n_programs": 11,
+        "n_recurrent": 0,
+        "n_shared_limited": 1,
+        "n_patient_private": 8,
+        "n_uncertain": 2
+      },
+      {
+        "K": 12,
+        "n_programs": 12,
+        "n_recurrent": 0,
+        "n_shared_limited": 1,
+        "n_patient_private": 9,
+        "n_uncertain": 2
+      },
+      {
+        "K": 13,
+        "n_programs": 13,
+        "n_recurrent": 0,
+        "n_shared_limited": 1,
+        "n_patient_private": 10,
+        "n_uncertain": 2
+      },
+      {
+        "K": 14,
+        "n_programs": 14,
+        "n_recurrent": 0,
+        "n_shared_limited": 0,
+        "n_patient_private": 12,
+        "n_uncertain": 2
+      },
+      {
+        "K": 15,
+        "n_programs": 15,
+        "n_recurrent": 0,
+        "n_shared_limited": 0,
+        "n_patient_private": 13,
+        "n_uncertain": 2
+      }
+    ],
+    "robustness": [
+      {
+        "program": "P1",
+        "program_label": "Translation_ribosomal",
+        "recurrence_status": "shared-limited",
+        "robust_overall": false,
+        "robust_excluding_patient_scope": false,
+        "rank_min_cosine": 0.999605021769315,
+        "rank_median_cosine": 0.999754524927261,
+        "balanced_cosine": 0.924994113910727,
+        "balanced_jaccard": 0.438848920863309,
+        "balanced_support": true,
+        "gene_subset_min_rho": 0.849448504326742,
+        "gene_subset_median_rho": 0.870089343818387,
+        "nocc_best_match": "NC1",
+        "nocc_cosine": 0.999311315241304,
+        "nocc_jaccard": 0.941747572815534,
+        "max_technical_rho": 0.164928187991033,
+        "worst_covariate": "percent.mt",
+        "recurrence_all": "shared-limited",
+        "recurrence_high_only": "shared-limited",
+        "confidence_stable": true,
+        "highconf_cosine": 0.962420278076455,
+        "highconf_jaccard": 0.538461538461538,
+        "loo_min_cosine": 0.350960924469237,
+        "loo_median_cosine": 0.769707413617428,
+        "loo_worst_withheld": "MPNST_1",
+        "loo_n_recovered": 2,
+        "loo_cosine_without_dominant_patient": 0.573901974420456,
+        "survives_dominant_patient_removal": false,
+        "dominant_patient": "MPNST_4",
+        "dominant_patient_fraction": 0.974462365591398
+      },
+      {
+        "program": "P2",
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "recurrence_status": "patient-private",
+        "robust_overall": false,
+        "robust_excluding_patient_scope": true,
+        "rank_min_cosine": 0.996012840308558,
+        "rank_median_cosine": 0.998005887482751,
+        "balanced_cosine": 0.978229842176348,
+        "balanced_jaccard": 0.851851851851852,
+        "balanced_support": true,
+        "gene_subset_min_rho": 0.773773821751499,
+        "gene_subset_median_rho": 0.781689460438368,
+        "nocc_best_match": "NC2",
+        "nocc_cosine": 0.999967972198859,
+        "nocc_jaccard": 0.98019801980198,
+        "max_technical_rho": 0.215789709332886,
+        "worst_covariate": "nCount_RNA",
+        "recurrence_all": "patient-private",
+        "recurrence_high_only": "patient-private",
+        "confidence_stable": true,
+        "highconf_cosine": 0.952670655511452,
+        "highconf_jaccard": 0.538461538461538,
+        "loo_min_cosine": 0.206114475527906,
+        "loo_median_cosine": 0.947510748732477,
+        "loo_worst_withheld": "MPNST_1",
+        "loo_n_recovered": 3,
+        "loo_cosine_without_dominant_patient": 0.206114475527906,
+        "survives_dominant_patient_removal": false,
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 0.996889580093313
+      },
+      {
+        "program": "P3",
+        "program_label": "Mesenchymal_ECM_mixed",
+        "recurrence_status": "patient-private",
+        "robust_overall": false,
+        "robust_excluding_patient_scope": true,
+        "rank_min_cosine": 0.981738821933311,
+        "rank_median_cosine": 0.990756108836225,
+        "balanced_cosine": 0.958191882916394,
+        "balanced_jaccard": 0.626016260162602,
+        "balanced_support": true,
+        "gene_subset_min_rho": 0.595668190529163,
+        "gene_subset_median_rho": 0.672702164484966,
+        "nocc_best_match": "NC3",
+        "nocc_cosine": 0.999993838484484,
+        "nocc_jaccard": 0.98019801980198,
+        "max_technical_rho": 0.220762052157008,
+        "worst_covariate": "nCount_RNA",
+        "recurrence_all": "patient-private",
+        "recurrence_high_only": "patient-private",
+        "confidence_stable": true,
+        "highconf_cosine": 0.945569512561486,
+        "highconf_jaccard": 0.538461538461538,
+        "loo_min_cosine": 0.306505167999078,
+        "loo_median_cosine": 0.837379426295447,
+        "loo_worst_withheld": "MPNST_2",
+        "loo_n_recovered": 3,
+        "loo_cosine_without_dominant_patient": 0.306505167999078,
+        "survives_dominant_patient_removal": false,
+        "dominant_patient": "MPNST_2",
+        "dominant_patient_fraction": 0.971641791044776
+      },
+      {
+        "program": "P4",
+        "program_label": "Hypoxia_Angio",
+        "recurrence_status": "patient-private",
+        "robust_overall": false,
+        "robust_excluding_patient_scope": true,
+        "rank_min_cosine": 0.64872116016646,
+        "rank_median_cosine": 0.824339519351641,
+        "balanced_cosine": 0.633251839344926,
+        "balanced_jaccard": 0.0101010101010101,
+        "balanced_support": true,
+        "gene_subset_min_rho": 0.641645502628979,
+        "gene_subset_median_rho": 0.664994906340637,
+        "nocc_best_match": "NC4",
+        "nocc_cosine": 0.999976021787214,
+        "nocc_jaccard": 1,
+        "max_technical_rho": 0.163960481351376,
+        "worst_covariate": "nCount_RNA",
+        "recurrence_all": "patient-private",
+        "recurrence_high_only": "patient-private",
+        "confidence_stable": true,
+        "highconf_cosine": 0.970142545485293,
+        "highconf_jaccard": 0.666666666666667,
+        "loo_min_cosine": 0.168759278645569,
+        "loo_median_cosine": 0.955746726317039,
+        "loo_worst_withheld": "MPNST_1",
+        "loo_n_recovered": 3,
+        "loo_cosine_without_dominant_patient": 0.168759278645569,
+        "survives_dominant_patient_removal": false,
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 0.995889003083248
+      },
+      {
+        "program": "P5",
+        "program_label": "Translation_ribosomal",
+        "recurrence_status": "patient-private",
+        "robust_overall": false,
+        "robust_excluding_patient_scope": false,
+        "rank_min_cosine": 0.619615230368076,
+        "rank_median_cosine": 0.809802137222844,
+        "balanced_cosine": 0.503808230616179,
+        "balanced_jaccard": 0.680672268907563,
+        "balanced_support": true,
+        "gene_subset_min_rho": 0.712203914634653,
+        "gene_subset_median_rho": 0.73503103015807,
+        "nocc_best_match": "NC5",
+        "nocc_cosine": 0.999930952923946,
+        "nocc_jaccard": 1,
+        "max_technical_rho": 0.372041082187898,
+        "worst_covariate": "nCount_RNA",
+        "recurrence_all": "patient-private",
+        "recurrence_high_only": "patient-private",
+        "confidence_stable": true,
+        "highconf_cosine": 0.969544536580142,
+        "highconf_jaccard": 0.680672268907563,
+        "loo_min_cosine": 0.203250080547301,
+        "loo_median_cosine": 0.961545633682371,
+        "loo_worst_withheld": "MPNST_1",
+        "loo_n_recovered": 3,
+        "loo_cosine_without_dominant_patient": 0.203250080547301,
+        "survives_dominant_patient_removal": false,
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 1
+      },
+      {
+        "program": "P6",
+        "program_label": "Schwann_like_mixed",
+        "recurrence_status": "patient-private",
+        "robust_overall": false,
+        "robust_excluding_patient_scope": false,
+        "rank_min_cosine": 0.999416259275735,
+        "rank_median_cosine": 0.999657583433056,
+        "balanced_cosine": 0.963328805521028,
+        "balanced_jaccard": 0.769911504424779,
+        "balanced_support": true,
+        "gene_subset_min_rho": 0.241118817508495,
+        "gene_subset_median_rho": 0.311469647106895,
+        "nocc_best_match": "NC6",
+        "nocc_cosine": 0.999961752248982,
+        "nocc_jaccard": 1,
+        "max_technical_rho": 0.261154090392413,
+        "worst_covariate": "nFeature_RNA",
+        "recurrence_all": "patient-private",
+        "recurrence_high_only": "uncertain",
+        "confidence_stable": false,
+        "highconf_cosine": 0.301790972481712,
+        "highconf_jaccard": 0.0256410256410256,
+        "loo_min_cosine": 0.802152255881476,
+        "loo_median_cosine": 0.91414382213736,
+        "loo_worst_withheld": "MPNST_3",
+        "loo_n_recovered": 4,
+        "loo_cosine_without_dominant_patient": 0.802152255881476,
+        "survives_dominant_patient_removal": true,
+        "dominant_patient": "MPNST_3",
+        "dominant_patient_fraction": 0.673913043478261
+      },
+      {
+        "program": "P7",
+        "program_label": "Cycling",
+        "recurrence_status": "patient-private",
+        "robust_overall": false,
+        "robust_excluding_patient_scope": true,
+        "rank_min_cosine": 0.997262191703626,
+        "rank_median_cosine": 0.998586625839735,
+        "balanced_cosine": 0.954334545268998,
+        "balanced_jaccard": 0.869158878504673,
+        "balanced_support": true,
+        "gene_subset_min_rho": 0.542697893451415,
+        "gene_subset_median_rho": 0.571727659354412,
+        "nocc_best_match": "NC7",
+        "nocc_cosine": 0.993629885506558,
+        "nocc_jaccard": 0.398601398601399,
+        "max_technical_rho": 0.311907826675264,
+        "worst_covariate": "nFeature_RNA",
+        "recurrence_all": "patient-private",
+        "recurrence_high_only": "patient-private",
+        "confidence_stable": true,
+        "highconf_cosine": 0.803981690559114,
+        "highconf_jaccard": 0.587301587301587,
+        "loo_min_cosine": 0.882031472034505,
+        "loo_median_cosine": 0.993975618576069,
+        "loo_worst_withheld": "MPNST_4",
+        "loo_n_recovered": 4,
+        "loo_cosine_without_dominant_patient": 0.882031472034505,
+        "survives_dominant_patient_removal": true,
+        "dominant_patient": "MPNST_4",
+        "dominant_patient_fraction": 0.873362445414847
+      },
+      {
+        "program": "P8",
+        "program_label": "Myeloid_ambient_like",
+        "recurrence_status": "patient-private",
+        "robust_overall": false,
+        "robust_excluding_patient_scope": false,
+        "rank_min_cosine": 0.999726206980635,
+        "rank_median_cosine": 0.999834214173794,
+        "balanced_cosine": 0.913950757072657,
+        "balanced_jaccard": 0.709401709401709,
+        "balanced_support": true,
+        "gene_subset_min_rho": 0.232130717768244,
+        "gene_subset_median_rho": 0.269278789938306,
+        "nocc_best_match": "NC8",
+        "nocc_cosine": 0.999854342805419,
+        "nocc_jaccard": 0.98019801980198,
+        "max_technical_rho": 0.209892949189057,
+        "worst_covariate": "nCount_RNA",
+        "recurrence_all": "patient-private",
+        "recurrence_high_only": "uncertain",
+        "confidence_stable": false,
+        "highconf_cosine": 0.15182380623001,
+        "highconf_jaccard": 0.0050251256281407,
+        "loo_min_cosine": 0.172280472758665,
+        "loo_median_cosine": 0.928715142213295,
+        "loo_worst_withheld": "MPNST_3",
+        "loo_n_recovered": 3,
+        "loo_cosine_without_dominant_patient": 0.172280472758665,
+        "survives_dominant_patient_removal": false,
+        "dominant_patient": "MPNST_3",
+        "dominant_patient_fraction": 0.98876404494382
+      }
+    ],
+    "criteria": {
+      "balanced_cosine_min": 0.6,
+      "gene_subset_rho_min": 0.8,
+      "loo_cosine_min": 0.5,
+      "dominant_patient_removal_cosine_min": 0.6,
+      "max_within_patient_technical_rho": 0.5,
+      "note": "thresholds declared before the tests were run; a program failing any one is reported as not robust rather than dropped from the table",
+      "two_verdicts": "robust_overall applies every test including removal of the program's dominant patient. robust_excluding_patient_scope waives ONLY that test for programs already classified patient-private, because a patient-private program cannot by definition survive removal of its own patient - reporting it as unreliable on that basis would confuse scope with reliability."
+    }
+  },
+  "phase5_object": {
+    "path": "results/phase5/phase5_final_object.rds",
+    "size_bytes": 6058471006,
+    "md5": "839e5157bc7c3470ddf86746c2e719e1",
+    "sha256": "fe99ecf51154046145cf21f9c6960664d10205b90736bb13c61cccf409c40f00",
+    "cells": 19716,
+    "metadata_columns": 195,
+    "phase5_fields_added": [
+      "program_P1_score",
+      "program_P2_score",
+      "program_P3_score",
+      "program_P4_score",
+      "program_P5_score",
+      "program_P6_score",
+      "program_P7_score",
+      "program_P8_score",
+      "dominant_malignant_program",
+      "dominant_malignant_program_label",
+      "dominant_program_score",
+      "dominant_program_margin",
+      "malignant_program_confidence",
+      "program_score_source"
+    ]
+  },
+  "object_validation": {
+    "reload_cells": true,
+    "reload_cell_order": true,
+    "reload_assays": true,
+    "reload_reductions": true,
+    "reload_phase4_columns": true,
+    "reload_phase5_columns": true,
+    "reload_no_na_program_scores": true,
+    "reload_md5_stable": true
+  },
+  "preservation_guards": {
+    "cells_unchanged": true,
+    "cell_order_unchanged": true,
+    "all_phase1_4_columns_identical": true,
+    "only_expected_columns_added": true,
+    "reductions_unchanged": true,
+    "assays_unchanged": true,
+    "malignancy_refined_unchanged": true,
+    "scevan_clone_unchanged": true,
+    "tumor_state_unchanged": true,
+    "frozen_counts_hold": true
+  },
+  "figures": [
+    "results/phase5/figures/final/01_program_rank_selection.pdf",
+    "results/phase5/figures/final/01_program_rank_selection.png",
+    "results/phase5/figures/final/02_malignant_program_heatmap.pdf",
+    "results/phase5/figures/final/02_malignant_program_heatmap.png",
+    "results/phase5/figures/final/03_program_activity_umap.pdf",
+    "results/phase5/figures/final/03_program_activity_umap.png",
+    "results/phase5/figures/final/04_program_patient_distribution.pdf",
+    "results/phase5/figures/final/04_program_patient_distribution.png",
+    "results/phase5/figures/final/05_program_vs_phase4_states.pdf",
+    "results/phase5/figures/final/05_program_vs_phase4_states.png",
+    "results/phase5/figures/final/06_recurrent_vs_patient_private_programs.pdf",
+    "results/phase5/figures/final/06_recurrent_vs_patient_private_programs.png",
+    "results/phase5/figures/final/07_patient_balanced_program_sensitivity.pdf",
+    "results/phase5/figures/final/07_patient_balanced_program_sensitivity.png",
+    "results/phase5/figures/final/08_malignant_ecm_vs_true_fibroblast.pdf",
+    "results/phase5/figures/final/08_malignant_ecm_vs_true_fibroblast.png",
+    "results/phase5/figures/final/09_malignant_ecm_signature_heatmap.pdf",
+    "results/phase5/figures/final/09_malignant_ecm_signature_heatmap.png",
+    "results/phase5/figures/final/10_program_pathway_activity.pdf",
+    "results/phase5/figures/final/10_program_pathway_activity.png",
+    "results/phase5/figures/final/11_phase5_robustness_summary.pdf",
+    "results/phase5/figures/final/11_phase5_robustness_summary.png",
+    "results/phase5/figures/final/12_phase5_malignant_program_model.pdf",
+    "results/phase5/figures/final/12_phase5_malignant_program_model.png"
+  ],
+  "figures_required": [
+    "01_program_rank_selection",
+    "02_malignant_program_heatmap",
+    "03_program_activity_umap",
+    "04_program_patient_distribution",
+    "05_program_vs_phase4_states",
+    "06_recurrent_vs_patient_private_programs",
+    "07_patient_balanced_program_sensitivity",
+    "08_malignant_ecm_vs_true_fibroblast",
+    "09_malignant_ecm_signature_heatmap",
+    "10_program_pathway_activity",
+    "11_phase5_robustness_summary",
+    "12_phase5_malignant_program_model"
+  ],
+  "figures_missing": [],
+  "figure_checksums": [
+    {
+      "path": "results/phase5/figures/final/01_program_rank_selection.pdf",
+      "md5": "5da45e22f8bf5aad4f7a525f9e8ae2f7",
+      "bytes": 10379
+    },
+    {
+      "path": "results/phase5/figures/final/01_program_rank_selection.png",
+      "md5": "8533555c78cb14d4bbad00aa7874ae0a",
+      "bytes": 266132
+    },
+    {
+      "path": "results/phase5/figures/final/02_malignant_program_heatmap.pdf",
+      "md5": "d8123856a8f8b0220b3639a71641bf6a",
+      "bytes": 13512
+    },
+    {
+      "path": "results/phase5/figures/final/02_malignant_program_heatmap.png",
+      "md5": "2f8f3ffd50ef31efecef03335350473a",
+      "bytes": 307393
+    },
+    {
+      "path": "results/phase5/figures/final/03_program_activity_umap.pdf",
+      "md5": "68ac00359306ec23731f0670ec53aa41",
+      "bytes": 3079498
+    },
+    {
+      "path": "results/phase5/figures/final/03_program_activity_umap.png",
+      "md5": "2be4e42724c53c3a7fe94fc7d401f4c9",
+      "bytes": 734120
+    },
+    {
+      "path": "results/phase5/figures/final/04_program_patient_distribution.pdf",
+      "md5": "eaa0b3acc5edb3172850cc428b0a14e5",
+      "bytes": 8875
+    },
+    {
+      "path": "results/phase5/figures/final/04_program_patient_distribution.png",
+      "md5": "a95e4801cda9be939b850ff264742e31",
+      "bytes": 422674
+    },
+    {
+      "path": "results/phase5/figures/final/05_program_vs_phase4_states.pdf",
+      "md5": "6c2e05c599fb7a036b7d54cb3ac50001",
+      "bytes": 8583
+    },
+    {
+      "path": "results/phase5/figures/final/05_program_vs_phase4_states.png",
+      "md5": "9e64d110e2b7dc108693841e3c202176",
+      "bytes": 353403
+    },
+    {
+      "path": "results/phase5/figures/final/06_recurrent_vs_patient_private_programs.pdf",
+      "md5": "145353ac6709e2918bb8a4db843949a4",
+      "bytes": 7448
+    },
+    {
+      "path": "results/phase5/figures/final/06_recurrent_vs_patient_private_programs.png",
+      "md5": "95b751605fef3d039f6dc2b9abf997c8",
+      "bytes": 247584
+    },
+    {
+      "path": "results/phase5/figures/final/07_patient_balanced_program_sensitivity.pdf",
+      "md5": "48f06abb2854a1b943d2114058dcd1a3",
+      "bytes": 5903
+    },
+    {
+      "path": "results/phase5/figures/final/07_patient_balanced_program_sensitivity.png",
+      "md5": "9f9a6d9ebfb3af6e49a95007ff7b161f",
+      "bytes": 193047
+    },
+    {
+      "path": "results/phase5/figures/final/08_malignant_ecm_vs_true_fibroblast.pdf",
+      "md5": "5b0d09938c95010ce984acec0e1ed5c3",
+      "bytes": 1031571
+    },
+    {
+      "path": "results/phase5/figures/final/08_malignant_ecm_vs_true_fibroblast.png",
+      "md5": "74adec5c49c6c4a81f957575ab607d52",
+      "bytes": 500043
+    },
+    {
+      "path": "results/phase5/figures/final/09_malignant_ecm_signature_heatmap.pdf",
+      "md5": "a18a01a4cbd4270667b0a4789153287b",
+      "bytes": 9585
+    },
+    {
+      "path": "results/phase5/figures/final/09_malignant_ecm_signature_heatmap.png",
+      "md5": "63a085f2756ebebfb3e749f83504ad99",
+      "bytes": 181537
+    },
+    {
+      "path": "results/phase5/figures/final/10_program_pathway_activity.pdf",
+      "md5": "a8d5bc6e58cff17d767b2f00475ac483",
+      "bytes": 8338
+    },
+    {
+      "path": "results/phase5/figures/final/10_program_pathway_activity.png",
+      "md5": "79304cfb4920c43ab3515ffaf64160a5",
+      "bytes": 218350
+    },
+    {
+      "path": "results/phase5/figures/final/11_phase5_robustness_summary.pdf",
+      "md5": "4bbeca2b70ec0ddcdc8ccec4cdf1f95a",
+      "bytes": 8859
+    },
+    {
+      "path": "results/phase5/figures/final/11_phase5_robustness_summary.png",
+      "md5": "7d38375b32e39283ed87a35f303cefcb",
+      "bytes": 366907
+    },
+    {
+      "path": "results/phase5/figures/final/12_phase5_malignant_program_model.pdf",
+      "md5": "29a5e3110b5fab44a9c4a63f0cdecf78",
+      "bytes": 8245
+    },
+    {
+      "path": "results/phase5/figures/final/12_phase5_malignant_program_model.png",
+      "md5": "54fdf706d51f73fad449dd588f18fdcb",
+      "bytes": 442671
+    }
+  ],
+  "tables": [
+    "results/phase5/tables/final/AMBIGUOUS_FIBROBLAST_PROGRAM_PROJECTION.tsv",
+    "results/phase5/tables/final/M36_MALIGNANT_PATIENT_DISTRIBUTION.tsv",
+    "results/phase5/tables/final/M36_PHASE4_STATE_BY_PATIENT.tsv",
+    "results/phase5/tables/final/MALIGNANT_ECM_SIGNATURE.tsv",
+    "results/phase5/tables/final/MALIGNANT_ECM_VS_TRUE_FIBROBLAST.tsv",
+    "results/phase5/tables/final/MALIGNANT_PROGRAM_CELL_SCORES.tsv",
+    "results/phase5/tables/final/MALIGNANT_PROGRAM_PATHWAYS.tsv",
+    "results/phase5/tables/final/MALIGNANT_PROGRAM_PATIENT_DISTRIBUTION.tsv",
+    "results/phase5/tables/final/MALIGNANT_PROGRAM_TOP_GENES.tsv",
+    "results/phase5/tables/final/MALIGNANT_PROGRAMS.tsv",
+    "results/phase5/tables/final/PHASE5_PROGRAM_ROBUSTNESS.tsv",
+    "results/phase5/tables/final/PROGRAM_K_SELECTION.tsv",
+    "results/phase5/tables/final/PROGRAM_PATIENT_BALANCE_SENSITIVITY.tsv",
+    "results/phase5/tables/final/PROGRAM_RECURRENCE_BY_K.tsv",
+    "results/phase5/tables/final/PROGRAM_RECURRENCE_THRESHOLD_SENSITIVITY.tsv",
+    "results/phase5/tables/final/PROGRAM_VS_PHASE4_STATE.tsv"
+  ],
+  "table_checksums": [
+    {
+      "path": "results/phase5/tables/final/AMBIGUOUS_FIBROBLAST_PROGRAM_PROJECTION.tsv",
+      "md5": "307f4aa726a041b84ba0e0d6bc661cbf",
+      "bytes": 5432
+    },
+    {
+      "path": "results/phase5/tables/final/M36_MALIGNANT_PATIENT_DISTRIBUTION.tsv",
+      "md5": "0d599ef906bafaa004e74ef1a3f55722",
+      "bytes": 361
+    },
+    {
+      "path": "results/phase5/tables/final/M36_PHASE4_STATE_BY_PATIENT.tsv",
+      "md5": "7e94e73f58ab474db1c495207093ccd0",
+      "bytes": 258
+    },
+    {
+      "path": "results/phase5/tables/final/MALIGNANT_ECM_SIGNATURE.tsv",
+      "md5": "a40d45980aa6ca01631993087e59bf0e",
+      "bytes": 21243
+    },
+    {
+      "path": "results/phase5/tables/final/MALIGNANT_ECM_VS_TRUE_FIBROBLAST.tsv",
+      "md5": "8e69492f87d47d9ff871db827477d64c",
+      "bytes": 4390841
+    },
+    {
+      "path": "results/phase5/tables/final/MALIGNANT_PROGRAM_CELL_SCORES.tsv",
+      "md5": "bfc40e665b243e130b0e9791f01132c8",
+      "bytes": 1398293
+    },
+    {
+      "path": "results/phase5/tables/final/MALIGNANT_PROGRAM_PATHWAYS.tsv",
+      "md5": "f9419ed26365d6a2a30db4bef227ca9a",
+      "bytes": 196173
+    },
+    {
+      "path": "results/phase5/tables/final/MALIGNANT_PROGRAM_PATIENT_DISTRIBUTION.tsv",
+      "md5": "8ac6dbed05569ce89e9a79efed4b1908",
+      "bytes": 2419
+    },
+    {
+      "path": "results/phase5/tables/final/MALIGNANT_PROGRAM_TOP_GENES.tsv",
+      "md5": "b0a43f24bfbf0deae141ac6947a3e148",
+      "bytes": 16813
+    },
+    {
+      "path": "results/phase5/tables/final/MALIGNANT_PROGRAMS.tsv",
+      "md5": "975b86059d37d5ff9a97e21ab9ad3094",
+      "bytes": 6444
+    },
+    {
+      "path": "results/phase5/tables/final/PHASE5_PROGRAM_ROBUSTNESS.tsv",
+      "md5": "16439c2faa2139706c7f88dfcaee2e47",
+      "bytes": 3684
+    },
+    {
+      "path": "results/phase5/tables/final/PROGRAM_K_SELECTION.tsv",
+      "md5": "937316b3ca722266e5b9cc06dbad1349",
+      "bytes": 5600
+    },
+    {
+      "path": "results/phase5/tables/final/PROGRAM_PATIENT_BALANCE_SENSITIVITY.tsv",
+      "md5": "b17f4195863038069a59735285ff8852",
+      "bytes": 444
+    },
+    {
+      "path": "results/phase5/tables/final/PROGRAM_RECURRENCE_BY_K.tsv",
+      "md5": "fa8f3545d12d47e1bb93bcaee061fb4e",
+      "bytes": 43215
+    },
+    {
+      "path": "results/phase5/tables/final/PROGRAM_RECURRENCE_THRESHOLD_SENSITIVITY.tsv",
+      "md5": "7a2d7bfd2b918ffa1ef8b5b7216564da",
+      "bytes": 5699
+    },
+    {
+      "path": "results/phase5/tables/final/PROGRAM_VS_PHASE4_STATE.tsv",
+      "md5": "ab3cea511303977afeb1027665928fde",
+      "bytes": 4908
+    }
+  ],
+  "scripts": [
+    "scripts/phase5/malignant_ecm/m39_malignant_ecm.R",
+    "scripts/phase5/programs/m37_build_anndata.py",
+    "scripts/phase5/programs/m37_k_selection.py",
+    "scripts/phase5/programs/m37_prepare_input.R",
+    "scripts/phase5/programs/m38_annotate_programs.R",
+    "scripts/phase5/utils/m36_feasibility.R",
+    "scripts/phase5/utils/m41_build_final_object.R",
+    "scripts/phase5/utils/m41_figures.R",
+    "scripts/phase5/utils/m41_figures2.R",
+    "scripts/phase5/utils/m41_finalize.R",
+    "scripts/phase5/utils/phase5_common.R",
+    "scripts/phase5/utils/phase5_plot_utils.R",
+    "scripts/phase5/utils/program_projection.R",
+    "scripts/phase5/validation/m40_prepare_nortech.R",
+    "scripts/phase5/validation/m40_prepare_sensitivity_inputs.R",
+    "scripts/phase5/validation/m40_robustness.R",
+    "scripts/shell/phase5/install_cnmf_env.sh",
+    "scripts/shell/phase5/run_m36_feasibility.sh",
+    "scripts/shell/phase5/run_m37_cnmf.sh",
+    "scripts/shell/phase5/run_m37c_consensus.sh",
+    "scripts/shell/phase5/run_m37d_m39.sh",
+    "scripts/shell/phase5/run_m38_relabel.sh",
+    "scripts/shell/phase5/run_m40_m41_resume.sh",
+    "scripts/shell/phase5/run_m40_m41.sh",
+    "scripts/shell/phase5/run_m40_sensitivity_cnmf.sh",
+    "scripts/shell/phase5/run_m40c_nortech.sh",
+    "scripts/shell/phase5/run_m41_figs_fix.sh",
+    "scripts/shell/phase5/run_m41_figs2.sh"
+  ],
+  "environment": {
+    "R_env": "UNCHANGED - no package installed, upgraded or downgraded",
+    "isolated_python_env": "p5_cnmf_env (cnmf 1.7.1, python 3.11)",
+    "gene_sets": "external/genesets MSigDB v2024.1.Hs GMT files with md5s in MSIGDB_CHECKSUMS.md5",
+    "snapshots": ["reports/phase5/environment/p5_cnmf_env.yml", "reports/phase5/environment/R_env_POST_PHASE5.yml", "reports/phase5/environment/R_env_PRE_PHASE5.yml"]
+  },
+  "slurm_job_ids": [
+    "19899333",
+    "19899335",
+    "19899339",
+    "19899353",
+    "19899354",
+    "19899355",
+    "19899356",
+    "19899358",
+    "19899359",
+    "19899742",
+    "19899744",
+    "19899750"
+  ],
+  "git_commit": "88611f34d91172bea306df098132e514b62cac2f",
+  "reports": [
+    "reports/phase5/milestones/M36_REPORT.md",
+    "reports/phase5/milestones/M37_REPORT.md",
+    "reports/phase5/milestones/M38_REPORT.md",
+    "reports/phase5/milestones/M39_REPORT.md",
+    "reports/phase5/milestones/M40_REPORT.md",
+    "reports/phase5/PHASE5_FEASIBILITY.md"
+  ],
+  "limitations": [
+    "n = 4 patients; sample_id = patient = dataset, so biological and technical effects cannot be fully separated",
+    "cells are NOT biological replicates - cell-level p-values do not represent biological replication",
+    "malignant-cell abundance is severely unequal (MPNST_4 holds 57.3% of the compartment), which is why a patient-balanced sensitivity analysis is mandatory rather than optional",
+    "a cNMF program is a continuous pattern of co-regulated expression, not a cell type, lineage, state or clone",
+    "the malignant ECM-like vs true fibroblast comparison is evaluable in only 2 of 4 patients: MPNST_4 retains 1 non-malignant fibroblast and MPNST_3 contributes no malignant fibroblasts",
+    "the malignant-ECM signature is descriptive; no classifier was trained and no pseudo-independent accuracy is reported",
+    "Ambiguous fibroblasts are PROJECTED for description only and are never reclassified",
+    "Phase 4 CNA metrics reported alongside the groups are context, not independent validation of the split that defined them",
+    "true generalization requires independent MPNST patients"
+  ],
+  "prohibitions_respected": [
+    "Phase 1-4 objects, annotations, malignancy calls, SCEVAN calls and clones, tumour states, CCC results, figures, tables, reports and scripts all unmodified",
+    "no further clustering sweep was run to rescue the Phase 4 discrete states",
+    "no new CCC method; LIANA, CellChat, CellPhoneDB, NicheNet and LochNESS were not rerun",
+    "no RNA velocity, no pseudotime, no survival analysis, no condition DE",
+    "no patient-level predictive machine learning, no deep learning, no Transformers",
+    "no spatial, pan-cancer or other-sarcoma comparison",
+    "no inferCNV, CopyKAT or any second CNV method",
+    "R_env not modified; cNMF isolated in p5_cnmf_env",
+    "Phase 7 not initiated"
+  ]
+}

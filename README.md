@@ -11,10 +11,47 @@ The primary objective of this project is to construct a modular, reproducible, c
 ---
 
 ## 2. Current Project Status
-- **Current Phase**: **Phase 4 — complete and frozen** (2026-09-03)
+- **Current Phase**: **Phase 6 — complete and frozen** (2026-09-04). Phases 1–5 are complete and
+  frozen and were **not modified**; Phase 5 read the frozen Phase 4 object read-only, Phase 6 read
+  the frozen Phase 5 object, and all upstream checksums were re-verified after every milestone.
+  **Phase 7 is NOT initiated and requires separate authorization.**
+- **Phase 5 headline — a negative result, and a clean one.** Phase 4 found 0 of 8 *discrete*
+  malignant states recurrent across patients. Phase 5 asked the *continuous* version on the same
+  6,434 malignant cells with the same recurrence rule shape, using consensus matrix factorization
+  (cNMF, K = 8 by a rule declared before any factor was seen). **The answer is also 0: 0 recurrent,
+  1 shared-limited, 7 patient-private — and the one shared-limited program is technical
+  (ribosomal), so not a single biologically interpretable program is carried by even two patients.**
+  This survives the most aggressive check available: a full re-run with ribosomal, pseudogene and
+  ambient-myeloid genes removed across the whole K grid still gives **0 recurrent programs at every
+  K from 5 to 15**. The one program that comes close is the **ECM/mesenchymal program P3**, which
+  reaches three patients only when the activity threshold is relaxed from 20% to 10%.
+  The five patient-private `Mesenchymal_ECM-*` states are **not** one shared program — they map to
+  three, though MPNST_4's three ECM states do collapse onto one. Phase 5 also derived a transparent
+  **92-gene signature separating malignant ECM-like MPNST cells from genuine fibroblasts**
+  (evaluable in 2 of 4 patients); the fibroblast side is marked by **CDH19, APOD, SCN7A and
+  ABCA6/8/9/10** — nerve-associated / endoneurial stroma. Handoff
+  [reports/phase5/PHASE5_HANDOFF.md](reports/phase5/PHASE5_HANDOFF.md).
+- **Phase 6 headline — transcriptional phenotype is largely decoupled from clone structure.**
+  Combining Phase 5 programs with the frozen Phase 4 SCEVAN clones (MPNST_1/2/4 only; **MPNST_3's
+  clone structure is excluded**, it failed the Phase 4 immune sanity gate): **median η² = 0.059, so
+  roughly 94% of each program's variance sits WITHIN clones, and between-clone divergence is only
+  0.7% of within-clone dispersion** — a patient's CNA-defined clones are transcriptionally
+  near-interchangeable. **Model C (mixed architecture) was selected** against pre-specified numeric
+  criteria. Within-clone program diversity is real but patient-specific (MPNST_1 clones span
+  1.69–2.83 effective programs; MPNST_2's span exactly 1.00). Regulatory layer: **E2F4/E2F1/MYC for
+  Cycling and HIF1A/ATF4/HSF1 for the translation-stress program, recovered without being imposed**,
+  with PROGENy and Hallmark independently supporting labels derived from the programs' own genes.
+  Handoff [reports/phase6/PHASE6_HANDOFF.md](reports/phase6/PHASE6_HANDOFF.md).
+- **What Phase 5/6 cannot do.** n = 4 patients and `sample_id` = patient = dataset, so a
+  patient-private *biological* program cannot be separated from patient-level *technical* structure;
+  clone conclusions rest on 3 patients; SCEVAN infers copy number from expression, so the
+  CNA→expression analysis is an internal consistency check, **not** validation; and within-clone
+  program diversity is consistent with plasticity but does **not** demonstrate a state transition.
+- **Phase 4 — complete and frozen** (2026-09-03)
 - **Phase 1**: complete and frozen (M0–M9) · **Phase 2**: complete and frozen (M10–M17 + M15A)
   · **Phase 3**: complete and frozen (M18–M27) · **Phase 4**: complete and frozen (M28–M35,
   plus **M35A** — SCEVAN figure consolidation, visualization only)
+  · **Phase 5**: complete and frozen (M36–M41) · **Phase 6**: complete and frozen (M42–M50)
 - **Phase 4 headline**: the malignant compartment is **1.88× larger than Phase 2 estimated**
   (3,420 → **6,434 cells**, 17.35% → **32.63%**), and **4,036 of 5,064 cells Phase 2 called
   `Fibroblast` carry inferred copy-number alterations** — majority-malignant in 3 of 4 patients.

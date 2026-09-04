@@ -1485,4 +1485,278 @@ after writing, that all 33 pre-existing sections are byte-identical to a pre-wri
 
 ---
 
+# PHASE 5 — MALIGNANT TRANSCRIPTIONAL PROGRAMS
+
+*Opened 2026-09-03. Phases 1–4 remain complete and frozen and are not modified. Phase 5 reads
+`results/phase4/phase4_final_object.rds` (md5 `e85ba8486e456917e2483f2773bdbaf3`, sha256
+`a658447744e5ee8621fc5a3127492ceb11bce37bac4d6f3f0f7255bdcb647ae4`) read-only and writes only
+under `results/phase5/`, `reports/phase5/`, `scripts/phase5/` and `logs/phase5/`.*
+
+**Scientific question.** Phase 4 reported a negative result: 0 of 8 discrete malignant
+transcriptional states were recurrent across ≥3 patients and 97.2% of malignant cells sat in
+patient-private states. Phase 5 does **not** re-run clustering to rescue that. It asks whether
+recurrent **continuous** transcriptional programs exist across patients even when discrete
+clusters do not, and what separates malignant ECM-like MPNST cells from genuine fibroblasts.
+
+**Milestones.** M36 reconstruction/feasibility · M37 continuous program discovery (cNMF) ·
+M38 program annotation, pathways and relationship to the Phase 4 discrete states · M39 malignant
+ECM-like cells vs true fibroblasts · M40 robustness · M41 freeze.
+
+**Architecture decisions taken before production work.** Program discovery uses the 6,434
+`Malignant` cells only, on RNA expression (never Harmony/UMAP/PCA/SCEVAN-CNA); `Ambiguous` cells
+are projected afterwards and never reclassified; the historical annotation field is **verified**
+against the frozen fibroblast split rather than assumed, and `annotation_ccc_refined` is barred
+from that role because it encodes the Phase 4 conclusion; patient imbalance is handled with a
+mandatory patient-balanced sensitivity analysis; recurrence criteria are declared before biology
+is inspected; cell cycle is retained as a candidate program with a declared exclusion sensitivity
+run. `R_env` is not modified — cNMF lives in an isolated `p5_cnmf_env` and gene sets are
+downloaded as versioned GMT files with checksums.
+
+---
+
+# PHASE 6 — CLONAL, REGULATORY AND PLASTICITY ARCHITECTURE
+
+*Planned; begins only after M41 completes successfully.*
+
+**Scientific question.** Is malignant transcriptional heterogeneity primarily associated with
+distinct CNA-defined clones, with substantial program diversity within clones, or a mixture — and
+which TF and pathway activities distinguish the Phase 5 programs?
+
+**Milestones.** M42 reconstruction · M43 clone↔program coupling · M44 within-clone program
+diversity · M45 regulatory architecture (decoupleR/CollecTRI) · M46 pathway activity
+(PROGENy/Hallmark) · M47 broad CNA → transcriptional consequences · M48 integrated architecture ·
+M49 robustness · M50 freeze.
+
+**Constraints taken before production work.** MPNST_3's SCEVAN clone structure is unreliable and
+is excluded from all clone-based inference (QC panels only). Clone labels are patient-scoped and
+never treated as homologous across patients. Within-clone diversity is described as
+*transcriptional-program diversity*, interpretable as *consistent with plasticity* only after
+technical confounders are assessed — never as observed switching or a trajectory. CNA→expression
+associations are an internal consistency analysis, **not** orthogonal validation, because SCEVAN
+infers copy number from expression in the first place.
+
+---
+
+## M36 — Phase 5 Reconstruction and Feasibility
+
+*2026-09-03 · COMPLETE · SLURM 19899335 (00:02:05, 4 CPUs, 96 G, MaxRSS 29.28 GiB)*
+
+**Question** Can the frozen Phase 4 malignant compartment support a search for continuous programs,
+and which frozen field carries the pre-Phase-4 annotation? **Input** `phase4_final_object.rds`,
+verified by md5 AND sha256, opened read-only. **Output** `PHASE5_FEASIBILITY.md`, five working
+artefacts, patient-distribution and state-by-patient tables.
+
+13 frozen Phase 4 counts re-asserted, all passed. The historical annotation field is
+**`annotation_ccc_phase3`, VERIFIED** by reproducing the frozen fibroblast split 5,064 →
+4,036/908/120 — `annotation_ccc_refined` was excluded by design because it encodes the Phase 4
+conclusion. **Patient imbalance is 17.4×** (MPNST_4 3,685 = 57.3%; MPNST_3 212 = 3.3%) and
+confounded with depth. 178 malignant cells carry no clone label; MPNST_3 has **0 High-confidence**
+malignant cells. **Warnings** both facts constrain every later per-patient conclusion.
+**Next** M37.
+
+## M37 — Continuous Program Discovery (cNMF)
+
+*2026-09-03 · COMPLETE · SLURM 19899333, 19899339, 19899353, 19899354*
+
+**Question** Do continuous programs exist in the 6,434 malignant cells, and at what rank?
+**Method** cNMF 1.7.1 in the **isolated `p5_cnmf_env`**; `R_env` untouched. Declared before any
+factor was seen: malignant cells only, RNA raw counts, genes in ≥ 0.5% of malignant cells with
+`^MT-` removed (19,663), K 4–15, 100 replicates, seed 42, dt 0.10. Cell-cycle, ECM, HLA, interferon,
+Schwann, neural-crest and angiogenesis genes all retained.
+
+Three runs declared in advance (`primary`, `balanced`, `nocc`); three more added later as declared
+sensitivity analyses (`loo_×4`, `highconf`, `nortech`). Balanced design: cap 651 cells (MPNST_2, the
+smallest patient with ≥ 500), cutting the dominant fraction 0.573 → 0.301.
+
+**K-selection rule declared in code before it ran** — largest K with max program cosine ≤ 0.75, no
+dead program, stability ≥ the median of qualifying K. Eligible {4,5,6,7,8}; **K = 8**.
+**Resources** MaxRSS **1.92 GiB**; the cost is 1,200 NMF fits per run, not RAM. **Next** M38.
+
+## M38 — Program Annotation, Pathways, Phase 4 State Comparison
+
+*2026-09-03 · COMPLETE · SLURM 19899354, re-run 19899356*
+
+**8 programs. Three are technical-dominated and are named for it**: P1 and P5
+`Translation_ribosomal` (54% ribosomal / 66% pseudogene in their top 50) and P8
+`Myeloid_ambient_like` (18 myeloid markers). The first labelling pass called P1 `Mesenchymal_ECM` on
+a 0.20 family overlap while its top 15 genes were ribosomal proteins; an explicit technical-content
+check was added and M38 re-run. **Only the naming changed** — not the factorization, K, or the
+recurrence rule. The five biological programs are P2 Neuronal, P3 **Mesenchymal_ECM**, P4
+Hypoxia_Angio, P6 Schwann_like, P7 **Cycling**.
+
+**Recurrence, criteria declared before any label: 0 recurrent · 1 shared-limited · 7
+patient-private**, and the one shared-limited program is technical. **Not one biologically
+interpretable program is carried by even two patients at the declared threshold.** At a relaxed 0.10
+activity threshold, **P3 (ECM) reaches three patients** — the one biological program that comes close.
+
+**The five Mesenchymal_ECM states are not one program**: they map to three. Within MPNST_4, three
+separately-clustered ECM states (3,383 cells) collapse onto one; across patients they do not.
+**Every program is recovered in the balanced run** (cosine 0.50–0.98). **Next** M39.
+
+## M39 — Malignant ECM-like Cells versus True Fibroblasts
+
+*2026-09-03 · COMPLETE · SLURM 19899354*
+
+Groups from the verified historical field: A 4,036 / B 908 / C 120 (projection only). **Evaluability
+checked before any test**: only MPNST_1 (512 vs 303) and MPNST_2 (637 vs 503) qualify — MPNST_4 has
+**1** non-malignant fibroblast and MPNST_3 **0** malignant ones. **A four-patient paired test was not
+constructed.**
+
+**Cross-patient correlation of the pseudobulk log2FC is only 0.091** — stated first, because it
+bounds the whole comparison. **92-gene signature** under declared criteria applied in every evaluable
+patient, with **no classifier and no train/test split**: 61 up in malignant ECM-like (CA12, IGFBP3,
+COL11A1, COL14A1, GJA1, SPOCK1 …), 31 up in true fibroblast (**CDH19, APOD, SCN7A, ABCA6/8/9/10,
+VIT, SPARCL1** — markers of nerve-associated / endoneurial stroma). The 120 Ambiguous fibroblasts
+were projected for description and **not reclassified**. **Next** M40.
+
+## M40 — Phase 5 Robustness
+
+*2026-09-03/04 · COMPLETE · SLURM 19899355, 19899358, 19899359, 19899742*
+
+Eight perturbations; two added after M38 (technical covariates, technical-gene-free universe).
+Programs are stable to rank (median cosine 0.998 at K ± 1), patient balance (0.940), cell-cycle
+removal (**1.000**) and confidence filtering, and no program's usage tracks a within-patient
+technical covariate above **ρ = 0.37**.
+
+**The decisive sensitivity result**: a fourth full cNMF run with ribosomal, pseudogene/lncRNA and
+canonical myeloid genes removed, across the **whole K grid**, gives **0 recurrent programs at every
+K from 5 to 15**. The patient-private result is **not** an artefact of those gene classes.
+**Every patient-private program vanishes when its own patient is withheld** (LOO 0.17–0.35).
+
+Two verdicts are published because the strict one is uninformative alone: `robust_overall` is FALSE
+for all eight (five fail only the test a patient-private program cannot pass), while
+`robust_excluding_patient_scope` is TRUE for P2, P3, P4 and P7. **Next** M41.
+
+## M41 — Phase 5 Freeze
+
+*2026-09-03/04 · COMPLETE · SLURM 19899359, 19899742, 19899744, 19899747, 19899750*
+
+**Object** `results/phase5/phase5_final_object.rds`, 6,058,471,006 bytes, md5
+`839e5157bc7c3470ddf86746c2e719e1`, sha256 `fe99ecf51154046145cf21f9c6960664d10205b90736bb13c61cccf409c40f00`,
+19,716 cells, 196 metadata columns (183 Phase 1–4 + 13 Phase 5). **10 preservation guards + 8 reload
+validations, all passed**, asserted column by column. Cells outside the malignant compartment carry
+**projected** scores flagged `program_score_source == "projected"`.
+
+**12/12 figures** (PDF + PNG) · **16 tables** · manifest 30 sections · `FIGURE_INDEX.tsv` 682 → **706**.
+`R_env_PRE_PHASE5.yml` and `R_env_POST_PHASE5.yml` byte-identical.
+
+**Failures, both root-caused and fixed at source, both preserved.** *19899359* — the figures script
+read UMAP coordinates from `meta.data`, but they live in the object's **reduction**; fixed by reading
+the frozen Phase 4 embedding table. The object build in that job had already passed all validations
+and was not repeated. *19899742* — a new column named `sig` shadowed the `sig` data frame inside the
+same `mutate()`; renamed `is_sig`. **Visual QC** found and fixed three further figure defects.
+
+---
+
+## M42 — Phase 6 Reconstruction
+
+*2026-09-03 · COMPLETE · SLURM 19899748 (00:02:42, 8 CPUs, 128 G, MaxRSS 21.92 GiB)*
+
+Phase 5 object verified against its manifest by md5 and sha256. **The MPNST_3 exclusion was
+re-derived** from the frozen `scevan_sample_reliable` flag rather than taken on trust — it marks
+MPNST_3 and only MPNST_3. 18 of 19 clones clear the 20-cell minimum; `MPNST_4_clone8` (5 cells) is
+reported NOT EVALUABLE. **Next** M43.
+
+## M43 — Clone ↔ Program Coupling
+
+*2026-09-03 · COMPLETE · SLURM 19899748*
+
+Within-patient only; permutation null shuffles clone labels **inside** the patient (1,000 perms).
+**Median η² 0.050–0.072 — roughly 94% of each program's variance sits WITHIN clones.** 7 of 24
+program × patient pairs are clone-associated. 21 of 24 reach p < 0.001, which is why effect size and
+not the p-value carries the conclusion. **A patient's dominant program is active in essentially
+every one of its clones.** **Next** M44.
+
+## M44 — Within-Clone Program Diversity
+
+*2026-09-03 · COMPLETE · SLURM 19899748*
+
+Measured on both continuous scores and a hard assignment whose 0.10 margin is printed. **Diversity
+is real and strongly patient-specific**: MPNST_1 clones carry 1.69–2.83 effective programs; MPNST_2's
+four clones carry **exactly 1.00**; MPNST_4's carry 1.05–1.23. **Between-clone divergence is
+0.1–3.4% of within-clone dispersion** — a patient's clones are transcriptionally near-interchangeable.
+
+**Warning reported, not buried**: program dispersion tracks the fraction of High-confidence cells in
+a clone at **ρ = 0.72**, above the declared disqualifying bar. The effective-number metrics stay
+below it (0.56–0.62). Clone size and depth are not drivers. **Next** M45.
+
+## M45 — Regulatory Architecture
+
+*2026-09-03/04 · COMPLETE · SLURM 19899749*
+
+decoupleR `run_ulm` over CollecTRI (41,674 edges, 1,201 TFs) on the frozen RNA log-normalised layer.
+**P7 Cycling → E2F4 0.43\*, MYC 0.34\*, E2F1 0.24\*** and **P5 Translation → HIF1A 0.45\*, ATF4
+0.43\*, HSF1 0.45\*** — textbook, and recovered without being imposed.
+
+**A dependency defect worked around without moving a frozen package**: `decoupleR::get_collectri()`
+and `OmnipathR::collectri()` both error in OmnipathR 3.14.0 (`unnest_evidences`). **OmnipathR was
+not upgraded**; the identical data was taken from OmniPath's documented REST endpoint and cached with
+provenance. **Caution stated**: with n = 4, three-of-four sign agreement occurs ≈ 31% of the time by
+chance, so the concordance count is a weak filter and the named TFs rest on direction and magnitude.
+**Next** M46.
+
+## M46 — Pathway Activity
+
+*2026-09-04 · COMPLETE · SLURM 19899749*
+
+PROGENy (14 pathways) and Hallmark (50 sets), **side by side, never merged**. The pathway layer
+independently supports labels derived from an entirely separate source: **P4 `Hypoxia_Angio` → PROGENy
+Hypoxia 0.47\*** · **P7 `Cycling` → Hallmark E2F_TARGETS 0.43\*, MYC_TARGETS_V1 0.44\*** · **P3
+`Mesenchymal_ECM` → Hallmark EMT 0.33\*, PROGENy EGFR 0.57\***. **Next** M47.
+
+## M47 — Broad CNA → Transcriptional Consequences
+
+*2026-09-04 · COMPLETE · SLURM 19899749*
+
+Within-patient carrier vs non-carrier clone comparison on the mean expression of all genes in each
+broad segment. **299 events tested, 263 evaluable, direction matches in 180 (68%)**; largest effects
+are MPNST_1's chr8 gains at Cohen's d 2.65–3.23. **This is internal consistency, NOT validation** —
+SCEVAN inferred those events from expression. NF1/NF2 segments are tabulated with the permitted and
+prohibited wording printed next to each row. **Next** M48.
+
+## M48 — Integrated Architecture
+
+*2026-09-04 · COMPLETE · SLURM 19899749*
+
+Criteria specified before the evidence was assembled. **Model A fails** on all three criteria, most
+decisively because between-clone divergence is **0.7%** of within-clone dispersion. **Model B fails**
+because only 22% of clones span ≥ 2 programs. **SELECTED: Model C, mixed architecture** — a minority
+of programs associate detectably with clones while ~94% of program variance is within-clone, and a
+patient's clones are transcriptionally near-interchangeable. MPNST_3's programs are described; **no
+clone-based interpretation was invented for it**. **Next** M49.
+
+## M49 — Phase 6 Robustness
+
+*2026-09-04 · COMPLETE · SLURM 19899749*
+
+Median η² is **0.0586 at every clone-size threshold**; effective programs per clone moves only
+1.222 → 1.185 across a fourfold margin change; High-confidence restriction reproduces η² at Spearman
+**0.901**, TF at **0.940**, PROGENy at **0.962**. LOO deliberately not applied to inherently
+within-patient analyses. **Next** M50.
+
+## M50 — Phase 6 Freeze
+
+*2026-09-04 · COMPLETE · SLURM 19899749, 19899752*
+
+**Object** `results/phase6/phase6_final_object.rds`, 6,060,757,871 bytes, md5
+`b8c01dd01755dda10b2be4e0f5ef7ef7`, sha256
+`bde592d461d22253b646da1426db8545404b9d31b7f1b948e23deed03aa643f6`, 19,716 cells, **241 metadata
+columns** (196 Phase 1–5 + 46 Phase 6). **8 preservation guards + 8 reload validations, all passed.**
+The full 690-regulon TF and 50-set Hallmark matrices stay as separate artefacts rather than bloating
+the object.
+
+**13/13 figures** · **12 tables** · manifest 31 sections · `FIGURE_INDEX.tsv` 706 → **732**.
+`R_env_PRE_PHASE6.yml` and `R_env_POST_PHASE6.yml` byte-identical.
+
+**Failures, both root-caused and fixed at source.** *19899746* — `m43` grouped by a column that
+exists only after a rename. *19899748* — `decoupleR::get_collectri()` errored inside OmnipathR;
+**OmnipathR was not upgraded**, the REST endpoint was used instead. **Visual QC** fixed one figure
+defect (shared colour scale across rows spanning three orders of magnitude).
+
+**Phase 7 is NOT initiated and requires separate authorization.**
+
+---
+
 # PHASE 4 STATUS: COMPLETE — SCEVAN EVIDENCE VISUALLY CONSOLIDATED
+# PHASE 5 STATUS: COMPLETE
+# PHASE 6 STATUS: COMPLETE

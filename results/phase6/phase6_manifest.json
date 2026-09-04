@@ -1,0 +1,2428 @@
+{
+  "phase": "Phase 6 - clonal, regulatory and transcriptional-plasticity architecture",
+  "generated": "2026-09-04T00:07:57-0400",
+  "completion_status": "COMPLETE",
+  "objective": "Determine whether malignant transcriptional heterogeneity is associated with distinct CNA-defined clones, with substantial within-clone program diversity, or a mixture, and which TF and pathway activities distinguish the Phase 5 malignant programs.",
+  "phase4_input": {
+    "path": "results/phase4/phase4_final_object.rds",
+    "md5": "e85ba8486e456917e2483f2773bdbaf3",
+    "modified": false,
+    "md5_after_phase6": "e85ba8486e456917e2483f2773bdbaf3"
+  },
+  "phase5_input": {
+    "path": "results/phase5/phase5_final_object.rds",
+    "md5": "839e5157bc7c3470ddf86746c2e719e1",
+    "sha256": "fe99ecf51154046145cf21f9c6960664d10205b90736bb13c61cccf409c40f00",
+    "modified": false,
+    "md5_after_phase6": "839e5157bc7c3470ddf86746c2e719e1"
+  },
+  "mpnst3_exclusion": {
+    "patient": "MPNST_3",
+    "reason": "MPNST_3 failed the Phase 4 SCEVAN immune sanity gate: its primary and sensitivity runs are inverted (agreement 0.0864 against 0.9663-0.9974), six of nine canonical immune populations are called ~100% malignant, and its three inferred clones are T/NK, plasma/pDC/B and plasma-dominated. Its clone structure carries no tumour-clone inferential weight.",
+    "scope": "every clone-based inference: clone-program coupling, clone diversity, plasticity, CNA-program association and clone-based conclusions",
+    "still_described": "MPNST_3's Phase 5 transcriptional programs are described; only its clone architecture is excluded"
+  },
+  "m42_feasibility": {
+    "milestone": "M42",
+    "generated": "2026-09-03T23:47:47-0400",
+    "phase5_object": {
+      "path": "results/phase5/phase5_final_object.rds",
+      "md5": "839e5157bc7c3470ddf86746c2e719e1",
+      "sha256": "fe99ecf51154046145cf21f9c6960664d10205b90736bb13c61cccf409c40f00",
+      "size_bytes": 6058471006,
+      "manifest_verified": true
+    },
+    "programs": [
+      "program_P1_score",
+      "program_P2_score",
+      "program_P3_score",
+      "program_P4_score",
+      "program_P5_score",
+      "program_P6_score",
+      "program_P7_score",
+      "program_P8_score"
+    ],
+    "n_programs": 8,
+    "clone_reliability": [
+      {
+        "sample_id": "MPNST_1",
+        "scevan_sample_reliable": "TRUE",
+        "n_clones": 7,
+        "n_malignant": 1886,
+        "n_malignant_with_clone": 1886
+      },
+      {
+        "sample_id": "MPNST_2",
+        "scevan_sample_reliable": "TRUE",
+        "n_clones": 4,
+        "n_malignant": 651,
+        "n_malignant_with_clone": 651
+      },
+      {
+        "sample_id": "MPNST_3",
+        "scevan_sample_reliable": "FALSE",
+        "n_clones": 3,
+        "n_malignant": 212,
+        "n_malignant_with_clone": 91
+      },
+      {
+        "sample_id": "MPNST_4",
+        "scevan_sample_reliable": "TRUE",
+        "n_clones": 8,
+        "n_malignant": 3685,
+        "n_malignant_with_clone": 3628
+      }
+    ],
+    "clone_reliable_patients": [
+      "MPNST_1",
+      "MPNST_2",
+      "MPNST_4"
+    ],
+    "clone_excluded_patients": "MPNST_3",
+    "clone_exclusion_reason": "MPNST_3 failed the Phase 4 SCEVAN immune sanity gate: its primary and sensitivity runs are inverted (agreement 0.0864 against 0.9663-0.9974), six of nine canonical immune populations are called ~100% malignant, and its three inferred clones are T/NK, plasma/pDC/B and plasma-dominated. Its clone structure carries no tumour-clone inferential weight.",
+    "clone_sizes": [
+      {
+        "sample_id": "MPNST_1",
+        "tumor_clone_phase4": "MPNST_1_clone1",
+        "n_cells": 442,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "tumor_clone_phase4": "MPNST_1_clone2",
+        "n_cells": 339,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "tumor_clone_phase4": "MPNST_1_clone3",
+        "n_cells": 53,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": false
+      },
+      {
+        "sample_id": "MPNST_1",
+        "tumor_clone_phase4": "MPNST_1_clone4",
+        "n_cells": 516,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "tumor_clone_phase4": "MPNST_1_clone5",
+        "n_cells": 306,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "tumor_clone_phase4": "MPNST_1_clone6",
+        "n_cells": 176,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "tumor_clone_phase4": "MPNST_1_clone7",
+        "n_cells": 54,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": false
+      },
+      {
+        "sample_id": "MPNST_2",
+        "tumor_clone_phase4": "MPNST_2_clone1",
+        "n_cells": 143,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_2",
+        "tumor_clone_phase4": "MPNST_2_clone2",
+        "n_cells": 164,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_2",
+        "tumor_clone_phase4": "MPNST_2_clone3",
+        "n_cells": 231,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_2",
+        "tumor_clone_phase4": "MPNST_2_clone4",
+        "n_cells": 113,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_3",
+        "tumor_clone_phase4": "MPNST_3_clone1",
+        "n_cells": 72,
+        "clone_reliable": false,
+        "ge20": true,
+        "ge50": true,
+        "ge100": false
+      },
+      {
+        "sample_id": "MPNST_3",
+        "tumor_clone_phase4": "MPNST_3_clone2",
+        "n_cells": 1,
+        "clone_reliable": false,
+        "ge20": false,
+        "ge50": false,
+        "ge100": false
+      },
+      {
+        "sample_id": "MPNST_3",
+        "tumor_clone_phase4": "MPNST_3_clone3",
+        "n_cells": 18,
+        "clone_reliable": false,
+        "ge20": false,
+        "ge50": false,
+        "ge100": false
+      },
+      {
+        "sample_id": "MPNST_4",
+        "tumor_clone_phase4": "MPNST_4_clone1",
+        "n_cells": 239,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "tumor_clone_phase4": "MPNST_4_clone2",
+        "n_cells": 713,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "tumor_clone_phase4": "MPNST_4_clone3",
+        "n_cells": 462,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "tumor_clone_phase4": "MPNST_4_clone4",
+        "n_cells": 1009,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "tumor_clone_phase4": "MPNST_4_clone5",
+        "n_cells": 257,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "tumor_clone_phase4": "MPNST_4_clone6",
+        "n_cells": 619,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "tumor_clone_phase4": "MPNST_4_clone7",
+        "n_cells": 324,
+        "clone_reliable": true,
+        "ge20": true,
+        "ge50": true,
+        "ge100": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "tumor_clone_phase4": "MPNST_4_clone8",
+        "n_cells": 5,
+        "clone_reliable": true,
+        "ge20": false,
+        "ge50": false,
+        "ge100": false
+      }
+    ],
+    "malignant_without_clone": 178,
+    "upstream_unchanged": true
+  },
+  "m43_clone_program": {
+    "milestone": "M43",
+    "n_perm": 1000,
+    "generated": "2026-09-03T23:49:34-0400",
+    "association": [
+      {
+        "sample_id": "MPNST_1",
+        "program": "P1",
+        "program_label": "Translation_ribosomal",
+        "n_cells": 1886,
+        "n_clones": 7,
+        "eta2": 0.0300921932999546,
+        "eta2_null_mean": 0.00312046149033136,
+        "eta2_null_p95": 0.00648319913029388,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0269717318096232,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P2",
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "n_cells": 1886,
+        "n_clones": 7,
+        "eta2": 0.180774667171235,
+        "eta2_null_mean": 0.00329022263160889,
+        "eta2_null_p95": 0.0065506520680128,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.177484444539626,
+        "clone_associated": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P3",
+        "program_label": "Mesenchymal_ECM_mixed",
+        "n_cells": 1886,
+        "n_clones": 7,
+        "eta2": 0.121007783075103,
+        "eta2_null_mean": 0.00318679343209172,
+        "eta2_null_p95": 0.0068145371670624,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.117820989643012,
+        "clone_associated": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P4",
+        "program_label": "Hypoxia_Angio",
+        "n_cells": 1886,
+        "n_clones": 7,
+        "eta2": 0.0639881848491989,
+        "eta2_null_mean": 0.0032055510401855,
+        "eta2_null_p95": 0.00679926873174655,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0607826338090134,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P5",
+        "program_label": "Translation_ribosomal",
+        "n_cells": 1886,
+        "n_clones": 7,
+        "eta2": 0.508360421137584,
+        "eta2_null_mean": 0.00311256351561544,
+        "eta2_null_p95": 0.00653292373303686,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.505247857621968,
+        "clone_associated": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P6",
+        "program_label": "Schwann_like_mixed",
+        "n_cells": 1886,
+        "n_clones": 7,
+        "eta2": 0.0411640021410976,
+        "eta2_null_mean": 0.00319184835661637,
+        "eta2_null_p95": 0.00649570863638802,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0379721537844812,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P7",
+        "program_label": "Cycling",
+        "n_cells": 1886,
+        "n_clones": 7,
+        "eta2": 0.00419069236502974,
+        "eta2_null_mean": 0.00318796999615015,
+        "eta2_null_p95": 0.00663287078193137,
+        "perm_p": 0.234765234765235,
+        "excess_over_null": 0.00100272236887959,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P8",
+        "program_label": "Myeloid_ambient_like",
+        "n_cells": 1886,
+        "n_clones": 7,
+        "eta2": 0.0796860210524448,
+        "eta2_null_mean": 0.00319114741857665,
+        "eta2_null_p95": 0.00693735586610662,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0764948736338682,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P1",
+        "program_label": "Translation_ribosomal",
+        "n_cells": 651,
+        "n_clones": 4,
+        "eta2": 0.0607166188817039,
+        "eta2_null_mean": 0.00469345107825922,
+        "eta2_null_p95": 0.012486160052316,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0560231678034446,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P2",
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "n_cells": 651,
+        "n_clones": 4,
+        "eta2": 0.154462756064387,
+        "eta2_null_mean": 0.00474396609678061,
+        "eta2_null_p95": 0.0122574300747226,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.149718789967606,
+        "clone_associated": true
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P3",
+        "program_label": "Mesenchymal_ECM_mixed",
+        "n_cells": 651,
+        "n_clones": 4,
+        "eta2": 0.0530449683623415,
+        "eta2_null_mean": 0.00473382926984791,
+        "eta2_null_p95": 0.0117514301885853,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0483111390924936,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P4",
+        "program_label": "Hypoxia_Angio",
+        "n_cells": 651,
+        "n_clones": 4,
+        "eta2": 0.0475243506347885,
+        "eta2_null_mean": 0.00456981857975507,
+        "eta2_null_p95": 0.0120556082250163,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0429545320550334,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P5",
+        "program_label": "Translation_ribosomal",
+        "n_cells": 651,
+        "n_clones": 4,
+        "eta2": 0.0388626749803341,
+        "eta2_null_mean": 0.00455667738090675,
+        "eta2_null_p95": 0.0117496018695507,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0343059975994274,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P6",
+        "program_label": "Schwann_like_mixed",
+        "n_cells": 651,
+        "n_clones": 4,
+        "eta2": 0.0387323875451382,
+        "eta2_null_mean": 0.0047610810276661,
+        "eta2_null_p95": 0.0126103955728081,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0339713065174721,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P7",
+        "program_label": "Cycling",
+        "n_cells": 651,
+        "n_clones": 4,
+        "eta2": 0.00380863850357397,
+        "eta2_null_mean": 0.00474699429161637,
+        "eta2_null_p95": 0.0110087946717147,
+        "perm_p": 0.537462537462537,
+        "excess_over_null": -0.000938355788042405,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P8",
+        "program_label": "Myeloid_ambient_like",
+        "n_cells": 651,
+        "n_clones": 4,
+        "eta2": 0.147279967433744,
+        "eta2_null_mean": 0.00469939221881951,
+        "eta2_null_p95": 0.0128322746183219,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.142580575214925,
+        "clone_associated": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P1",
+        "program_label": "Translation_ribosomal",
+        "n_cells": 3623,
+        "n_clones": 7,
+        "eta2": 0.0195375072118718,
+        "eta2_null_mean": 0.00165595564747435,
+        "eta2_null_p95": 0.00342065010524259,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0178815515643975,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P2",
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "n_cells": 3623,
+        "n_clones": 7,
+        "eta2": 0.208482119338715,
+        "eta2_null_mean": 0.0016672841741591,
+        "eta2_null_p95": 0.00344648382511727,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.206814835164556,
+        "clone_associated": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P3",
+        "program_label": "Mesenchymal_ECM_mixed",
+        "n_cells": 3623,
+        "n_clones": 7,
+        "eta2": 0.0882192176209463,
+        "eta2_null_mean": 0.00168123082341556,
+        "eta2_null_p95": 0.00372070343883312,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0865379867975307,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P4",
+        "program_label": "Hypoxia_Angio",
+        "n_cells": 3623,
+        "n_clones": 7,
+        "eta2": 0.0951464941758849,
+        "eta2_null_mean": 0.00173276383455715,
+        "eta2_null_p95": 0.00368075097636277,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0934137303413278,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P5",
+        "program_label": "Translation_ribosomal",
+        "n_cells": 3623,
+        "n_clones": 7,
+        "eta2": 0.116782679782043,
+        "eta2_null_mean": 0.00164843995974446,
+        "eta2_null_p95": 0.0033758119340928,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.115134239822299,
+        "clone_associated": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P6",
+        "program_label": "Schwann_like_mixed",
+        "n_cells": 3623,
+        "n_clones": 7,
+        "eta2": 0.0312981140029147,
+        "eta2_null_mean": 0.00166566142641754,
+        "eta2_null_p95": 0.00341254341997335,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0296324525764972,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P7",
+        "program_label": "Cycling",
+        "n_cells": 3623,
+        "n_clones": 7,
+        "eta2": 0.0165907643707555,
+        "eta2_null_mean": 0.00166504263008932,
+        "eta2_null_p95": 0.00340622805510765,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0149257217406662,
+        "clone_associated": false
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P8",
+        "program_label": "Myeloid_ambient_like",
+        "n_cells": 3623,
+        "n_clones": 7,
+        "eta2": 0.0564559762812069,
+        "eta2_null_mean": 0.00167502331084672,
+        "eta2_null_p95": 0.00357023916753208,
+        "perm_p": 0.000999000999000999,
+        "excess_over_null": 0.0547809529703602,
+        "clone_associated": false
+      }
+    ],
+    "summary": [
+      {
+        "sample_id": "MPNST_1",
+        "n_programs": 8,
+        "median_eta2": 0.0718371029508219,
+        "max_eta2": 0.508360421137584,
+        "program_at_max": "P5",
+        "n_clone_associated": 3
+      },
+      {
+        "sample_id": "MPNST_2",
+        "n_programs": 8,
+        "median_eta2": 0.050284659498565,
+        "max_eta2": 0.154462756064387,
+        "program_at_max": "P2",
+        "n_clone_associated": 2
+      },
+      {
+        "sample_id": "MPNST_4",
+        "n_programs": 8,
+        "median_eta2": 0.0723375969510766,
+        "max_eta2": 0.208482119338715,
+        "program_at_max": "P2",
+        "n_clone_associated": 2
+      }
+    ],
+    "clone_dominant": [
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone1",
+        "n_cells": 442,
+        "dominant_program": "P5",
+        "dominant_program_share": 0.407239819004525,
+        "n_programs_present": 4,
+        "dominant_program_label": "Translation_ribosomal",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone2",
+        "n_cells": 339,
+        "dominant_program": "P2",
+        "dominant_program_share": 0.775811209439528,
+        "n_programs_present": 2,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone3",
+        "n_cells": 53,
+        "dominant_program": "P2",
+        "dominant_program_share": 0.69811320754717,
+        "n_programs_present": 3,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone4",
+        "n_cells": 516,
+        "dominant_program": "P2",
+        "dominant_program_share": 0.434108527131783,
+        "n_programs_present": 3,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone5",
+        "n_cells": 306,
+        "dominant_program": "P2",
+        "dominant_program_share": 0.607843137254902,
+        "n_programs_present": 4,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone6",
+        "n_cells": 176,
+        "dominant_program": "P2",
+        "dominant_program_share": 0.511363636363636,
+        "n_programs_present": 2,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone7",
+        "n_cells": 54,
+        "dominant_program": "P2",
+        "dominant_program_share": 0.5,
+        "n_programs_present": 2,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone": "MPNST_2_clone1",
+        "n_cells": 143,
+        "dominant_program": "P3",
+        "dominant_program_share": 1,
+        "n_programs_present": 1,
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone": "MPNST_2_clone2",
+        "n_cells": 164,
+        "dominant_program": "P3",
+        "dominant_program_share": 1,
+        "n_programs_present": 1,
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone": "MPNST_2_clone3",
+        "n_cells": 231,
+        "dominant_program": "P3",
+        "dominant_program_share": 1,
+        "n_programs_present": 1,
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone": "MPNST_2_clone4",
+        "n_cells": 113,
+        "dominant_program": "P3",
+        "dominant_program_share": 1,
+        "n_programs_present": 1,
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone1",
+        "n_cells": 239,
+        "dominant_program": "P1",
+        "dominant_program_share": 0.99163179916318,
+        "n_programs_present": 2,
+        "dominant_program_label": "Translation_ribosomal",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone2",
+        "n_cells": 713,
+        "dominant_program": "P1",
+        "dominant_program_share": 0.949509116409537,
+        "n_programs_present": 2,
+        "dominant_program_label": "Translation_ribosomal",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone3",
+        "n_cells": 462,
+        "dominant_program": "P1",
+        "dominant_program_share": 0.974025974025974,
+        "n_programs_present": 2,
+        "dominant_program_label": "Translation_ribosomal",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone4",
+        "n_cells": 1009,
+        "dominant_program": "P1",
+        "dominant_program_share": 0.952428146679881,
+        "n_programs_present": 2,
+        "dominant_program_label": "Translation_ribosomal",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone5",
+        "n_cells": 257,
+        "dominant_program": "P1",
+        "dominant_program_share": 0.949416342412451,
+        "n_programs_present": 2,
+        "dominant_program_label": "Translation_ribosomal",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone6",
+        "n_cells": 619,
+        "dominant_program": "P1",
+        "dominant_program_share": 0.988691437802908,
+        "n_programs_present": 2,
+        "dominant_program_label": "Translation_ribosomal",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone7",
+        "n_cells": 324,
+        "dominant_program": "P1",
+        "dominant_program_share": 0.944444444444444,
+        "n_programs_present": 3,
+        "dominant_program_label": "Translation_ribosomal",
+        "evaluable_ge20": true
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone8",
+        "n_cells": 5,
+        "dominant_program": "P7",
+        "dominant_program_share": 0.6,
+        "n_programs_present": 2,
+        "dominant_program_label": "Cycling",
+        "evaluable_ge20": false
+      }
+    ],
+    "excluded": {
+      "patient": "MPNST_3",
+      "reason": "MPNST_3 failed the Phase 4 SCEVAN immune sanity gate: its primary and sensitivity runs are inverted (agreement 0.0864 against 0.9663-0.9974), six of nine canonical immune populations are called ~100% malignant, and its three inferred clones are T/NK, plasma/pDC/B and plasma-dominated. Its clone structure carries no tumour-clone inferential weight."
+    },
+    "eta2_note": "eta^2 = between-clone share of program variance; a permutation null was built by shuffling clone labels WITHIN each patient, preserving clone sizes and the score distribution"
+  },
+  "m44_diversity": {
+    "milestone": "M44",
+    "generated": "2026-09-03T23:49:44-0400",
+    "diversity": [
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone4",
+        "n_cells": 516,
+        "continuous_entropy": 1.29810746206118,
+        "continuous_effective_n": 3.66235895148321,
+        "hard_entropy": 0.965359065489982,
+        "hard_effective_n": 2.62573029636515,
+        "dominant_program": "P2",
+        "dominant_program_share_continuous": 0.345036270962089,
+        "dominant_program_share_hard": 0.512820512820513,
+        "n_programs_hard": 3,
+        "frac_mixed_cells": 0.244186046511628,
+        "program_dispersion": 0.376218897960959,
+        "median_nCount": 24030,
+        "median_nFeature": 6579.5,
+        "frac_high_confidence": 1,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_1_clone4"
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone1",
+        "n_cells": 442,
+        "continuous_entropy": 1.34603990989479,
+        "continuous_effective_n": 3.84217998481276,
+        "hard_entropy": 1.04155074715911,
+        "hard_effective_n": 2.83360781823247,
+        "dominant_program": "P5",
+        "dominant_program_share_continuous": 0.387906463153084,
+        "dominant_program_share_hard": 0.430722891566265,
+        "n_programs_hard": 3,
+        "frac_mixed_cells": 0.248868778280543,
+        "program_dispersion": 0.357567070519867,
+        "median_nCount": 18889.5,
+        "median_nFeature": 5830,
+        "frac_high_confidence": 0.995475113122172,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_1_clone1"
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone2",
+        "n_cells": 339,
+        "continuous_entropy": 0.965770740688971,
+        "continuous_effective_n": 2.62681146693768,
+        "hard_entropy": 0.524597098463758,
+        "hard_effective_n": 1.6897778970995,
+        "dominant_program": "P2",
+        "dominant_program_share_continuous": 0.67929713559081,
+        "dominant_program_share_hard": 0.781818181818182,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0.0265486725663717,
+        "program_dispersion": 0.362009239157572,
+        "median_nCount": 11469,
+        "median_nFeature": 4466,
+        "frac_high_confidence": 1,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_1_clone2"
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone5",
+        "n_cells": 306,
+        "continuous_entropy": 1.15185859117579,
+        "continuous_effective_n": 3.1640681573136,
+        "hard_entropy": 0.835221894432356,
+        "hard_effective_n": 2.30532553043737,
+        "dominant_program": "P2",
+        "dominant_program_share_continuous": 0.55141087295872,
+        "dominant_program_share_hard": 0.618055555555556,
+        "n_programs_hard": 3,
+        "frac_mixed_cells": 0.0588235294117647,
+        "program_dispersion": 0.486967680016413,
+        "median_nCount": 5491,
+        "median_nFeature": 2824.5,
+        "frac_high_confidence": 0.92483660130719,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_1_clone5"
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone6",
+        "n_cells": 176,
+        "continuous_entropy": 0.82986673069343,
+        "continuous_effective_n": 2.2930131316305,
+        "hard_entropy": 0.691864786429872,
+        "hard_effective_n": 1.9974368555718,
+        "dominant_program": "P2",
+        "dominant_program_share_continuous": 0.50946259057035,
+        "dominant_program_share_hard": 0.525316455696203,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0.102272727272727,
+        "program_dispersion": 0.391042594564649,
+        "median_nCount": 14914.5,
+        "median_nFeature": 4900.5,
+        "frac_high_confidence": 1,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_1_clone6"
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone7",
+        "n_cells": 54,
+        "continuous_entropy": 1.20301908109332,
+        "continuous_effective_n": 3.33015577138945,
+        "hard_entropy": 0.691416077617118,
+        "hard_effective_n": 1.99654078910328,
+        "dominant_program": "P2",
+        "dominant_program_share_continuous": 0.468962446472363,
+        "dominant_program_share_hard": 0.529411764705882,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0.0555555555555556,
+        "program_dispersion": 0.402488076347975,
+        "median_nCount": 10681,
+        "median_nFeature": 4476,
+        "frac_high_confidence": 1,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": false,
+        "_row": "MPNST_1_clone7"
+      },
+      {
+        "sample_id": "MPNST_1",
+        "clone": "MPNST_1_clone3",
+        "n_cells": 53,
+        "continuous_entropy": 1.38406118188832,
+        "continuous_effective_n": 3.9910772498321,
+        "hard_entropy": 0.766409436767637,
+        "hard_effective_n": 2.15202538184503,
+        "dominant_program": "P2",
+        "dominant_program_share_continuous": 0.449139788720857,
+        "dominant_program_share_hard": 0.731707317073171,
+        "n_programs_hard": 3,
+        "frac_mixed_cells": 0.226415094339623,
+        "program_dispersion": 0.314816415947904,
+        "median_nCount": 21233,
+        "median_nFeature": 5986,
+        "frac_high_confidence": 1,
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": false,
+        "_row": "MPNST_1_clone3"
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone": "MPNST_2_clone3",
+        "n_cells": 231,
+        "continuous_entropy": 0.504870144440594,
+        "continuous_effective_n": 1.65677036564899,
+        "hard_entropy": 0,
+        "hard_effective_n": 1,
+        "dominant_program": "P3",
+        "dominant_program_share_continuous": 0.889082996103326,
+        "dominant_program_share_hard": 1,
+        "n_programs_hard": 1,
+        "frac_mixed_cells": 0,
+        "program_dispersion": 0.116613408225232,
+        "median_nCount": 24163,
+        "median_nFeature": 4513,
+        "frac_high_confidence": 0.896103896103896,
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_2_clone3"
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone": "MPNST_2_clone2",
+        "n_cells": 164,
+        "continuous_entropy": 0.642851314344109,
+        "continuous_effective_n": 1.90189605896038,
+        "hard_entropy": 0,
+        "hard_effective_n": 1,
+        "dominant_program": "P3",
+        "dominant_program_share_continuous": 0.833760253334011,
+        "dominant_program_share_hard": 1,
+        "n_programs_hard": 1,
+        "frac_mixed_cells": 0,
+        "program_dispersion": 0.126999108552785,
+        "median_nCount": 15630.5,
+        "median_nFeature": 3611,
+        "frac_high_confidence": 0.591463414634146,
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_2_clone2"
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone": "MPNST_2_clone1",
+        "n_cells": 143,
+        "continuous_entropy": 0.609974231521175,
+        "continuous_effective_n": 1.84038397427514,
+        "hard_entropy": 0,
+        "hard_effective_n": 1,
+        "dominant_program": "P3",
+        "dominant_program_share_continuous": 0.860460732825958,
+        "dominant_program_share_hard": 1,
+        "n_programs_hard": 1,
+        "frac_mixed_cells": 0,
+        "program_dispersion": 0.133199206646385,
+        "median_nCount": 13282,
+        "median_nFeature": 3363,
+        "frac_high_confidence": 0.503496503496504,
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_2_clone1"
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone": "MPNST_2_clone4",
+        "n_cells": 113,
+        "continuous_entropy": 0.677488952143537,
+        "continuous_effective_n": 1.96892744858269,
+        "hard_entropy": 0,
+        "hard_effective_n": 1,
+        "dominant_program": "P3",
+        "dominant_program_share_continuous": 0.825616602439229,
+        "dominant_program_share_hard": 1,
+        "n_programs_hard": 1,
+        "frac_mixed_cells": 0,
+        "program_dispersion": 0.137976654552554,
+        "median_nCount": 20885,
+        "median_nFeature": 4146,
+        "frac_high_confidence": 0.778761061946903,
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_2_clone4"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone4",
+        "n_cells": 1009,
+        "continuous_entropy": 0.723976369632664,
+        "continuous_effective_n": 2.06261865987555,
+        "hard_entropy": 0.171368205815117,
+        "hard_effective_n": 1.18692770225451,
+        "dominant_program": "P1",
+        "dominant_program_share_continuous": 0.836711993818939,
+        "dominant_program_share_hard": 0.958917835671343,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0.0109018830525273,
+        "program_dispersion": 0.133798715573405,
+        "median_nCount": 6720,
+        "median_nFeature": 2666,
+        "frac_high_confidence": 0.264618434093162,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_4_clone4"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone2",
+        "n_cells": 713,
+        "continuous_entropy": 0.772739386894668,
+        "continuous_effective_n": 2.16569080026364,
+        "hard_entropy": 0.189208980538167,
+        "hard_effective_n": 1.20829343591242,
+        "dominant_program": "P1",
+        "dominant_program_share_continuous": 0.817715617750276,
+        "dominant_program_share_hard": 0.953125,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0.0126227208976157,
+        "program_dispersion": 0.149142089113738,
+        "median_nCount": 6196,
+        "median_nFeature": 2437,
+        "frac_high_confidence": 0.232819074333801,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_4_clone2"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone6",
+        "n_cells": 619,
+        "continuous_entropy": 0.644455725439043,
+        "continuous_effective_n": 1.90494993127701,
+        "hard_entropy": 0.0619315603406046,
+        "hard_effective_n": 1.06388952999929,
+        "dominant_program": "P1",
+        "dominant_program_share_continuous": 0.860610507331922,
+        "dominant_program_share_hard": 0.988691437802908,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0,
+        "program_dispersion": 0.0904603407640399,
+        "median_nCount": 4546,
+        "median_nFeature": 2018,
+        "frac_high_confidence": 0.151857835218094,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_4_clone6"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone3",
+        "n_cells": 462,
+        "continuous_entropy": 0.645803363121041,
+        "continuous_effective_n": 1.90751884417984,
+        "hard_entropy": 0.0966763941746693,
+        "hard_effective_n": 1.10150386287299,
+        "dominant_program": "P1",
+        "dominant_program_share_continuous": 0.855390069370269,
+        "dominant_program_share_hard": 0.980349344978166,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0.00865800865800866,
+        "program_dispersion": 0.0971796437619744,
+        "median_nCount": 3419,
+        "median_nFeature": 1772,
+        "frac_high_confidence": 0.354978354978355,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_4_clone3"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone7",
+        "n_cells": 324,
+        "continuous_entropy": 0.83837048467156,
+        "continuous_effective_n": 2.31259549496439,
+        "hard_entropy": 0.209216780904776,
+        "hard_effective_n": 1.23271219803295,
+        "dominant_program": "P1",
+        "dominant_program_share_continuous": 0.806975428771456,
+        "dominant_program_share_hard": 0.950310559006211,
+        "n_programs_hard": 3,
+        "frac_mixed_cells": 0.00617283950617284,
+        "program_dispersion": 0.167633636914976,
+        "median_nCount": 1999,
+        "median_nFeature": 1111.5,
+        "frac_high_confidence": 0.327160493827161,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_4_clone7"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone5",
+        "n_cells": 257,
+        "continuous_entropy": 0.73686285747336,
+        "continuous_effective_n": 2.08937056902772,
+        "hard_entropy": 0.190319268879268,
+        "hard_effective_n": 1.2096357350586,
+        "dominant_program": "P1",
+        "dominant_program_share_continuous": 0.831655844542719,
+        "dominant_program_share_hard": 0.952755905511811,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0.0116731517509728,
+        "program_dispersion": 0.146237142906707,
+        "median_nCount": 6363,
+        "median_nFeature": 2504,
+        "frac_high_confidence": 0.295719844357977,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_4_clone5"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone1",
+        "n_cells": 239,
+        "continuous_entropy": 0.601387133157857,
+        "continuous_effective_n": 1.82464807561129,
+        "hard_entropy": 0.0483608414288078,
+        "hard_effective_n": 1.04954930787546,
+        "dominant_program": "P1",
+        "dominant_program_share_continuous": 0.872291837880723,
+        "dominant_program_share_hard": 0.99163179916318,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0,
+        "program_dispersion": 0.078893258680004,
+        "median_nCount": 4471,
+        "median_nFeature": 2074,
+        "frac_high_confidence": 0.251046025104602,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": true,
+        "evaluable_ge50": true,
+        "evaluable_ge100": true,
+        "_row": "MPNST_4_clone1"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone": "MPNST_4_clone8",
+        "n_cells": 5,
+        "continuous_entropy": 1.33902377714218,
+        "continuous_effective_n": 3.81531708700472,
+        "hard_entropy": 0.673011667009257,
+        "hard_effective_n": 1.96013170420779,
+        "dominant_program": "P1",
+        "dominant_program_share_continuous": 0.504401670062236,
+        "dominant_program_share_hard": 0.6,
+        "n_programs_hard": 2,
+        "frac_mixed_cells": 0,
+        "program_dispersion": 0.378954104053562,
+        "median_nCount": 12267,
+        "median_nFeature": 3848,
+        "frac_high_confidence": 0.6,
+        "dominant_program_label": "Translation_ribosomal",
+        "max_effective_n": 8,
+        "evaluable_ge20": false,
+        "evaluable_ge50": false,
+        "evaluable_ge100": false,
+        "_row": "MPNST_4_clone8"
+      }
+    ],
+    "between_within": [
+      {
+        "sample_id": "MPNST_1",
+        "n_clones": 7,
+        "mean_between_clone_jsd": 0.0129548097061667,
+        "mean_within_clone_dispersion": 0.38444428207362,
+        "ratio": 0.0336974961268534
+      },
+      {
+        "sample_id": "MPNST_2",
+        "n_clones": 4,
+        "mean_between_clone_jsd": 0.000179994955490562,
+        "mean_within_clone_dispersion": 0.128697094494239,
+        "ratio": 0.00139859377710054
+      },
+      {
+        "sample_id": "MPNST_4",
+        "n_clones": 7,
+        "mean_between_clone_jsd": 0.000848234752141767,
+        "mean_within_clone_dispersion": 0.123334975387835,
+        "ratio": 0.0068774875048577
+      }
+    ],
+    "confounders": [
+      {
+        "covariate": "n_cells",
+        "diversity_metric": "continuous_effective_n",
+        "n": 18,
+        "spearman_rho": 0.0278637770897833
+      },
+      {
+        "covariate": "n_cells",
+        "diversity_metric": "hard_effective_n",
+        "n": 18,
+        "spearman_rho": 0.172201486429574
+      },
+      {
+        "covariate": "n_cells",
+        "diversity_metric": "program_dispersion",
+        "n": 18,
+        "spearman_rho": -0.12280701754386
+      },
+      {
+        "covariate": "median_nCount",
+        "diversity_metric": "continuous_effective_n",
+        "n": 18,
+        "spearman_rho": 0.176470588235294
+      },
+      {
+        "covariate": "median_nCount",
+        "diversity_metric": "hard_effective_n",
+        "n": 18,
+        "spearman_rho": 0.0746898013429478
+      },
+      {
+        "covariate": "median_nCount",
+        "diversity_metric": "program_dispersion",
+        "n": 18,
+        "spearman_rho": 0.226006191950464
+      },
+      {
+        "covariate": "median_nFeature",
+        "diversity_metric": "continuous_effective_n",
+        "n": 18,
+        "spearman_rho": 0.484004127966976
+      },
+      {
+        "covariate": "median_nFeature",
+        "diversity_metric": "hard_effective_n",
+        "n": 18,
+        "spearman_rho": 0.434653149481876
+      },
+      {
+        "covariate": "median_nFeature",
+        "diversity_metric": "program_dispersion",
+        "n": 18,
+        "spearman_rho": 0.533539731682147
+      },
+      {
+        "covariate": "frac_high_confidence",
+        "diversity_metric": "continuous_effective_n",
+        "n": 18,
+        "spearman_rho": 0.616300451852646
+      },
+      {
+        "covariate": "frac_high_confidence",
+        "diversity_metric": "hard_effective_n",
+        "n": 18,
+        "spearman_rho": 0.562900812982612
+      },
+      {
+        "covariate": "frac_high_confidence",
+        "diversity_metric": "program_dispersion",
+        "n": 18,
+        "spearman_rho": 0.722667027299296
+      },
+      {
+        "covariate": "median_cellcycle_program",
+        "diversity_metric": "continuous_effective_n",
+        "n": 18,
+        "spearman_rho": 0.505762638153187
+      },
+      {
+        "covariate": "median_cellcycle_program",
+        "diversity_metric": "hard_effective_n",
+        "n": 18,
+        "spearman_rho": 0.387845997772004
+      },
+      {
+        "covariate": "median_cellcycle_program",
+        "diversity_metric": "program_dispersion",
+        "n": 18,
+        "spearman_rho": 0.263830819490219
+      }
+    ],
+    "clone_size_sensitivity": [
+      {
+        "min_clone_size": 20,
+        "n_clones_evaluable": 18,
+        "n_clones_not_evaluable": 1,
+        "median_continuous_effective_n": 2.12753068464568,
+        "median_hard_effective_n": 1.20896458548551,
+        "median_dominant_share_hard": 0.952940452755906
+      },
+      {
+        "min_clone_size": 50,
+        "n_clones_evaluable": 18,
+        "n_clones_not_evaluable": 1,
+        "median_continuous_effective_n": 2.12753068464568,
+        "median_hard_effective_n": 1.20896458548551,
+        "median_dominant_share_hard": 0.952940452755906
+      },
+      {
+        "min_clone_size": 100,
+        "n_clones_evaluable": 16,
+        "n_clones_not_evaluable": 3,
+        "median_continuous_effective_n": 2.07599461445163,
+        "median_hard_effective_n": 1.19761056908347,
+        "median_dominant_share_hard": 0.956021417835671
+      }
+    ],
+    "hard_assignment_margin": 0.1,
+    "n_clones_evaluable": 18,
+    "n_clones_multi_program": 4,
+    "wording": "Within-clone program DIVERSITY is what is measured. Cross-sectional scRNA-seq cannot demonstrate a state transition, so no switching, transition rate, direction or trajectory is claimed anywhere."
+  },
+  "m45_tf": {
+    "milestone": "M45",
+    "generated": "2026-09-03T23:53:05-0400",
+    "network": {
+      "resource": "CollecTRI, fetched from the OmniPath REST endpoint",
+      "url": "https://omnipathdb.org/interactions?datasets=collectri&genesymbols=yes&organisms=9606&fields=sources,references,curation_effort",
+      "cache": "external/networks/collectri_human.tsv",
+      "raw_cache": "external/networks/collectri_omnipath_raw.tsv",
+      "workaround": "decoupleR::get_collectri() and OmnipathR::collectri() both error in OmnipathR 3.14.0 (unnest_evidences); OmnipathR was NOT upgraded - a frozen dependency is not moved for a convenience wrapper - and the identical data was taken from the documented REST endpoint instead",
+      "decoupleR": "2.12.0",
+      "OmnipathR": "3.14.0",
+      "edges": 62411,
+      "tfs": 1201,
+      "min_targets": 5,
+      "method": "run_ulm (univariate linear model)"
+    },
+    "n_tfs": 690,
+    "n_cells": 6434,
+    "recurrence_rule": "a TF-program relationship is called recurrent only when its direction is concordant in >= 3 evaluable patients AND |pooled rho| >= 0.20; a strong pooled association alone is never sufficient",
+    "n_recurrent_pairs": 1314
+  },
+  "m46_pathway": {
+    "milestone": "M46",
+    "generated": "2026-09-03T23:55:55-0400",
+    "progeny": {
+      "pathways": 14,
+      "method": "decoupleR run_mlm, PROGENy top 500"
+    },
+    "hallmark": {
+      "sets": 50,
+      "method": "mean z-score of set genes, MSigDB v2024.1.Hs"
+    },
+    "n_recurrent_pathway_pairs": 187,
+    "integration_rule": "program, TF activity and pathway activity are three independent layers; they are never merged into a weighted composite"
+  },
+  "m47_cna_expression": {
+    "milestone": "M47",
+    "generated": "2026-09-03T23:56:29-0400",
+    "segments": {
+      "broad_clonal_reliable": 56,
+      "broad_subclonal": 308,
+      "evaluable_events": 263,
+      "direction_match_rate": 0.684410646387833
+    },
+    "non_independence_warning": "SCEVAN infers copy number FROM EXPRESSION. Coordinated expression on an affected chromosome is therefore an internal transcriptional consistency check, NOT orthogonal validation of the copy-number call.",
+    "cna_claim_level": "chromosome / arm / large-segment only; no single-gene deletion or amplification is asserted"
+  },
+  "m48_integrated": {
+    "milestone": "M48",
+    "generated": "2026-09-03T23:56:42-0400",
+    "architecture": {
+      "evaluated": [
+        "A_clone_constrained",
+        "B_within_clone_program_diversity",
+        "C_mixed"
+      ],
+      "selected": "C_mixed",
+      "verdict": "MPNST shows a mixed architecture: a minority of transcriptional programs associate detectably with specific CNA-defined clones while the great majority of program variance sits WITHIN clones. Median eta^2 is 0.059, so roughly 94% of each program's variance is within-clone, and between-clone divergence is only 0.7% of within-clone dispersion (median across patients), meaning a patient's CNA-defined clones are transcriptionally near-interchangeable. How much program diversity a clone contains is itself patient-specific, so this is a mixed architecture rather than a single rule that holds across the cohort.",
+      "criteria": {
+        "A": "clones concentrated (>= 80% of cells in one program) in >= 70% of evaluable clones AND median eta^2 >= 0.30 AND between-clone divergence >= 50% of within-clone dispersion",
+        "B": "clones spanning >= 2 programs in >= 70% of evaluable clones AND <= 25% of program x patient pairs clone-associated",
+        "C": "otherwise"
+      },
+      "evidence": {
+        "n_evaluable_clones": 18,
+        "n_multi_program": 4,
+        "n_concentrated": 11,
+        "median_eta2": 0.0585862975814554,
+        "max_eta2": 0.508360421137584,
+        "n_clone_associated_pairs": 7,
+        "n_pairs": 24,
+        "between_within_ratio_median": 0.0068774875048577,
+        "between_within_by_patient": [
+          {
+            "sample_id": "MPNST_1",
+            "n_clones": 7,
+            "mean_between_clone_jsd": 0.0129548097061667,
+            "mean_within_clone_dispersion": 0.38444428207362,
+            "ratio": 0.0336974961268534
+          },
+          {
+            "sample_id": "MPNST_2",
+            "n_clones": 4,
+            "mean_between_clone_jsd": 0.000179994955490562,
+            "mean_within_clone_dispersion": 0.128697094494239,
+            "ratio": 0.00139859377710054
+          },
+          {
+            "sample_id": "MPNST_4",
+            "n_clones": 7,
+            "mean_between_clone_jsd": 0.000848234752141767,
+            "mean_within_clone_dispersion": 0.123334975387835,
+            "ratio": 0.0068774875048577
+          }
+        ]
+      }
+    },
+    "patient_portraits": [
+      {
+        "sample_id": "MPNST_1",
+        "clone_structure_reliable": true,
+        "n_malignant": 1886,
+        "n_clones_total": 7,
+        "n_clones_evaluable": 7,
+        "malignant_program_composition": "P2(Unassigned_NEURONAL_SYSTEM)=1002; P4(Hypoxia_Angio)=581; P5(Translation_ribosomal)=301; P7(Cycling)=2",
+        "dominant_program": "P2",
+        "dominant_program_label": "Unassigned_NEURONAL_SYSTEM",
+        "median_clone_effective_programs": 2.15202538184503,
+        "median_clone_dominant_share": 0.529411764705882,
+        "n_clones_multi_program": 4,
+        "median_eta2": 0.0718371029508219,
+        "n_clone_associated_programs": 3,
+        "broad_cna_events_evaluable": 188,
+        "broad_cna_direction_match": "129/188",
+        "top_tf_activities": "TBXT,ZBED1,HDGF,ETV4,SP1,HIF1A",
+        "top_pathways": "Hypoxia,Hypoxia,VEGF,p53,NFkB",
+        "note": "clone-based conclusions are supported for this patient",
+        "_row": "MPNST_1"
+      },
+      {
+        "sample_id": "MPNST_2",
+        "clone_structure_reliable": true,
+        "n_malignant": 651,
+        "n_clones_total": 4,
+        "n_clones_evaluable": 4,
+        "malignant_program_composition": "P3(Mesenchymal_ECM_mixed)=651",
+        "dominant_program": "P3",
+        "dominant_program_label": "Mesenchymal_ECM_mixed",
+        "median_clone_effective_programs": 1,
+        "median_clone_dominant_share": 1,
+        "n_clones_multi_program": 0,
+        "median_eta2": 0.050284659498565,
+        "n_clone_associated_programs": 2,
+        "broad_cna_events_evaluable": 33,
+        "broad_cna_direction_match": "23/33",
+        "top_tf_activities": "DACH1,PPARA,STAT3,ESR2,STAT3,DACH1",
+        "top_pathways": "NFkB,NFkB,NFkB,TGFb,PI3K",
+        "note": "clone-based conclusions are supported for this patient",
+        "_row": "MPNST_2"
+      },
+      {
+        "sample_id": "MPNST_3",
+        "clone_structure_reliable": false,
+        "n_malignant": 212,
+        "n_clones_total": 3,
+        "malignant_program_composition": "P6(Schwann_like_mixed)=122; P8(Myeloid_ambient_like)=83; P1(Translation_ribosomal)=3; P7(Cycling)=3; P3(Mesenchymal_ECM_mixed)=1",
+        "dominant_program": "P6",
+        "dominant_program_label": "Schwann_like_mixed",
+        "note": "Phase 5 transcriptional programs are described for this patient, but its SCEVAN clone architecture is UNRELIABLE and excluded. MPNST_3 failed the Phase 4 SCEVAN immune sanity gate: its primary and sensitivity runs are inverted (agreement 0.0864 against 0.9663-0.9974), six of nine canonical immune populations are called ~100% malignant, and its three inferred clones are T/NK, plasma/pDC/B and plasma-dominated. Its clone structure carries no tumour-clone inferential weight.",
+        "_row": "MPNST_3"
+      },
+      {
+        "sample_id": "MPNST_4",
+        "clone_structure_reliable": true,
+        "n_malignant": 3685,
+        "n_clones_total": 8,
+        "n_clones_evaluable": 7,
+        "malignant_program_composition": "P1(Translation_ribosomal)=3490; P7(Cycling)=139; P6(Schwann_like_mixed)=55; P8(Myeloid_ambient_like)=1",
+        "dominant_program": "P1",
+        "dominant_program_label": "Translation_ribosomal",
+        "median_clone_effective_programs": 1.18692770225451,
+        "median_clone_dominant_share": 0.958917835671343,
+        "n_clones_multi_program": 0,
+        "median_eta2": 0.0723375969510766,
+        "n_clone_associated_programs": 2,
+        "broad_cna_events_evaluable": 42,
+        "broad_cna_direction_match": "28/42",
+        "top_tf_activities": "MYC,E2F4,MYC,HSF2,HSF1,ZBTB4",
+        "top_pathways": "EGFR,EGFR,EGFR,MAPK,EGFR",
+        "note": "clone-based conclusions are supported for this patient",
+        "_row": "MPNST_4"
+      }
+    ],
+    "integrated": [
+      {
+        "program": "P1",
+        "program_label": "Translation_ribosomal",
+        "recurrence_status": "shared-limited",
+        "dominant_patient": "MPNST_4",
+        "dominant_patient_fraction": 0.974462365591398,
+        "median_eta2": 0.0300921932999546,
+        "max_eta2": 0.0607166188817039,
+        "n_patients_clone_associated": 0,
+        "n_recurrent_tfs": 305,
+        "top_tfs": "CREB1,NR1H3,BRCA1,WT1,PHOX2B",
+        "n_recurrent_progeny": 5,
+        "top_progeny": "PI3K,Hypoxia,MAPK,TGFb",
+        "n_clones_dominated": 7,
+        "layers_note": "program, TF activity and pathway activity are independent layers - not merged"
+      },
+      {
+        "program": "P2",
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "recurrence_status": "patient-private",
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 0.996889580093313,
+        "median_eta2": 0.180774667171235,
+        "max_eta2": 0.208482119338715,
+        "n_patients_clone_associated": 3,
+        "n_recurrent_tfs": 208,
+        "top_tfs": "ZBTB4,MYC,ZBED1,GATA3,HOXB1",
+        "n_recurrent_progeny": 8,
+        "top_progeny": "PI3K,MAPK,TNFa,NFkB",
+        "n_clones_dominated": 6,
+        "layers_note": "program, TF activity and pathway activity are independent layers - not merged"
+      },
+      {
+        "program": "P3",
+        "program_label": "Mesenchymal_ECM_mixed",
+        "recurrence_status": "patient-private",
+        "dominant_patient": "MPNST_2",
+        "dominant_patient_fraction": 0.971641791044776,
+        "median_eta2": 0.0882192176209463,
+        "max_eta2": 0.121007783075103,
+        "n_patients_clone_associated": 1,
+        "n_recurrent_tfs": 302,
+        "top_tfs": "ZBTB4,HMGA2,ZBED1,MYC,TBP",
+        "n_recurrent_progeny": 7,
+        "top_progeny": "EGFR,MAPK,Estrogen,TNFa",
+        "n_clones_dominated": 4,
+        "layers_note": "program, TF activity and pathway activity are independent layers - not merged"
+      },
+      {
+        "program": "P4",
+        "program_label": "Hypoxia_Angio",
+        "recurrence_status": "patient-private",
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 0.995889003083248,
+        "median_eta2": 0.0639881848491989,
+        "max_eta2": 0.0951464941758849,
+        "n_patients_clone_associated": 0,
+        "n_recurrent_tfs": 160,
+        "top_tfs": "ZBTB4,GBX2,ZBED1,MYC,E2F4",
+        "n_recurrent_progeny": 8,
+        "top_progeny": "Hypoxia,PI3K,JAK-STAT,EGFR",
+        "n_clones_dominated": 0,
+        "layers_note": "program, TF activity and pathway activity are independent layers - not merged"
+      },
+      {
+        "program": "P5",
+        "program_label": "Translation_ribosomal",
+        "recurrence_status": "patient-private",
+        "dominant_patient": "MPNST_1",
+        "dominant_patient_fraction": 1,
+        "median_eta2": 0.116782679782043,
+        "max_eta2": 0.508360421137584,
+        "n_patients_clone_associated": 2,
+        "n_recurrent_tfs": 239,
+        "top_tfs": "PBX1,FOXA3,NEUROG1,HSF1,HIF1A",
+        "n_recurrent_progeny": 6,
+        "top_progeny": "p53,JAK-STAT,Hypoxia,PI3K",
+        "n_clones_dominated": 1,
+        "layers_note": "program, TF activity and pathway activity are independent layers - not merged"
+      },
+      {
+        "program": "P6",
+        "program_label": "Schwann_like_mixed",
+        "recurrence_status": "patient-private",
+        "dominant_patient": "MPNST_3",
+        "dominant_patient_fraction": 0.673913043478261,
+        "median_eta2": 0.0387323875451382,
+        "max_eta2": 0.0411640021410976,
+        "n_patients_clone_associated": 0,
+        "n_recurrent_tfs": 71,
+        "top_tfs": "HIVEP2,HSF2,ATF3,POU4F2,GATA1",
+        "n_recurrent_progeny": 4,
+        "top_progeny": "EGFR,JAK-STAT,TNFa,VEGF",
+        "n_clones_dominated": 0,
+        "layers_note": "program, TF activity and pathway activity are independent layers - not merged"
+      },
+      {
+        "program": "P7",
+        "program_label": "Cycling",
+        "recurrence_status": "patient-private",
+        "dominant_patient": "MPNST_4",
+        "dominant_patient_fraction": 0.873362445414847,
+        "median_eta2": 0.00419069236502974,
+        "max_eta2": 0.0165907643707555,
+        "n_patients_clone_associated": 0,
+        "n_recurrent_tfs": 24,
+        "top_tfs": "E2F4,MYC,OTX2,ARNT,POU4F2",
+        "n_recurrent_progeny": 0,
+        "n_clones_dominated": 0,
+        "layers_note": "program, TF activity and pathway activity are independent layers - not merged"
+      },
+      {
+        "program": "P8",
+        "program_label": "Myeloid_ambient_like",
+        "recurrence_status": "patient-private",
+        "dominant_patient": "MPNST_3",
+        "dominant_patient_fraction": 0.98876404494382,
+        "median_eta2": 0.0796860210524448,
+        "max_eta2": 0.147279967433744,
+        "n_patients_clone_associated": 1,
+        "n_recurrent_tfs": 5,
+        "top_tfs": "PGR,PBX1,ZNF148,KLF8,NKX6-1",
+        "n_recurrent_progeny": 1,
+        "top_progeny": "JAK-STAT",
+        "n_clones_dominated": 0,
+        "layers_note": "program, TF activity and pathway activity are independent layers - not merged"
+      }
+    ]
+  },
+  "m49_robustness": {
+    "milestone": "M49",
+    "generated": "2026-09-03T23:56:45-0400",
+    "clone_size_sensitivity": [
+      {
+        "min_clone_size": 20,
+        "n_pairs": 24,
+        "median_eta2": 0.0585862975814554,
+        "max_eta2": 0.508360421137584,
+        "n_clones_used": 18,
+        "n_clones_not_evaluable": 1
+      },
+      {
+        "min_clone_size": 50,
+        "n_pairs": 24,
+        "median_eta2": 0.0585862975814554,
+        "max_eta2": 0.508360421137584,
+        "n_clones_used": 18,
+        "n_clones_not_evaluable": 1
+      },
+      {
+        "min_clone_size": 100,
+        "n_pairs": 24,
+        "median_eta2": 0.0585862975814554,
+        "max_eta2": 0.510729239757096,
+        "n_clones_used": 16,
+        "n_clones_not_evaluable": 3
+      }
+    ],
+    "dominant_margin_sensitivity": [
+      {
+        "margin_threshold": 0,
+        "n_clones": 18,
+        "median_effective_n": 1.22151777376255,
+        "frac_clones_multi": 0.277777777777778,
+        "median_frac_mixed": 0
+      },
+      {
+        "margin_threshold": 0.05,
+        "n_clones": 18,
+        "median_effective_n": 1.21080276999866,
+        "frac_clones_multi": 0.222222222222222,
+        "median_frac_mixed": 0.00621999407926068
+      },
+      {
+        "margin_threshold": 0.1,
+        "n_clones": 18,
+        "median_effective_n": 1.20896458548551,
+        "frac_clones_multi": 0.222222222222222,
+        "median_frac_mixed": 0.01128751740175
+      },
+      {
+        "margin_threshold": 0.15,
+        "n_clones": 18,
+        "median_effective_n": 1.19020804200003,
+        "frac_clones_multi": 0.166666666666667,
+        "median_frac_mixed": 0.01993419671762
+      },
+      {
+        "margin_threshold": 0.2,
+        "n_clones": 18,
+        "median_effective_n": 1.18531014320022,
+        "frac_clones_multi": 0.166666666666667,
+        "median_frac_mixed": 0.025519105120925
+      }
+    ],
+    "high_confidence": [
+      {
+        "layer": "TF (CollecTRI)",
+        "n_features": 5520,
+        "spearman_all_vs_high": 0.939755331062711,
+        "frac_same_sign": 0.886231884057971,
+        "frac_same_sign_strong": 1
+      },
+      {
+        "layer": "PROGENy",
+        "n_features": 112,
+        "spearman_all_vs_high": 0.962094859718793,
+        "frac_same_sign": 0.919642857142857,
+        "frac_same_sign_strong": 1
+      }
+    ],
+    "patient_consistency": [
+      {
+        "layer": "Pathway (Hallmark)",
+        "n_pairs": 400,
+        "n_strong_pooled": 193,
+        "n_strong_and_concordant_ge3": 148,
+        "frac_strong_that_are_concordant": 0.766839378238342
+      },
+      {
+        "layer": "Pathway (PROGENy)",
+        "n_pairs": 112,
+        "n_strong_pooled": 48,
+        "n_strong_and_concordant_ge3": 39,
+        "frac_strong_that_are_concordant": 0.8125
+      },
+      {
+        "layer": "TF (CollecTRI)",
+        "n_pairs": 5520,
+        "n_strong_pooled": 1619,
+        "n_strong_and_concordant_ge3": 1314,
+        "frac_strong_that_are_concordant": 0.811612106238419
+      }
+    ],
+    "eta2_high_vs_all": [
+      {
+        "sample_id": "MPNST_1",
+        "program": "P1",
+        "eta2_all": 0.0300921932999546,
+        "eta2_high": 0.0308092410452665,
+        "program_label": "Translation_ribosomal",
+        "delta": 0.00071704774531197
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P2",
+        "eta2_all": 0.180774667171235,
+        "eta2_high": 0.182481609603174,
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "delta": 0.00170694243193825
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P3",
+        "eta2_all": 0.121007783075103,
+        "eta2_high": 0.122027022640475,
+        "program_label": "Mesenchymal_ECM_mixed",
+        "delta": 0.0010192395653713
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P4",
+        "eta2_all": 0.0639881848491989,
+        "eta2_high": 0.0653866233790807,
+        "program_label": "Hypoxia_Angio",
+        "delta": 0.00139843852988177
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P5",
+        "eta2_all": 0.508360421137584,
+        "eta2_high": 0.518364562890828,
+        "program_label": "Translation_ribosomal",
+        "delta": 0.0100041417532442
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P6",
+        "eta2_all": 0.0411640021410976,
+        "eta2_high": 0.0418893376814367,
+        "program_label": "Schwann_like_mixed",
+        "delta": 0.000725335540339135
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P7",
+        "eta2_all": 0.00419069236502974,
+        "eta2_high": 0.00423625345217025,
+        "program_label": "Cycling",
+        "delta": 4.55610871405122e-05
+      },
+      {
+        "sample_id": "MPNST_1",
+        "program": "P8",
+        "eta2_all": 0.0796860210524448,
+        "eta2_high": 0.0828484672174132,
+        "program_label": "Myeloid_ambient_like",
+        "delta": 0.0031624461649684
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P1",
+        "eta2_all": 0.0607166188817039,
+        "eta2_high": 0.0652793233878742,
+        "program_label": "Translation_ribosomal",
+        "delta": 0.00456270450617033
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P2",
+        "eta2_all": 0.154462756064387,
+        "eta2_high": 0.151812337977733,
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "delta": -0.00265041808665381
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P3",
+        "eta2_all": 0.0530449683623415,
+        "eta2_high": 0.0746412774222943,
+        "program_label": "Mesenchymal_ECM_mixed",
+        "delta": 0.0215963090599528
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P4",
+        "eta2_all": 0.0475243506347885,
+        "eta2_high": 0.0525015867003587,
+        "program_label": "Hypoxia_Angio",
+        "delta": 0.00497723606557022
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P5",
+        "eta2_all": 0.0388626749803341,
+        "eta2_high": 0.0331892938284022,
+        "program_label": "Translation_ribosomal",
+        "delta": -0.0056733811519319
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P6",
+        "eta2_all": 0.0387323875451382,
+        "eta2_high": 0.0688124191770921,
+        "program_label": "Schwann_like_mixed",
+        "delta": 0.0300800316319539
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P7",
+        "eta2_all": 0.00380863850357397,
+        "eta2_high": 0.00196174598599901,
+        "program_label": "Cycling",
+        "delta": -0.00184689251757496
+      },
+      {
+        "sample_id": "MPNST_2",
+        "program": "P8",
+        "eta2_all": 0.147279967433744,
+        "eta2_high": 0.149838031982084,
+        "program_label": "Myeloid_ambient_like",
+        "delta": 0.00255806454833993
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P1",
+        "eta2_all": 0.0195375072118718,
+        "eta2_high": 0.0597931804471651,
+        "program_label": "Translation_ribosomal",
+        "delta": 0.0402556732352933
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P2",
+        "eta2_all": 0.208482119338715,
+        "eta2_high": 0.360004886822529,
+        "program_label": "Unassigned_NEURONAL_SYSTEM",
+        "delta": 0.151522767483814
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P3",
+        "eta2_all": 0.0882192176209463,
+        "eta2_high": 0.173924901168366,
+        "program_label": "Mesenchymal_ECM_mixed",
+        "delta": 0.0857056835474195
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P4",
+        "eta2_all": 0.0951464941758849,
+        "eta2_high": 0.177917941266583,
+        "program_label": "Hypoxia_Angio",
+        "delta": 0.0827714470906979
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P5",
+        "eta2_all": 0.116782679782043,
+        "eta2_high": 0.15185374807148,
+        "program_label": "Translation_ribosomal",
+        "delta": 0.0350710682894367
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P6",
+        "eta2_all": 0.0312981140029147,
+        "eta2_high": 0.0733497342076342,
+        "program_label": "Schwann_like_mixed",
+        "delta": 0.0420516202047194
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P7",
+        "eta2_all": 0.0165907643707555,
+        "eta2_high": 0.0516627450029464,
+        "program_label": "Cycling",
+        "delta": 0.0350719806321909
+      },
+      {
+        "sample_id": "MPNST_4",
+        "program": "P8",
+        "eta2_all": 0.0564559762812069,
+        "eta2_high": 0.107216338950798,
+        "program_label": "Myeloid_ambient_like",
+        "delta": 0.0507603626695908
+      }
+    ],
+    "loo_note": "leave-one-patient-out is deliberately NOT applied to the clone analyses: they are inherently within-patient, so withholding a patient deletes the analysis instead of testing it"
+  },
+  "phase6_object": {
+    "path": "results/phase6/phase6_final_object.rds",
+    "size_bytes": 6060757871,
+    "md5": "b8c01dd01755dda10b2be4e0f5ef7ef7",
+    "sha256": "bde592d461d22253b646da1426db8545404b9d31b7f1b948e23deed03aa643f6",
+    "cells": 19716,
+    "metadata_columns": 241,
+    "phase6_fields_added": [
+      "progeny_Androgen",
+      "progeny_EGFR",
+      "progeny_Estrogen",
+      "progeny_Hypoxia",
+      "progeny_JAK-STAT",
+      "progeny_MAPK",
+      "progeny_NFkB",
+      "progeny_PI3K",
+      "progeny_TGFb",
+      "progeny_TNFa",
+      "progeny_Trail",
+      "progeny_VEGF",
+      "progeny_WNT",
+      "progeny_p53",
+      "tfact_CREB1",
+      "tfact_NR1H3",
+      "tfact_BRCA1",
+      "tfact_WT1",
+      "tfact_PHOX2B",
+      "tfact_ZKSCAN7",
+      "tfact_KLF6",
+      "tfact_SCX",
+      "tfact_FOXP2",
+      "tfact_ZBTB4",
+      "tfact_MYC",
+      "tfact_ZBED1",
+      "tfact_AR",
+      "tfact_NR1I2",
+      "tfact_ELK1",
+      "tfact_KLF11",
+      "tfact_SP2",
+      "tfact_YBX1",
+      "tfact_NFATC2",
+      "tfact_ATF4",
+      "tfact_ELK4",
+      "tfact_VSX2",
+      "tfact_MYCN",
+      "tfact_NCOA1",
+      "tfact_NFKB1",
+      "clone_hard_effective_n",
+      "clone_continuous_effective_n",
+      "clone_dominant_program_share_hard",
+      "clone_program_dispersion",
+      "clone_dominant_program_label",
+      "clone_evaluable_for_diversity",
+      "clone_structure_reliable_phase6"
+    ],
+    "not_embedded": {
+      "tf_activity_matrix": "results/phase6/regulatory/m45_tf_activity_matrix.rds",
+      "hallmark_matrix": "results/phase6/pathways/m46_hallmark_score_matrix.rds",
+      "progeny_matrix": "results/phase6/pathways/m46_progeny_activity_matrix.rds",
+      "reason": "full activity matrices are kept as separate artefacts rather than bloating the object with hundreds of metadata columns"
+    }
+  },
+  "object_validation": {
+    "reload_cells": true,
+    "reload_cell_order": true,
+    "reload_assays": true,
+    "reload_reductions": true,
+    "reload_phase1_5_columns": true,
+    "reload_phase6_columns": true,
+    "reload_progeny_on_malignant": true,
+    "reload_md5_stable": true
+  },
+  "preservation_guards": {
+    "cells_unchanged": true,
+    "all_phase1_5_columns_identical": true,
+    "only_expected_added": true,
+    "reductions_unchanged": true,
+    "assays_unchanged": true,
+    "malignancy_refined_unchanged": true,
+    "phase5_program_scores_unchanged": true,
+    "frozen_counts_hold": true
+  },
+  "figures": [
+    "results/phase6/figures/final/01_clone_program_heatmap.pdf",
+    "results/phase6/figures/final/01_clone_program_heatmap.png",
+    "results/phase6/figures/final/02_clone_program_alluvial.pdf",
+    "results/phase6/figures/final/02_clone_program_alluvial.png",
+    "results/phase6/figures/final/03_program_diversity_by_clone.pdf",
+    "results/phase6/figures/final/03_program_diversity_by_clone.png",
+    "results/phase6/figures/final/04_within_vs_between_clone_variation.pdf",
+    "results/phase6/figures/final/04_within_vs_between_clone_variation.png",
+    "results/phase6/figures/final/05_tf_activity_by_program.pdf",
+    "results/phase6/figures/final/05_tf_activity_by_program.png",
+    "results/phase6/figures/final/06_pathway_activity_by_program.pdf",
+    "results/phase6/figures/final/06_pathway_activity_by_program.png",
+    "results/phase6/figures/final/07_program_tf_pathway_network.pdf",
+    "results/phase6/figures/final/07_program_tf_pathway_network.png",
+    "results/phase6/figures/final/08_broad_cna_expression_effects.pdf",
+    "results/phase6/figures/final/08_broad_cna_expression_effects.png",
+    "results/phase6/figures/final/09_cna_program_associations.pdf",
+    "results/phase6/figures/final/09_cna_program_associations.png",
+    "results/phase6/figures/final/10_patient_tumor_architectures.pdf",
+    "results/phase6/figures/final/10_patient_tumor_architectures.png",
+    "results/phase6/figures/final/11_malignant_ecm_regulatory_profile.pdf",
+    "results/phase6/figures/final/11_malignant_ecm_regulatory_profile.png",
+    "results/phase6/figures/final/12_phase6_robustness_summary.pdf",
+    "results/phase6/figures/final/12_phase6_robustness_summary.png",
+    "results/phase6/figures/final/13_final_mpnst_malignant_architecture.pdf",
+    "results/phase6/figures/final/13_final_mpnst_malignant_architecture.png"
+  ],
+  "figures_required": [
+    "01_clone_program_heatmap",
+    "02_clone_program_alluvial",
+    "03_program_diversity_by_clone",
+    "04_within_vs_between_clone_variation",
+    "05_tf_activity_by_program",
+    "06_pathway_activity_by_program",
+    "07_program_tf_pathway_network",
+    "08_broad_cna_expression_effects",
+    "09_cna_program_associations",
+    "10_patient_tumor_architectures",
+    "11_malignant_ecm_regulatory_profile",
+    "12_phase6_robustness_summary",
+    "13_final_mpnst_malignant_architecture"
+  ],
+  "figures_missing": [],
+  "figure_checksums": [
+    {
+      "path": "results/phase6/figures/final/01_clone_program_heatmap.pdf",
+      "md5": "1697ff45acb1c2f4936ca2d8d46ded6a",
+      "bytes": 9591
+    },
+    {
+      "path": "results/phase6/figures/final/01_clone_program_heatmap.png",
+      "md5": "1fc0be13ed35625f4f59ab6d4b47b942",
+      "bytes": 322441
+    },
+    {
+      "path": "results/phase6/figures/final/02_clone_program_alluvial.pdf",
+      "md5": "ae66ea965257b459d24ae5fa4d84ff2e",
+      "bytes": 25487
+    },
+    {
+      "path": "results/phase6/figures/final/02_clone_program_alluvial.png",
+      "md5": "02488f4706291aee574c0c72e9bbbcad",
+      "bytes": 336219
+    },
+    {
+      "path": "results/phase6/figures/final/03_program_diversity_by_clone.pdf",
+      "md5": "b1a1651b222e425cfdcf647d5ba53772",
+      "bytes": 8871
+    },
+    {
+      "path": "results/phase6/figures/final/03_program_diversity_by_clone.png",
+      "md5": "53855c36ed53e764d2c940b002444770",
+      "bytes": 264415
+    },
+    {
+      "path": "results/phase6/figures/final/04_within_vs_between_clone_variation.pdf",
+      "md5": "fbd51d60d16a9106f2a6ac5397047b2b",
+      "bytes": 7042
+    },
+    {
+      "path": "results/phase6/figures/final/04_within_vs_between_clone_variation.png",
+      "md5": "f2846ed1a17e6a19a89b8376fd73e943",
+      "bytes": 233264
+    },
+    {
+      "path": "results/phase6/figures/final/05_tf_activity_by_program.pdf",
+      "md5": "d06ba151e1e75778ca920617b70b001c",
+      "bytes": 9734
+    },
+    {
+      "path": "results/phase6/figures/final/05_tf_activity_by_program.png",
+      "md5": "d27b902ec1d253ed157d84448b303204",
+      "bytes": 224310
+    },
+    {
+      "path": "results/phase6/figures/final/06_pathway_activity_by_program.pdf",
+      "md5": "bc4baebbcc35b1db20ed985e23d99be4",
+      "bytes": 12741
+    },
+    {
+      "path": "results/phase6/figures/final/06_pathway_activity_by_program.png",
+      "md5": "b4b622034d85f29cfc42d530802f5c9f",
+      "bytes": 441893
+    },
+    {
+      "path": "results/phase6/figures/final/07_program_tf_pathway_network.pdf",
+      "md5": "25c55e299456d8a96b8b889dd2934702",
+      "bytes": 56516
+    },
+    {
+      "path": "results/phase6/figures/final/07_program_tf_pathway_network.png",
+      "md5": "991305d504e06995d91e30f0dfb566a6",
+      "bytes": 1892252
+    },
+    {
+      "path": "results/phase6/figures/final/08_broad_cna_expression_effects.pdf",
+      "md5": "65bb6dc20ec46e2e0ee8c6f8a7e69594",
+      "bytes": 16140
+    },
+    {
+      "path": "results/phase6/figures/final/08_broad_cna_expression_effects.png",
+      "md5": "29c6d74d6bcc50b4004ee6c1995c61ea",
+      "bytes": 1503127
+    },
+    {
+      "path": "results/phase6/figures/final/09_cna_program_associations.pdf",
+      "md5": "72a93583038ffa69cf99d585efdaea63",
+      "bytes": 25656
+    },
+    {
+      "path": "results/phase6/figures/final/09_cna_program_associations.png",
+      "md5": "05821cccf8fb895718426faaacc663c4",
+      "bytes": 1025205
+    },
+    {
+      "path": "results/phase6/figures/final/10_patient_tumor_architectures.pdf",
+      "md5": "b7e5a041c6f6e1a0d23f537bbb4512b0",
+      "bytes": 11292
+    },
+    {
+      "path": "results/phase6/figures/final/10_patient_tumor_architectures.png",
+      "md5": "be59a43c797a6ffc74d886a47e123b4f",
+      "bytes": 294150
+    },
+    {
+      "path": "results/phase6/figures/final/11_malignant_ecm_regulatory_profile.pdf",
+      "md5": "6f119e0bded6be92de31a8b8dfb95763",
+      "bytes": 8577
+    },
+    {
+      "path": "results/phase6/figures/final/11_malignant_ecm_regulatory_profile.png",
+      "md5": "5a89175584e916a9c0173a96b8ad740a",
+      "bytes": 215489
+    },
+    {
+      "path": "results/phase6/figures/final/12_phase6_robustness_summary.pdf",
+      "md5": "3de995762093607085f2f97065523966",
+      "bytes": 6219
+    },
+    {
+      "path": "results/phase6/figures/final/12_phase6_robustness_summary.png",
+      "md5": "351db1030a6f014aea0bfa2cff0b4f03",
+      "bytes": 195352
+    },
+    {
+      "path": "results/phase6/figures/final/13_final_mpnst_malignant_architecture.pdf",
+      "md5": "979d70355a36775a393bc2d028138e85",
+      "bytes": 10579
+    },
+    {
+      "path": "results/phase6/figures/final/13_final_mpnst_malignant_architecture.png",
+      "md5": "c7c95b432c8a49b7eca6eb2696374158",
+      "bytes": 425845
+    }
+  ],
+  "tables": [
+    "results/phase6/tables/final/BROAD_CNA_EXPRESSION_EFFECTS.tsv",
+    "results/phase6/tables/final/CLONE_PROGRAM_ACTIVITY.tsv",
+    "results/phase6/tables/final/CLONE_PROGRAM_ASSOCIATION.tsv",
+    "results/phase6/tables/final/CLONE_PROGRAM_DIVERSITY.tsv",
+    "results/phase6/tables/final/CNA_PROGRAM_ASSOCIATION.tsv",
+    "results/phase6/tables/final/PATIENT_TUMOR_ARCHITECTURE.tsv",
+    "results/phase6/tables/final/PHASE6_INTEGRATED_EVIDENCE.tsv",
+    "results/phase6/tables/final/PHASE6_ROBUSTNESS.tsv",
+    "results/phase6/tables/final/PLASTICITY_METRICS.tsv",
+    "results/phase6/tables/final/PROGRAM_PATHWAY_ACTIVITY.tsv",
+    "results/phase6/tables/final/PROGRAM_REGULATORY_EVIDENCE.tsv",
+    "results/phase6/tables/final/PROGRAM_TF_ACTIVITY.tsv"
+  ],
+  "table_checksums": [
+    {
+      "path": "results/phase6/tables/final/BROAD_CNA_EXPRESSION_EFFECTS.tsv",
+      "md5": "10b0cf04791eb8695f65b0f7d415f98e",
+      "bytes": 46008
+    },
+    {
+      "path": "results/phase6/tables/final/CLONE_PROGRAM_ACTIVITY.tsv",
+      "md5": "b6ca52c8a1a995d7ee49a2803f7daca5",
+      "bytes": 15702
+    },
+    {
+      "path": "results/phase6/tables/final/CLONE_PROGRAM_ASSOCIATION.tsv",
+      "md5": "fecdbaf9795db4d69d6c4307e9564bbb",
+      "bytes": 3497
+    },
+    {
+      "path": "results/phase6/tables/final/CLONE_PROGRAM_DIVERSITY.tsv",
+      "md5": "f4e88a17f97e86fd7372aa865cc95e62",
+      "bytes": 4576
+    },
+    {
+      "path": "results/phase6/tables/final/CNA_PROGRAM_ASSOCIATION.tsv",
+      "md5": "767076783203b688d6886797fde55b22",
+      "bytes": 281462
+    },
+    {
+      "path": "results/phase6/tables/final/PATIENT_TUMOR_ARCHITECTURE.tsv",
+      "md5": "0f5ac5a3a07fc8f072223bffe7e49c93",
+      "bytes": 1936
+    },
+    {
+      "path": "results/phase6/tables/final/PHASE6_INTEGRATED_EVIDENCE.tsv",
+      "md5": "e61418ca3ff85ea331600351fe5de3e4",
+      "bytes": 2094
+    },
+    {
+      "path": "results/phase6/tables/final/PHASE6_ROBUSTNESS.tsv",
+      "md5": "1f8e565be371fac96816389e1278a8c5",
+      "bytes": 2058
+    },
+    {
+      "path": "results/phase6/tables/final/PLASTICITY_METRICS.tsv",
+      "md5": "371687cf50741fff427574855ce4e0b5",
+      "bytes": 7239
+    },
+    {
+      "path": "results/phase6/tables/final/PROGRAM_PATHWAY_ACTIVITY.tsv",
+      "md5": "066342c1a890442ee577d8144e36ab58",
+      "bytes": 85005
+    },
+    {
+      "path": "results/phase6/tables/final/PROGRAM_REGULATORY_EVIDENCE.tsv",
+      "md5": "63f30cbf64c7dac164655eca4255ad3f",
+      "bytes": 282406
+    },
+    {
+      "path": "results/phase6/tables/final/PROGRAM_TF_ACTIVITY.tsv",
+      "md5": "ef638c4421850c0514808f0b52dfd95f",
+      "bytes": 906502
+    }
+  ],
+  "scripts": [
+    "scripts/phase6/clone_program/m43_clone_program.R",
+    "scripts/phase6/cna_expression/m47_cna_expression.R",
+    "scripts/phase6/pathways/m46_pathway_activity.R",
+    "scripts/phase6/plasticity/m44_within_clone_diversity.R",
+    "scripts/phase6/regulatory/m45_tf_activity.R",
+    "scripts/phase6/utils/m42_feasibility.R",
+    "scripts/phase6/utils/m48_integrated_architecture.R",
+    "scripts/phase6/utils/m50_build_final_object.R",
+    "scripts/phase6/utils/m50_figures.R",
+    "scripts/phase6/utils/m50_figures2.R",
+    "scripts/phase6/utils/m50_finalize.R",
+    "scripts/phase6/utils/phase6_common.R",
+    "scripts/phase6/validation/m49_robustness.R",
+    "scripts/shell/phase6/run_m42_m50.sh",
+    "scripts/shell/phase6/run_m45_m50.sh",
+    "scripts/shell/phase6/run_m50_figs_fix.sh"
+  ],
+  "environment": {
+    "R_env": "UNCHANGED - decoupleR 2.12.0 and OmnipathR 3.14.0 were already installed, so nothing was added for Phase 6",
+    "networks_cached": ["external/networks/collectri_human.tsv", "external/networks/collectri_omnipath_raw.tsv", "external/networks/progeny_human_top500.tsv"],
+    "snapshots": ["reports/phase6/environment/R_env_POST_PHASE6.yml", "reports/phase6/environment/R_env_PRE_PHASE6.yml"]
+  },
+  "slurm_job_ids": [
+    "19899746",
+    "19899748",
+    "19899749",
+    "19899752"
+  ],
+  "git_commit": "88611f34d91172bea306df098132e514b62cac2f",
+  "reports": [],
+  "limitations": [
+    "n = 4 patients; sample_id = patient = dataset, so biological and technical effects cannot be fully separated",
+    "MPNST_3's SCEVAN clone structure is unreliable and is excluded from every clone-based inference, so clone conclusions rest on 3 patients",
+    "SCEVAN infers broad copy number from expression - it is not DNA sequencing",
+    "broad CNA-expression association is an INTERNAL CONSISTENCY analysis, not orthogonal validation, because the CNA call was itself derived from expression",
+    "cNMF programs are continuous transcriptional patterns, not discrete cell states, cell types, lineages or clones",
+    "within-clone program diversity is consistent with plasticity but does NOT demonstrate an actual state transition; no transition rate, direction or trajectory is claimed",
+    "cell-level p-values do not represent biological replication; patient-level direction and concordance carry the evidence",
+    "clone labels are patient-scoped and were never compared across patients as homologous",
+    "no single-gene CNV claim is made anywhere; loci are described only as contained within a broad inferred segment",
+    "true generalization requires independent MPNST patients"
+  ],
+  "prohibitions_respected": [
+    "Phase 1-5 objects, annotations, malignancy calls, SCEVAN calls and clones, tumour states, CCC results and Phase 5 programs all unmodified",
+    "no new CCC method; LIANA, CellChat, CellPhoneDB, NicheNet and LochNESS were not rerun",
+    "no RNA velocity, no pseudotime, no survival analysis, no condition DE",
+    "no patient-level predictive machine learning, no deep learning, no Transformers",
+    "no spatial, pan-cancer or other-sarcoma comparison",
+    "no inferCNV, CopyKAT or any second CNV method",
+    "pySCENIC was not introduced; decoupleR was already present in the frozen stack",
+    "program, TF activity and pathway activity were kept as independent layers - no weighted composite score and no single numeric rank",
+    "R_env not modified",
+    "Phase 7 NOT initiated - it requires separate authorization and new biological evidence"
+  ]
+}
