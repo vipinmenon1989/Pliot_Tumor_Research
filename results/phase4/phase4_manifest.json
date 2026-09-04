@@ -2911,7 +2911,9 @@
       "path": "results/phase4/phase4_final_object.rds",
       "md5": "e85ba8486e456917e2483f2773bdbaf3",
       "loaded": false,
-      "modified": false
+      "modified": false,
+      "md5_verified_after_m35a": "e85ba8486e456917e2483f2773bdbaf3",
+      "verified": "md5sum recomputed on the 6,057,010,311-byte file after all M35A work; mtime unchanged at 2026-09-03 17:13:46"
     },
     "plotting_input": {
       "path": "results/phase4/malignancy/phase4_malignancy_metadata.rds",
@@ -3093,13 +3095,7 @@
         "bytes": 400
       }
     ],
-    "slurm_job_ids": [
-      "19899301",
-      "19899307",
-      "19899308",
-      "19899311",
-      "19899312"
-    ],
+    "slurm_job_ids": ["19899301", "19899307", "19899308", "19899311", "19899312", "19899313", "19899315"],
     "slurm_final_job_id": "19899312",
     "slurm_note": "all runs COMPLETED exit 0; the reruns are figure-quality iterations found by inspecting rendered output, not failures. Peak MaxRSS 2.11 GiB against a 24 G request.",
     "git_commit": "1048ac5991eb58d2ebda27627e681171fb801854",
@@ -3188,6 +3184,19 @@
       "no claim that SCEVAN provides DNA-level proof"
     ],
     "git_commit_generated_from": "751a535cb1ffcb0aabbf0dba0c3b692847f807ac",
-    "git_note": "git_commit is the commit that contains the M35A scripts, reports and this manifest block. git_commit_generated_from is the tree state the figures were rendered against; the two differ only by the M35A commit itself."
+    "git_note": "git_commit is the commit that contains the M35A scripts, reports and this manifest block. git_commit_generated_from is the tree state the figures were rendered against; the two differ only by the M35A commit itself.",
+    "slurm_job_detail": {
+      "figures": ["19899301", "19899307", "19899308", "19899311", "19899312"],
+      "finalize": ["19899313 (output discarded - see manifest_precision_defect)", "19899315"],
+      "all_states": "COMPLETED, exit 0",
+      "peak_maxrss_gib": 2.97,
+      "reqmem": "24 G (figures) / 8 G (finalize)"
+    },
+    "manifest_precision_defect": {
+      "job": "19899313",
+      "defect": "jsonlite::toJSON defaults to digits = 4; re-serialising phase4_manifest.json silently rounded frozen values already in it (run agreement 0.99514117 -> 0.9951, refined fraction 0.32633394 -> 0.3263, every elapsed_min and pop_frac)",
+      "detected_by": "diffing the written manifest against a backup taken before the write; the job itself exited 0",
+      "fix": "manifest restored from backup and regenerated under 19899315 with digits = NA; m35a_finalize.R now snapshots the manifest before writing and asserts afterwards that all 33 pre-existing sections are identical"
+    }
   }
 }
